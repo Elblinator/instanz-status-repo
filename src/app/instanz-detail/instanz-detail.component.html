@@ -1,19 +1,26 @@
 <div *ngIf="instanzen">
     <h2>Instanz: {{instanzen.name | uppercase}} 
         <button type="button" (click)="goBack">Neustart</button>
-        <button type="button" (click)="goBack">Start</button>
-        <button type="button" (click)="goBack">Beenden</button></h2>
+        <!--
+          <button type="button" (click)="goBack">Start</button>
+          <button type="button" (click)="goBack">Beenden</button>
+        -->
+        </h2>
     <div>
       <!-- <label for="Instance-name">Instanz name: {{instanzen.name}} </label> 
        <br>
        -->
       <ng-container *ngFor="let service of instanzen.services" >
         <!-- service.status has to be replaced with colour blob-->
-        <div *ngIf="service.status=='online'"> {{service.status}} &nbsp;&nbsp;{{service.name}},</div>
-        <div *ngIf="service.status=='slow'"> {{service.status}}&nbsp;&nbsp;&nbsp;&nbsp; {{service.name}},</div>
-        <div *ngIf="service.status=='offline'"> {{service.status}} &nbsp;&nbsp;{{service.name}},</div>
-
-        
+        <ng-container [ngSwitch]="service.status">
+          <span *ngSwitchCase="'online'"> {{service.status}} </span>
+          <span *ngSwitchCase="'slow'"> {{service.status}}&nbsp;&nbsp; </span>
+          <span *ngSwitchCase="'error'"> {{service.status}} </span>
+          <span *ngSwitchCase="'offline'"> {{service.status}} </span>
+        </ng-container>
+        &nbsp;&nbsp;
+        {{service.name}},
+        <br>
       </ng-container>
       <!-- <input name="status-name" [(ngModel)]="status.name" placeholder="Istance name"/> -->
     </div>
@@ -22,7 +29,10 @@
       <!--These are empty buttons so far, their function needs to be added later-->
       <button type="button" (click)="goBack()">Zurück</button>
       <button type="button" (click)="goBack">Neustart</button>
-      <button type="button" (click)="goBack">Start</button>
-      <button type="button" (click)="goBack">Beenden</button>
+      <!--
+        <button type="button" (click)="goBack">Start</button>
+        <button type="button" (click)="goBack">Beenden</button>
+      -->
+      
     </p>
   </div>
