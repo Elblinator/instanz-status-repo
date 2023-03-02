@@ -1,0 +1,15 @@
+<h2>Top Heroes</h2>
+<div class="stati-menu">
+  <a *ngFor="let status of stati"
+    routerLink="/detail/{{status.name}}">
+    {{status.name}}
+  </a>
+</div>
+
+<h2>Instanzen</h2>
+<div class="instanz-menu">
+  <a *ngFor="let instance of instances"
+    routerLink="/detail/{{instance.name}}">
+    {{instance.name}}
+  </a>
+</div>

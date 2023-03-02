@@ -1,0 +1,30 @@
+
+<div *ngIf="arr">
+    <h2>Status von Instanzen</h2>
+    <ng-container>
+        Online/slow/offline:
+        <ng-container *ngFor="let number of arr">
+            {{number}}
+        </ng-container>
+    </ng-container>
+</div> 
+<br>
+<input name="user-name" placeholder="Login"/>
+<input type="password" name="passwort" placeholder="Passwort"/>
+
+
+<!--
+<div *ngIf="instanzen">
+    <h2>Status von Instanzen</h2>
+    <ng-container > 
+    </ng-container>
+    <li *ngFor="let instanz of instanzen">
+        <ng-container *ngFor="let service of instanz.services"> 
+            {{service.status}},
+        </ng-container>
+    </li>
+    <ng-container>
+
+    </ng-container>
+</div> 
+-->

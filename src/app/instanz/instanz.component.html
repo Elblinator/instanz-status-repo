@@ -1,0 +1,15 @@
+<h2>Die Instanzen: </h2>
+
+<ul class="instanz">
+  <li *ngFor="let instanz of instanzen">
+    <a routerLink="/instanz/{{instanz.name}}">
+      <span class="badge">{{instanz.name}}</span> </a>
+    <br>
+    <ng-container *ngFor="let service of instanz.services"> 
+      <span *ngIf="service.status=='online'"> {{service.status}} </span>
+      <span *ngIf="service.status=='slow'"> {{service.status}}</span>
+      <span *ngIf="service.status=='offline'"> {{service.status}} </span>
+      {{service.name}}, 
+    </ng-container>
+  </li>
+</ul>

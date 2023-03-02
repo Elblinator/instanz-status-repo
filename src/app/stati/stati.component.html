@@ -1,0 +1,25 @@
+<h2>Stati Instanzen: </h2>
+
+<ul class="stati">
+  <li *ngFor="let status of stati">
+    <a routerLink="/detail/{{status.name}}">
+      <span class="badge">{{status.name}}</span> {{status.status}}
+      <!--
+      dependent on the status the corresponding colour should be presented
+      type=square and the colour have to be implemented
+      if (status.status =="online")
+      {
+        <button type="square" (click)="green"></button>
+      }
+      if (status.status =="slow")
+      {
+        <button type="square" (click)="yellow"></button>
+      }
+      if (status.status =="offline")
+      {
+        <button type="square" (click)="red"></button>
+      }
+      -->
+    </a>
+  </li>
+</ul>

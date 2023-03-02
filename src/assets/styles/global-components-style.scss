@@ -1,0 +1,429 @@
+// Material theming import
+@use '@angular/material' as mat;
+
+/**
+ *  Mixin-style to style global classes and tags with theme-related colors.
+ */
+@mixin os-component-themes($theme) {
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
+    $foreground: map-get($theme, foreground);
+    $background: map-get($theme, background);
+
+    $is-dark-theme: map-get($theme, is-dark);
+
+    h1,
+    h3.accent {
+        color: mat.get-color-from-palette(if($is-dark-theme, $accent, $primary));
+    }
+
+    a {
+        color: mat.get-color-from-palette(if($is-dark-theme, $accent, $primary));
+    }
+
+    .anchor-button {
+        color: mat.get-color-from-palette($foreground, text) !important;
+    }
+
+    .accent,
+    .accent-text {
+        color: mat.get-color-from-palette($accent);
+    }
+
+    .primary-accent-by-theme {
+        color: mat.get-color-from-palette(if($is-dark-theme, $accent, $primary));
+    }
+
+    /**
+     * normal current mat bg color with primary text color.
+     * important is required to overwrite materials default
+     * button color
+     */
+    .custom-table-header,
+    .background-default {
+        background: mat.get-color-from-palette($background, background) !important;
+    }
+
+    .disabled {
+        color: mat.get-color-from-palette($foreground, disabled-button);
+    }
+
+    .fake-disabled {
+        background: mat.get-color-from-palette($background, unselected-chip) !important;
+        opacity: 1 !important;
+
+        .mat-button-wrapper {
+            .mat-icon {
+                color: mat.get-color-from-palette($foreground, disabled-button) !important;
+                svg path {
+                    fill: mat.get-color-from-palette($foreground, disabled-button) !important;
+                }
+            }
+        }
+    }
+
+    .fake-button-no-touch {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        user-select: none;
+        border-radius: 4px;
+    }
+
+    .fake-button {
+        @extend .fake-button-no-touch;
+        cursor: pointer;
+    }
+
+    .background-default[disabled] {
+        @extend .fake-disabled;
+    }
+
+    .dialog-title {
+        font-size: 20px;
+        font-weight: 500;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Custom hint and error classes. Same values as .mat-hint and -mat-error */
+    .hint,
+    .error {
+        font-size: 75%;
+        display: block;
+    }
+
+    .error,
+    .warn {
+        color: mat.get-color-from-palette($warn);
+    }
+
+    .outline-border-bottom {
+        border-bottom: 1px solid $os-outline;
+    }
+
+    /* motion list/detail view */
+    .mat-chip-list.user .mat-chip {
+        color: mat.get-color-from-palette($foreground, text);
+        background: mat.get-color-from-palette($background, card);
+        border-color: mat.get-color-from-palette($background, selected-button);
+    }
+
+    .os-amount-chip {
+        background: mat.get-color-from-palette($background, selected-button);
+        color: mat.get-color-from-palette($foreground, text);
+    }
+
+    .subtitle-text {
+        font-size: 125%;
+        margin-top: 0;
+        margin-bottom: 15px;
+        color: mat.get-color-from-palette(if($is-dark-theme, $accent, $primary));
+    }
+
+    .main-nav-color {
+        color: mat.get-color-from-palette($foreground, secondary-text);
+    }
+
+    .submitters-line {
+        color: mat.get-color-from-palette($foreground, secondary-text);
+    }
+
+    .subtitle-nocolor {
+        font-size: 12px;
+        font-weight: 400;
+    }
+
+    .subtitle {
+        @extend .subtitle-nocolor;
+        color: mat.get-color-from-palette($foreground, secondary-text);
+    }
+
+    .user-subtitle {
+        color: mat.get-color-from-palette($foreground, secondary-text);
+    }
+
+    mat-card-header {
+        background-color: mat.get-color-from-palette($background, app-bar);
+    }
+
+    /* drag & drop views */
+    .node-content-wrapper {
+        background-color: mat.get-color-from-palette($background, app-bar);
+    }
+
+    /* projector components */
+    .backgroundColorAccent {
+        background-color: mat.get-color-from-palette($accent);
+        color: mat.get-color-from-palette($accent, default-contrast) !important;
+    }
+
+    .backgroundColorSelected {
+        background-color: rgba(0, 0, 0, 0.155);
+        color: mat.get-color-from-palette($foreground, text) !important;
+    }
+
+    .backgroundColorLight {
+        background-color: mat.get-color-from-palette($background, hover);
+        color: mat.get-color-from-palette($foreground, text) !important;
+    }
+
+    input[readonly] {
+        cursor: default;
+    }
+
+    .stretch-to-fill-parent {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+    }
+
+    .icon {
+        color: mat.get-color-from-palette($foreground, icon);
+    }
+
+    .small-text {
+        font-size: 12px;
+    }
+
+    .italic {
+        font-style: italic;
+    }
+
+    .white-divider {
+        border-top-color: white;
+    }
+
+    /**
+    * This primarily used to align a title and an icon in one line. The title will use the whole width subtracting
+    * the icon's width. So, the icon will be shown at the right edge.
+    */
+    .action-title {
+        display: flex;
+        align-items: center;
+
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        > :first-child {
+            flex: 1;
+        }
+    }
+
+    .full-width {
+        width: 100%;
+    }
+
+    .full-height {
+        height: 100%;
+    }
+
+    .no-margin {
+        margin: 0;
+    }
+
+    /** Custom themes for NGrid. Could be an own file if it gets more */
+    .pbl-ngrid-container {
+        background: mat.get-color-from-palette($background, card);
+    }
+
+    .pbl-ngrid-no-data {
+        color: mat.get-color-from-palette($foreground, secondary-text);
+    }
+
+    .pbl-ngrid-row:hover {
+        background-color: rgba(0, 0, 0, 0.025);
+    }
+
+    .pbl-ngrid-header-row,
+    .pbl-ngrid-row {
+        align-items: stretch;
+    }
+
+    /**
+    * Background styles used for the global theme
+    */
+    .background-dark {
+        background: #4f4f4f;
+        color: white;
+    }
+
+    .background-dark-brighter {
+        background: #6f6f6f;
+        color: white;
+    }
+
+    /**
+     * CLEANUP:
+     * whole theme-related stylesheets can be replaced using classes like this one
+     */
+    .outlined {
+        background: mat.get-color-from-palette($background, background);
+    }
+
+    .outlined-hover {
+        @extend .outlined;
+        &:hover {
+            background-color: mat.get-color-from-palette($background, selected-button);
+        }
+    }
+
+    .outlined-border {
+        @extend .outlined;
+        border: 1px solid mat.get-color-from-palette($background, selected-button);
+    }
+
+    .background-default {
+        background: mat.get-color-from-palette($background, background);
+        color: mat.get-color-from-palette($foreground, text);
+    }
+
+    .background-hover {
+        &:hover {
+            background-color: mat.get-color-from-palette($background, background);
+        }
+    }
+
+    .background-primary {
+        background: mat.get-color-from-palette($primary) !important;
+        color: mat.get-color-from-palette($primary, default-contrast) !important;
+    }
+
+    .background-primary-darker {
+        background: mat.get-color-from-palette($primary, 700);
+        color: mat.get-color-from-palette($primary, default-contrast) !important;
+    }
+
+    .background-primary-darkest {
+        background: mat.get-color-from-palette($primary, 900);
+        color: mat.get-color-from-palette($primary, default-contrast) !important;
+    }
+
+    .background-accent {
+        background: mat.get-color-from-palette($accent) !important;
+        color: mat.get-color-from-palette($accent, default-contrast) !important;
+    }
+
+    .background-warn {
+        background: mat.get-color-from-palette($warn) !important;
+    }
+
+    .background-card {
+        background: mat.get-color-from-palette($background, card);
+        color: mat.get-color-from-palette($foreground, text);
+    }
+
+    .collapsed-card-content {
+        &::after {
+            background: linear-gradient(rgba(255, 255, 255, 0), mat.get-color-from-palette($background, card));
+        }
+    }
+
+    .background-selected {
+        background-color: mat.get-color-from-palette($background, selected-button);
+    }
+
+    .foreground-active {
+        $color: mat.get-color-from-palette(if($is-dark-theme, $accent, $primary));
+        color: $color !important;
+        * {
+            color: $color !important;
+        }
+    }
+
+    .foreground-primary {
+        color: mat.get-color-from-palette($primary);
+    }
+
+    .foreground-primary-contrast {
+        color: mat.get-color-from-palette($primary, default-contrast);
+    }
+
+    .foreground-accent {
+        color: mat.get-color-from-palette($accent);
+    }
+
+    .foreground-accent-contrast {
+        color: mat.get-color-from-palette($accent, default-contrast);
+    }
+
+    .foreground-warn {
+        $color: mat.get-color-from-palette($warn);
+        color: $color !important;
+        * {
+            color: $color !important;
+        }
+    }
+
+    .foreground-icon {
+        mat-icon {
+            color: mat.get-color-from-palette($foreground, icon);
+        }
+        * {
+            color: mat.get-color-from-palette($foreground, text);
+        }
+        &.active {
+            $color: mat.get-color-from-palette(if($is-dark-theme, $accent, $primary));
+            color: $color;
+            * {
+                color: $color;
+            }
+        }
+    }
+
+    .text {
+        color: mat.get-color-from-palette($foreground, text);
+
+        &-center {
+            text-align: center;
+        }
+    }
+
+    .hint {
+        color: mat.get-color-from-palette($foreground, secondary-text);
+    }
+
+    .svg-primary {
+        svg path {
+            fill: mat.get-color-from-palette($primary) !important;
+        }
+    }
+
+    .light-gray-by-theme {
+        color: if($is-dark-theme, white, rgba(0, 0, 0, 0.65));
+    }
+
+    .divider {
+        $divider-color: 1px solid mat.get-color-from-palette($foreground, divider);
+        &-bottom {
+            border-bottom: $divider-color;
+        }
+        &-left {
+            border-left: $divider-color;
+        }
+        &-right {
+            border-right: $divider-color;
+        }
+        &-top {
+            border-top: $divider-color;
+        }
+    }
+
+    .assignment-result-table {
+        tr {
+            border-bottom: 1px solid mat.get-color-from-palette($background, focused-button);
+        }
+    }
+
+    /** remove unwanted spaces from group displays */
+    .inline-flex {
+        display: inline-flex;
+    }
+}

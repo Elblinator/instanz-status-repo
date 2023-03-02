@@ -1,0 +1,57 @@
+/** Imports the material-design-theming */
+@use '@angular/material' as mat;
+
+// /** Import brand theme */
+@import 'themes/default-light.scss';
+@import 'themes/default-dark.scss';
+
+/** Global component style definition */
+@import 'global-components-style.scss';
+
+/** Mix the component-related style-rules. Every single custom style goes here */
+@mixin openslides-components-theme($theme) {
+    @include mat.all-component-themes($theme);
+    @include os-component-themes($theme);
+}
+
+.openslides-light-theme {
+    @include openslides-components-theme($openslides-light-theme);
+}
+
+.openslides-dark-theme {
+    @include openslides-components-theme($openslides-dark-theme);
+}
+
+[class^='openslides-'][class*='-light-theme'] {
+    .logo-container {
+        img.dark {
+            display: none;
+        }
+        img.default {
+            display: inherit;
+        }
+    }
+
+    .grey-icon {
+        color: #707070;
+    }
+}
+
+/**
+* Custom configuration for dark themes
+*/
+[class^='openslides-'][class*='-dark-theme'] {
+    color: white;
+    .logo-container {
+        img.dark {
+            display: inherit;
+        }
+        img.default {
+            display: none;
+        }
+    }
+
+    .grey-icon {
+        color: white;
+    }
+}
