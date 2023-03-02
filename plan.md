@@ -18,10 +18,11 @@
 
 
  # Needs correction:
+ - change way of getting data (use proper http stuff)
  - for stati.component + stati.detail used data needs adjustment [from hero-data to mock-data]
  - running/stopped frame needs to be added (will be put into stati.component) 
  - resetCount, countStati, countStatus, checkStatus (in start.component.ts) potentially pushed into a service. _countService maybe_
- - ng-container [ngSwitch]="service.status" (in instatnz-detail and instanz.component) potentially also into service. _determineStatus maybe_
+ - ng-container [ngSwitch]="service.status" (in instanz-detail and instanz.component) potentially also into service. _determineStatus maybe_
  - which stati are displayed needs to be decided and adjusted _where should this default selection be saved? determineStatus?_
  - services need to be selectable. _additional function in determineStatus maybe_
 
