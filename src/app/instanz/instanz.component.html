@@ -6,10 +6,14 @@
       <span class="badge">{{instanz.name}}</span> </a>
     <br>
     <ng-container *ngFor="let service of instanz.services"> 
-      <span *ngIf="service.status=='online'"> {{service.status}} </span>
-      <span *ngIf="service.status=='slow'"> {{service.status}}</span>
-      <span *ngIf="service.status=='offline'"> {{service.status}} </span>
+      <ng-container [ngSwitch]="service.status">
+        <span *ngSwitchCase="'online'"> green </span>
+        <span *ngSwitchCase="'slow'"> yellow</span>
+        <span *ngSwitchCase="'error'"> red </span>
+        <span *ngSwitchCase="'offline'"> blank </span>
+      </ng-container>
       {{service.name}}, 
     </ng-container>
+
   </li>
 </ul>
