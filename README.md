@@ -6,5 +6,5 @@ Instances can be presented as:
  - running (online, slow, error) vs stopped (offline) (still to be implemented)
  - list with none, specific or all services displayed (still to be implemented)
  
- If one Instance is selected every service and their status can be seen
+ If one Instance is selected every service and their status can be seen.
  
