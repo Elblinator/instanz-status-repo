@@ -33,8 +33,16 @@ export class StatusService {
     this.messageService.add('StatusService: fetched Instanz'); 
     return instanz;
   }
-  
+  /*
+  getSt(instanz):Observable<Status[]> {
+    instanz = this.getData()
+    const stati = of(STATUS);
+    this.messageService.add('StatusService: fetched status');
+    return stati;
+  }
+  */
   getStati(): Observable<Status[]> {
+    const instanz = this.getData()
     const stati = of(STATUS);
     this.messageService.add('StatusService: fetched status');
     return stati;
