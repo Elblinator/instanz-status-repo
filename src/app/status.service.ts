@@ -3,23 +3,37 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { Status } from './00_data/status';
-import { STATUS } from './00_data/mock-data';
+import { Instanz } from './00_data/instanzen'
 
 //NEEDS IMPLEMENTATION
-import { Instanz } from './00_data/instanzen'
-import {INSTANZ } from './00_data/mock-data-real'
+import { STATUS } from './00_data/mock-data';
+import { INSTANZ } from './00_data/mock-data-real'
 //import {INSTANZ } from './example-data.json'
 //import { User } from './user'
 //import {USER } from './example-user
 
 
 import { MessageService } from './message.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class StatusService {
 
-  constructor(private messageService: MessageService) { }
+  private _url: string = 'link_url'
 
+  constructor(
+    private messageService: MessageService,
+    private http: HttpClient
+    ) { }
+
+  
+  getData(): Observable<Instanz[]>{
+    //return this.http.get<Instanz[]>(this._url)
+    const instanz = of(INSTANZ);
+    this.messageService.add('StatusService: fetched Instanz'); 
+    return instanz;
+  }
+  
   getStati(): Observable<Status[]> {
     const stati = of(STATUS);
     this.messageService.add('StatusService: fetched status');

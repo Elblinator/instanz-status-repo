@@ -19,11 +19,7 @@ export class InstanzComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.getInstanz();
-  }
-
-  getInstanz(): void {
-    this.statusService.getInstanz()
+    this.statusService.getData()
     .subscribe(instanzen => {this.instanzen = instanzen});
   }
 }

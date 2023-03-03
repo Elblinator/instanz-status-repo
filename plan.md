@@ -8,7 +8,6 @@
  - I want a button with just the display of one colour
  - Status-Update-Page needs to be added
  - Detailed-Start-Page
- - Status-Update-Page
  - functional Login Button
  - functional Logout Button
  - numbers in start need to be bar with colour 
@@ -18,7 +17,6 @@
 
 
  # Needs correction:
- - change way of getting data (use proper http stuff)
  - for stati.component + stati.detail used data needs adjustment [from hero-data to mock-data]
  - running/stopped frame needs to be added (will be put into stati.component) 
  - resetCount, countStati, countStatus, checkStatus (in start.component.ts) potentially pushed into a service. _countService maybe_
@@ -28,6 +26,9 @@
 
  ## Additional Thoughts:
  - messages not needed atm, delete if not needed
+
+ # No to forget:
+ - if real data is used use url in status.service.ts getData()
 
 
 
