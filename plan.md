@@ -4,9 +4,8 @@
  - pages (in general) have to be linked more
  - I want a button with just the display of one colour
  - Status-Update-Page needs to be added
- - dummy Login/Logout Button
  - functional Login/Logout Button
- 
+
  - numbers in start need to be bar with colour 
  - placement of everything (buttons, titles, etc.) needs correction
  - appearance needs to be adusted to OpenSlides

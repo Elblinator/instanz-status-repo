@@ -1,23 +1,44 @@
+<br>
 
+<input name="user-name" placeholder="Login"/>
+<input type="password" name="passwort" placeholder="Passwort"/>
+<br>
+
+<! check if logged in >
+<div *ngIf="isLoggedIn(); then loginBlock; else logoutBlock"></div>
+
+
+<! print online/slow/error amounts>
 <div *ngIf="arrService">
     <h2>Status von Instanzen</h2>
     <ng-container>
-        Online/slow/offline:
+        Online/Slow/Offline:
         <ng-container *ngFor="let number of arrService">
             {{number}}
         </ng-container>
     </ng-container>
 </div> 
 <br>
-<input name="user-name" placeholder="Login"/>
-<input type="password" name="passwort" placeholder="Passwort"/>
-<div *ngIf="checkUser(userName, password)">
+
+<! print if registered running and stopped instances>
+<div *ngIf="isLoggedIn()">
     <h2>Laufende Instanzen</h2>
     <ng-container>
-        Online/offline
+        Online/Offline
         <ng-container *ngFor="let number of arrOnline">
             {{number}}
         </ng-container>
     </ng-container>
 </div> 
 <br>
+
+
+<ng-template #loginBlock>
+    <button type="button" (click)="logout()">logout</button>
+</ng-template>
+
+<ng-template #logoutBlock>
+    <button type="button" (click)="checkUser(userName,password)">login</button>
+</ng-template>
+
+
