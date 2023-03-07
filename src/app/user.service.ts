@@ -11,31 +11,32 @@ import { USER } from './00_data/mock-user';
 export class UserService {
 
   constructor() { }
-  user=""
-  password=""
-  isUser=false
+  user:string=""
+  password:string=""
+  isUser:boolean=false
 
-  login(user:string, password:string):boolean{
+  public login(user:string, password:string):boolean{
     this.user=user
     this.password=password
     this.isUser=true
-    return true
+    return this.isUser
   }
-  checkUser(user:string, password:string) : boolean{
+  public checkUser(user:string, password:string) : boolean{
     this.getUser()
-    if(true){
-      
-    }
+    this.login(user,password)
     return true
   }  
-  getUser(): Observable<User[]>{
+  public getUser(): Observable<User[]>{
     //return this.http.get<Instanz[]>(this._url)
     const user = of(USER); 
     return user;
   }
-  logout():void{
+  public logout():void{
     this.user=""
     this.password=""
     this.isUser = false
+  }
+  public isLoggedIn():boolean{
+    return this.isUser
   }
 }

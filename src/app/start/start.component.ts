@@ -17,9 +17,9 @@ export class StartComponent implements OnInit{
   instanzen: Instanz[] = [];
   arrService: number[] = [0,0,0];
   arrOnline: number[] = [0,0];
-  isUser:boolean=false
-  userName:string = ""
-  password:string=""
+  isUser:boolean= this.userService.isUser
+  userName:string= this.userService.user
+  password:string= this.userService.password
 
   constructor(
     private statusService: StatusService,
@@ -27,6 +27,11 @@ export class StartComponent implements OnInit{
     private onlineService: OnlineService,
     private checkStatusService: CheckStatusService
     ) { }
+
+  
+    /*isUser:boolean= this.userService.isUser
+    userName:string= this.userService.user
+    password:string= this.userService.password*/
 
   ngOnInit(): void {
     this.getInstanz();
@@ -50,8 +55,21 @@ export class StartComponent implements OnInit{
   public checkUser(userName:string, password:string):boolean{
     if(this.userService.checkUser(userName, password)){
       this.userService.login(userName, password)
+      this.userName=userName
+      this.password=password
+      this.isUser=true
       return true
     }
     return false
   }  
+  public logout():void{
+    this.userService.logout()
+    this.isUser= this.userService.isUser
+    console.log(this.userService.isUser)
+    this.userName= this.userService.user
+    this.password= this.userService.password
+  }
+  public isLoggedIn(): boolean{
+    return this.userService.isLoggedIn()
+  }
 }
