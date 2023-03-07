@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 
 import { Instanz } from '../00_data/instanzen';
 import { Status } from '../00_data/status';
 import { StatusService } from '../status.service';
+import { UserService } from '../user.service';
+import { OnlineService } from '../online.service'
+import { CheckStatusService } from '../check-status.service';
 
 
 @Component({
@@ -14,13 +15,23 @@ import { StatusService } from '../status.service';
 })
 export class StartComponent implements OnInit{
   instanzen: Instanz[] = [];
-  arr: number[] = [0,0,0];
+  arrService: number[] = [0,0,0];
+  arrOnline: number[] = [0,0];
+  isUser:boolean=false
+  userName:string = ""
+  password:string=""
 
-  constructor(private statusService: StatusService) { }
+  constructor(
+    private statusService: StatusService,
+    private userService: UserService,
+    private onlineService: OnlineService,
+    private checkStatusService: CheckStatusService
+    ) { }
 
   ngOnInit(): void {
     this.getInstanz();
     this.countStati()
+    this.countOnline();
   }
 
   getInstanz(): void {
@@ -28,28 +39,19 @@ export class StartComponent implements OnInit{
     .subscribe(instanzen => {this.instanzen = instanzen});
   }  
   public resetCount():void {
-    this.arr=[0,0,0]
-    this.countStati()
+    this.arrService=this.checkStatusService.resetCount()
   }
   public countStati(): void {
-    for(let instanz of this.instanzen){
-      this.countStatus(instanz.services) 
-    }
+    this.arrService = this.checkStatusService.countStati()
   }
-  private countStatus(services:Status[]): void {
-    for(let service of services){
-      this.arr[this.checkStatus(service.status)] +=1
-    }
+  public countOnline(): void {
+    this.arrOnline = this.onlineService.countOnline()
   }
-  public checkStatus(status:string): number {
-    //numbers correspond ot the indexes from the array (arr)
-    // --> arr[0] describes the amount of online stati
-    if (status=="online") {
-      return 0
-    }else if (status=="slow") {
-      return 1
-    }else {
-      return 2
+  public checkUser(userName:string, password:string):boolean{
+    if(this.userService.checkUser(userName, password)){
+      this.userService.login(userName, password)
+      return true
     }
-  }
+    return false
+  }  
 }
