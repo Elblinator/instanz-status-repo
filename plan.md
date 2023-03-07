@@ -1,5 +1,5 @@
 # Missing components: 
- - sort (probably added as service)
+ - filter (probably added as service)
  - search of instances (probably added as service):
     - 'include' in search
     - 'exclude' in search
