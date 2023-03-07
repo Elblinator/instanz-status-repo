@@ -5,6 +5,7 @@ export const INSTANZ: Instanz[] = [
   {
     "id": 1,
     "name": "Testintern",
+    "running": true,
     "services": [{
       "name": "client",
       "status": "online"
@@ -40,6 +41,7 @@ export const INSTANZ: Instanz[] = [
   {
     "id": 2,
     "name": "Demo",
+    "running":true,
     "services": [{
       "name": "client",
       "status": "online"

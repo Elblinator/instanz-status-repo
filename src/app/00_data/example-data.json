@@ -3,6 +3,7 @@
 [{
 	"id": 1,
 	"name": "Testintern",
+	"running":true,
 	"services": [{
 		"name": "client",
 		"status": "online"
@@ -11,7 +12,7 @@
 		"status": "online"
 	}, {
 		"name": "backend-presenter",
-		"status": "offline"
+		"status": "error"
 	}, {
 		"name": "autoupdate",
 		"status": "slow"
@@ -23,7 +24,7 @@
 		"status": "online"
 	}, {
 		"name": "datastore-reader",
-		"status": "offline"
+		"status": "error"
 	}, {
 		"name": "datastore-writer",
 		"status": "online"
@@ -37,6 +38,7 @@
 }, {
 	"id": 2,
 	"name": "Demo",
+	"running": true,
 	"services": [{
 		"name": "client",
 		"status": "online"
