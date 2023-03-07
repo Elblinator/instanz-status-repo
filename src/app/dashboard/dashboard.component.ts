@@ -12,7 +12,9 @@ export class DashboardComponent implements OnInit {
   stati: Status[] = [];
   instances: Instanz[] = [];
 
-  constructor(private statusService: StatusService) { }
+  constructor(
+    private statusService: StatusService,
+    ) { }
 
   ngOnInit(): void {
     this.getStati();

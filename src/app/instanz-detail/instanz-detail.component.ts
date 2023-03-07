@@ -16,7 +16,7 @@ export class InstanzDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private statusService: StatusService,
-    private location: Location
+    private location: Location,
   ) {}
 
   ngOnInit(): void {
@@ -28,7 +28,6 @@ export class InstanzDetailComponent implements OnInit {
     this.statusService.getInst(name)
       .subscribe(instanz => this.instanzen = instanz);
   }
-
   goBack(): void {
     this.location.back();
   }

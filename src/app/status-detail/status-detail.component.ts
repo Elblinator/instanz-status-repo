@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { Status } from '../00_data/status';
 import { StatusService } from '../status.service';
 
+
 @Component({
   selector: 'app-status-detail',
   templateUrl: './status-detail.component.html',
@@ -16,7 +17,7 @@ export class StatusDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private statusService: StatusService,
-    private location: Location
+    private location: Location,
   ) {}
 
   ngOnInit(): void {
