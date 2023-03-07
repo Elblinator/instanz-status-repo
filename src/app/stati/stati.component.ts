@@ -4,6 +4,7 @@ import { Status } from '../00_data/status';
 import { Instanz } from '../00_data/instanzen';
 import { StatusService } from '../status.service';
 
+
 @Component({
   selector: 'app-stati',
   templateUrl: './stati.component.html',
@@ -13,7 +14,9 @@ export class StatiComponent implements OnInit {
   instanzen: Instanz[] = []
   stati: Status[] = [];
 
-  constructor(private statusService: StatusService) { }
+  constructor(
+    private statusService: StatusService,
+    ) { }
 
   public ngOnInit(): void {
     this.getStati();

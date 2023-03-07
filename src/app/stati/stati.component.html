@@ -1,8 +1,8 @@
 <h2>Stati Instanzen: </h2>
 
-<ul class="stati">
+<ul class="status">
   <li *ngFor="let status of stati">
-    <a routerLink="/detail/{{status.name}}">
+    <a routerLink="/status/{{status.name}}">
       <span class="badge">{{status.name}}</span> {{status.status}}
       <!--
       dependent on the status the corresponding colour should be presented
