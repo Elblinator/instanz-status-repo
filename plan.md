@@ -20,6 +20,7 @@
 
  ## Additional Thoughts:
  - messages not needed atm, delete if not needed
+ - dashboard not needed atm, delete if not needed
 
  # No to forget:
  - if real data is used use url in status.service.ts getData()
