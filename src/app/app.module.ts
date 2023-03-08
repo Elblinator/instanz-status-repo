@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { StatusDetailComponent } from './status-detail/status-detail.component';
+import { OldStatusDetailComponent } from './old-status-detail/old-status-detail.component';
 import { StatiComponent } from './stati/stati.component';
 import { MessagesComponent } from './messages/messages.component';
 import { InstanzComponent } from './instanz/instanz.component';
@@ -13,6 +13,7 @@ import { InstanzComponent } from './instanz/instanz.component';
 import { AppRoutingModule } from './app-routing.module';
 import { InstanzDetailComponent } from './instanz-detail/instanz-detail.component';
 import { StartComponent } from './start/start.component';
+import { OldStatiComponent } from './old-stati/old-stati.component';
 
 @NgModule({
   imports: [
@@ -25,11 +26,12 @@ import { StartComponent } from './start/start.component';
     AppComponent,
     DashboardComponent,
     StatiComponent,
-    StatusDetailComponent,
+    OldStatusDetailComponent,
     MessagesComponent,
     InstanzComponent,
     InstanzDetailComponent,
-    StartComponent
+    StartComponent,
+    OldStatiComponent
   ],
   bootstrap: [ AppComponent ],
   providers: [ ]

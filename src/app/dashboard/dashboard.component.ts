@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Status } from '../00_data/status';
 import { StatusService } from '../status.service';
-import { Instanz } from '../00_data/instanzen'
+import { Instanz, Status } from '../00_data/instanzen'
 import { UserService } from '../user.service';
 
 @Component({

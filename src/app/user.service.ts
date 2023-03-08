@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
-import { ActivatedRouteSnapshot, Router, RouterModule, Routes, UrlSegment, UrlSegmentGroup, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, } from '@angular/router';
 
 import { User } from './00_data/user';
 import { USER } from './00_data/mock-user';
-import { CanActivate } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'

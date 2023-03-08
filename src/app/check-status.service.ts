@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 
 
 import { StatusService } from './status.service';
-import { Instanz } from './00_data/instanzen';
-import { Status } from './00_data/status';
+import { Instanz, Status } from './00_data/instanzen';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +10,7 @@ import { Status } from './00_data/status';
 export class CheckStatusService {
   instanzen: Instanz[] = [];
   arrService: number[] = [0,0,0];
+  arrStati: Status[] = []
 
   constructor(private statusService:StatusService) { }
 

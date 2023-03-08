@@ -14,7 +14,7 @@ export const INSTANZ: Instanz[] = [
       "status": "online"
     }, {
       "name": "backend-presenter",
-      "status": "offline"
+      "status": "error"
     }, {
       "name": "autoupdate",
       "status": "slow"
@@ -26,7 +26,7 @@ export const INSTANZ: Instanz[] = [
       "status": "online"
     }, {
       "name": "datastore-reader",
-      "status": "offline"
+      "status": "error"
     }, {
       "name": "datastore-writer",
       "status": "online"
@@ -50,7 +50,7 @@ export const INSTANZ: Instanz[] = [
       "status": "online"
     }, {
       "name": "backend-presenter",
-      "status": "offline"
+      "status": "error"
     }, {
       "name": "autoupdate",
       "status": "slow"
@@ -62,7 +62,7 @@ export const INSTANZ: Instanz[] = [
       "status": "online"
     }, {
       "name": "datastore-reader",
-      "status": "offline"
+      "status": "error"
     }, {
       "name": "datastore-writer",
       "status": "online"
