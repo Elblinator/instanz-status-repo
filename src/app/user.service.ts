@@ -1,25 +1,28 @@
 import { Injectable } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
+import { ActivatedRouteSnapshot, Router, RouterModule, Routes, UrlSegment, UrlSegmentGroup, UrlTree } from '@angular/router';
 
 import { User } from './00_data/user';
 import { USER } from './00_data/mock-user';
+import { CanActivate } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor() { }
+  constructor(
+  ) { }
   user:string=""
   password:string=""
-  isUser:boolean=false
+  isUser:boolean=true
 
   public login(user:string, password:string):boolean{
     this.user=user
     this.password=password
     this.isUser=true
-    return this.isUser
+    return this.isUser 
   }
   public checkUser(user:string, password:string) : boolean{
     this.getUser()
@@ -38,5 +41,8 @@ export class UserService {
   }
   public isLoggedIn():boolean{
     return this.isUser
+  }
+  public canActivate(route: ActivatedRouteSnapshot):boolean {
+    return this.isLoggedIn()
   }
 }

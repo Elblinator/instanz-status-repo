@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 
 import { StatusService } from '../status.service';
 import { Instanz } from '../00_data/instanzen';
+import { UserService } from '../user.service';
 
 
 
@@ -16,10 +17,14 @@ export class InstanzComponent implements OnInit {
 
   constructor(
     private statusService: StatusService,
+    private userService: UserService
     ) { }
 
   ngOnInit(): void {
     this.statusService.getData()
     .subscribe(instanzen => {this.instanzen = instanzen});
+  }
+  public logout():void{
+    this.userService.logout()
   }
 }

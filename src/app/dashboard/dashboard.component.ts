@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Status } from '../00_data/status';
 import { StatusService } from '../status.service';
 import { Instanz } from '../00_data/instanzen'
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,6 +15,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private statusService: StatusService,
+    private userService: UserService
     ) { }
 
   ngOnInit(): void {
@@ -28,5 +30,8 @@ export class DashboardComponent implements OnInit {
   getInst():void{ 
     this.statusService.getInstanz()
     .subscribe(instances =>this.instances = instances)
+  }
+  public logout():void{
+    this.userService.logout()
   }
 }

@@ -10,28 +10,12 @@ import { StartComponent } from './start/start.component';
 import { UserService } from './user.service';
 
 const routes: Routes = [
-  { path: 'start', component: StartComponent },
-  { path: 'start',
-    children: [
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'status/:name', component: StatusDetailComponent },
-      { path: 'status', component: StatiComponent },
-      { path: 'instanz', component: InstanzComponent },
-      { path: 'instanz/:name', component: InstanzDetailComponent },
-    ],
-    canActivate: [(route:ActivatedRouteSnapshot)=> {
-      if(!inject(UserService).isLoggedIn()){
-        return inject(Router).createUrlTree(['start'])
-      }
-      return true
-    }],    
-    canMatch: [(route:ActivatedRouteSnapshot)=> {
-      if(!inject(UserService).isLoggedIn()){
-        return inject(Router).createUrlTree(['start'])
-      }
-      return true
-    }],
-  },
+  { path: 'start',         component: StartComponent },
+  { path: 'dashboard',     component: DashboardComponent,     data:{isUser: true}, canActivate: [ UserService ] },
+  { path: 'status/:name',  component: StatusDetailComponent,  data:{isUser: true}, canActivate: [ UserService ] },
+  { path: 'status',        component: StatiComponent,         data:{isUser: true}, canActivate: [ UserService ] },
+  { path: 'instanz',       component: InstanzComponent,       data:{isUser: true}, canActivate: [ UserService ] },
+  { path: 'instanz/:name', component: InstanzDetailComponent, data:{isUser: true}, canActivate: [ UserService ] },
   { path: '', redirectTo: '/start', pathMatch: 'full' },
 ];
 

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Status } from '../00_data/status';
 import { Instanz } from '../00_data/instanzen';
 import { StatusService } from '../status.service';
+import { UserService } from '../user.service';
 
 
 @Component({
@@ -16,6 +17,7 @@ export class StatiComponent implements OnInit {
 
   constructor(
     private statusService: StatusService,
+    private userService: UserService
     ) { }
 
   public ngOnInit(): void {
@@ -32,5 +34,8 @@ export class StatiComponent implements OnInit {
 
     //this.stati = this.instanzen.name
     //for unstanz in isntanzen put status in stati #to be implemented
+  }
+  public logout():void{
+    this.userService.logout()
   }
 }

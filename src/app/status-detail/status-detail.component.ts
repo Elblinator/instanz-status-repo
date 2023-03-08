@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { Status } from '../00_data/status';
 import { StatusService } from '../status.service';
+import { UserService } from '../user.service';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class StatusDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private statusService: StatusService,
     private location: Location,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -32,6 +34,9 @@ export class StatusDetailComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+  public logout():void{
+    this.userService.logout()
   }
 }
 
