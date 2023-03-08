@@ -25,9 +25,3 @@
 
  # No to forget:
  - if real data is used use url in status.service.ts getData()
-
-
- conflict data:
- lalalal
- lulululul
-
