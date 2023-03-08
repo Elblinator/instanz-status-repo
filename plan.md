@@ -3,7 +3,7 @@
  - search field needs to be linked with different pages
  - pages (in general) have to be linked more
  - I want a button with just the display of one colour
- - Status-Update-Page needs to be added
+ - Status-Update-Page is not optimal atm: if possible the 4 Arrays should become one array([1,2,3,4])->.ty, repeatitive code -> html
  - functional Login/Logout Button
 
  - numbers in start need to be bar with colour 
@@ -21,6 +21,7 @@
  ## Additional Thoughts:
  - messages not needed atm, delete if not needed
  - dashboard not needed atm, delete if not needed
+ - old-status not needed , delete if that stays the same
 
  # No to forget:
  - if real data is used use url in status.service.ts getData()

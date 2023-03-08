@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Instanz } from '../00_data/instanzen';
-import { Status } from '../00_data/status';
 import { StatusService } from '../status.service';
 import { UserService } from '../user.service';
 import { OnlineService } from '../online.service'

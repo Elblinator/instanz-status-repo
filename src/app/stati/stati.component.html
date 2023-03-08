@@ -3,12 +3,49 @@
   <span class="badge"></span> 
   <button type="button" (click)="logout()">logout</button>
 </a>
-<h2>Stati Instanzen: </h2>
+<h2>Instanzen aufgeteilt in Statusgruppen </h2>
+<div> 
+  <h2>Online</h2>
+  <ul class="instanz">
+    <li *ngFor="let instanz of instanzOnline">
+      <a routerLink="/instanz/{{instanz.instanz}}">
+        <span class="badge">{{instanz.instanz}}</span> 
+      </a>
+      :{{instanz.service}}
+    </li>
+  </ul>
+</div>
+<div> 
+  <h2>Slow</h2>
+  <ul class="instanz">
+    <li *ngFor="let instanz of instanzSlow">
+      <a routerLink="/instanz/{{instanz.instanz}}">
+        <span class="badge">{{instanz.instanz}}</span> 
+      </a>
+      {{instanz.service}}
+    </li>
+  </ul>
+</div>
+<div> 
+  <h2>Error</h2>
+  <ul class="instanz">
+    <li *ngFor="let instanz of instanzError">
+      <a routerLink="/instanz/{{instanz.instanz}}">
+        <span class="badge">{{instanz.instanz}}</span> 
+      </a>
+      {{instanz.service}}
+    </li>
+  </ul>
+</div>
 
-<ul class="status">
-  <li *ngFor="let status of stati">
-    <a routerLink="/status/{{status.name}}">
-      <span class="badge">{{status.name}}</span> {{status.status}}
-    </a>
-  </li>
-</ul>
+<div> 
+  <h2>Offline</h2>
+  <ul class="instanz">
+    <li *ngFor="let instanz of instanzOffline">
+      <a routerLink="/instanz/{{instanz.instanz}}">
+        <span class="badge">{{instanz.instanz}}</span> 
+      </a>
+      {{instanz.service}}
+    </li>
+  </ul>
+</div>

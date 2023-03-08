@@ -1,4 +1,4 @@
-import { Status } from './status';
+import { Status } from './instanzen';
 
 
 export const STATUS: Status[] = [
