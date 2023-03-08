@@ -6,46 +6,38 @@
 <h2>Instanzen aufgeteilt in Statusgruppen </h2>
 <div> 
   <h2>Online</h2>
-  <ul class="instanz">
-    <li *ngFor="let instanz of instanzOnline">
-      <a routerLink="/instanz/{{instanz.instanz}}">
-        <span class="badge">{{instanz.instanz}}</span> 
-      </a>
-      :{{instanz.service}}
-    </li>
-  </ul>
+  <li #instanz_yay *ngFor="let instanz of instanzOnline">
+    <a routerLink="/instanz/{{instanz.instanz}}">
+      <span class="badge">{{instanz.instanz}}</span> 
+    </a>
+    :{{instanz.service}}
+  </li>
 </div>
 <div> 
   <h2>Slow</h2>
-  <ul class="instanz">
-    <li *ngFor="let instanz of instanzSlow">
-      <a routerLink="/instanz/{{instanz.instanz}}">
-        <span class="badge">{{instanz.instanz}}</span> 
-      </a>
-      {{instanz.service}}
-    </li>
-  </ul>
+  <li *ngFor="let instanz of instanzSlow">
+    <a routerLink="/instanz/{{instanz.instanz}}">
+      <span class="badge">{{instanz.instanz}}</span> 
+    </a>
+    {{instanz.service}}
+  </li>
 </div>
 <div> 
   <h2>Error</h2>
-  <ul class="instanz">
-    <li *ngFor="let instanz of instanzError">
-      <a routerLink="/instanz/{{instanz.instanz}}">
-        <span class="badge">{{instanz.instanz}}</span> 
-      </a>
-      {{instanz.service}}
-    </li>
-  </ul>
+  <li *ngFor="let instanz of instanzError">
+    <a routerLink="/instanz/{{instanz.instanz}}">
+      <span class="badge">{{instanz.instanz}}</span> 
+    </a>
+    {{instanz.service}}
+  </li>
 </div>
 
 <div> 
   <h2>Offline</h2>
-  <ul class="instanz">
-    <li *ngFor="let instanz of instanzOffline">
-      <a routerLink="/instanz/{{instanz.instanz}}">
-        <span class="badge">{{instanz.instanz}}</span> 
-      </a>
-      {{instanz.service}}
-    </li>
-  </ul>
+  <li *ngFor="let instanz of instanzOffline">
+    <a routerLink="/instanz/{{instanz.instanz}}">
+      <span class="badge">{{instanz.instanz}}</span> 
+    </a>
+    {{instanz.service}}
+  </li>
 </div>
