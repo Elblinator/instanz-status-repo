@@ -31,7 +31,6 @@ export class OldStatusDetailComponent implements OnInit {
     this.statusService.getName(name)
       .subscribe(status => this.status = status);
   }
-
   goBack(): void {
     this.location.back();
   }

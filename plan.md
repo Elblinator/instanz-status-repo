@@ -5,7 +5,6 @@
  - I want a button with just the display of one colour
  - functional Login/Logout Button
  - Status-Update-Page is not optimal atm: if possible the 4 Arrays should become one array([1,2,3,4])->.ty, repeatitive code -> html
- - ng-container [ngSwitch]="service.status" (in instanz-detail and instanz.component) potentially also into service. filter.service maybe_
  - which stati are displayed needs to be decided and adjusted _where should this default selection be saved? filter.service?_
  - services need to be selectable. _additional function in filter.service maybe_
 
