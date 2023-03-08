@@ -14,9 +14,9 @@
 
  # Needs correction:
  - for stati.component + stati.detail used data needs adjustment [from hero-data to mock-data]
- - ng-container [ngSwitch]="service.status" (in instanz-detail and instanz.component) potentially also into service. _determineStatus maybe_
- - which stati are displayed needs to be decided and adjusted _where should this default selection be saved? determineStatus?_
- - services need to be selectable. _additional function in determineStatus maybe_
+ - ng-container [ngSwitch]="service.status" (in instanz-detail and instanz.component) potentially also into service. filter.service maybe_
+ - which stati are displayed needs to be decided and adjusted _where should this default selection be saved? filter.service?_
+ - services need to be selectable. _additional function in filter.service maybe_
 
  ## Additional Thoughts:
  - messages not needed atm, delete if not needed

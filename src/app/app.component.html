@@ -1,15 +1,21 @@
 
+<h1>{{title}}</h1>
 
 <! check if logged in >
-<div *ngIf="isLoggedIn()">
-  <h1>{{title}}</h1>
+<div *ngIf="isLoggedIn(); then loggedInBlock; else loggedOutBlock"></div>
+
+<ng-template #loggedInBlock>
+  
   <nav>
     <a routerLink="/start">Start</a>
     <a routerLink="/instanz">Instanzen</a>
     <a routerLink="/status">Status</a>
     <a routerLink="/dashboard">Dash</a>
   </nav>
-</div>
+</ng-template>
+<ng-template #loggedOutBlock>
+  <br><br>
+</ng-template>
 
 
 <router-outlet></router-outlet>
