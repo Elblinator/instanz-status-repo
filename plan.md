@@ -25,12 +25,3 @@
 
  # No to forget:
  - if real data is used use url in status.service.ts getData()
-
-
- conflict data: 
- - this will make the code very angy. 
- -hey I don'T know what to write
-
-
-
-
