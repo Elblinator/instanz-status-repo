@@ -14,6 +14,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { InstanzDetailComponent } from './instanz-detail/instanz-detail.component';
 import { StartComponent } from './start/start.component';
 import { OldStatiComponent } from './old-stati/old-stati.component';
+import { FilterOverlayComponent } from './filter-overlay/filter-overlay.component';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { OldStatiComponent } from './old-stati/old-stati.component';
     InstanzComponent,
     InstanzDetailComponent,
     StartComponent,
-    OldStatiComponent
+    OldStatiComponent,
+    FilterOverlayComponent
   ],
   bootstrap: [ AppComponent ],
   providers: [ ]

@@ -5,8 +5,7 @@
  - I want a button with just the display of one colour
  - functional Login/Logout Button
  - Status-Update-Page is not optimal atm: if possible the 4 Arrays should become one array([1,2,3,4])->.ty, repeatitive code -> html
- - which stati are displayed needs to be decided and adjusted _where should this default selection be saved? filter.service?_
- - services need to be selectable. _additional function in filter.service maybe_
+ - how selected Status and Instanz have to be displayed needs to be decided
 
 # Design:
  - numbers in start need to be bar with colour 

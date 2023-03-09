@@ -24,6 +24,8 @@ export class FilterService {
   ) { }
   public ngOnInit(): void {
     this.getPossibleInstStatus()
+    this.chosenInstances = this.possibleInstances
+    this.chosenServices = this.possibleServices
   }
   public getPossibleInstStatus(): void{
     this.statusService.getData()
@@ -41,7 +43,6 @@ export class FilterService {
     }
     return arr
   }
-  
   public decideFilter(name: Instanz[]|Status[]): void{
     let arr:string[] = this.turnIntoArray(name)
     if(isStatus(name)){
@@ -61,6 +62,10 @@ export class FilterService {
     }
   } 
   isSelected(name:(Status[]|Instanz[])){
-    if status return this.chosenServices
+    if (isStatus(name)){
+      return this.chosenServices
+    } else{
+      return this.chosenInstances
+    }
   }
 }

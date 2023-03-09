@@ -29,14 +29,6 @@ export class StatusService {
     this.messageService.add('StatusService: fetched Instanz'); 
     return instanz;
   }
-  /*
-  getSt(instanz):Observable<Status[]> {
-    instanz = this.getData()
-    const stati = of(STATUS);
-    this.messageService.add('StatusService: fetched status');
-    return stati;
-  }
-  */
   getName(name: string): Observable<Status> {
     // For now, assume that a hero with the specified `id` always exists.
     // Error handling will be added in the next step of the tutorial.
@@ -51,7 +43,7 @@ export class StatusService {
     const instance = INSTANZ.find(h => h.name === name)!;
     return of(instance);
   }
-  getInstanzStatus(){
+  suchen(){
     
   }
 }
