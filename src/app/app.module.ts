@@ -14,14 +14,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { InstanzDetailComponent } from './instanz-detail/instanz-detail.component';
 import { StartComponent } from './start/start.component';
 import { OldStatiComponent } from './old-stati/old-stati.component';
-import { FilterOverlayComponent } from './filter-overlay/filter-overlay.component';
+import { DialogComponent, DialogAnimationsExampleDialog } from './dialog/dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule
   ],
   declarations: [
     AppComponent,
@@ -33,7 +35,8 @@ import { FilterOverlayComponent } from './filter-overlay/filter-overlay.componen
     InstanzDetailComponent,
     StartComponent,
     OldStatiComponent,
-    FilterOverlayComponent
+    DialogComponent,
+    DialogAnimationsExampleDialog,
   ],
   bootstrap: [ AppComponent ],
   providers: [ ]

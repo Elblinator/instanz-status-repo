@@ -29,8 +29,8 @@ export class FilterService {
   }
   public getPossibleInstStatus(): void{
     this.statusService.getData()
-    .subscribe(instanzen => {this.instanzen = instanzen});
-    this.possibleInstances = this.turnIntoArray(this.instanzen)
+    .subscribe(instanzen => {this.instanzen = instanzen;});
+    this.possibleInstances = this.turnIntoArray(this.instanzen)    
     for(let instanz of this.instanzen) {
       this.possibleServices = this.turnIntoArray(instanz.services)
       break
@@ -61,6 +61,13 @@ export class FilterService {
       }
     }
   } 
+  reachableInstances():string[]{
+    this.getPossibleInstStatus()
+    return this.possibleInstances
+  }
+  reachableService():string[]{
+    return this.possibleServices
+  }
   isSelected(name:(Status[]|Instanz[])){
     if (isStatus(name)){
       return this.chosenServices
