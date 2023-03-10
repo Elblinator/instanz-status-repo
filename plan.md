@@ -1,9 +1,9 @@
 # Components: 
- - search field needs to be linked with different pages
- - I want a button with just the display of one colour
+ - suche button needs to be added into instant/instanz-dateil/status/status-detail
+ - search field needs to be linked with different pages -> service? component??
  - functional Login/Logout Button
+ - I want a button with just the display of one colour
  - Status-Update-Page is not optimal atm: if possible the 4 Arrays should become one array([1,2,3,4])->.ty, repeatitive code -> html
- - how selected Status and Instanz have to be displayed needs implemented
 
 
 # Design:

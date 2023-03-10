@@ -6,6 +6,15 @@
 <span class="badge"></span> 
 <button type="button" (click)="openDialog()">Filter</button>
 
+<input name="instanz" placeholder="Suche"/>
+<!--
+  ein event, dass ein Link aufgerufen wird, der Link muss aus der Instanz in dem Input feld aufgefüllt werden
+  ein dropdown menü 
+  potentially mit auto-fil instanz namen ist besser und einfaher zu bedienen
+-->
+<button type="button" (click)="openDialog()">Suche</button>
+
+
 <h2>Die Instanzen: </h2>
 <ul class="instanz">
   <span *ngFor="let instanz of instanzen">

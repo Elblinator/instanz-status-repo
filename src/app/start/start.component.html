@@ -1,11 +1,14 @@
-<br>
 
-<input name="user-name" placeholder="Login"/>
-<input type="password" name="passwort" placeholder="Passwort"/>
-<br>
+<div *ngIf="!isLoggedIn()"><br>
+    <input name="user-name" placeholder="Login"/>
+    <input type="password" name="passwort" placeholder="Passwort"/>
+    <br>
+</div>
 
 <! check if logged in >
 <div *ngIf="isLoggedIn(); then loginBlock; else logoutBlock"></div>
+
+
 
 
 <! print online/slow/error amounts>
