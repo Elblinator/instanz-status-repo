@@ -53,8 +53,6 @@ export class FilterService {
     return arr
   }
   public setFilter(toppings: FormGroup[]):void {
-
-    console.log('filter.service setFilter()')
     this.chosenInstances = []
     this.chosenServices = []
     let tops:FormGroup = toppings[0]

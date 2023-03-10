@@ -8,19 +8,22 @@
 
 <h2>Die Instanzen: </h2>
 <ul class="instanz">
-  <li *ngFor="let instanz of instanzen">
-    <a routerLink="/instanz/{{instanz.name}}">
-      <span class="badge">{{instanz.name}}</span> </a>
-    <br>
-    <ng-container *ngFor="let service of instanz.services"> 
-      <ng-container [ngSwitch]="service.status">
-        <span *ngSwitchCase="'online'"> green </span>
-        <span *ngSwitchCase="'slow'"> yellow</span>
-        <span *ngSwitchCase="'error'"> red </span>
-        <span *ngSwitchCase="'offline'"> blank </span>
+  <span *ngFor="let instanz of instanzen">
+    <li *ngIf="isActivated(instanz.name)">
+      <a routerLink="/instanz/{{instanz.name}}">
+        <span class="badge">{{instanz.name}}</span> </a>
+      <br>
+      <ng-container *ngFor="let service of instanz.services"> 
+        <ng-container *ngIf="isActivated(service.name)">
+          <ng-container [ngSwitch]="service.status">
+            <span *ngSwitchCase="'online'"> green </span>
+            <span *ngSwitchCase="'slow'"> yellow</span>
+            <span *ngSwitchCase="'error'"> red </span>
+            <span *ngSwitchCase="'offline'"> blank </span>
+          </ng-container>
+          {{service.name}},
+        </ng-container> 
       </ng-container>
-      {{service.name}}, 
-    </ng-container>
-
-  </li>
+    </li>
+  </span>
 </ul>

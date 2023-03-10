@@ -35,4 +35,7 @@ export class InstanzComponent implements OnInit {
   public openDialog():void{
     this.dialog.open(DialogComponent)
   }
+  public isActivated(str:string):boolean{
+    return this.filterService.isActivated(str)
+  }
 }

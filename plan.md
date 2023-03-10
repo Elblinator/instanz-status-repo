@@ -3,7 +3,8 @@
  - I want a button with just the display of one colour
  - functional Login/Logout Button
  - Status-Update-Page is not optimal atm: if possible the 4 Arrays should become one array([1,2,3,4])->.ty, repeatitive code -> html
- - how selected Status and Instanz have to be displayed needs to be decided
+ - how selected Status and Instanz have to be displayed needs implemented
+
 
 # Design:
  - numbers in start need to be bar with colour 

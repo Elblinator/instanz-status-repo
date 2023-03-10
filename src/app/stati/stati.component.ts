@@ -5,6 +5,7 @@ import { Instanz, InstanzService, Status } from '../00_data/instanzen';
 import { StatusService } from '../status.service';
 import { UserService } from '../user.service';
 import { DialogComponent } from '../dialog/dialog.component';
+import { FilterService } from '../filter.service';
 
 
 @Component({
@@ -24,7 +25,8 @@ export class StatiComponent implements OnInit {
   constructor(
     private statusService: StatusService,
     private userService: UserService,
-    public dialogComponent: DialogComponent
+    private filterService: FilterService,
+    public dialog: MatDialog,
     ) { }
 
   public ngOnInit(): void {
@@ -63,6 +65,9 @@ export class StatiComponent implements OnInit {
     this.userService.logout()
   }
   public openDialog():void{
-    this.dialogComponent.openDialog()
+    this.dialog.open(DialogComponent)
+  }
+  public isActivated(str:string):boolean{
+    return this.filterService.isActivated(str)
   }
 }

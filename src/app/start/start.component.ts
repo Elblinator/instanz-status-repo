@@ -17,8 +17,9 @@ export class StartComponent implements OnInit{
   instanzen: Instanz[] = [];
   arrService: number[] = [0,0,0];
   arrOnline: number[] = [0,0];
-  userName:string= this.userService.user
-  password:string= this.userService.password
+  userName:string = this.userService.user
+  password:string = this.userService.password
+  first:boolean = true
 
   constructor(
     private statusService: StatusService,
@@ -34,8 +35,7 @@ export class StartComponent implements OnInit{
 
   ngOnInit(): void {
     this.getInstanz();
-    this.countStati()
-    this.countOnline();
+    this.resetCount()
   }
 
   getInstanz(): void {
@@ -44,12 +44,7 @@ export class StartComponent implements OnInit{
   }  
   public resetCount():void {
     this.arrService=this.checkStatusService.resetCount()
-  }
-  public countStati(): void {
-    this.arrService = this.checkStatusService.countStati()
-  }
-  public countOnline(): void {
-    this.arrOnline = this.onlineService.countOnline()
+    this.arrOnline=this.onlineService.resetCount()
   }
   public checkUser(userName:string, password:string):boolean{
     if(this.userService.checkUser(userName, password)){

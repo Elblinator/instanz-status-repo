@@ -26,7 +26,6 @@ export class DialogComponent {
     this.instances = this.filterService.reachableInstances()
     this.services = this.filterService.reachableService()
 
-    //(this.filterService.isActivated(e))
     this.tops = this._formBuilder.group(Object.fromEntries(this.instances.map(e => [e,(this.filterService.isActivated(e))])));
     this.ping = this._formBuilder.group(Object.fromEntries(this.services.map(e => [e,(this.filterService.isActivated(e))])));
 
