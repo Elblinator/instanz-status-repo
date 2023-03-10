@@ -20,6 +20,13 @@ export interface Instanz {
     name: string;
     status: string;
   }
+  export interface DialogData {
+    instances: string[];
+    services: string[]
+  }
+  export interface Checked {
+    name : boolean
+  }
   export function isStatus(name:Status[]|Instanz[]): name is Status[]{
     return (name as Status[]) !== undefined
   }

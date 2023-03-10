@@ -5,6 +5,7 @@ import { StatusService } from '../status.service';
 import { UserService } from '../user.service';
 import { OnlineService } from '../online.service'
 import { CheckStatusService } from '../check-status.service';
+import { FilterService } from '../filter.service';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class StartComponent implements OnInit{
     private statusService: StatusService,
     private userService: UserService,
     private onlineService: OnlineService,
-    private checkStatusService: CheckStatusService
+    private checkStatusService: CheckStatusService,
     ) { }
 
   

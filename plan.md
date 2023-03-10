@@ -1,7 +1,5 @@
 # Components: 
- - filter (probably added as service)
  - search field needs to be linked with different pages
- - pages (in general) have to be linked more
  - I want a button with just the display of one colour
  - functional Login/Logout Button
  - Status-Update-Page is not optimal atm: if possible the 4 Arrays should become one array([1,2,3,4])->.ty, repeatitive code -> html
