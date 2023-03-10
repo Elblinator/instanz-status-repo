@@ -24,7 +24,7 @@ export class DialogComponent {
     public dialog: MatDialog,
     private filterService: FilterService,
     ) {}
-  openDialog(): void {
+  public openDialog(): void {
     this.dialog.open(DialogAnimationsExampleDialog, {
       data: {
         instances: this.filterService.reachableInstances(),

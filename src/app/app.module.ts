@@ -23,7 +23,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   declarations: [
     AppComponent,
@@ -38,7 +38,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     DialogComponent,
     DialogAnimationsExampleDialog,
   ],
-  bootstrap: [ AppComponent ],
-  providers: [ ]
+  bootstrap: [ AppComponent,  ],
+  providers: [ DialogComponent]
 })
 export class AppModule { }

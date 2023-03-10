@@ -4,7 +4,7 @@ import {MatDialog} from '@angular/material/dialog';
 import { StatusService } from '../status.service';
 import { Instanz } from '../00_data/instanzen';
 import { UserService } from '../user.service';
-import { DialogAnimationsExampleDialog } from '../dialog/dialog.component';
+import { DialogAnimationsExampleDialog, DialogComponent } from '../dialog/dialog.component';
 import { FilterService } from '../filter.service';
 
 
@@ -21,9 +21,8 @@ export class InstanzComponent implements OnInit {
   constructor(
     private statusService: StatusService,
     private userService: UserService,
-    public dialog: MatDialog,
     public filterService: FilterService,
-    public messageService:MessageChannel
+    public dialogComponent: DialogComponent
     ) { }
 
   ngOnInit(): void {
@@ -34,13 +33,6 @@ export class InstanzComponent implements OnInit {
     this.userService.logout()
   }
   public openDialog():void{
-
-    this.dialog.open(DialogAnimationsExampleDialog, {
-      data: {
-        animal: 'panda',
-        instances: this.filterService.reachableInstances(),
-        services: this.filterService.reachableService()
-      }
-    });
+    this.dialogComponent.openDialog()
   }
 }
