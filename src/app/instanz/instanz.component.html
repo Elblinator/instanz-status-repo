@@ -1,10 +1,5 @@
-<a routerLink="/start">
-  <span class="badge"></span> 
-  <button type="button" (click)="logout()">logout</button>
-</a>
-
 <span class="badge"></span> 
-<button type="button" (click)="openDialog()">Filter</button>
+<button type="button" (click)="openDialog()">Filtern</button>
 
 <input name="instanz" placeholder="Suche"/>
 <!--
@@ -12,8 +7,8 @@
   ein dropdown menü 
   potentially mit auto-fil instanz namen ist besser und einfaher zu bedienen
 -->
-<button type="button" (click)="openDialog()">Suche</button>
 
+<button type="button" (click)="openDialog()">Suchen</button>
 
 <h2>Die Instanzen: </h2>
 <ul class="instanz">
@@ -25,10 +20,10 @@
       <ng-container *ngFor="let service of instanz.services"> 
         <ng-container *ngIf="isActivated(service.name)">
           <ng-container [ngSwitch]="service.status">
-            <span *ngSwitchCase="'online'"> green </span>
-            <span *ngSwitchCase="'slow'"> yellow</span>
-            <span *ngSwitchCase="'error'"> red </span>
-            <span *ngSwitchCase="'offline'"> blank </span>
+            <canvas *ngSwitchCase="'online'" class="block_green"> </canvas>
+            <canvas *ngSwitchCase="'slow'" class="block_yellow"> </canvas>
+            <canvas *ngSwitchCase="'error'" class="block_red">  </canvas>
+            <canvas *ngSwitchCase="'offline'" class="block_blank"> </canvas>
           </ng-container>
           {{service.name}},
         </ng-container> 

@@ -1,12 +1,4 @@
 
-<div *ngIf="!isLoggedIn()"><br>
-    <input name="user-name" placeholder="Login"/>
-    <input type="password" name="passwort" placeholder="Passwort"/>
-    <br>
-</div>
-
-<! check if logged in >
-<div *ngIf="isLoggedIn(); then loginBlock; else logoutBlock"></div>
 
 
 
@@ -35,13 +27,5 @@
 </div> 
 <br>
 
-
-<ng-template #loginBlock>
-    <button type="button" (click)="logout()">logout</button>
-</ng-template>
-
-<ng-template #logoutBlock>
-    <button type="button" (click)="checkUser(userName,password)">login</button>
-</ng-template>
 
 

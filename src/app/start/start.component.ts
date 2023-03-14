@@ -5,7 +5,6 @@ import { StatusService } from '../status.service';
 import { UserService } from '../user.service';
 import { OnlineService } from '../online.service'
 import { CheckStatusService } from '../check-status.service';
-import { FilterService } from '../filter.service';
 
 
 @Component({
@@ -19,7 +18,7 @@ export class StartComponent implements OnInit{
   arrOnline: number[] = [0,0];
   userName:string = this.userService.user
   password:string = this.userService.password
-  first:boolean = true
+  first = true
 
   constructor(
     private statusService: StatusService,
@@ -45,18 +44,6 @@ export class StartComponent implements OnInit{
   public resetCount():void {
     this.arrService=this.checkStatusService.resetCount()
     this.arrOnline=this.onlineService.resetCount()
-  }
-  public checkUser(userName:string, password:string):boolean{
-    if(this.userService.checkUser(userName, password)){
-      this.userService.login(userName, password)
-      this.userName=userName
-      this.password=password
-      return true
-    }
-    return false
-  }  
-  public logout():void{
-    this.userService.logout()
   }
   public isLoggedIn(): boolean{
     return this.userService.isLoggedIn()

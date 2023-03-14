@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-
 import { Observable, of } from 'rxjs';
-import { ActivatedRouteSnapshot, } from '@angular/router';
 
 import { User } from './00_data/user';
 import { USER } from './00_data/mock-user';
@@ -10,12 +8,9 @@ import { USER } from './00_data/mock-user';
   providedIn: 'root'
 })
 export class UserService {
-
-  constructor(
-  ) { }
-  user:string=""
-  password:string=""
-  isUser:boolean=true
+  user=""
+  password=""
+  isUser=true
 
   public login(user:string, password:string):boolean{
     this.user=user
@@ -41,7 +36,7 @@ export class UserService {
   public isLoggedIn():boolean{
     return this.isUser
   }
-  public canActivate(route: ActivatedRouteSnapshot):boolean {
+  public canActivate():boolean {
     return this.isLoggedIn()
   }
 }

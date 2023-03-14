@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 
 import { StatusService } from './status.service';
-import { Instanz, Status, isStatus, isInstanz } from './00_data/instanzen';
+import { Instanz, Status, isStatus} from './00_data/instanzen';
 import { FormGroup } from '@angular/forms';
 @Injectable({
   providedIn: 'root'
@@ -17,22 +17,19 @@ export class FilterService {
   chosenServices: string[] = []
 
   first = true
-
-
-
   constructor(
     private statusService: StatusService,
     private route: ActivatedRoute,
 
   ) { }
-  public ngOnInit(): void {
+  public OnInit(): void {
     this.getPossibleInstStatus()
   }
   public getPossibleInstStatus(): void{
     this.statusService.getData()
     .subscribe(instanzen => {this.instanzen = instanzen;});
     this.possibleInstances = this.turnIntoArray(this.instanzen)  
-    for(let instanz of this.instanzen) {
+    for(const instanz of this.instanzen) {
       this.possibleServices = this.turnIntoArray(instanz.services)
       break
     }
@@ -46,8 +43,8 @@ export class FilterService {
   }
 
   public turnIntoArray(list:(Status[]|Instanz[])): string[]{
-    let arr:string[] = []
-    for(let name of list){
+    const arr:string[] = []
+    for(const name of list){
       arr.push(name.name)
     }
     return arr
@@ -55,16 +52,16 @@ export class FilterService {
   public setFilter(toppings: FormGroup[]):void {
     this.chosenInstances = []
     this.chosenServices = []
-    let tops:FormGroup = toppings[0]
-    let ping:FormGroup = toppings[1]
+    const tops:FormGroup = toppings[0]
+    const ping:FormGroup = toppings[1]
     let mapped = Object.entries(tops.value)
-    for (let map of mapped){
+    for (const map of mapped){
       if (map[1]){
         this.chosenInstances.push(map[0])
       }
     }
     mapped = Object.entries(ping.value)
-    for (let map of mapped){
+    for (const map of mapped){
       if (map[1]){
         this.chosenServices.push(map[0])
       }

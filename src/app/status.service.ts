@@ -11,28 +11,25 @@ import { MessageService } from './message.service';
 @Injectable({ providedIn: 'root' })
 export class StatusService {
 
-  private _url: string = 'link_url'
+  private _url = 'link_url'
 
   constructor(
     private messageService: MessageService,
     private http: HttpClient
     ) { }
-
-    getStati(): Observable<Status[]> {
-      const instanz = this.getData()
+  getStati(): Observable<Status[]> {
       const stati = of(STATUS);
       return stati;
-    }
+  }
   getData(): Observable<Instanz[]>{
     //return this.http.get<Instanz[]>(this._url)
     const instanz = of(INSTANZ);
-    this.messageService.add('StatusService: fetched Instanz'); 
     return instanz;
   }
   getName(name: string): Observable<Status> {
     // For now, assume that a hero with the specified `id` always exists.
     // Error handling will be added in the next step of the tutorial.
-    const status = STATUS.find(h => h.name === name)!;
+    const status:Status = STATUS.find(h => h.name === name)!;
     return of(status);
   }
   getInstanz(): Observable<Instanz[]> {
@@ -43,7 +40,7 @@ export class StatusService {
     const instance = INSTANZ.find(h => h.name === name)!;
     return of(instance);
   }
-  suchen(){
-    
+  suchen(instanz:string){
+    console.log('lol')
   }
 }
