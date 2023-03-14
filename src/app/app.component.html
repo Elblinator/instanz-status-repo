@@ -1,6 +1,6 @@
 
 <h1>{{title}}</h1>
-
+<span *ngIf="initiateFilterData()"></span>
 <! check if logged in >
 <div *ngIf="isLoggedIn(); then loggedInBlock; else loggedOutBlock"></div>
 
@@ -19,7 +19,7 @@
 </ng-template>
 
 
-<router-outlet></router-outlet> 
+<router-outlet></router-outlet>
 <!-- 
   <app-messages></app-messages>
 -->

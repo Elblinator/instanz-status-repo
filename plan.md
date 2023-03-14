@@ -1,11 +1,11 @@
 # Components: 
- - filter (probably added as service)
- - search field needs to be linked with different pages
- - pages (in general) have to be linked more
- - I want a button with just the display of one colour
+ - delete current branch create search branch
+ - suche button needs to be added into instant/instanz-dateil/status/status-detail
+ - search field needs to be linked with different pages -> service? component??
  - functional Login/Logout Button
+ - I want a button with just the display of one colour
  - Status-Update-Page is not optimal atm: if possible the 4 Arrays should become one array([1,2,3,4])->.ty, repeatitive code -> html
- - how selected Status and Instanz have to be displayed needs to be decided
+
 
 # Design:
  - numbers in start need to be bar with colour 

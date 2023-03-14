@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
 
 import { Instanz, InstanzService, Status } from '../00_data/instanzen';
 import { StatusService } from '../status.service';
 import { UserService } from '../user.service';
+import { DialogComponent } from '../dialog/dialog.component';
+import { FilterService } from '../filter.service';
 
 
 @Component({
@@ -18,9 +21,12 @@ export class StatiComponent implements OnInit {
   instanzOnline: InstanzService[] = []
   instanzSlow: InstanzService[] = []
   instanzError: InstanzService[] = []
+
   constructor(
     private statusService: StatusService,
-    private userService: UserService
+    private userService: UserService,
+    private filterService: FilterService,
+    public dialog: MatDialog,
     ) { }
 
   public ngOnInit(): void {
@@ -57,5 +63,11 @@ export class StatiComponent implements OnInit {
   }
   public logout():void{
     this.userService.logout()
+  }
+  public openDialog():void{
+    this.dialog.open(DialogComponent)
+  }
+  public isActivated(str:string):boolean{
+    return this.filterService.isActivated(str)
   }
 }

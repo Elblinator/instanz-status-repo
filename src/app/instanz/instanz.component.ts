@@ -1,8 +1,11 @@
 import { Component, OnInit} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
 
 import { StatusService } from '../status.service';
 import { Instanz } from '../00_data/instanzen';
 import { UserService } from '../user.service';
+import { DialogComponent } from '../dialog/dialog.component';
+import { FilterService } from '../filter.service';
 
 
 
@@ -17,7 +20,9 @@ export class InstanzComponent implements OnInit {
 
   constructor(
     private statusService: StatusService,
-    private userService: UserService
+    private userService: UserService,
+    public filterService: FilterService,
+    public dialog: MatDialog,
     ) { }
 
   ngOnInit(): void {
@@ -26,5 +31,11 @@ export class InstanzComponent implements OnInit {
   }
   public logout():void{
     this.userService.logout()
+  }
+  public openDialog():void{
+    this.dialog.open(DialogComponent)
+  }
+  public isActivated(str:string):boolean{
+    return this.filterService.isActivated(str)
   }
 }

@@ -29,4 +29,9 @@ export class OnlineService {
       return 1
     }
   }
+  public resetCount():number[] {
+    this.arrOnline=[0,0,0]
+    this.countOnline()
+    return this.arrOnline
+  }
 }
