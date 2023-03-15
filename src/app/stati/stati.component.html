@@ -35,8 +35,9 @@
     <span *ngIf="isActivated(instanz.instanz)">
       <li *ngIf="isActivated(instanz.service)">
         <a routerLink="/instanz/{{instanz.instanz}}">
-          <span class="badge">{{instanz.instanz}}: {{instanz.service}}</span> 
+          <span class="badge">{{instanz.instanz}}</span> 
         </a>
+        : {{instanz.service}}
       </li>
     </span>
   </span>

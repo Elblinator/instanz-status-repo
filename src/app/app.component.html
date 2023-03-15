@@ -1,22 +1,3 @@
-<!-- 
-<h1>{{title}}</h1>
-<span *ngIf="initiateFilterData()"></span>
-<! check if logged in >
-<div *ngIf="isLoggedIn(); then loggedInBlock; else loggedOutBlock"></div>
-
-<ng-template #loggedInBlock>
-  
-  <nav>
-    <a routerLink="/start">Start</a>
-    <a routerLink="/instanz">Instanzen</a>
-    <a routerLink="/status">Status</a>
-    <a routerLink="/old-status">old-Status</a>
-    <a routerLink="/dashboard">Dash</a>
-  </nav>
-</ng-template>
-<ng-template #loggedOutBlock>
-  <br><br>
-</ng-template> -->
 
 <span *ngIf="initiateFilterData()"></span>
 <mat-sidenav-container class="sidenav-container">
