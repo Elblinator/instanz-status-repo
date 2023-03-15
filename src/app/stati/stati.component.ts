@@ -6,6 +6,7 @@ import { StatusService } from '../status.service';
 import { UserService } from '../user.service';
 import { DialogComponent } from '../dialog/dialog.component';
 import { FilterService } from '../filter.service';
+import { FormControl } from '@angular/forms';
 
 
 @Component({
@@ -21,6 +22,8 @@ export class StatiComponent implements OnInit {
   instanzOnline: InstanzService[] = []
   instanzSlow: InstanzService[] = []
   instanzError: InstanzService[] = []
+  instanzNamenList: string[] = this.filterService.reachableInstances()
+  instanzNamen = new FormControl('')
 
   constructor(
     private statusService: StatusService,

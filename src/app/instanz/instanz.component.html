@@ -1,14 +1,16 @@
-<span class="badge"></span> 
-<button type="button" (click)="openDialog()">Filtern</button>
+<form>
+  <span class="badge"></span> 
+  <button type="button" (click)="openDialog()">Filtern</button>
 
-<input name="instanz" placeholder="Suche"/>
-<!--
-  ein event, dass ein Link aufgerufen wird, der Link muss aus der Instanz in dem Input feld aufgefüllt werden
-  ein dropdown menü 
-  potentially mit auto-fil instanz namen ist besser und einfaher zu bedienen
--->
-
-<button type="button" (click)="openDialog()">Suchen</button>
+  <mat-form-field appearance="fill">
+    <mat-label>wähle Instanz</mat-label>
+    <mat-select [formControl]="instanzNamen">
+      <mat-option *ngFor="let instanz of instanzNamenList" [value]="instanz">
+        <a mat-list-item href="/instanz/{{instanz}}">{{instanz}}</a>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
 
 <h2>Die Instanzen: </h2>
 <ul class="instanz">

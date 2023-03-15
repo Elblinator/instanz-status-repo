@@ -18,7 +18,6 @@ import { OldStatiComponent } from './old-stati/old-stati.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { SucheComponent } from './suche/suche.component';
 import { MatSelectModule } from '@angular/material/select';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -58,7 +57,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
     StartComponent,
     OldStatiComponent,
     DialogComponent,
-    SucheComponent,
   ],
   bootstrap: [ AppComponent,],
   providers: [ DialogComponent,  ReactiveFormsModule],

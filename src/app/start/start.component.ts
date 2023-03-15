@@ -5,6 +5,8 @@ import { StatusService } from '../status.service';
 import { UserService } from '../user.service';
 import { OnlineService } from '../online.service'
 import { CheckStatusService } from '../check-status.service';
+import { FormControl } from '@angular/forms';
+import { FilterService } from '../filter.service';
 
 
 @Component({
@@ -19,12 +21,15 @@ export class StartComponent implements OnInit{
   userName:string = this.userService.user
   password:string = this.userService.password
   first = true
+  instanzNamenList: string[] = this.filterService.reachableInstances()
+  instanzNamen = new FormControl('')
 
   constructor(
     private statusService: StatusService,
     private userService: UserService,
     private onlineService: OnlineService,
     private checkStatusService: CheckStatusService,
+    private filterService: FilterService
     ) { }
 
   

@@ -3,11 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { StatusService } from '../status.service';
 import { Instanz } from '../00_data/instanzen';
-import { UserService } from '../user.service';
 import { DialogComponent } from '../dialog/dialog.component';
 import { FilterService } from '../filter.service';
-import { SucheComponent } from '../suche/suche.component';
-import { MatSelect } from '@angular/material/select';
+import { FormControl } from '@angular/forms';
 
 
 
@@ -19,10 +17,11 @@ import { MatSelect } from '@angular/material/select';
 
 export class InstanzComponent implements OnInit {
   instanzen: Instanz[] = [];
+  instanzNamenList: string[] = this.filterService.reachableInstances()
+  instanzNamen = new FormControl('')
 
   constructor(
     private statusService: StatusService,
-    private userService: UserService,
     public filterService: FilterService,
     public dialog: MatDialog,
     ) { }
@@ -36,8 +35,5 @@ export class InstanzComponent implements OnInit {
   }
   public isActivated(str:string):boolean{
     return this.filterService.isActivated(str)
-  }
-  public searchInstanz():void {
-    //this.search.open()
   }
 }

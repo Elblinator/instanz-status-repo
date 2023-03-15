@@ -1,5 +1,4 @@
 # Components: 
- - delete current branch create search branch
  - suche button needs to be added into instant/instanz-dateil/status/status-detail
  - search field needs to be linked with different pages -> service? component??
  - functional Login/Logout Button
@@ -15,7 +14,6 @@
 
 
  ## Additional Thoughts:
- - messages not needed atm, delete if not needed
  - dashboard not needed atm, delete if not needed
  - old-status not needed , delete if that stays the same
 
