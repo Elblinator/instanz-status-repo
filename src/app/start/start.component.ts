@@ -8,7 +8,6 @@ import { CheckStatusService } from '../check-status.service';
 import { FormControl } from '@angular/forms';
 import { FilterService } from '../filter.service';
 
-
 @Component({
   selector: 'app-start',
   templateUrl: './start.component.html',
@@ -32,17 +31,12 @@ export class StartComponent implements OnInit{
     private filterService: FilterService
     ) { }
 
-  
-    /*isUser:boolean= this.userService.isUser
-    userName:string= this.userService.user
-    password:string= this.userService.password*/
-
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.getInstanz();
     this.resetCount()
   }
 
-  getInstanz(): void {
+  public getInstanz(): void {
     this.statusService.getInstanz()
     .subscribe(instanzen => {this.instanzen = instanzen});
   }  

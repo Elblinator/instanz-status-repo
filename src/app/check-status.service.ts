@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 
-
 import { StatusService } from './status.service';
 import { Instanz, Status } from './00_data/instanzen';
 
@@ -12,7 +11,7 @@ export class CheckStatusService {
   arrService: number[] = [0,0,0];
   arrStati: Status[] = []
 
-  constructor(private statusService:StatusService) {this.resetCount() }
+  constructor(private statusService:StatusService) {}
 
   getInstanz(): void {
     this.statusService.getInstanz()

@@ -7,8 +7,6 @@ import { DialogComponent } from '../dialog/dialog.component';
 import { FilterService } from '../filter.service';
 import { FormControl } from '@angular/forms';
 
-
-
 @Component({
   selector: 'app-instanz',
   templateUrl: './instanz.component.html',
@@ -26,7 +24,7 @@ export class InstanzComponent implements OnInit {
     public dialog: MatDialog,
     ) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.statusService.getData()
     .subscribe(instanzen => {this.instanzen = instanzen});
   }

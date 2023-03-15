@@ -12,14 +12,19 @@ export class UserService {
   password=""
   isUser=true
 
-  public login(user:string, password:string):boolean{
+  private login(user:string, password:string){
     this.user=user
     this.password=password
     this.isUser=true
-    return this.isUser 
+  }
+  public logout():void{
+    this.user=""
+    this.password=""
+    this.isUser = false
   }
   public checkUser(user:string, password:string) : boolean{
     this.getUser()
+    // if user and password are in the same column in this.getUser() then login() and return true
     this.login(user,password)
     return true
   }  
@@ -27,11 +32,6 @@ export class UserService {
     //return this.http.get<Instanz[]>(this._url)
     const user = of(USER); 
     return user;
-  }
-  public logout():void{
-    this.user=""
-    this.password=""
-    this.isUser = false
   }
   public isLoggedIn():boolean{
     return this.isUser

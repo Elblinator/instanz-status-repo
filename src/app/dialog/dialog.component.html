@@ -7,22 +7,17 @@
   </section>
 </mat-card-content>
 
-<section class="example-section" [formGroup]="tops">
-  <h4>You chose:</h4>
-  {{tops.value | json}}
-</section>
-
 <mat-card-content> 
-    <h2>mögliche Services</h2>
-    <section [formGroup]="ping" class="example-section" *ngFor="let service of services">
-      <p><mat-checkbox formControlName="{{service}}">{{service}}</mat-checkbox></p>
-    </section>
-  </mat-card-content>
-
-  <section class="example-section" [formGroup]="tops">
-    <h4>You chose:</h4>
-    {{ping.value | json}}
+  <h2>mögliche Services</h2>
+  <section [formGroup]="ping" class="example-section" *ngFor="let service of services">
+    <p><mat-checkbox formControlName="{{service}}">{{service}}</mat-checkbox></p>
   </section>
+</mat-card-content>
+
+<!-- <section class="example-section" [formGroup]="tops">
+  <h4>You chose:</h4>
+  {{ping.value | json}}
+</section> -->
 
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close cdkFocusInitial (click)="setFilter()">Filtern</button>

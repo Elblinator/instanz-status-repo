@@ -5,7 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatNativeDateModule } from '@angular/material/core';
 
-
 import { AppComponent } from './app.component';
 import { StatiComponent } from './stati/stati.component';
 import { InstanzComponent } from './instanz/instanz.component';

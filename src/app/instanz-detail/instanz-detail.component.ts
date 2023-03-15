@@ -26,16 +26,15 @@ export class InstanzDetailComponent implements OnInit {
     private filterService: FilterService
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.getName();
   }
-
-  getName(): void {
+  public getName(): void {
     const name = String(this.route.snapshot.paramMap.get('name'));
     this.statusService.getInst(name)
       .subscribe(instanz => this.instanzen = instanz);
   }
-  goBack(): void {
+  public goBack(): void {
     this.location.back();
   }
   public logout():void{

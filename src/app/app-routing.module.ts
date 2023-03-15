@@ -12,7 +12,8 @@ const routes: Routes = [
   { path: 'status',        component: StatiComponent,         data:{isUser: true}, canActivate: [ UserService ] },
   { path: 'instanz',       component: InstanzComponent,       data:{isUser: true}, canActivate: [ UserService ] },
   { path: 'instanz/:name', component: InstanzDetailComponent, data:{isUser: true}, canActivate: [ UserService ] },
-  { path: '', redirectTo: '/start', pathMatch: 'full' },  
+  { path: '', redirectTo: '/start', pathMatch: 'full',        data:{isUser: false} },  
+  { path: '', redirectTo: '/start', pathMatch: 'full'},  
 
 ];
 

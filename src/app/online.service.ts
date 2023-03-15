@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 
 import { Instanz } from './00_data/instanzen'
-
 import { StatusService } from './status.service';
 
 @Injectable({
@@ -10,8 +9,9 @@ import { StatusService } from './status.service';
 export class OnlineService {
   instanzen: Instanz[] = [];
   arrOnline: number[] = [0,0];
-  constructor(private statusService:StatusService) {this.resetCount() }
-  getInstanz(): void {
+  constructor(private statusService:StatusService) { }
+
+  public getInstanz(): void {
     this.statusService.getInstanz()
     .subscribe(instanzen => {this.instanzen = instanzen});
   }

@@ -17,7 +17,6 @@ export class DialogComponent {
   tops: FormGroup 
   ping: FormGroup
   
-
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private filterService: FilterService,

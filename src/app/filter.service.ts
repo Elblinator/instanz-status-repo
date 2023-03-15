@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
+import { FormGroup } from '@angular/forms';
 
 import { StatusService } from './status.service';
-import { Instanz, Status, isStatus} from './00_data/instanzen';
-import { FormGroup } from '@angular/forms';
+import { Instanz, Status, isStatus } from './00_data/instanzen';
 @Injectable({
   providedIn: 'root'
 })
 export class FilterService {
   instanzen: Instanz[] = []
+
   possibleInstances: string[] = []
   possibleServices: string[] = []
 
@@ -41,7 +41,6 @@ export class FilterService {
       this.chosenServices = this.possibleServices
     }
   }
-
   public turnIntoArray(list:(Status[]|Instanz[])): string[]{
     const arr:string[] = []
     for(const name of list){
@@ -85,7 +84,7 @@ export class FilterService {
     }
     return false
   }
-  isSelected(name:(Status[]|Instanz[])):string[]{
+  public isSelected(name:(Status[]|Instanz[])):string[]{
     if (isStatus(name)){
       return this.chosenServices
     } else{
