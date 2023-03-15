@@ -1,0 +1,21 @@
+/* HeroesComponent's private CSS styles */
+.block_green {
+    width: 15px;
+    height: 15px;
+    background:rgb(6, 151, 49) 
+  }
+  .block_yellow {
+    width: 15px;
+    height: 15px;
+    background:rgb(207, 211, 3)  
+  }
+  .block_red {
+    width: 15px;
+    height: 15px;
+    background:rgb(211, 3, 3) 
+  }
+  .block_blank {
+    width: 15px;
+    height: 15px;
+    background:rgb(0, 0, 0) 
+  }

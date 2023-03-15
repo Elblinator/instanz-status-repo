@@ -5,6 +5,8 @@ import { Location } from '@angular/common';
 import { Instanz } from '../00_data/instanzen';
 import { StatusService } from '../status.service';
 import { UserService } from '../user.service';
+import { FormControl } from '@angular/forms';
+import { FilterService } from '../filter.service';
 
 @Component({
   selector: 'app-status-detail',
@@ -13,12 +15,15 @@ import { UserService } from '../user.service';
 })
 export class InstanzDetailComponent implements OnInit {
   instanzen: Instanz | undefined;
+  instanzNamenList: string[] = this.filterService.reachableInstances()
+  instanzNamen = new FormControl('')
 
   constructor(
     private route: ActivatedRoute,
     private statusService: StatusService,
     private location: Location,
-    private userService: UserService
+    private userService: UserService,
+    private filterService: FilterService
   ) {}
 
   ngOnInit(): void {
@@ -35,6 +40,9 @@ export class InstanzDetailComponent implements OnInit {
   }
   public logout():void{
     this.userService.logout()
+  }
+  public isLoggedIn(): boolean{
+    return this.userService.isLoggedIn()
   }
 }
 
