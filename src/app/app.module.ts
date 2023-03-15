@@ -7,14 +7,11 @@ import { MatNativeDateModule } from '@angular/material/core';
 
 
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { OldStatusDetailComponent } from './old-status-detail/old-status-detail.component';
 import { StatiComponent } from './stati/stati.component';
 import { InstanzComponent } from './instanz/instanz.component';
 import { AppRoutingModule } from './app-routing.module';
 import { InstanzDetailComponent } from './instanz-detail/instanz-detail.component';
 import { StartComponent } from './start/start.component';
-import { OldStatiComponent } from './old-stati/old-stati.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -49,13 +46,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
   ],
   declarations: [
     AppComponent,
-    DashboardComponent,
     StatiComponent,
-    OldStatusDetailComponent,
     InstanzComponent,
     InstanzDetailComponent,
     StartComponent,
-    OldStatiComponent,
+    InstanzComponent,
+    InstanzDetailComponent,
+    StartComponent,
     DialogComponent,
   ],
   bootstrap: [ AppComponent,],
