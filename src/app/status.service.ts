@@ -40,7 +40,4 @@ export class StatusService {
     const instance = INSTANZ.find(h => h.name === name)!;
     return of(instance);
   }
-  suchen(instanz:string){
-    console.log('lol')
-  }
 }
