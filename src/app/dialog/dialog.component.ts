@@ -31,7 +31,6 @@ export class DialogComponent {
 
     this.filterService.setFilter([this.tops, this.ping])
   }
-  public openDialog(): void{ }
   public setFilter(){
     this.filterService.setFilter([this.tops, this.ping])
   }

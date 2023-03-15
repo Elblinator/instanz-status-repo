@@ -10,14 +10,14 @@ import { StatusService } from './status.service';
 export class OnlineService {
   instanzen: Instanz[] = [];
   arrOnline: number[] = [0,0];
-  constructor(private statusService:StatusService) { }
+  constructor(private statusService:StatusService) {this.resetCount() }
   getInstanz(): void {
     this.statusService.getInstanz()
     .subscribe(instanzen => {this.instanzen = instanzen});
   }
   public countOnline(): number[] {
     this.getInstanz()
-    for(let instanz of this.instanzen){
+    for(const instanz of this.instanzen){
       this.arrOnline[this.checkOnline(instanz.running)] +=1
     }
     return this.arrOnline
@@ -25,12 +25,12 @@ export class OnlineService {
   public checkOnline(running:boolean): number {
     if (running==true) {
       return 0
-    }else {
+    } else {
       return 1
     }
   }
   public resetCount():number[] {
-    this.arrOnline=[0,0,0]
+    this.arrOnline=[0,0]
     this.countOnline()
     return this.arrOnline
   }

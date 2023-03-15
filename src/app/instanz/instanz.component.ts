@@ -1,11 +1,11 @@
 import { Component, OnInit} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 import { StatusService } from '../status.service';
 import { Instanz } from '../00_data/instanzen';
-import { UserService } from '../user.service';
 import { DialogComponent } from '../dialog/dialog.component';
 import { FilterService } from '../filter.service';
+import { FormControl } from '@angular/forms';
 
 
 
@@ -17,10 +17,11 @@ import { FilterService } from '../filter.service';
 
 export class InstanzComponent implements OnInit {
   instanzen: Instanz[] = [];
+  instanzNamenList: string[] = this.filterService.reachableInstances()
+  instanzNamen = new FormControl('')
 
   constructor(
     private statusService: StatusService,
-    private userService: UserService,
     public filterService: FilterService,
     public dialog: MatDialog,
     ) { }
@@ -28,9 +29,6 @@ export class InstanzComponent implements OnInit {
   ngOnInit(): void {
     this.statusService.getData()
     .subscribe(instanzen => {this.instanzen = instanzen});
-  }
-  public logout():void{
-    this.userService.logout()
   }
   public openDialog():void{
     this.dialog.open(DialogComponent)

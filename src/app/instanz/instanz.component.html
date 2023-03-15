@@ -1,19 +1,16 @@
-<a routerLink="/start">
+<form>
   <span class="badge"></span> 
-  <button type="button" (click)="logout()">logout</button>
-</a>
+  <button type="button" (click)="openDialog()">Filtern</button>
 
-<span class="badge"></span> 
-<button type="button" (click)="openDialog()">Filter</button>
-
-<input name="instanz" placeholder="Suche"/>
-<!--
-  ein event, dass ein Link aufgerufen wird, der Link muss aus der Instanz in dem Input feld aufgefüllt werden
-  ein dropdown menü 
-  potentially mit auto-fil instanz namen ist besser und einfaher zu bedienen
--->
-<button type="button" (click)="openDialog()">Suche</button>
-
+  <mat-form-field appearance="fill">
+    <mat-label>wähle Instanz</mat-label>
+    <mat-select [formControl]="instanzNamen">
+      <mat-option *ngFor="let instanz of instanzNamenList" [value]="instanz">
+        <a mat-list-item href="/instanz/{{instanz}}">{{instanz}}</a>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
 
 <h2>Die Instanzen: </h2>
 <ul class="instanz">
@@ -25,10 +22,10 @@
       <ng-container *ngFor="let service of instanz.services"> 
         <ng-container *ngIf="isActivated(service.name)">
           <ng-container [ngSwitch]="service.status">
-            <span *ngSwitchCase="'online'"> green </span>
-            <span *ngSwitchCase="'slow'"> yellow</span>
-            <span *ngSwitchCase="'error'"> red </span>
-            <span *ngSwitchCase="'offline'"> blank </span>
+            <canvas *ngSwitchCase="'online'" class="block_green"> </canvas>
+            <canvas *ngSwitchCase="'slow'" class="block_yellow"> </canvas>
+            <canvas *ngSwitchCase="'error'" class="block_red">  </canvas>
+            <canvas *ngSwitchCase="'offline'" class="block_blank"> </canvas>
           </ng-container>
           {{service.name}},
         </ng-container> 

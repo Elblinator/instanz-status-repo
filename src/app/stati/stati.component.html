@@ -1,14 +1,23 @@
 
-<a routerLink="/start">
-  <span class="badge"></span> 
-  <button type="button" (click)="logout()">logout</button>
-</a>
 
-<span class="badge"></span> 
-<button type="button" (click)="openDialog()">Filter</button>
+
+<form>
+  <span class="badge"></span> 
+  <button type="button" (click)="openDialog()">Filter</button>
+
+  <mat-form-field appearance="fill">
+      <mat-label>wähle Instanz</mat-label>
+      <mat-select [formControl]="instanzNamen">
+          <mat-option *ngFor="let instanz of instanzNamenList" [value]="instanz">
+              <a mat-list-item href="/instanz/{{instanz}}">{{instanz}}</a>
+          </mat-option>
+      </mat-select>
+  </mat-form-field>
+</form>
+
 <h2>Instanzen aufgeteilt in Statusgruppen </h2>
 <div> 
-  <h2>Online</h2>
+  <h2>Online <canvas class="block_green"></canvas></h2>
   <span #instanz_yay *ngFor="let instanz of instanzOnline">
     <span *ngIf="isActivated(instanz.instanz)">
       <li *ngIf="isActivated(instanz.service)">
@@ -21,20 +30,20 @@
   </span>
 </div>
 <div> 
-  <h2>Slow</h2>
+  <h2>Slow <canvas class="block_yellow"></canvas></h2>
   <span *ngFor="let instanz of instanzSlow">
     <span *ngIf="isActivated(instanz.instanz)">
       <li *ngIf="isActivated(instanz.service)">
         <a routerLink="/instanz/{{instanz.instanz}}">
           <span class="badge">{{instanz.instanz}}</span> 
         </a>
-        :{{instanz.service}}
+        : {{instanz.service}}
       </li>
     </span>
   </span>
 </div>
 <div> 
-  <h2>Error</h2>
+  <h2>Error <canvas class="block_red"></canvas></h2>
   <span *ngFor="let instanz of instanzError">
     <span *ngIf="isActivated(instanz.instanz)">
       <li *ngIf="isActivated(instanz.service)">
@@ -42,13 +51,14 @@
           <span class="badge">{{instanz.instanz}}</span> 
         </a>
         :{{instanz.service}}
+
       </li>
     </span>
   </span>
 </div>
 
 <div> 
-  <h2>Offline</h2>
+  <h2>Offline <canvas class="block_blank"></canvas></h2>
   <span *ngFor="let instanz of instanzOffline">
     <span *ngIf="isActivated(instanz.instanz)">
       <li *ngIf="isActivated(instanz.service)">

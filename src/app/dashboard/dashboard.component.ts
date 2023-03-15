@@ -14,23 +14,13 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private statusService: StatusService,
-    private userService: UserService
     ) { }
 
   ngOnInit(): void {
-    this.getStati();
     this.getInst()
-  }
-
-  getStati(): void {
-    this.statusService.getStati()
-      .subscribe(stati => this.stati = stati.slice(1, 5));
   }
   getInst():void{ 
     this.statusService.getInstanz()
     .subscribe(instances =>this.instances = instances)
-  }
-  public logout():void{
-    this.userService.logout()
   }
 }

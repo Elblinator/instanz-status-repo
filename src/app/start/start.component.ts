@@ -5,6 +5,7 @@ import { StatusService } from '../status.service';
 import { UserService } from '../user.service';
 import { OnlineService } from '../online.service'
 import { CheckStatusService } from '../check-status.service';
+import { FormControl } from '@angular/forms';
 import { FilterService } from '../filter.service';
 
 
@@ -19,13 +20,16 @@ export class StartComponent implements OnInit{
   arrOnline: number[] = [0,0];
   userName:string = this.userService.user
   password:string = this.userService.password
-  first:boolean = true
+  first = true
+  instanzNamenList: string[] = this.filterService.reachableInstances()
+  instanzNamen = new FormControl('')
 
   constructor(
     private statusService: StatusService,
     private userService: UserService,
     private onlineService: OnlineService,
     private checkStatusService: CheckStatusService,
+    private filterService: FilterService
     ) { }
 
   
@@ -45,18 +49,6 @@ export class StartComponent implements OnInit{
   public resetCount():void {
     this.arrService=this.checkStatusService.resetCount()
     this.arrOnline=this.onlineService.resetCount()
-  }
-  public checkUser(userName:string, password:string):boolean{
-    if(this.userService.checkUser(userName, password)){
-      this.userService.login(userName, password)
-      this.userName=userName
-      this.password=password
-      return true
-    }
-    return false
-  }  
-  public logout():void{
-    this.userService.logout()
   }
   public isLoggedIn(): boolean{
     return this.userService.isLoggedIn()

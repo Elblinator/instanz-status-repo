@@ -6,6 +6,7 @@ import { StatusService } from '../status.service';
 import { UserService } from '../user.service';
 import { DialogComponent } from '../dialog/dialog.component';
 import { FilterService } from '../filter.service';
+import { FormControl } from '@angular/forms';
 
 
 @Component({
@@ -21,6 +22,8 @@ export class StatiComponent implements OnInit {
   instanzOnline: InstanzService[] = []
   instanzSlow: InstanzService[] = []
   instanzError: InstanzService[] = []
+  instanzNamenList: string[] = this.filterService.reachableInstances()
+  instanzNamen = new FormControl('')
 
   constructor(
     private statusService: StatusService,
@@ -38,7 +41,7 @@ export class StatiComponent implements OnInit {
     .subscribe(instanzen => {this.instanzen = instanzen});
   }
   private sortData():void{
-    for(let instanz of this.instanzen){
+    for(const instanz of this.instanzen){
       if(!instanz.running){
         this.curInstServ= {instanz:instanz.name, service:"", status:"offline"}
         this.instanzOffline.push(this.curInstServ)
@@ -48,7 +51,7 @@ export class StatiComponent implements OnInit {
     }
   }
   private sortStatus(instanz:Instanz):void{
-    for (let service of instanz.services){
+    for (const service of instanz.services){
       this.curInstServ= {instanz:instanz.name, service:service.name, status:service.status}
       if(service.status=="online"){
         this.instanzOnline.push(this.curInstServ)
@@ -60,9 +63,6 @@ export class StatiComponent implements OnInit {
         this.instanzError.push(this.curInstServ)
       }
     }
-  }
-  public logout():void{
-    this.userService.logout()
   }
   public openDialog():void{
     this.dialog.open(DialogComponent)

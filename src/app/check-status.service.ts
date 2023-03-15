@@ -12,7 +12,7 @@ export class CheckStatusService {
   arrService: number[] = [0,0,0];
   arrStati: Status[] = []
 
-  constructor(private statusService:StatusService) { }
+  constructor(private statusService:StatusService) {this.resetCount() }
 
   getInstanz(): void {
     this.statusService.getInstanz()
@@ -25,14 +25,14 @@ export class CheckStatusService {
   }
   public countStati(): number[] {
     this.getInstanz()
-    for(let instanz of this.instanzen){
+    for(const instanz of this.instanzen){
       if(instanz.running==true){
         this.countStatus(instanz.services) }
     }
     return this.arrService
   }
   private countStatus(services:Status[]): void {
-    for(let service of services){
+    for(const service of services){
       this.arrService[this.checkStatus(service.status)] +=1
     }
   }  

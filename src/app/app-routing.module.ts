@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'instanz',       component: InstanzComponent,       data:{isUser: true}, canActivate: [ UserService ] },
   { path: 'instanz/:name', component: InstanzDetailComponent, data:{isUser: true}, canActivate: [ UserService ] },
   { path: '', redirectTo: '/start', pathMatch: 'full' },  
+
 ];
 
 

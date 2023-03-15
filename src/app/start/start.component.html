@@ -1,13 +1,14 @@
 
-<div *ngIf="!isLoggedIn()"><br>
-    <input name="user-name" placeholder="Login"/>
-    <input type="password" name="passwort" placeholder="Passwort"/>
-    <br>
-</div>
-
-<! check if logged in >
-<div *ngIf="isLoggedIn(); then loginBlock; else logoutBlock"></div>
-
+<form *ngIf="isLoggedIn()">
+    <mat-form-field appearance="fill">
+        <mat-label>wähle Instanz</mat-label>
+        <mat-select [formControl]="instanzNamen">
+            <mat-option *ngFor="let instanz of instanzNamenList" [value]="instanz">
+                <a mat-list-item href="/instanz/{{instanz}}">{{instanz}}</a>
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</form>
 
 
 
@@ -35,13 +36,5 @@
 </div> 
 <br>
 
-
-<ng-template #loginBlock>
-    <button type="button" (click)="logout()">logout</button>
-</ng-template>
-
-<ng-template #logoutBlock>
-    <button type="button" (click)="checkUser(userName,password)">login</button>
-</ng-template>
 
 
