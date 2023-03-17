@@ -5,6 +5,10 @@ export interface Instanz {
     running: boolean;
     services: Status[]
   }
+  export interface Status {
+    name: string;
+    status: string;
+  }
   export interface InstanzService {
     instanz: string;
     service: string
@@ -15,10 +19,6 @@ export interface Instanz {
     slow: InstanzService[]
     error:  InstanzService[];
     offline: InstanzService[]
-  }
-  export interface Status {
-    name: string;
-    status: string;
   }
   export interface DialogData {
     instances: string[];
