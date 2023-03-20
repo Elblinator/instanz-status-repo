@@ -3,7 +3,6 @@ import {MatDialog} from '@angular/material/dialog';
 
 import { Instanz, InstanzService, Status } from '../00_data/instanzen';
 import { StatusService } from '../status.service';
-import { UserService } from '../user.service';
 import { DialogComponent } from '../dialog/dialog.component';
 import { FilterService } from '../filter.service';
 import { FormControl } from '@angular/forms';
@@ -27,7 +26,6 @@ export class StatiComponent implements OnInit {
 
   constructor(
     private statusService: StatusService,
-    private userService: UserService,
     private filterService: FilterService,
     public dialog: MatDialog,
     ) { }

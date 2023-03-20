@@ -13,7 +13,7 @@ export class CheckStatusService {
 
   constructor(private statusService:StatusService) {}
 
-  getInstanz(): void {
+  public getInstanz(): void {
     this.statusService.getInstanz()
     .subscribe(instanzen => {this.instanzen = instanzen});
   }  

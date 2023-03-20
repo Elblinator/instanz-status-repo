@@ -12,7 +12,7 @@ export class UserService {
   password=""
   isUser=true
 
-  private login(user:string, password:string){
+  private login(user:string, password:string): void{
     this.user=user
     this.password=password
     this.isUser=true
