@@ -1,15 +1,15 @@
 <form>
-  <span class="badge"></span> 
-  <button type="button" (click)="openDialog()">Filtern</button>
-
   <mat-form-field appearance="fill">
     <mat-label>wähle Instanz</mat-label>
     <mat-select [formControl]="instanzNamen">
       <mat-option *ngFor="let instanz of instanzNamenList" [value]="instanz">
-        <a mat-list-item href="/instanz/{{instanz}}">{{instanz}}</a>
+        <a mat-list-item routerLink="/instanz/{{instanz}}">{{instanz}}</a>
       </mat-option>
     </mat-select>
   </mat-form-field>
+
+  <span class="badge"></span> 
+  <button type="button" (click)="openDialog()">Filtern</button>
 </form>
 
 <h2>Die Instanzen: </h2>
@@ -22,7 +22,7 @@
       <ng-container *ngFor="let service of instanz.services"> 
         <ng-container *ngIf="isActivated(service.name)">
           <ng-container [ngSwitch]="service.status">
-            <canvas *ngSwitchCase="'online'" class="block_green"> </canvas>
+            <span *ngSwitchCase="'online'" class="material-symbols-outlined">circle</span>
             <canvas *ngSwitchCase="'slow'" class="block_yellow"> </canvas>
             <canvas *ngSwitchCase="'error'" class="block_red">  </canvas>
             <canvas *ngSwitchCase="'offline'" class="block_blank"> </canvas>

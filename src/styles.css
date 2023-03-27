@@ -43,7 +43,7 @@ button {
   margin-top: 1rem;
 }
 button:hover {
-  background-color: black;
+  background-color: rgb(14, 180, 192);
   color: white;
 }
 button:disabled {

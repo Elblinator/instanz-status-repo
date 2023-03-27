@@ -4,6 +4,8 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { UserService } from './user.service';
 import { FilterService } from './filter.service';
 import { Observable, map, shareReplay } from 'rxjs';
+import { User } from './00_data/user';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +15,9 @@ import { Observable, map, shareReplay } from 'rxjs';
 export class AppComponent {
   userName:string = this.userService.user
   password:string = this.userService.password
+  user: User[]=[]
+  inputName = new FormControl('');
+  inputPassword = new FormControl('');
   
   constructor(
     private userService: UserService,
@@ -38,7 +43,13 @@ export class AppComponent {
   public logout():void{
     this.userService.logout()
   }
-  public checkUser(userName:string, password:string):boolean{
-    return this.userService.checkUser(userName, password)
+  public getUser():void{
+    this.user= this.userService.getUsers()
+  }
+  public checkUser():boolean{
+    // this.userName = document.getElementById('inputName').value;
+    // this.password = document.getElementById('inputPassword').value;
+
+    return this.userService.checkUser(this.inputName.value, this.inputPassword.value)
   }  
 }

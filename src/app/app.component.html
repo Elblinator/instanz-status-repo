@@ -9,18 +9,26 @@
     </mat-toolbar>
     <div *ngIf="isLoggedIn(); then loggedInBlock; else loggedOutBlock"></div>
   </mat-sidenav>
+  
   <mat-sidenav-content>
+    <mat-toolbar color="top">
+      <div *ngIf="isLoggedIn(); then getLoggedOutBlock; else getLoggedInBlock"></div>
+    </mat-toolbar>
     <mat-toolbar color="primary">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button>
+      <!-- <div *ngIf="isLoggedIn()"> -->
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()"
+          *ngIf="isHandset$ | async">
+          <mat-icon aria-label="Side nav toggle icon">
+            <img class="img-responsive" src="assets/img/menu_black_24dp.svg" height="30">
+          </mat-icon>
+        </button>
+    <!-- </div> -->
       <h1>{{title}}</h1>
-      <div *ngIf="isLoggedIn(); then loginBlock; else logoutBlock"></div>
+      <div *ngIf="!isLoggedIn(); then InputBlock"></div>
     </mat-toolbar>
     <!-- Content: -->
     <router-outlet></router-outlet>
@@ -33,32 +41,29 @@
 
 <ng-template #loggedInBlock>
   <mat-nav-list>
-    <a mat-list-item href="/start">Start</a>
-    <a mat-list-item href="/instanz">Instanzen</a>
-    <a mat-list-item href="/status">Status</a>
+    <a mat-list-item routerLink="/start">Start</a>
+    <a mat-list-item routerLink="/instanz">Instanzen</a>
+    <a mat-list-item routerLink="/status">Status</a>
   </mat-nav-list>
 </ng-template>
 
-<ng-template #loginBlock>
-  <span style="float:right;text-align:right;margin-left: 100px">
+<ng-template #getLoggedOutBlock>
+  <span >
     <a routerLink="/start">
       <button type="button" (click)="logout()">logout</button>
     </a>
   </span>
 </ng-template>
 
-<ng-template #loginBlock>
-  <span style="float:right;text-align:right;margin-left: 100px">
-    <a routerLink="/start">
-      <button type="button" (click)="logout()">logout</button>
-    </a>
+<ng-template #InputBlock>
+  <span>
+    <input id="name" type="text" [formControl]="inputName" placeholder="Name">
+    <input id="passwort" type="text" [formControl]="inputPassword" placeholder="Passwort">
   </span>
 </ng-template>
 
-<ng-template #logoutBlock>
-  <span style="float:right;text-align:right;margin-left: 100px">
-    <button type="button" (click)="checkUser(userName,password)">login</button>
-    <input name="user-name" placeholder="Login"/>
-    <input type="password" name="passwort" placeholder="Passwort"/>
+<ng-template #getLoggedInBlock>
+  <span>
+    <button type="button" (click)="checkUser()">login</button>
   </span>
 </ng-template>

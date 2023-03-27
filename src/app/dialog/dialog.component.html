@@ -3,14 +3,14 @@
 <mat-card-content> 
   <h2>mögliche Instanzen</h2>
   <section [formGroup]="tops" class="example-section" *ngFor="let instanz of instances">
-    <p><mat-checkbox formControlName="{{instanz}}">{{instanz}}</mat-checkbox></p>
+    <p><mat-checkbox color="primary" formControlName="{{instanz}}">{{instanz}}</mat-checkbox></p>
   </section>
 </mat-card-content>
 
 <mat-card-content> 
   <h2>mögliche Services</h2>
   <section [formGroup]="ping" class="example-section" *ngFor="let service of services">
-    <p><mat-checkbox formControlName="{{service}}">{{service}}</mat-checkbox></p>
+    <p><mat-checkbox color="primary" formControlName="{{service}}">{{service}}</mat-checkbox></p>
   </section>
 </mat-card-content>
 

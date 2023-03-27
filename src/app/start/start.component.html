@@ -4,7 +4,7 @@
         <mat-label>wähle Instanz</mat-label>
         <mat-select [formControl]="instanzNamen">
             <mat-option *ngFor="let instanz of instanzNamenList" [value]="instanz">
-                <a mat-list-item href="/instanz/{{instanz}}">{{instanz}}</a>
+                <a mat-list-item routerLink="/instanz/{{instanz}}">{{instanz}}</a>
             </mat-option>
         </mat-select>
     </mat-form-field>

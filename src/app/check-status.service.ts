@@ -9,7 +9,6 @@ import { Instanz, Status } from './00_data/instanzen';
 export class CheckStatusService {
   instanzen: Instanz[] = [];
   arrService: number[] = [0,0,0];
-  arrStati: Status[] = []
 
   constructor(private statusService:StatusService) {}
 

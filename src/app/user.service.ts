@@ -8,9 +8,10 @@ import { USER } from './00_data/mock-user';
   providedIn: 'root'
 })
 export class UserService {
-  user=""
-  password=""
-  isUser=true
+  users:User[]=[]
+  user:string=""
+  password:string=""
+  isUser:boolean=true
 
   private login(user:string, password:string): void{
     this.user=user
@@ -22,21 +23,43 @@ export class UserService {
     this.password=""
     this.isUser = false
   }
-  public checkUser(user:string, password:string) : boolean{
-    this.getUser()
-    // if user and password are in the same column in this.getUser() then login() and return true
-    this.login(user,password)
-    return true
+  public checkUser(user:(string|null), password:(string|null)) : boolean{
+    let id:number  = -1
+    this.getUsers()
+    console.log(user, password)
+    if (typeof(user) === "string" && typeof(password) === "string") { 
+      // if user and password are in the same column in this.getUser() then login() and return true
+      this.users.forEach(element => {
+        if(element.user == user){
+          id = element.id
+        }
+      })
+      if(id >-1 && this.users[id].password == password){
+            this.login(user,password)
+      } else {
+        this.isUser = false
+      }
+  }
+    return this.isUser
   }  
-  public getUser(): Observable<User[]>{
+  private getUser(): Observable<User[]>{
     //return this.http.get<Instanz[]>(this._url)
     const user = of(USER); 
     return user;
   }
+  public getInstanz(): void {
+    this.getUser()
+    .subscribe(user => { user});
+  }  
   public isLoggedIn():boolean{
     return this.isUser
   }
   public canActivate():boolean {
     return this.isLoggedIn()
+  }
+  public getUsers():User[]{
+    this.getUser()
+    .subscribe(user => {this.users = user});
+    return (this.users)
   }
 }
