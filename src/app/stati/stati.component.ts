@@ -39,28 +39,11 @@ export class StatiComponent implements OnInit {
     .subscribe(instanzen => {this.instanzen = instanzen});
   }
   private sortData():void{
-    for(const instanz of this.instanzen){
-      if(!instanz.running){
-        this.curInstServ= {instanz:instanz.name, service:"", status:"offline"}
-        this.instanzOffline.push(this.curInstServ)
-      } else {
-        this.sortStatus(instanz)
-      }
-    }
-  }
-  private sortStatus(instanz:Instanz):void{
-    for (const service of instanz.services){
-      this.curInstServ= {instanz:instanz.name, service:service.name, status:service.status}
-      if(service.status=="online"){
-        this.instanzOnline.push(this.curInstServ)
-      }
-      else if(service.status=="slow"){
-        this.instanzSlow.push(this.curInstServ)
-      }
-      else if(service.status=="error"){
-        this.instanzError.push(this.curInstServ)
-      }
-    }
+    let array = this.statusService.sortData()
+    this.instanzOffline = array[0]
+    this.instanzError = array[1]
+    this.instanzSlow = array[2]
+    this.instanzOnline = array[3]
   }
   public openDialog():void{
     this.dialog.open(DialogComponent)

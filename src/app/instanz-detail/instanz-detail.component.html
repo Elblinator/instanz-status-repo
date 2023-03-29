@@ -16,13 +16,13 @@
   <div>
     <ng-container *ngFor="let service of instanzen.services" >
       <ng-container [ngSwitch]="service.status">
-        <canvas *ngSwitchCase="'online'" class="block_green"> {{service.status}} </canvas>
-        <canvas *ngSwitchCase="'slow'" class="block_yellow"> {{service.status}}&nbsp;&nbsp; </canvas>
-        <canvas *ngSwitchCase="'error'" class="block_red"> {{service.status}} </canvas>
-        <canvas *ngSwitchCase="'offline'" class="block_blank"> {{service.status}} </canvas>
+        <canvas *ngSwitchCase="'online'" class="dot_green"> {{service.status}} </canvas>
+        <canvas *ngSwitchCase="'slow'" class="dot_yellow"> {{service.status}}&nbsp;&nbsp; </canvas>
+        <canvas *ngSwitchCase="'error'" class="dot_red"> {{service.status}} </canvas>
+        <canvas *ngSwitchCase="'offline'" class="dot_blank"> {{service.status}} </canvas>
       </ng-container>
       &nbsp;&nbsp;
-      {{service.name}},
+      {{service.name}}
       <br>
     </ng-container>
   </div>

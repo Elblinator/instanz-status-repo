@@ -1,21 +1,32 @@
 
-.block_green {
+.dot_green {
   width: 15px;
   height: 15px;
-  background:rgb(6, 151, 49) 
+   background-color: rgb(6, 151, 49);
+  border-radius: 50%;
+  display: inline-block;
 }
-.block_yellow {
+.dot_yellow {
   width: 15px;
   height: 15px;
-  background:rgb(207, 211, 3)  
+  background-color: rgb(207, 211, 3);
+  border-radius: 50%;
+  display: inline-block;
 }
-.block_red {
+.dot_red {
   width: 15px;
   height: 15px;
-  background:rgb(211, 3, 3) 
+  background-color: rgb(211, 3, 3);
+  border-radius: 50%;
+  display: inline-block;
 }
-.block_blank {
+.dot_blank {
   width: 15px;
   height: 15px;
-  background:rgb(0, 0, 0) 
+  background-color: rgb(0, 0, 0);
+  border-radius: 50%;
+  display: inline-block;
+}
+ul{
+  margin:0px;
 }

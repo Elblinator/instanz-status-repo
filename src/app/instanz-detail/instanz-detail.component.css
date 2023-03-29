@@ -1,21 +1,29 @@
-/* HeroesComponent's private CSS styles */
-.block_green {
-    width: 15px;
-    height: 15px;
-    background:rgb(6, 151, 49) 
-  }
-  .block_yellow {
-    width: 15px;
-    height: 15px;
-    background:rgb(207, 211, 3)  
-  }
-  .block_red {
-    width: 15px;
-    height: 15px;
-    background:rgb(211, 3, 3) 
-  }
-  .block_blank {
-    width: 15px;
-    height: 15px;
-    background:rgb(0, 0, 0) 
-  }
+
+.dot_green {
+  width: 15px;
+  height: 15px;
+   background-color: rgb(6, 151, 49);
+  border-radius: 50%;
+  display: inline-block;
+}
+.dot_yellow {
+  width: 15px;
+  height: 15px;
+  background-color: rgb(207, 211, 3);
+  border-radius: 50%;
+  display: inline-block;
+}
+.dot_red {
+  width: 15px;
+  height: 15px;
+  background-color: rgb(211, 3, 3);
+  border-radius: 50%;
+  display: inline-block;
+}
+.dot_blank {
+  width: 15px;
+  height: 15px;
+  background-color: rgb(0, 0, 0);
+  border-radius: 50%;
+  display: inline-block;
+}

@@ -1,4 +1,6 @@
 # Components: 
+ - arrays with amount of online/slow/error/offline is now in service statusService
+ --> change Instanzen in an order to get a compromised view on the most accute status (offline>error>slow>online)
  - I want a button with just the display of one colour
 
  - neustart -> auseinandergezogen zu multiple optionen
