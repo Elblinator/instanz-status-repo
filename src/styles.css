@@ -14,13 +14,13 @@ h3 {
   font-size: 1.3rem;
 }
 body {
-  padding: .5rem;
-  max-width: 1000px;
-  margin: auto;
+  padding: 0rem;
+  max-width: 1500px;
+  margin: 0;
 }
 @media (min-width: 600px) {
   body {
-    padding: 2rem;
+    padding: 0rem;
   }
 }
 body, input[text] {
@@ -31,20 +31,20 @@ a {
   cursor: pointer;
 }
 button {
-  background-color: #eee;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  color: black;
-  font-size: 1.2rem;
-  padding: 1rem;
-  margin-right: 1rem;
-  margin-bottom: 1rem;
-  margin-top: 1rem;
+	background-color: #ffffff;
+	border: 1px solid #ffffff;
+	border-radius: 4px;
+	cursor: pointer;
+	color: black;
+	font-size: 1.2rem;
+	padding: 1rem;
+  margin-left: 1rem;
+  line-height: 0.8;
 }
+
 button:hover {
-  background-color: rgb(14, 180, 192);
-  color: white;
+	border: 1px solid black;
+	background-color: #ffffff;
 }
 button:disabled {
   background-color: #eee;
@@ -88,4 +88,40 @@ Use of this source code is governed by an MIT-style license that
 can be found in the LICENSE file at https://angular.io/license
 */
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0px; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.dot_green {
+	width: 15px;
+	height: 15px;
+	background-color: rgb(6, 151, 49);
+	border-radius: 50%;
+	display: inline-block;
+}
+
+.dot_yellow {
+	width: 15px;
+	height: 15px;
+	background-color: rgb(207, 211, 3);
+	border-radius: 50%;
+	display: inline-block;
+}
+
+.dot_red {
+	width: 15px;
+	height: 15px;
+	background-color: rgb(211, 3, 3);
+	border-radius: 50%;
+	display: inline-block;
+}
+
+.dot_blank {
+	width: 15px;
+	height: 15px;
+	background-color: rgb(0, 0, 0);
+	border-radius: 50%;
+	display: inline-block;
+}
+
+.Instanz-wahl {
+  background-color:aqua;
+}

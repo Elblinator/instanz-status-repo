@@ -1,34 +1,43 @@
-<form *ngIf="isLoggedIn()">
-  <mat-form-field appearance="fill">
-      <mat-label>wähle neue Instanz</mat-label>
-      <mat-select [formControl]="instanzNamen">
-          <mat-option *ngFor="let instanz of instanzNamenList" [value]="instanz">
-              <a mat-list-item routerLink="/instanz/{{instanz}}">{{instanz}}</a>
-          </mat-option>
-      </mat-select>
-  </mat-form-field>
+<form>
+	<mat-form-field appearance="fill">
+		<mat-label>wähle Instanz</mat-label>
+		<mat-select [formControl]="instanzNamen">
+			<mat-option *ngFor="let instanz of instanzNamenList" [value]="instanz">
+				<a mat-list-item routerLink="/instanz/{{instanz}}">{{instanz}}</a>
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
 </form>
 
 <div *ngIf="instanzen">
-  <h2>Instanz: {{instanzen.name | uppercase}} 
-      <button type="button" (click)="goBack">Neustart</button>
-      </h2>
-  <div>
-    <ng-container *ngFor="let service of instanzen.services" >
-      <ng-container [ngSwitch]="service.status">
-        <canvas *ngSwitchCase="'online'" class="dot_green"> {{service.status}} </canvas>
-        <canvas *ngSwitchCase="'slow'" class="dot_yellow"> {{service.status}}&nbsp;&nbsp; </canvas>
-        <canvas *ngSwitchCase="'error'" class="dot_red"> {{service.status}} </canvas>
-        <canvas *ngSwitchCase="'offline'" class="dot_blank"> {{service.status}} </canvas>
-      </ng-container>
-      &nbsp;&nbsp;
-      {{service.name}}
-      <br>
-    </ng-container>
-  </div>
-  
-  <p>
-    <button type="button" (click)="goBack()">Zurück</button>
-    <button type="button" (click)="goBack">Neustart</button>
-  </p>
+	<h2>Instanz: {{instanzen.name | uppercase}}
+		<button type="button" (click)="goBack">Neustart</button>
+	</h2>
+	<div>
+		<table>
+			<ng-container *ngFor="let service of instanzen.services">
+				<tr>
+					<td>
+						<ng-container [ngSwitch]="service.status">
+							<canvas *ngSwitchCase="'online'" class="dot_green"></canvas>
+							<canvas *ngSwitchCase="'slow'" class="dot_yellow"></canvas>
+							<canvas *ngSwitchCase="'error'" class="dot_red"></canvas>
+							<canvas *ngSwitchCase="'offline'" class="dot_blank"></canvas>
+						</ng-container>
+					</td>
+					<td>
+						{{service.name}}
+					</td>
+					<td>
+						<button class="neustart-button" type="button" (click)="openDia(service.name)">Neustart</button>
+					</td>
+				</tr>
+				<br>
+			</ng-container>
+		</table>
+	</div>
+
+	<p>
+		<button type="button" (click)="goBack()">Zurück</button>
+	</p>
 </div>

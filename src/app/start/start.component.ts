@@ -9,42 +9,42 @@ import { FormControl } from '@angular/forms';
 import { FilterService } from '../filter.service';
 
 @Component({
-  selector: 'app-start',
-  templateUrl: './start.component.html',
-  styleUrls: ['./start.component.css']
+	selector: 'app-start',
+	templateUrl: './start.component.html',
+	styleUrls: ['./start.component.css']
 })
-export class StartComponent implements OnInit{
-  instanzen: Instanz[] = [];
-  arrService: number[] = [0,0,0];
-  arrOnline: number[] = [0,0];
-  userName:string = this.userService.user
-  password:string = this.userService.password
-  first = true
-  instanzNamenList: string[] = this.filterService.reachableInstances()
-  instanzNamen = new FormControl('')
+export class StartComponent implements OnInit {
+	instanzen: Instanz[] = [];
+	arrService: number[] = [0, 0, 0];
+	arrOnline: number[] = [0, 0];
+	userName: string = this.userService.user
+	password: string = this.userService.password
+	first = true
+	instanzNamenList: string[] = this.filterService.reachableInstances()
+	instanzNamen = new FormControl('')
 
-  constructor(
-    private statusService: StatusService,
-    private userService: UserService,
-    private onlineService: OnlineService,
-    private checkStatusService: CheckStatusService,
-    private filterService: FilterService
-    ) { }
+	constructor(
+		private statusService: StatusService,
+		private userService: UserService,
+		private onlineService: OnlineService,
+		private checkStatusService: CheckStatusService,
+		private filterService: FilterService
+	) { }
 
-  public ngOnInit(): void {
-    this.getInstanz();
-    this.resetCount()
-  }
+	public ngOnInit(): void {
+		this.getInstanz();
+		this.resetCount()
+	}
 
-  public getInstanz(): void {
-    this.statusService.getInstanz()
-    .subscribe(instanzen => {this.instanzen = instanzen});
-  }  
-  public resetCount():void {
-    this.arrService=this.checkStatusService.resetCount()
-    this.arrOnline=this.onlineService.resetCount()
-  }
-  public isLoggedIn(): boolean{
-    return this.userService.isLoggedIn()
-  }
+	protected getInstanz(): void {
+		this.statusService.getInstanz()
+			.subscribe(instanzen => { this.instanzen = instanzen });
+	}
+	protected resetCount(): void {
+		this.arrService = this.checkStatusService.resetCount()
+		this.arrOnline = this.onlineService.resetCount()
+	}
+	protected isLoggedIn(): boolean {
+		return this.userService.isLoggedIn()
+	}
 }

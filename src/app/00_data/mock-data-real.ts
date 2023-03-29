@@ -111,8 +111,8 @@ export const INSTANZ: Instanz[] = [
     },
     {
       "id": 2,
-      "name": "Demonstartion",
-      "running":false,
+      "name": "Demonstration",
+      "running": false,
       "services": [{
         "name": "client",
         "status": "offline"

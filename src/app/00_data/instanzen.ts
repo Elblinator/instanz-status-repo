@@ -30,3 +30,7 @@ export interface Instanz {
   export function isStatus(name:Status[]|Instanz[]): name is Status[]{
     return (name as Status[]) !== undefined
   }
+  export interface Warnung {
+    service: string
+    warn: string
+}

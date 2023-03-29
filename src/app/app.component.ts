@@ -8,48 +8,45 @@ import { User } from './00_data/user';
 import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+	selector: 'app-root',
+	templateUrl: './app.component.html',
+	styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  userName:string = this.userService.user
-  password:string = this.userService.password
-  user: User[]=[]
-  inputName = new FormControl('');
-  inputPassword = new FormControl('');
-  
-  constructor(
-    private userService: UserService,
-    private filterService: FilterService,
-    private breakpointObserver: BreakpointObserver
-  ) {}
+	userName: string = this.userService.user
+	password: string = this.userService.password
+	user: User[] = []
+	inputName = new FormControl('');
+	inputPassword = new FormControl('');
 
-  public isLoggedIn(): boolean{
-    return this.userService.isLoggedIn()
-  }
-  public initiateFilterData():boolean{
-    this.filterService.getPossibleInstStatus()
-    this.filterService.setChosenONCE()
-    return true
-  }
-  title = 'Instanzen';
+	constructor(
+		private userService: UserService,
+		private filterService: FilterService,
+		private breakpointObserver: BreakpointObserver
+	) { }
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-  .pipe(
-    map(result => result.matches),
-    shareReplay()
-  );
-  public logout():void{
-    this.userService.logout()
-  }
-  public getUser():void{
-    this.user= this.userService.getUsers()
-  }
-  public checkUser():boolean{
-    // this.userName = document.getElementById('inputName').value;
-    // this.password = document.getElementById('inputPassword').value;
+	protected isLoggedIn(): boolean {
+		return this.userService.isLoggedIn()
+	}
+	protected initiateFilterData(): boolean {
+		this.filterService.getPossibleInstStatus()
+		this.filterService.setChosenONCE()
+		return true
+	}
+	title = 'Instanzen';
 
-    return this.userService.checkUser(this.inputName.value, this.inputPassword.value)
-  }  
+	isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+		.pipe(
+			map(result => result.matches),
+			shareReplay()
+		);
+	protected logout(): void {
+		this.userService.logout()
+	}
+	protected getUser(): void {
+		this.user = this.userService.getUsers()
+	}
+	protected checkUser(): boolean {
+		return this.userService.checkUser(this.inputName.value, this.inputPassword.value)
+	}
 }

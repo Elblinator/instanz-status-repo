@@ -1,5 +1,4 @@
-
-<form *ngIf="isLoggedIn()">
+<form>
     <mat-form-field appearance="fill">
         <mat-label>wähle Instanz</mat-label>
         <mat-select [formControl]="instanzNamen">
@@ -10,28 +9,26 @@
     </mat-form-field>
 </form>
 
-
-
 <! print online/slow/error amounts>
-<div *ngIf="arrService">
-    <h2>Status von Instanzen</h2>
-    <ng-container>
-        Online/Slow/Offline:
-        <ng-container *ngFor="let number of arrService">
-            {{number}}
+    <div *ngIf="arrService">
+        <h2>Status von Instanzen</h2>
+        <ng-container>
+            Online/Slow/Offline:
+            <ng-container *ngFor="let number of arrService">
+                {{number}}
+            </ng-container>
         </ng-container>
-    </ng-container>
-</div> 
-<br>
+    </div>
+    <br>
 
-<! print if registered running and stopped instances>
-<div *ngIf="isLoggedIn()">
-    <h2>Laufende Instanzen</h2>
-    <ng-container>
-        Online/Offline
-        <ng-container *ngFor="let number of arrOnline">
-            {{number}}
-        </ng-container>
-    </ng-container>
-</div> 
-<br>
+    <! print if registered running and stopped instances>
+        <div *ngIf="isLoggedIn()">
+            <h2>Laufende Instanzen</h2>
+            <ng-container>
+                Online/Offline
+                <ng-container *ngFor="let number of arrOnline">
+                    {{number}}
+                </ng-container>
+            </ng-container>
+        </div>
+        <br>

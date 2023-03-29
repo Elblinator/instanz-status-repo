@@ -1,74 +1,73 @@
-
 <form>
-  <mat-form-field appearance="fill">
-      <mat-label>wähle Instanz</mat-label>
-      <mat-select [formControl]="instanzNamen">
-          <mat-option *ngFor="let instanz of instanzNamenList" [value]="instanz">
-              <a mat-list-item href="/instanz/{{instanz}}">{{instanz}}</a>
-          </mat-option>
-      </mat-select>
-  </mat-form-field>
+	<mat-form-field appearance="fill">
+		<mat-label>wähle Instanz</mat-label>
+		<mat-select [formControl]="instanzNamen">
+			<mat-option *ngFor="let instanz of instanzNamenList" [value]="instanz">
+				<a mat-list-item routerLink="/instanz/{{instanz}}">{{instanz}}</a>
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
 
-  <span class="badge"></span> 
-  <button type="button" (click)="openDialog()">Filtern</button>
+	<span class="badge"></span>
+	<button type="button" (click)="openDialog()">Filtern</button>
 </form>
 
 <h2>Instanzen aufgeteilt in Statusgruppen </h2>
-<div> 
-  <h2>Online <canvas class="dot_green"></canvas></h2>
-  <span #instanz_yay *ngFor="let instanz of instanzOnline">
-    <span *ngIf="isActivated(instanz.instanz)">
-      <ul>
-        <li *ngIf="isActivated(instanz.service)">
-          <a routerLink="/instanz/{{instanz.instanz}}">
-            <span class="badge">{{instanz.instanz}}</span> 
-          </a>
-          :{{instanz.service}}
-        </li>
-      </ul>
-    </span>
-  </span>
+<div>
+	<h2>Online <canvas class="dot_green"></canvas></h2>
+	<ul>
+		<ng-template ngFor let-instanz [ngForOf]="instanzOnline">
+			<ng-template ngIf="isActivated(instanz.instanz)">
+				<li *ngIf="isActivated(instanz.service)">
+					<a routerLink="/instanz/{{instanz.instanz}}">
+						<span class="badge">{{instanz.instanz}}</span>
+					</a>
+					:{{instanz.service}}
+				</li>
+			</ng-template>
+		</ng-template>
+	</ul>
 </div>
-<div> 
-  <h2>Slow <canvas class="dot_yellow"></canvas></h2>
-  <span *ngFor="let instanz of instanzSlow">
-    <span *ngIf="isActivated(instanz.instanz)">
-      <ul>
-        <li *ngIf="isActivated(instanz.service)">
-          <a routerLink="/instanz/{{instanz.instanz}}">
-            <span class="badge">{{instanz.instanz}}</span> 
-          </a>
-          :{{instanz.service}}
-        </li>
-      </ul>
-    </span>
-  </span>
+<div>
+	<h2>Slow <canvas class="dot_yellow"></canvas></h2>
+	<ul>
+		<ng-template ngFor let-instanz [ngForOf]="instanzSlow">
+			<ng-template ngIf="isActivated(instanz.instanz)">
+				<li *ngIf="isActivated(instanz.service)">
+					<a routerLink="/instanz/{{instanz.instanz}}">
+						<span class="badge">{{instanz.instanz}}</span>
+					</a>
+					:{{instanz.service}}
+				</li>
+			</ng-template>
+		</ng-template>
+	</ul>
 </div>
-<div> 
-  <h2>Error <canvas class="dot_red"></canvas></h2>
-  <span *ngFor="let instanz of instanzError">
-    <span *ngIf="isActivated(instanz.instanz)">
-      <ul>
-        <li *ngIf="isActivated(instanz.service)">
-          <a routerLink="/instanz/{{instanz.instanz}}">
-            <span class="badge">{{instanz.instanz}}</span> 
-          </a>
-          :{{instanz.service}}
-        </li>
-      </ul>
-    </span>
-  </span>
+<div>
+	<h2>Error <canvas class="dot_red"></canvas></h2>
+	<ul>
+		<ng-template ngFor let-instanz [ngForOf]="instanzError">
+			<ng-template ngIf="isActivated(instanz.instanz)">
+				<li *ngIf="isActivated(instanz.service)">
+					<a routerLink="/instanz/{{instanz.instanz}}">
+						<span class="badge">{{instanz.instanz}}</span>
+					</a>
+					:{{instanz.service}}
+				</li>
+			</ng-template>
+		</ng-template>
+	</ul>
 </div>
 
-<div> 
-  <h2>Offline <canvas class="dot_blank"></canvas></h2>
-  <span *ngFor="let instanz of instanzOffline">
-    <ul>
-      <li *ngIf="isActivated(instanz.instanz)">
-        <a routerLink="/instanz/{{instanz.instanz}}">
-          <span class="badge">{{instanz.instanz}}</span> 
-        </a>
-      </li>
-    </ul>
-  </span>
+<div>
+	<h2>Offline <canvas class="dot_blank"></canvas></h2>
+	<ul>
+		<ng-template ngFor let-instanz [ngForOf]="instanzOffline">
+			<li *ngIf="isActivated(instanz.instanz)">
+				<a routerLink="/instanz/{{instanz.instanz}}">
+					<span class="badge">{{instanz.instanz}}</span>
+				</a>
+			</li>
+		</ng-template>
+	</ul>
 </div>
