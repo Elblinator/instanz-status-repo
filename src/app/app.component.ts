@@ -49,4 +49,5 @@ export class AppComponent {
 	protected checkUser(): boolean {
 		return this.userService.checkUser(this.inputName.value, this.inputPassword.value)
 	}
+	
 }

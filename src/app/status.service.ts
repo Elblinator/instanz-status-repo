@@ -10,7 +10,7 @@ import { FormControl } from '@angular/forms';
 @Injectable({ providedIn: 'root' })
 export class StatusService {
 	////////DON'T FORGET/////////
-	private _url = 'link_url'
+	//private _url = 'http://docker-le.whale:8000/assets/data/example-data.json'
 
 
 	instanzen: Instanz[] = []
@@ -30,10 +30,17 @@ export class StatusService {
 		this.getData()
 			.subscribe(instanzen => { this.instanzen = instanzen });
 	}
+	public updateData(): Observable<Instanz[]> {
+		//return this.http.get<Instanz[]>(this._url)
+		this.http
+		//this._url
+		const instanz = of(INSTANZ);
+		return instanz;
+	}
 	public getData(): Observable<Instanz[]> {
 		//return this.http.get<Instanz[]>(this._url)
 		this.http
-		this._url
+		//this._url
 		const instanz = of(INSTANZ);
 		return instanz;
 	}
@@ -46,6 +53,10 @@ export class StatusService {
 		return of(instance);
 	}
 	public sortData() {
+		this.instanzOffline = [];
+		this.instanzError = [];
+		this.instanzSlow = [];
+		this.instanzOnline = [];
 		for (const instanz of this.instanzen) {
 			if (!instanz.running) {
 				this.curInstServ = { instanz: instanz.name, service: "", status: "offline" }
@@ -54,6 +65,7 @@ export class StatusService {
 				this.sortStatus(instanz)
 			}
 		}
+		console.log([this.instanzOffline, this.instanzError, this.instanzSlow, this.instanzOnline])
 		return [this.instanzOffline, this.instanzError, this.instanzSlow, this.instanzOnline]
 	}
 	private sortStatus(instanz: Instanz): void {

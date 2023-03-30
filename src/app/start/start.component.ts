@@ -48,8 +48,4 @@ export class StartComponent implements OnInit {
 	protected isLoggedIn(): boolean {
 		return this.userService.isLoggedIn()
 	}
-	protected setNumber(num: number): boolean {
-		this.curNumber = num
-		return true
-	}
 }

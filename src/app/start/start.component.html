@@ -20,9 +20,11 @@
                 <tr>
                     <ng-container *ngFor="let NbOfArray of arrService; let i1=index">
                         <ng-container *ngFor="let number of [].constructor(NbOfArray); let i=index">
-                            <ng-container *ngIf="setNumber(NbOfArray)">
-                                <ng-container *ngIf="i === 0; then first;else notFirst">
-                                </ng-container>
+                            <ng-container *ngIf="i === 0">
+                                <td>{{NbOfArray}}</td>
+                            </ng-container>
+                            <ng-container *ngIf="!(i === 0)">
+                                <td class="emptyBox"> </td>
                             </ng-container>
                         </ng-container>
                     </ng-container>
@@ -48,9 +50,11 @@
                     <tr>
                         <ng-container *ngFor="let NbOfArray of arrOnline; let i1=index">
                             <ng-container *ngFor="let number of [].constructor(NbOfArray); let i=index">
-                                <ng-container *ngIf="setNumber(NbOfArray)">
-                                    <ng-container *ngIf="i === 0; then first; else notFirst">
-                                    </ng-container>
+                                <ng-container *ngIf="i === 0">
+                                    <td>{{NbOfArray}}</td>
+                                </ng-container>
+                                <ng-container *ngIf="!(i === 0)">
+                                    <td class="emptyBox"> </td>
                                 </ng-container>
                             </ng-container>
                         </ng-container>
@@ -66,10 +70,3 @@
             </ng-container>
         </div>
         <br>
-
-        <ng-template #first>
-            <td>{{curNumber}}</td>
-        </ng-template>
-        <ng-template #notFirst>
-            <td class="emptyBox"></td>
-        </ng-template>

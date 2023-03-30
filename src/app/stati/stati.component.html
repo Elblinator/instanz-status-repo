@@ -17,14 +17,14 @@
 	<h2>Online <canvas class="dot_online"></canvas></h2>
 	<ul>
 		<ng-template ngFor let-instanz [ngForOf]="instanzOnline">
-			<ng-template ngIf="isActivated(instanz.instanz)">
+			<ng-container *ngIf="isActivated(instanz.instanz)">
 				<li *ngIf="isActivated(instanz.service)">
 					<a routerLink="/instanz/{{instanz.instanz}}">
 						<span class="badge">{{instanz.instanz}}</span>
 					</a>
-					:{{instanz.service}}
+					:&nbsp;{{instanz.service}}
 				</li>
-			</ng-template>
+			</ng-container>
 		</ng-template>
 	</ul>
 </div>
@@ -32,14 +32,14 @@
 	<h2>Slow <canvas class="dot_slow"></canvas></h2>
 	<ul>
 		<ng-template ngFor let-instanz [ngForOf]="instanzSlow">
-			<ng-template ngIf="isActivated(instanz.instanz)">
+			<ng-container *ngIf="isActivated(instanz.instanz)">
 				<li *ngIf="isActivated(instanz.service)">
 					<a routerLink="/instanz/{{instanz.instanz}}">
 						<span class="badge">{{instanz.instanz}}</span>
 					</a>
-					:{{instanz.service}}
+					:&nbsp;{{instanz.service}}
 				</li>
-			</ng-template>
+			</ng-container>
 		</ng-template>
 	</ul>
 </div>
@@ -47,14 +47,14 @@
 	<h2>Error <canvas class="dot_error"></canvas></h2>
 	<ul>
 		<ng-template ngFor let-instanz [ngForOf]="instanzError">
-			<ng-template ngIf="isActivated(instanz.instanz)">
+			<ng-container *ngIf="isActivated(instanz.instanz)">
 				<li *ngIf="isActivated(instanz.service)">
 					<a routerLink="/instanz/{{instanz.instanz}}">
 						<span class="badge">{{instanz.instanz}}</span>
 					</a>
-					:{{instanz.service}}
+					:&nbsp;{{instanz.service}}
 				</li>
-			</ng-template>
+			</ng-container>
 		</ng-template>
 	</ul>
 </div>
