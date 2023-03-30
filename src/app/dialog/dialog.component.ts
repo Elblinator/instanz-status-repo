@@ -13,8 +13,8 @@ import { DialogData } from '../00_data/interfaces';
 export class DialogComponent {
 	instances: string[] = [];
 	services: string[] = [];
-	tops: FormGroup;
-	ping: FormGroup;
+	inst: FormGroup;
+	serv: FormGroup;
 
 	constructor(
 		@Inject(MAT_DIALOG_DATA) public data: DialogData,
@@ -24,12 +24,12 @@ export class DialogComponent {
 		this.instances = this.filterService.reachableInstances();
 		this.services = this.filterService.reachableService();
 
-		this.tops = this._formBuilder.group(Object.fromEntries(this.instances.map(e => [e, (this.filterService.isActivated(e))])));
-		this.ping = this._formBuilder.group(Object.fromEntries(this.services.map(e => [e, (this.filterService.isActivated(e))])));
+		this.inst = this._formBuilder.group(Object.fromEntries(this.instances.map(e => [e, (this.filterService.isActivated(e))])));
+		this.serv = this._formBuilder.group(Object.fromEntries(this.services.map(e => [e, (this.filterService.isActivated(e))])));
 
-		this.filterService.setFilter([this.tops, this.ping]);
+		this.filterService.setFilter([this.inst, this.serv]);
 	}
 	protected setFilter() {
-		this.filterService.setFilter([this.tops, this.ping]);
+		this.filterService.setFilter([this.inst, this.serv]);
 	}
 }

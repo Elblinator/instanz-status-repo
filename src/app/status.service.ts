@@ -9,9 +9,7 @@ import { FormControl } from '@angular/forms';
 
 @Injectable({ providedIn: 'root' })
 export class StatusService {
-	////////DON'T FORGET/////////
-	//private _url = 'http://docker-le.whale:8000/assets/data/example-data.json'
-
+	private _url = 'http://docker-le.whale:8000/assets/data/example-data.json'
 
 	instances: Instance[] = [];
 	stati: Status[] = [];
@@ -25,11 +23,18 @@ export class StatusService {
 	constructor(
 		private http: HttpClient,
 	) { this.getDatas() }
-
+	//turn obervable Instance[] into Instance[]
 	protected getDatas(): void {
-		this.getData()
+		this.getInstance()
 			.subscribe(instances => { this.instances = instances });
 	}
+	/** missing function which calls http
+	 *  and function which calls loaded data, needs to be called differently
+	 * updateData will be the function which calls http in a set timeinterval
+	 * getData will distribute the loaded data into website
+	 * 
+	 */
+
 	public updateData(): Observable<Instance[]> {
 		//return this.http.get<Instance[]>(this._url)
 		this.http;
@@ -37,21 +42,26 @@ export class StatusService {
 		const instance = of(INSTANCE);
 		return instance;
 	}
-	public getData(): Observable<Instance[]> {
-		//return this.http.get<Instance[]>(this._url)
-		this.http
-		//this._url
-		const instance = of(INSTANCE);
-		return instance;
-	}
+	/** 
+	*  @returns (preloaded) data as obeservable Instance[]
+	*/
 	public getInstance(): Observable<Instance[]> {
 		const instance = of(INSTANCE);
 		return instance;
 	}
+	/**
+	 * @param name = name from an instance
+	 * @returns = the complete instance
+	 */
 	public getInst(name: string): Observable<Instance> {
 		const instance = INSTANCE.find(h => h.name === name)!;
 		return of(instance);
 	}
+	/**
+	 * if an instance is not running it's pushed here otherwise it's forwarded to sortStatus()
+	 * @returns an Array with Arrays, the Arrays are filled dependend on their status
+	 *  return value = [instanceOffline, instanceError, instanceSlow, instanceOnline]
+	 */
 	public sortData(): InstanceService[][] {
 		this.instanceOffline = [];
 		this.instanceError = [];
@@ -67,6 +77,11 @@ export class StatusService {
 		}
 		return [this.instanceOffline, this.instanceError, this.instanceSlow, this.instanceOnline];
 	}
+	/**
+	 * olny running instances are sorted here
+	 * instance is pushed to it's corresponding array
+	 * @param instance 
+	 */
 	private sortStatus(instance: Instance): void {
 		for (const service of instance.services) {
 			this.curInstServ = { instance: instance.name, service: service.name, status: service.status };

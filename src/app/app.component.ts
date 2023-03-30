@@ -38,7 +38,7 @@ export class AppComponent {
 		return this.userService.isLoggedIn();
 	}
 	protected initiateFilterData(): boolean {
-		this.filterService.getPossibleInstStatus();
+		this.filterService.setPossibleInstStatus();
 		this.filterService.setChosenONCE();
 		return true;
 	}

@@ -16,14 +16,15 @@ export class FilterService {
 	chosenServices: string[] = [];
 
 	first = true
+
 	constructor(
 		private statusService: StatusService,
 	) { }
 	protected OnInit(): void {
-		this.getPossibleInstStatus();
+		this.setPossibleInstStatus();
 	}
-	public getPossibleInstStatus(): void {
-		this.statusService.getData()
+	public setPossibleInstStatus(): void {
+		this.statusService.getInstance()
 			.subscribe(instances => { this.instances = instances; });
 		this.possibleInstances = this.turnIntoArray(this.instances);
 		for (const instance of this.instances) {
@@ -31,6 +32,9 @@ export class FilterService {
 			break;
 		}
 	}
+	/**
+	 * activate initially all possible Services and Instances for the filter 
+	 */
 	public setChosenONCE(): void {
 		if (this.first) {
 			this.first = false;
@@ -38,6 +42,7 @@ export class FilterService {
 			this.chosenServices = this.possibleServices;
 		}
 	}
+	// turn Array of Status or Instance into Arrays od string with only their names
 	private turnIntoArray(list: (Status[] | Instance[])): string[] {
 		const arr: string[] = [];
 		for (const name of list) {
@@ -45,27 +50,34 @@ export class FilterService {
 		}
 		return arr;
 	}
-	public setFilter(toppings: FormGroup[]): void {
+	/**
+	 * reset chosenValues 
+	 * get new chosenValues @param data 
+	 * and set them (as this.chosenInstances amd this.chosenServices)
+	 */
+	public setFilter(data: FormGroup[]): void {
 		this.chosenInstances = [];
 		this.chosenServices = [];
-		const tops: FormGroup = toppings[0];
-		const ping: FormGroup = toppings[1];
-		let mapped = Object.entries(tops.value);
+		const inst: FormGroup = data[0];
+		const serv: FormGroup = data[1];
+		let mapped = Object.entries(inst.value);
 		for (const map of mapped) {
 			if (map[1]) {
 				this.chosenInstances.push(map[0]);
 			}
 		}
-		mapped = Object.entries(ping.value)
+		mapped = Object.entries(serv.value)
 		for (const map of mapped) {
 			if (map[1]) {
 				this.chosenServices.push(map[0]);
 			}
 		}
 	}
+	// 'reachable' could also be 'possible', the this variable is already in use
 	public reachableInstances(): string[] {
 		return this.possibleInstances;
 	}
+	// 'reachable' could also be 'possible', the this variable is already in use
 	public reachableService(): string[] {
 		return this.possibleServices;
 	}
@@ -75,6 +87,10 @@ export class FilterService {
 	protected activatedService(): string[] {
 		return this.chosenServices;
 	}
+	/**
+	 * @param str 
+	 * @returns if the current instance/service is activated (for the filter) then return true
+	 */
 	public isActivated(str: string): boolean {
 		if (this.chosenServices.includes(str) || this.chosenInstances.includes(str)) {
 			return true;

@@ -35,7 +35,7 @@ export class StatiComponent implements OnInit {
 		this.sortData();
 	}
 	private getData(): void {
-		this.statusService.getData()
+		this.statusService.getInstance()
 			.subscribe(instances => { this.instances = instances });
 	}
 	private sortData(): void {

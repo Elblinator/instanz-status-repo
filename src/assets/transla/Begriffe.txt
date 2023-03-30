@@ -1,0 +1,28 @@
+Start
+Instanzen
+Instanz
+Status
+abmelden
+anmelden
+Name
+Passwort
+Service wirklich Neustarten
+ausgewählter Service:
+Neustart Warnung
+wähle Instanz
+Filtern
+Instanzen aufgeteilt in Statusgruppen 
+Online
+Langsam
+Fehler
+Offline
+Status von Instanzen
+Online Langsam Fehler
+Laufende Instanzen
+Neustart
+Zurück
+Die Instanzen
+Schlechtester Status jeder In Instanzen
+Suche Filter aus
+mögliche Instanzen
+mögliche Services

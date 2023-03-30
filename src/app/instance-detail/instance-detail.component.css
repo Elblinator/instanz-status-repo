@@ -1,0 +1,11 @@
+.neustart-button{
+    line-height: 0.5;
+    height:1;
+    font-size: 1em;
+    margin-left:0;
+    padding: 0.2em;
+    background-color: #ccc9c9;
+}
+.neustart-button:hover {
+    border:none;
+}

@@ -1,0 +1,30 @@
+button {
+	margin-right: 8px;
+	margin-left: 8px;
+	margin-top: 16px;
+	background-color: red;
+}
+
+button:hover {
+	background-color: #4e0404;
+	color:#ffffff;
+}
+
+.example-section {
+	display: flex;
+	align-content: center;
+	align-items: center;
+	height: 50px;
+	width: 350px;
+}
+
+.warn-body {
+	border: 2px solid red;
+	border-radius: 6;
+	padding:3em;
+	margin: 5, 2;
+}
+
+h1, h2 {
+	text-align: center;
+}
