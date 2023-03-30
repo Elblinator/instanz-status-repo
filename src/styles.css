@@ -2,52 +2,63 @@
 * {
   font-family: Arial, Helvetica, sans-serif;
 }
+
 h1 {
   color: #264D73;
   font-size: 2.5rem;
 }
-h2, h3 {
+
+h2,
+h3 {
   color: #444;
   font-weight: lighter;
 }
+
 h3 {
   font-size: 1.3rem;
 }
+
 body {
   padding: 0rem;
   max-width: 1000px;
   margin: 0;
-  
+
   /* display:center; */
 }
+
 @media (min-width: 600px) {
   body {
     padding: 0rem;
   }
 }
-body, input[text] {
+
+body,
+input[text] {
   color: #333;
   font-family: Cambria, Georgia, serif;
 }
+
 a {
   cursor: pointer;
 }
+
 button {
-	background-color: #ffffff;
-	border: 1px solid #ffffff;
-	border-radius: 4px;
-	cursor: pointer;
-	color: black;
-	font-size: 1.2rem;
-	padding: 1rem;
+  background-color: #ffffff;
+  border: 1px solid #ffffff;
+  border-radius: 4px;
+  cursor: pointer;
+  color: black;
+  font-size: 1.2rem;
+  padding: 1rem;
   margin-left: 1rem;
   line-height: 0.8;
 }
 
 button:hover {
-	border: 1px solid black;
-	background-color: #ffffff;
+  border: 1px solid black;
+  background-color: #ffffff;
 }
+
 button:disabled {
   background-color: #eee;
   color: #aaa;
@@ -68,15 +79,18 @@ nav a {
 
 nav a:hover {
   color: white;
-  background-color:  #42545C;
+  background-color: #42545C;
 }
+
 nav a.active {
   background-color: black;
   color: white;
 }
+
 hr {
   margin: 1.5rem 0;
 }
+
 input[type="text"] {
   box-sizing: border-box;
   width: 100%;
@@ -89,41 +103,48 @@ Copyright Google LLC. All Rights Reserved.
 Use of this source code is governed by an MIT-style license that
 can be found in the LICENSE file at https://angular.io/license
 */
-html, body { height: 100%; }
-body { margin: 0px; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-.dot_green {
-	width: 15px;
-	height: 15px;
-	background-color: rgb(6, 151, 49);
-	border-radius: 50%;
-	display: inline-block;
+html,
+body {
+  height: 100%;
 }
 
-.dot_yellow {
-	width: 15px;
-	height: 15px;
-	background-color: rgb(207, 211, 3);
-	border-radius: 50%;
-	display: inline-block;
+body {
+  margin: 0px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.dot_red {
-	width: 15px;
-	height: 15px;
-	background-color: rgb(211, 3, 3);
-	border-radius: 50%;
-	display: inline-block;
+.dot_online {
+  width: 15px;
+  height: 15px;
+  background-color: rgb(6, 151, 49);
+  border-radius: 50%;
+  display: inline-block;
 }
 
-.dot_blank {
-	width: 15px;
-	height: 15px;
-	background-color: rgb(0, 0, 0);
-	border-radius: 50%;
-	display: inline-block;
+.dot_slow {
+  width: 15px;
+  height: 15px;
+  background-color: rgb(207, 211, 3);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot_error {
+  width: 15px;
+  height: 15px;
+  background-color: rgb(211, 3, 3);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot_offline {
+  width: 15px;
+  height: 15px;
+  background-color: rgb(0, 0, 0);
+  border-radius: 50%;
+  display: inline-block;
 }
 
 .Instanz-wahl {
-  background-color:aqua;
+  background-color: aqua;
 }

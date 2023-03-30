@@ -19,13 +19,10 @@
 			<a routerLink="/instanz/{{instanz.name}}">
 				<span class="badge">{{instanz.name}}</span> </a>
 			<br>
-			<ng-container  *ngFor="let service of instanz.services">
+			<ng-container *ngFor="let service of instanz.services">
 				<span class="items" *ngIf="isActivated(service.name)">
 					<ng-container [ngSwitch]="service.status">
-						<canvas *ngSwitchCase="'online'" class="dot_green"> </canvas>
-						<canvas *ngSwitchCase="'slow'" class="dot_yellow"> </canvas>
-						<canvas *ngSwitchCase="'error'" class="dot_red"> </canvas>
-						<canvas *ngSwitchCase="'offline'" class="dot_blank"> </canvas>
+						<canvas class="dot_{{service.status}}"> </canvas>
 					</ng-container>
 					{{service.name}}
 					&nbsp;
@@ -39,15 +36,12 @@
 <h2>Schlechtester Status jeder In Instanzen: </h2>
 <ul class="instanz">
 	<span *ngFor="let instanz of instanzen">
-		<li *ngIf="whatStatus(instanz)">
+		<li *ngIf="whatStatus(instanz) && isActivated(instanz.name)">
 			<a routerLink="/instanz/{{instanz.name}}">
 				<span class="badge">{{instanz.name}}</span> </a>
 			<br>
 			<ng-container [ngSwitch]="whatStatus(instanz)">
-				<canvas *ngSwitchCase="'online'" class="dot_green"> </canvas>
-				<canvas *ngSwitchCase="'slow'" class="dot_yellow"> </canvas>
-				<canvas *ngSwitchCase="'error'" class="dot_red"> </canvas>
-				<canvas *ngSwitchCase="'offline'" class="dot_blank"> </canvas>
+				<canvas class="dot_{{whatStatus(instanz)}}"> </canvas>
 			</ng-container>
 		</li>
 	</span>

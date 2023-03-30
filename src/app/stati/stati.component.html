@@ -14,7 +14,7 @@
 
 <h2>Instanzen aufgeteilt in Statusgruppen </h2>
 <div>
-	<h2>Online <canvas class="dot_green"></canvas></h2>
+	<h2>Online <canvas class="dot_online"></canvas></h2>
 	<ul>
 		<ng-template ngFor let-instanz [ngForOf]="instanzOnline">
 			<ng-template ngIf="isActivated(instanz.instanz)">
@@ -29,7 +29,7 @@
 	</ul>
 </div>
 <div>
-	<h2>Slow <canvas class="dot_yellow"></canvas></h2>
+	<h2>Slow <canvas class="dot_slow"></canvas></h2>
 	<ul>
 		<ng-template ngFor let-instanz [ngForOf]="instanzSlow">
 			<ng-template ngIf="isActivated(instanz.instanz)">
@@ -44,7 +44,7 @@
 	</ul>
 </div>
 <div>
-	<h2>Error <canvas class="dot_red"></canvas></h2>
+	<h2>Error <canvas class="dot_error"></canvas></h2>
 	<ul>
 		<ng-template ngFor let-instanz [ngForOf]="instanzError">
 			<ng-template ngIf="isActivated(instanz.instanz)">
@@ -60,7 +60,7 @@
 </div>
 
 <div>
-	<h2>Offline <canvas class="dot_blank"></canvas></h2>
+	<h2>Offline <canvas class="dot_offline"></canvas></h2>
 	<ul>
 		<ng-template ngFor let-instanz [ngForOf]="instanzOffline">
 			<li *ngIf="isActivated(instanz.instanz)">
