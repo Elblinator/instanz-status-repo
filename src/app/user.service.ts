@@ -11,7 +11,15 @@ export class UserService {
 	users: User[] = []
 	user = ""
 	password = ""
-	isUser = true
+	isUser = false
+	isTesting: boolean = true
+	isTestingOnline: boolean = true
+
+	constructor () {
+		if (this.isTesting) {
+			this.isUser = this.isTestingOnline
+		}
+	 }
 
 	protected login(user: string, password: string): void {
 		this.user = user
@@ -36,9 +44,16 @@ export class UserService {
 			if (id > -1 && this.users[id].password == password) {
 				this.login(user, password)
 			} else {
-				this.isUser = false
+				this.isUser = false 
 			}
 		}
+		//////////Testing Interception////////////
+		if (this.isTesting) {
+			this.isUser = this.isTestingOnline
+		}
+		//////////////////////////////////////////
+
+		// actual return value
 		return this.isUser
 	}
 	private getUser(): Observable<User[]> {

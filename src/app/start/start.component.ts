@@ -22,6 +22,7 @@ export class StartComponent implements OnInit {
 	first = true
 	instanzNamenList: string[] = this.filterService.reachableInstances()
 	instanzNamen = new FormControl('')
+	curNumber: number = 0
 
 	constructor(
 		private statusService: StatusService,
@@ -46,5 +47,9 @@ export class StartComponent implements OnInit {
 	}
 	protected isLoggedIn(): boolean {
 		return this.userService.isLoggedIn()
+	}
+	protected setNumber(num: number): boolean {
+		this.curNumber = num
+		return true
 	}
 }

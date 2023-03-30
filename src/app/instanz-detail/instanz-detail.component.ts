@@ -19,6 +19,7 @@ export class InstanzDetailComponent implements OnInit {
 	instanzen: Instanz | undefined;
 	instanzNamenList: string[] = this.filterService.reachableInstances()
 	instanzNamen = new FormControl('')
+	InstanzGruppen: string[] = ["backend", "irgendeine Gruppe"]
 
 	constructor(
 		private route: ActivatedRoute,

@@ -11,8 +11,9 @@
  - Kalender Funktion
  - (./agenda ssh-key zugriff, darf ich soll ich?)
 
-# Design:
- - numbers in start need to be bar with colour 
+ # needs fixing:
+ - if a instanz is selected while filtering, the name needs to be directly clicked on, the general area will disply the Instanz but not go to the wanted page
+
 
  # No to forget:
  - if real data is used use url in status.service.ts getData()

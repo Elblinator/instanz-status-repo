@@ -15,8 +15,10 @@ h3 {
 }
 body {
   padding: 0rem;
-  max-width: 1500px;
+  max-width: 1000px;
   margin: 0;
+  
+  /* display:center; */
 }
 @media (min-width: 600px) {
   body {

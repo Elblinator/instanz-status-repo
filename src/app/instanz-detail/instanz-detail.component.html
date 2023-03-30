@@ -11,7 +11,7 @@
 
 <div *ngIf="instanzen">
 	<h2>Instanz: {{instanzen.name | uppercase}}
-		<button type="button" (click)="goBack">Neustart</button>
+		<button type="button" (click)="openDia('all')">Neustart</button>
 	</h2>
 	<div>
 		<table>
@@ -40,4 +40,9 @@
 	<p>
 		<button type="button" (click)="goBack()">Zurück</button>
 	</p>
+	<ng-container *ngFor="let instan of InstanzGruppen">
+		<p>
+			{{instan}}: <button type="button" (click)="openDia(instan)">Neustart</button>
+		</p>
+	</ng-container>
 </div>
