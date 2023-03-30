@@ -1,37 +1,37 @@
 import { Injectable } from '@angular/core';
 
-import { Instanz } from './00_data/instanzen'
+import { Instance } from './00_data/interfaces'
 import { StatusService } from './status.service';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class OnlineService {
-	instanzen: Instanz[] = [];
+	instances: Instance[] = [];
 	arrOnline: number[] = [0, 0];
 	constructor(private statusService: StatusService) { }
 
-	public getInstanz(): void {
-		this.statusService.getInstanz()
-			.subscribe(instanzen => { this.instanzen = instanzen });
+	public getInstance(): void {
+		this.statusService.getInstance()
+			.subscribe(instances => { this.instances = instances });
 	}
 	protected countOnline(): number[] {
-		this.getInstanz()
-		for (const instanz of this.instanzen) {
-			this.arrOnline[this.checkOnline(instanz.running)] += 1
+		this.getInstance();
+		for (const instance of this.instances) {
+			this.arrOnline[this.checkOnline(instance.running)] += 1
 		}
-		return this.arrOnline
+		return this.arrOnline;
 	}
 	protected checkOnline(running: boolean): number {
 		if (running == true) {
-			return 0
+			return 0;
 		} else {
-			return 1
+			return 1;
 		}
 	}
 	public resetCount(): number[] {
-		this.arrOnline = [0, 0]
-		this.countOnline()
-		return this.arrOnline
+		this.arrOnline = [0, 0];
+		this.countOnline();
+		return this.arrOnline;
 	}
 }

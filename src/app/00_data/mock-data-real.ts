@@ -1,6 +1,6 @@
-import { Instanz } from './instanzen';
+import { Instance } from './interfaces';
 
-export const INSTANZ: Instanz[] = [
+export const INSTANCE: Instance[] = [
 	{
 		"id": 1,
 		"name": "Testintern",

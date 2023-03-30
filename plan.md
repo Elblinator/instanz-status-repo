@@ -1,8 +1,6 @@
 # next Job:
- - denglisch begone
  - Comments/Doku be created
  - data from url
- - translation pipes
  - ui make me (me the program) pretty
  
 # Components: 

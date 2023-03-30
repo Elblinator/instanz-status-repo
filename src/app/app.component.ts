@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { FormControl } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 
 import { UserService } from './user.service';
 import { FilterService } from './filter.service';
 import { Observable, map, shareReplay } from 'rxjs';
-import { User } from './00_data/user';
-import { FormControl } from '@angular/forms';
+import { User } from './00_data/interfaces';
 
 @Component({
 	selector: 'app-root',
@@ -13,27 +14,35 @@ import { FormControl } from '@angular/forms';
 	styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-	userName: string = this.userService.user
-	password: string = this.userService.password
-	user: User[] = []
+	userName: string = this.userService.user;
+	password: string = this.userService.password;
+	user: User[] = [];
 	inputName = new FormControl('');
 	inputPassword = new FormControl('');
+	/////
+	title = 'Instanzen';
+	/////
 
 	constructor(
 		private userService: UserService,
 		private filterService: FilterService,
-		private breakpointObserver: BreakpointObserver
-	) { }
+		private breakpointObserver: BreakpointObserver,
+		private translate: TranslateService) {
+		translate.addLangs(['en', 'de']);
+		translate.setDefaultLang('de');
+		translate.use('de');
+	}
+
 
 	protected isLoggedIn(): boolean {
-		return this.userService.isLoggedIn()
+		return this.userService.isLoggedIn();
 	}
 	protected initiateFilterData(): boolean {
-		this.filterService.getPossibleInstStatus()
-		this.filterService.setChosenONCE()
-		return true
+		this.filterService.getPossibleInstStatus();
+		this.filterService.setChosenONCE();
+		return true;
 	}
-	title = 'Instanzen';
+
 
 	isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
 		.pipe(
@@ -41,13 +50,12 @@ export class AppComponent {
 			shareReplay()
 		);
 	protected logout(): void {
-		this.userService.logout()
+		this.userService.logout();
 	}
 	protected getUser(): void {
-		this.user = this.userService.getUsers()
+		this.user = this.userService.getUsers();
 	}
 	protected checkUser(): boolean {
-		return this.userService.checkUser(this.inputName.value, this.inputPassword.value)
+		return this.userService.checkUser(this.inputName.value, this.inputPassword.value);
 	}
-	
 }

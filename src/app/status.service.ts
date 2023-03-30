@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
-import { Instanz, InstanzService, Status } from './00_data/instanzen'
-import { INSTANZ } from './00_data/mock-data-real'
+import { Instance, InstanceService, Status } from './00_data/interfaces'
+import { INSTANCE } from './00_data/mock-data-real'
 import { FormControl } from '@angular/forms';
 
 
@@ -13,14 +13,14 @@ export class StatusService {
 	//private _url = 'http://docker-le.whale:8000/assets/data/example-data.json'
 
 
-	instanzen: Instanz[] = []
+	instances: Instance[] = [];
 	stati: Status[] = [];
-	curInstServ: InstanzService = { instanz: "", service: "", status: "" }
-	instanzOffline: InstanzService[] = []
-	instanzOnline: InstanzService[] = []
-	instanzSlow: InstanzService[] = []
-	instanzError: InstanzService[] = []
-	instanzNamen = new FormControl('')
+	curInstServ: InstanceService = { instance: "", service: "", status: "" };
+	instanceOffline: InstanceService[] = [];
+	instanceOnline: InstanceService[] = [];
+	instanceSlow: InstanceService[] = [];
+	instanceError: InstanceService[] = [];
+	instanceNamen = new FormControl('');
 
 	constructor(
 		private http: HttpClient,
@@ -28,57 +28,56 @@ export class StatusService {
 
 	protected getDatas(): void {
 		this.getData()
-			.subscribe(instanzen => { this.instanzen = instanzen });
+			.subscribe(instances => { this.instances = instances });
 	}
-	public updateData(): Observable<Instanz[]> {
-		//return this.http.get<Instanz[]>(this._url)
+	public updateData(): Observable<Instance[]> {
+		//return this.http.get<Instance[]>(this._url)
+		this.http;
+		//this._url
+		const instance = of(INSTANCE);
+		return instance;
+	}
+	public getData(): Observable<Instance[]> {
+		//return this.http.get<Instance[]>(this._url)
 		this.http
 		//this._url
-		const instanz = of(INSTANZ);
-		return instanz;
+		const instance = of(INSTANCE);
+		return instance;
 	}
-	public getData(): Observable<Instanz[]> {
-		//return this.http.get<Instanz[]>(this._url)
-		this.http
-		//this._url
-		const instanz = of(INSTANZ);
-		return instanz;
+	public getInstance(): Observable<Instance[]> {
+		const instance = of(INSTANCE);
+		return instance;
 	}
-	public getInstanz(): Observable<Instanz[]> {
-		const instanz = of(INSTANZ);
-		return instanz;
-	}
-	public getInst(name: string): Observable<Instanz> {
-		const instance = INSTANZ.find(h => h.name === name)!;
+	public getInst(name: string): Observable<Instance> {
+		const instance = INSTANCE.find(h => h.name === name)!;
 		return of(instance);
 	}
-	public sortData() {
-		this.instanzOffline = [];
-		this.instanzError = [];
-		this.instanzSlow = [];
-		this.instanzOnline = [];
-		for (const instanz of this.instanzen) {
-			if (!instanz.running) {
-				this.curInstServ = { instanz: instanz.name, service: "", status: "offline" }
-				this.instanzOffline.push(this.curInstServ)
+	public sortData(): InstanceService[][] {
+		this.instanceOffline = [];
+		this.instanceError = [];
+		this.instanceSlow = [];
+		this.instanceOnline = [];
+		for (const instance of this.instances) {
+			if (!instance.running) {
+				this.curInstServ = { instance: instance.name, service: "", status: "offline" };
+				this.instanceOffline.push(this.curInstServ);
 			} else {
-				this.sortStatus(instanz)
+				this.sortStatus(instance);
 			}
 		}
-		console.log([this.instanzOffline, this.instanzError, this.instanzSlow, this.instanzOnline])
-		return [this.instanzOffline, this.instanzError, this.instanzSlow, this.instanzOnline]
+		return [this.instanceOffline, this.instanceError, this.instanceSlow, this.instanceOnline];
 	}
-	private sortStatus(instanz: Instanz): void {
-		for (const service of instanz.services) {
-			this.curInstServ = { instanz: instanz.name, service: service.name, status: service.status }
+	private sortStatus(instance: Instance): void {
+		for (const service of instance.services) {
+			this.curInstServ = { instance: instance.name, service: service.name, status: service.status };
 			if (service.status == "online") {
-				this.instanzOnline.push(this.curInstServ)
+				this.instanceOnline.push(this.curInstServ);
 			}
 			else if (service.status == "slow") {
-				this.instanzSlow.push(this.curInstServ)
+				this.instanceSlow.push(this.curInstServ);
 			}
 			else if (service.status == "error") {
-				this.instanzError.push(this.curInstServ)
+				this.instanceError.push(this.curInstServ);
 			}
 		}
 	}

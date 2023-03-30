@@ -1,4 +1,4 @@
-# instanz-status-repo
+# instance-status-repo
 
 This program is supposed to display different instances and the status (offline, online, slow, error) of their services.
 
@@ -10,7 +10,7 @@ Instances can be presented as:
  
  If one Instance is selected __Instanz/name__:
   - every service and their status can be seen
-  - instanz can be restarted (after some additional identity valudation)
+  - instance can be restarted (after some additional identity valudation)
 
 If services are selected __Status-Update__:
  - all services (presented as "Instanz_Name:Service_Name") are categorized into their status 

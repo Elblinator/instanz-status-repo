@@ -1,13 +1,13 @@
-<h1 mat-dialog-title>Suche Filter aus</h1>
+<h1 mat-dialog-title>{{"Suche Filter aus"|translate}}</h1>
 <mat-card-content>
-	<h2>mögliche Instanzen</h2>
-	<section [formGroup]="tops" class="example-section" *ngFor="let instanz of instances">
-		<p><mat-checkbox color="primary" formControlName="{{instanz}}">{{instanz}}</mat-checkbox></p>
+	<h2>{{"mögliche Instanzen"|translate}}</h2>
+	<section [formGroup]="tops" class="example-section" *ngFor="let instance of instances">
+		<p><mat-checkbox color="primary" formControlName="{{instance}}">{{instance}}</mat-checkbox></p>
 	</section>
 </mat-card-content>
 
 <mat-card-content>
-	<h2>mögliche Services</h2>
+	<h2>{{"mögliche Services"|translate}}</h2>
 	<section [formGroup]="ping" class="example-section" *ngFor="let service of services">
 		<p><mat-checkbox color="primary" formControlName="{{service}}">{{service}}</mat-checkbox></p>
 	</section>
@@ -19,5 +19,5 @@
 </section> -->
 
 <div mat-dialog-actions>
-	<button mat-button mat-dialog-close cdkFocusInitial (click)="setFilter()">Filtern</button>
+	<button mat-button mat-dialog-close cdkFocusInitial (click)="setFilter()">{{"Filtern"|translate}</button>
 </div>

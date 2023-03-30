@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
@@ -14,15 +13,18 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { HttpClientModule } from '@angular/common/http';
+import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 
 import { AppComponent } from './app.component';
 import { StatiComponent } from './stati/stati.component';
-import { InstanzComponent } from './instanz/instanz.component';
+import { InstanceComponent } from './instance/instance.component';
 import { AppRoutingModule } from './app-routing.module';
-import { InstanzDetailComponent } from './instanz-detail/instanz-detail.component';
+import { InstanceDetailComponent } from './instance-detail/instance-detail.component';
 import { StartComponent } from './start/start.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { WarnComponent } from './warn/warn.component';
+
 
 @NgModule({
 	imports: [
@@ -43,16 +45,14 @@ import { WarnComponent } from './warn/warn.component';
 		MatIconModule,
 		MatListModule,
 		BrowserAnimationsModule,
-		
+		TranslateModule.forRoot()
 	],
+	exports: [TranslatePipe],
 	declarations: [
 		AppComponent,
 		StatiComponent,
-		InstanzComponent,
-		InstanzDetailComponent,
-		StartComponent,
-		InstanzComponent,
-		InstanzDetailComponent,
+		InstanceComponent,
+		InstanceDetailComponent,
 		StartComponent,
 		DialogComponent,
 		WarnComponent

@@ -1,10 +1,10 @@
 <div *ngIf="isLoggedIn()">
     <form>
         <mat-form-field appearance="fill">
-            <mat-label>wähle Instanz</mat-label>
-            <mat-select [formControl]="instanzNamen">
-                <mat-option *ngFor="let instanz of instanzNamenList" [value]="instanz">
-                    <a mat-list-item routerLink="/instanz/{{instanz}}">{{instanz}}</a>
+            <mat-label>{{"wähle Instanz"|translate}}</mat-label>
+            <mat-select [formControl]="instanceNamen">
+                <mat-option *ngFor="let instance of instanceNamenList" [value]="instance">
+                    <a mat-list-item routerLink="/instance/{{instance}}">{{instance}}</a>
                 </mat-option>
             </mat-select>
         </mat-form-field>
@@ -15,7 +15,7 @@
     <div *ngIf="arrService">
         <h2>Status von Instanzen</h2>
         <ng-container>
-            <h3> Online Slow Error:</h3>
+            <h3> {{"Online Langsam Fehler"|translate}}:</h3>
             <table>
                 <tr>
                     <ng-container *ngFor="let NbOfArray of arrService; let i1=index">
@@ -43,9 +43,9 @@
 
     <! print if registered running and stopped instances>
         <div *ngIf="isLoggedIn()">
-            <h2>Laufende Instanzen</h2>
+            <h2>{{"Laufende Instanzen"|translate}}</h2>
             <ng-container>
-                <h3> Online Offline:</h3>
+                <h3> {{"Online"|translate}} {{"Offline"|translate}}:</h3>
                 <table>
                     <tr>
                         <ng-container *ngFor="let NbOfArray of arrOnline; let i1=index">

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Instanz } from '../00_data/instanzen';
+import { Instance } from '../00_data/interfaces';
 import { StatusService } from '../status.service';
 import { UserService } from '../user.service';
 import { OnlineService } from '../online.service'
@@ -14,15 +14,15 @@ import { FilterService } from '../filter.service';
 	styleUrls: ['./start.component.css']
 })
 export class StartComponent implements OnInit {
-	instanzen: Instanz[] = [];
+	instances: Instance[] = [];
 	arrService: number[] = [0, 0, 0];
 	arrOnline: number[] = [0, 0];
-	userName: string = this.userService.user
-	password: string = this.userService.password
-	first = true
-	instanzNamenList: string[] = this.filterService.reachableInstances()
-	instanzNamen = new FormControl('')
-	curNumber: number = 0
+	userName: string = this.userService.user;
+	password: string = this.userService.password;
+	first = true;
+	instanceNamenList: string[] = this.filterService.reachableInstances();
+	instanceNamen = new FormControl('');
+	curNumber = 0;
 
 	constructor(
 		private statusService: StatusService,
@@ -33,19 +33,19 @@ export class StartComponent implements OnInit {
 	) { }
 
 	public ngOnInit(): void {
-		this.getInstanz();
-		this.resetCount()
+		this.getInstance();
+		this.resetCount();
 	}
 
-	protected getInstanz(): void {
-		this.statusService.getInstanz()
-			.subscribe(instanzen => { this.instanzen = instanzen });
+	protected getInstance(): void {
+		this.statusService.getInstance()
+			.subscribe(instances => { this.instances = instances });
 	}
 	protected resetCount(): void {
-		this.arrService = this.checkStatusService.resetCount()
-		this.arrOnline = this.onlineService.resetCount()
+		this.arrService = this.checkStatusService.resetCount();
+		this.arrOnline = this.onlineService.resetCount();
 	}
 	protected isLoggedIn(): boolean {
-		return this.userService.isLoggedIn()
+		return this.userService.isLoggedIn();
 	}
 }
