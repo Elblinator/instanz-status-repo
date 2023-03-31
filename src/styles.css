@@ -113,7 +113,7 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.dot_fast {
+.dot_fast, .dot_online {
   width: 15px;
   height: 15px;
   background-color: rgb(6, 151, 49);
@@ -145,7 +145,7 @@ body {
   display: inline-block;
 }
 
-.square_fast {
+.square_fast, .square_online {
   width: 15px;
   height: 15px;
   background-color: rgb(6, 151, 49);

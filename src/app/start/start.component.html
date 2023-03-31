@@ -11,9 +11,11 @@
     </form>
 </div>
 
-<! print fast/slow/error amounts>
+<!----------------------------->
+<ng-container #offlineInfo>
+    <!--bar Content -->
     <div *ngIf="arrService">
-        <h2>Status von Instanzen</h2>
+        <h2>{{"Status von Instanzen"|translate}}</h2>
         <ng-container>
             <h3> {{"Schnell Langsam Fehler"|translate}}:</h3>
             <table>
@@ -32,7 +34,7 @@
                 <tr>
                     <ng-container *ngFor="let array of arrService; let i1=index">
                         <ng-container *ngFor="let number of [].constructor(array); let i2=index">
-                            <td class="colorStatus{{i1}}"></td>
+                            <td class="colorStatus{{i1}} bar"></td>
                         </ng-container>
                     </ng-container>
                 </tr>
@@ -40,33 +42,34 @@
         </ng-container>
     </div>
     <br>
+<!-- On/Off Trennung -->
+<br>
 
-    <! print if registered running and stopped instances>
-        <div *ngIf="isLoggedIn()">
-            <h2>{{"Laufende Instanzen"|translate}} On/Off</h2>
-            <ng-container>
-                <h3> {{"Online"|translate}} {{"Offline"|translate}}:</h3>
-                <table>
-                    <tr>
-                        <ng-container *ngFor="let NbOfArray of arrOnline; let i1=index">
-                            <ng-container *ngFor="let number of [].constructor(NbOfArray); let i=index">
-                                <ng-container *ngIf="i === 0">
-                                    <td>{{NbOfArray}}</td>
-                                </ng-container>
-                                <ng-container *ngIf="!(i === 0)">
-                                    <td class="emptyBox"> </td>
-                                </ng-container>
-                            </ng-container>
+<div #onlineInfo *ngIf="isLoggedIn() && arrOnline">
+    <h2>{{"Laufende Instanzen"|translate}} On/Off</h2>
+    <ng-container>
+        <h3> {{"Online"|translate}} {{"Offline"|translate}}:</h3>
+        <table>
+            <tr>
+                <ng-container *ngFor="let NbOfArray of arrOnline; let i1=index">
+                    <ng-container *ngFor="let number of [].constructor(NbOfArray); let i=index">
+                        <ng-container *ngIf="i === 0">
+                            <td>{{NbOfArray}}</td>
                         </ng-container>
-                    </tr>
-                    <tr>
-                        <ng-container *ngFor="let array of arrOnline; let i1=index">
-                            <ng-container *ngFor="let number of [].constructor(array); let i2=index">
-                                <td class="colorRunning{{i1}}"></td>
-                            </ng-container>
+                        <ng-container *ngIf="!(i === 0)">
+                            <td class="emptyBox"> </td>
                         </ng-container>
-                    </tr>
-                </table>
-            </ng-container>
-        </div>
-        <br>
+                    </ng-container>
+                </ng-container>
+            </tr>
+            <tr>
+                <ng-container *ngFor="let array of arrOnline; let i1=index">
+                    <ng-container *ngFor="let number of [].constructor(array); let i2=index">
+                        <td class="colorRunning{{i1}} bar"></td>
+                    </ng-container>
+                </ng-container>
+            </tr>
+        </table>
+    </ng-container>
+</div>
+<br>

@@ -27,3 +27,9 @@ Schlechtester Status jeder Instanz
 Suche Filter aus
 mögliche Instanzen
 mögliche Services
+Menge
+Anzahl
+Status
+Farbe
+Status von Instanzen
+Als Bar chart

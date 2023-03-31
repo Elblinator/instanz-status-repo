@@ -10,6 +10,7 @@ import { StatusService } from './status.service';
 export class CheckStatusService {
 	instances: Instance[] = [];
 	arrService: number[] = [0, 0, 0];
+	listStatus: string[] = ['fast', 'slow', 'error']
 
 	constructor(private statusService: StatusService) { }
 
@@ -23,7 +24,7 @@ export class CheckStatusService {
 		return this.arrService;
 	}
 	/**
-	 * countStati goes through eacah instance, verifies that the instance is running
+	 * countStati goes through each instance, verifies that the instance is running
 	 * and then calls countStatus to count up the stati in this running instance
 	 * @returns number[] with three entries,
 	 *  	number[0] corresponds to amount of stati which are fast
@@ -33,7 +34,7 @@ export class CheckStatusService {
 	protected countStati(): number[] {
 		this.getInstance();
 		for (const instance of this.instances) {
-			if (instance.running == true) {
+			if (instance.running) {
 				this.countStatus(instance.services);
 			}
 		}
