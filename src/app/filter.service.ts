@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { StatusService } from './status.service';
 import { Instance, Status } from './00_data/interfaces';
+
+import { StatusService } from './status.service';
+
 @Injectable({
 	providedIn: 'root'
 })
@@ -20,10 +22,20 @@ export class FilterService {
 	constructor(
 		private statusService: StatusService,
 	) { }
-	protected OnInit(): void {
+
+	/**
+	 * activate initially all possible Services and Instances for the filter 
+	 */
+	public getAndSetPossibleFilter(): void{
 		this.setPossibleInstStatus();
+		this.setAllFilter();
 	}
-	public setPossibleInstStatus(): void {
+	/**
+	 * set all filter possibilities.
+	 * possibilizies for instances are in this.possibleInstances.
+	 * possibilizies for services are in this.possibleServices.
+	 */
+	private setPossibleInstStatus(): void {
 		this.statusService.getInstance()
 			.subscribe(instances => { this.instances = instances; });
 		this.possibleInstances = this.turnIntoArray(this.instances);
@@ -33,9 +45,9 @@ export class FilterService {
 		}
 	}
 	/**
-	 * activate initially all possible Services and Instances for the filter 
+	 * activate all filter possibilities
 	 */
-	public setChosenONCE(): void {
+	private setAllFilter(): void {
 		if (this.first) {
 			this.first = false;
 			this.chosenInstances = this.possibleInstances;
@@ -88,11 +100,11 @@ export class FilterService {
 		return this.chosenServices;
 	}
 	/**
-	 * @param str 
+	 * @param instanceOrStatus 
 	 * @returns if the current instance/service is activated (for the filter) then return true
 	 */
-	public isActivated(str: string): boolean {
-		if (this.chosenServices.includes(str) || this.chosenInstances.includes(str)) {
+	public isActivated(instanceOrStatus: string): boolean {
+		if (this.chosenServices.includes(instanceOrStatus) || this.chosenInstances.includes(instanceOrStatus)) {
 			return true;
 		}
 		return false;

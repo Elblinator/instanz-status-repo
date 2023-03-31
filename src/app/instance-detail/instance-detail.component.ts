@@ -7,7 +7,7 @@ import { StatusService } from '../status.service';
 import { FormControl } from '@angular/forms';
 import { FilterService } from '../filter.service';
 import { MatDialog } from '@angular/material/dialog';
-import { WarnComponent } from '../warn/warn.component';
+import { WarnComponent } from '../warn/warn-dialog.component';
 import { WarnService } from '../warn.service';
 
 @Component({
@@ -33,15 +33,21 @@ export class InstanceDetailComponent implements OnInit {
 	public ngOnInit(): void {
 		this.getName();
 	}
+	/**
+	 * get the name from the current instance
+	 */
 	private getName(): void {
 		const name = String(this.route.snapshot.paramMap.get('name'));
 		this.statusService.getInst(name)
 			.subscribe(instance => this.instances = instance);
 	}
+	/**
+	 * go to previous page
+	 */
 	protected goBack(): void {
 		this.location.back();
 	}
-	protected openDia(str:string): void {
+	protected openWarnDialog(str:string): void {
 		this.warnService.setServiceAndMsg(str);
 		this.dialog.open(WarnComponent);
 	}

@@ -1,5 +1,4 @@
 <mat-sidenav-container class="side-bar">
-	<span *ngIf="initiateFilterData()"></span>
 	<mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
 		[mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
 		<mat-toolbar>
@@ -59,6 +58,6 @@
 
 <ng-template #getLoggedInBlock>
 	<span>
-		<button type="button" (click)="checkUser()">{{"anmelden"|translate}}</button>
+		<button type="button" (click)="checkLogin()">{{"anmelden"|translate}}</button>
 	</span>
 </ng-template>

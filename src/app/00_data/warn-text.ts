@@ -1,6 +1,6 @@
 import { Warning } from "./interfaces";
 
-export const WAWRNING: Warning[] = [
+export const WARNING: Warning[] = [
     //Gruppen-Services//
     //----------------------------/
     {

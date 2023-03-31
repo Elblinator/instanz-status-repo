@@ -1,10 +1,10 @@
 # instance-status-repo
 
-This program is supposed to display different instances and the status (offline, online, slow, error) of their services.
+This program is supposed to display different instances (on/off) and the status (fast, slow, error) of their services.
 
 Instances can be presented as:
- - __Start__: single stacked bar chart (values online/slow/error)
- - __Detailed-Start__(?): single stacked bar chart (values offline/online/slow/error)
+ - __Start__: single stacked bar chart (values fast/slow/error)
+ - __Detailed-Start__(?): single stacked bar chart (values fast/slow/error)
  - __Status__: running vs stopped 
  - __Instanzen__: list with none, selected or all services displayed
  

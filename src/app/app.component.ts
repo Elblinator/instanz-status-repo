@@ -2,11 +2,10 @@ import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-
-import { UserService } from './user.service';
-import { FilterService } from './filter.service';
 import { Observable, map, shareReplay } from 'rxjs';
-import { User } from './00_data/interfaces';
+
+import { FilterService } from './filter.service';
+import { UserService } from './user.service';
 
 @Component({
 	selector: 'app-root',
@@ -16,7 +15,6 @@ import { User } from './00_data/interfaces';
 export class AppComponent {
 	userName: string = this.userService.user;
 	password: string = this.userService.password;
-	user: User[] = [];
 	inputName = new FormControl('');
 	inputPassword = new FormControl('');
 	/////
@@ -27,35 +25,35 @@ export class AppComponent {
 		private userService: UserService,
 		private filterService: FilterService,
 		private breakpointObserver: BreakpointObserver,
-		private translate: TranslateService) {
+		private translate: TranslateService
+	) {
 		translate.addLangs(['en', 'de']);
 		translate.setDefaultLang('de');
 		translate.use('de');
+		this.initiateFilterData()
 	}
-
-
-	protected isLoggedIn(): boolean {
-		return this.userService.isLoggedIn();
-	}
-	protected initiateFilterData(): boolean {
-		this.filterService.setPossibleInstStatus();
-		this.filterService.setChosenONCE();
-		return true;
-	}
-
-
 	isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
 		.pipe(
 			map(result => result.matches),
 			shareReplay()
 		);
+	protected isLoggedIn(): boolean {
+		return this.userService.isLoggedIn();
+	}
 	protected logout(): void {
 		this.userService.logout();
 	}
-	protected getUser(): void {
-		this.user = this.userService.getUsers();
+	/**
+	 * activate all filter
+	 * and save which is a possibilitiy for filtering (saved in FilterService)
+	 */
+	private initiateFilterData(): void {
+		this.filterService.getAndSetPossibleFilter();
 	}
-	protected checkUser(): boolean {
-		return this.userService.checkUser(this.inputName.value, this.inputPassword.value);
+	/**
+	 * @returns true if inputName and inputPassword match an existing user
+	 */
+	protected checkLogin(): boolean {
+		return this.userService.checkLogin(this.inputName.value, this.inputPassword.value);
 	}
 }

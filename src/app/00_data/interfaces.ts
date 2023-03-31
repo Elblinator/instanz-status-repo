@@ -15,7 +15,7 @@ export interface Status {
 	status: string;
 }
 export interface InstanceServiceArr {
-	online: InstanceService[];
+	fast: InstanceService[];
 	slow: InstanceService[];
 	error: InstanceService[];
 	offline: InstanceService[];

@@ -7,10 +7,10 @@ export const INSTANCE: Instance[] = [
 		"running": true,
 		"services": [{
 			"name": "client",
-			"status": "online"
+			"status": "fast"
 		}, {
 			"name": "backend-action",
-			"status": "online"
+			"status": "fast"
 		}, {
 			"name": "backend-presenter",
 			"status": "slow"
@@ -19,22 +19,22 @@ export const INSTANCE: Instance[] = [
 			"status": "slow"
 		}, {
 			"name": "vote",
-			"status": "online"
+			"status": "fast"
 		}, {
 			"name": "auth",
-			"status": "online"
+			"status": "fast"
 		}, {
 			"name": "datastore-reader",
 			"status": "slow"
 		}, {
 			"name": "datastore-writer",
-			"status": "online"
+			"status": "fast"
 		}, {
 			"name": "icc",
 			"status": "slow"
 		}, {
 			"name": "media",
-			"status": "online"
+			"status": "fast"
 		}]
 	},
 	{
@@ -43,10 +43,10 @@ export const INSTANCE: Instance[] = [
 		"running": true,
 		"services": [{
 			"name": "client",
-			"status": "online"
+			"status": "fast"
 		}, {
 			"name": "backend-action",
-			"status": "online"
+			"status": "fast"
 		}, {
 			"name": "backend-presenter",
 			"status": "error"
@@ -55,22 +55,22 @@ export const INSTANCE: Instance[] = [
 			"status": "slow"
 		}, {
 			"name": "vote",
-			"status": "online"
+			"status": "fast"
 		}, {
 			"name": "auth",
-			"status": "online"
+			"status": "fast"
 		}, {
 			"name": "datastore-reader",
 			"status": "error"
 		}, {
 			"name": "datastore-writer",
-			"status": "online"
+			"status": "fast"
 		}, {
 			"name": "icc",
 			"status": "slow"
 		}, {
 			"name": "media",
-			"status": "online"
+			"status": "fast"
 		}]
 	},
 	{
@@ -79,34 +79,34 @@ export const INSTANCE: Instance[] = [
 		"running": true,
 		"services": [{
 			"name": "client",
-			"status": "online"
+			"status": "fast"
 		}, {
 			"name": "backend-action",
-			"status": "online"
+			"status": "fast"
 		}, {
 			"name": "backend-presenter",
-			"status": "online"
+			"status": "fast"
 		}, {
 			"name": "autoupdate",
-			"status": "online"
+			"status": "fast"
 		}, {
 			"name": "vote",
-			"status": "online"
+			"status": "fast"
 		}, {
 			"name": "auth",
-			"status": "online"
+			"status": "fast"
 		}, {
 			"name": "datastore-reader",
-			"status": "online"
+			"status": "fast"
 		}, {
 			"name": "datastore-writer",
-			"status": "online"
+			"status": "fast"
 		}, {
 			"name": "icc",
-			"status": "online"
+			"status": "fast"
 		}, {
 			"name": "media",
-			"status": "online"
+			"status": "fast"
 		}]
 	},
 	{

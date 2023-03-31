@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { Instance, InstanceService, Status } from '../00_data/interfaces';
 import { StatusService } from '../status.service';
-import { DialogComponent } from '../dialog/dialog.component';
+import { FilterComponent } from '../filter/filter-dialog.component';
 import { FilterService } from '../filter.service';
 import { FormControl } from '@angular/forms';
 
@@ -18,7 +18,7 @@ export class StatiComponent implements OnInit {
 	stati: Status[] = [];
 	curInstServ: InstanceService = { instance: "", service: "", status: "" }
 	instanceOffline: InstanceService[] = []
-	instanceOnline: InstanceService[] = []
+	instanceFast: InstanceService[] = []
 	instanceSlow: InstanceService[] = []
 	instanceError: InstanceService[] = []
 	instanceNamenList: string[] = this.filterService.reachableInstances()
@@ -38,17 +38,26 @@ export class StatiComponent implements OnInit {
 		this.statusService.getInstance()
 			.subscribe(instances => { this.instances = instances });
 	}
+	/**
+	 * @gets an Array with Arrays, the Arrays are filled dependend on their status.
+	 * array = [instanceOffline, instanceError, instanceSlow, instanceFast].
+	 * This function fills it's own arrays accordingly
+	 */
 	private sortData(): void {
 		const array = this.statusService.sortData();
 		this.instanceOffline = array[0];
 		this.instanceError = array[1];
 		this.instanceSlow = array[2];
-		this.instanceOnline = array[3];
+		this.instanceFast = array[3];
 	}
-	protected openDialog(): void {
-		this.dialog.open(DialogComponent);
+	protected openFilterDialog(): void {
+		this.dialog.open(FilterComponent);
 	}
-	protected isActivated(str: string): boolean {
-		return this.filterService.isActivated(str);
+	/**
+	 * @param instanceOrStatus 
+	 * @returns if this instance or status is activated by the filter
+	 */
+	protected isActivated(instanceOrStatus: string): boolean {
+		return this.filterService.isActivated(instanceOrStatus);
 	}
 }

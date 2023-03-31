@@ -39,7 +39,7 @@ export class UserService {
 	/* get a name and a password 
 	*  return boolean if they are correct and corresponding name and password
 	*/
-	public checkUser(name: (string | null), password: (string | null)): boolean {
+	public checkLogin(name: (string | null), password: (string | null)): boolean {
 		let id = -1;
 		this.getUsers();
 		if (typeof (name) === "string" && typeof (password) === "string") {

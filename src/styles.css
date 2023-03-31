@@ -20,7 +20,7 @@ h3 {
 
 body {
   padding: 0rem;
-  max-width: 1000px;
+  max-width: 2000px;
   margin: 0;
 
   /* display:center; */
@@ -113,7 +113,7 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.dot_online {
+.dot_fast {
   width: 15px;
   height: 15px;
   background-color: rgb(6, 151, 49);
@@ -142,6 +142,34 @@ body {
   height: 15px;
   background-color: rgb(0, 0, 0);
   border-radius: 50%;
+  display: inline-block;
+}
+
+.square_fast {
+  width: 15px;
+  height: 15px;
+  background-color: rgb(6, 151, 49);
+  display: inline-block;
+}
+
+.square_slow {
+  width: 15px;
+  height: 15px;
+  background-color: rgb(207, 211, 3);
+  display: inline-block;
+}
+
+.square_error {
+  width: 15px;
+  height: 15px;
+  background-color: rgb(211, 3, 3);
+  display: inline-block;
+}
+
+.square_offline {
+  width: 15px;
+  height: 15px;
+  background-color: rgb(0, 0, 0);
   display: inline-block;
 }
 

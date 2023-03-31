@@ -6,10 +6,10 @@
 	"running":true,
 	"services": [{
 		"name": "client",
-		"status": "online"
+		"status": "fast"
 	}, {
 		"name": "backend-action",
-		"status": "online"
+		"status": "fast"
 	}, {
 		"name": "backend-presenter",
 		"status": "error"
@@ -18,22 +18,22 @@
 		"status": "slow"
 	}, {
 		"name": "vote",
-		"status": "online"
+		"status": "fast"
 	}, {
 		"name": "auth",
-		"status": "online"
+		"status": "fast"
 	}, {
 		"name": "datastore-reader",
 		"status": "error"
 	}, {
 		"name": "datastore-writer",
-		"status": "online"
+		"status": "fast"
 	}, {
 		"name": "icc",
 		"status": "slow"
 	}, {
 		"name": "media",
-		"status": "online"
+		"status": "fast"
 	}]
 }, {
 	"id": 2,
@@ -41,10 +41,10 @@
 	"running": true,
 	"services": [{
 		"name": "client",
-		"status": "online"
+		"status": "fast"
 	}, {
 		"name": "backend-action",
-		"status": "online"
+		"status": "fast"
 	}, {
 		"name": "backend-presenter",
 		"status": "offline"
@@ -53,21 +53,21 @@
 		"status": "slow"
 	}, {
 		"name": "vote",
-		"status": "online"
+		"status": "fast"
 	}, {
 		"name": "auth",
-		"status": "online"
+		"status": "fast"
 	}, {
 		"name": "datastore-reader",
 		"status": "offline"
 	}, {
 		"name": "datastore-writer",
-		"status": "online"
+		"status": "fast"
 	}, {
 		"name": "icc",
 		"status": "slow"
 	}, {
 		"name": "media",
-		"status": "online"
+		"status": "fast"
 	}]
 }]

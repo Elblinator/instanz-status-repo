@@ -9,7 +9,7 @@
 	</mat-form-field>
 
 	<span class="badge"></span>
-	<button type="button" (click)="openDialog()">{{"Filtern"|translate}}</button>
+	<button type="button" (click)="openFilterDialog()">{{"Filtern"|translate}}</button>
 </form>
 
 <h2>{{"Die Instanzen"|translate}}: </h2>
@@ -19,21 +19,25 @@
 			<a routerLink="/instance/{{instance.name}}">
 				<span class="badge">{{instance.name}}</span> </a>
 			<br>
-			<ng-container *ngFor="let service of instance.services">
-				<span class="items" *ngIf="isActivated(service.name)">
-					<ng-container [ngSwitch]="service.status">
-						<canvas class="dot_{{service.status}}"> </canvas>
-					</ng-container>
-					{{service.name}}
-					&nbsp;
-				</span>
+			<ng-container *ngIf="instance.running">
+				<ng-container *ngFor="let service of instance.services">
+					<span class="items" *ngIf="isActivated(service.name)">
+						<ng-container [ngSwitch]="service.status">
+							<canvas class="dot_{{service.status}}"> </canvas>
+						</ng-container>
+						{{service.name}}
+						&nbsp;
+					</span>
+				</ng-container>
+			</ng-container>
+			<ng-container *ngIf="!instance.running">
+				<canvas class="dot_offline"> </canvas>
 			</ng-container>
 		</li>
 	</span>
 </ul>
 
-
-<h2>{{"Schlechtester Status jeder In Instanzen"|translate}}: </h2>
+<h2>{{"Schlechtester Status jeder Instanz"|translate}}: </h2>
 <ul class="instance">
 	<span *ngFor="let instance of instances">
 		<li *ngIf="whatStatus(instance) && isActivated(instance.name)">

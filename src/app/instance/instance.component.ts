@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { StatusService } from '../status.service';
 import { Instance, InstanceService } from '../00_data/interfaces';
-import { DialogComponent } from '../dialog/dialog.component';
+import { FilterComponent } from '../filter/filter-dialog.component';
 import { FilterService } from '../filter.service';
 import { FormControl } from '@angular/forms';
 
@@ -19,7 +19,7 @@ export class InstanceComponent implements OnInit {
 	instanceNamen = new FormControl('');
 
 	instanceOffline: InstanceService[] = [];
-	instanceOnline: InstanceService[] = [];
+	instanceFast: InstanceService[] = [];
 	instanceSlow: InstanceService[] = [];
 	instanceError: InstanceService[] = [];
 
@@ -33,15 +33,24 @@ export class InstanceComponent implements OnInit {
 		this.statusService.getInstance()
 			.subscribe(instances => { this.instances = instances });
 	}
-	protected openDialog(): void {
-		this.dialog.open(DialogComponent);
+	protected openFilterDialog(): void {
+		this.dialog.open(FilterComponent);
 	}
-	protected isActivated(str: string): boolean {
-		return this.filterService.isActivated(str);
+	/**
+	 * verify that the current data (instance- or service-name) is activated in the filter.
+	 * @param data = instance-name or service-name.
+	 * @returns boolean if activated in the filter
+	 */
+	protected isActivated(data: string): boolean {
+		return this.filterService.isActivated(data);
 	}
+	/**
+	 * @param instance 
+	 * @returns the worst status from instance (error>slow>fast>offline)
+	 */
 	protected whatStatus(instance: Instance): string {
 		//let array = this.statusService.sortData()
-		const status: string[] = ["offline", "error", "slow", "online"];
+		const status: string[] = ["offline", "error", "slow", "fast"];
 		let id = 3;
 		if (!instance.running) {
 			id = 0;

@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { FormControl } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 
-import { Instance, InstanceService, Status } from './00_data/interfaces'
+import {
+	Instance,
+	InstanceService,
+	Status
+} from './00_data/interfaces'
 import { INSTANCE } from './00_data/mock-data-real'
-import { FormControl } from '@angular/forms';
+
 
 
 @Injectable({ providedIn: 'root' })
@@ -15,7 +20,7 @@ export class StatusService {
 	stati: Status[] = [];
 	curInstServ: InstanceService = { instance: "", service: "", status: "" };
 	instanceOffline: InstanceService[] = [];
-	instanceOnline: InstanceService[] = [];
+	instanceFast: InstanceService[] = [];
 	instanceSlow: InstanceService[] = [];
 	instanceError: InstanceService[] = [];
 	instanceNamen = new FormControl('');
@@ -58,15 +63,15 @@ export class StatusService {
 		return of(instance);
 	}
 	/**
-	 * if an instance is not running it's pushed here otherwise it's forwarded to sortStatus()
+	 * if an instance is not running it's pushed onto instanceOffline otherwise it's forwarded to sortStatus().
 	 * @returns an Array with Arrays, the Arrays are filled dependend on their status
-	 *  return value = [instanceOffline, instanceError, instanceSlow, instanceOnline]
+	 *  return value = [instanceOffline, instanceError, instanceSlow, instanceFast]
 	 */
 	public sortData(): InstanceService[][] {
 		this.instanceOffline = [];
 		this.instanceError = [];
 		this.instanceSlow = [];
-		this.instanceOnline = [];
+		this.instanceFast = [];
 		for (const instance of this.instances) {
 			if (!instance.running) {
 				this.curInstServ = { instance: instance.name, service: "", status: "offline" };
@@ -75,7 +80,7 @@ export class StatusService {
 				this.sortStatus(instance);
 			}
 		}
-		return [this.instanceOffline, this.instanceError, this.instanceSlow, this.instanceOnline];
+		return [this.instanceOffline, this.instanceError, this.instanceSlow, this.instanceFast];
 	}
 	/**
 	 * olny running instances are sorted here
@@ -85,8 +90,8 @@ export class StatusService {
 	private sortStatus(instance: Instance): void {
 		for (const service of instance.services) {
 			this.curInstServ = { instance: instance.name, service: service.name, status: service.status };
-			if (service.status == "online") {
-				this.instanceOnline.push(this.curInstServ);
+			if (service.status == "fast") {
+				this.instanceFast.push(this.curInstServ);
 			}
 			else if (service.status == "slow") {
 				this.instanceSlow.push(this.curInstServ);

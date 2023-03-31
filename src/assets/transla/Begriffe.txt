@@ -13,16 +13,17 @@ wähle Instanz
 Filtern
 Instanzen aufgeteilt in Statusgruppen 
 Online
+Schnell
 Langsam
 Fehler
 Offline
 Status von Instanzen
-Online Langsam Fehler
+Schnell Langsam Fehler
 Laufende Instanzen
 Neustart
 Zurück
 Die Instanzen
-Schlechtester Status jeder In Instanzen
+Schlechtester Status jeder Instanz
 Suche Filter aus
 mögliche Instanzen
 mögliche Services

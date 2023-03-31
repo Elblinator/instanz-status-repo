@@ -11,11 +11,11 @@
     </form>
 </div>
 
-<! print online/slow/error amounts>
+<! print fast/slow/error amounts>
     <div *ngIf="arrService">
         <h2>Status von Instanzen</h2>
         <ng-container>
-            <h3> {{"Online Langsam Fehler"|translate}}:</h3>
+            <h3> {{"Schnell Langsam Fehler"|translate}}:</h3>
             <table>
                 <tr>
                     <ng-container *ngFor="let NbOfArray of arrService; let i1=index">
@@ -43,7 +43,7 @@
 
     <! print if registered running and stopped instances>
         <div *ngIf="isLoggedIn()">
-            <h2>{{"Laufende Instanzen"|translate}}</h2>
+            <h2>{{"Laufende Instanzen"|translate}} On/Off</h2>
             <ng-container>
                 <h3> {{"Online"|translate}} {{"Offline"|translate}}:</h3>
                 <table>

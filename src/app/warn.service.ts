@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { WAWRNING } from './00_data/warn-text';
+import { WARNING } from './00_data/warn-text';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class WarnService {
   */
   public setServiceAndMsg(service: string): void {
     this.service = service;
-    WAWRNING.forEach(element => {
+    WARNING.forEach(element => {
       if (element.service === service) {
         this.warn = element.warn;
       }

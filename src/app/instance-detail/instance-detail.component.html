@@ -11,7 +11,7 @@
 
 <div *ngIf="instances">
 	<h2>{{"Instanz"|translate}}: {{instances.name | uppercase}}
-		<button type="button" (click)="openDia('all')">{{"Neustart"|translate}}</button>
+		<button type="button" (click)="openWarnDialog('all')">{{"Neustart"|translate}}</button>
 	</h2>
 	<div>
 		<table>
@@ -26,7 +26,7 @@
 						{{service.name}}
 					</td>
 					<td>
-						<button class="neustart-button" type="button" (click)="openDia(service.name)">{{"Neustart"|translate}}</button>
+						<button class="neustart-button" type="button" (click)="openWarnDialog(service.name)">{{"Neustart"|translate}}</button>
 					</td>
 				</tr>
 				<br>
@@ -40,7 +40,7 @@
 					{{instan}}: 
 				</td>
 				<td>
-					<button type="button" (click)="openDia(instan)">{{"Neustart"|translate}}</button>
+					<button type="button" (click)="openWarnDialog(instan)">{{"Neustart"|translate}}</button>
 				</td>
 
 			</tr>

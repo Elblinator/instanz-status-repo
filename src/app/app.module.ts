@@ -25,8 +25,8 @@ import { InstanceComponent } from './instance/instance.component';
 import { AppRoutingModule } from './app-routing.module';
 import { InstanceDetailComponent } from './instance-detail/instance-detail.component';
 import { StartComponent } from './start/start.component';
-import { DialogComponent } from './dialog/dialog.component';
-import { WarnComponent } from './warn/warn.component';
+import { FilterComponent } from './filter/filter-dialog.component';
+import { WarnComponent } from './warn/warn-dialog.component';
 
 
 @NgModule({
@@ -57,10 +57,10 @@ import { WarnComponent } from './warn/warn.component';
 		InstanceComponent,
 		InstanceDetailComponent,
 		StartComponent,
-		DialogComponent,
+		FilterComponent,
 		WarnComponent
 	],
 	bootstrap: [AppComponent,],
-	providers: [DialogComponent, ReactiveFormsModule, WarnComponent],
+	providers: [FilterComponent, ReactiveFormsModule, WarnComponent],
 })
 export class AppModule { }
