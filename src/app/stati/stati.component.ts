@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { Instance, InstanceService, Status } from '../00_data/interfaces';
@@ -11,23 +11,27 @@ import { FormControl } from '@angular/forms';
 @Component({
 	selector: 'app-stati',
 	templateUrl: './stati.component.html',
-	styleUrls: ['./stati.component.css']
+	styleUrls: ['./stati.component.css'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StatiComponent implements OnInit {
-	instances: Instance[] = []
+	instances: Instance[] = [];
 	stati: Status[] = [];
-	curInstServ: InstanceService = { instance: "", service: "", status: "" }
-	instanceOffline: InstanceService[] = []
-	instanceFast: InstanceService[] = []
-	instanceSlow: InstanceService[] = []
-	instanceError: InstanceService[] = []
-	instanceNamenList: string[] = this.filterService.reachableInstances()
-	instanceNamen = new FormControl('')
+	curInstServ: InstanceService = { instance: "", service: "", status: "" };
+	instance_offline: InstanceService[] = [];
+	instance_fast: InstanceService[] = [];
+	instance_slow: InstanceService[] = [];
+	instance_error: InstanceService[] = [];
+	instanceNamenList: string[] = this.filterService.reachableInstances();
+	instanceNamen = new FormControl('');
+	possibleStatus: string[] = ['error', 'slow', 'offline', 'fast'];
+	instanceData: InstanceService[][] = [];
+	counter=0;
 
 	constructor(
 		private statusService: StatusService,
 		private filterService: FilterService,
-		private dialog: MatDialog,
+		private dialog: MatDialog
 	) { }
 
 	public ngOnInit(): void {
@@ -40,15 +44,16 @@ export class StatiComponent implements OnInit {
 	}
 	/**
 	 * @gets an Array with Arrays, the Arrays are filled dependend on their status.
-	 * array = [instanceOffline, instanceError, instanceSlow, instanceFast].
+	 * array = [instance_offline, instance_error, instance_slow, instance_fast].
 	 * This function fills it's own arrays accordingly
 	 */
 	private sortData(): void {
 		const array = this.statusService.sortData();
-		this.instanceOffline = array[0];
-		this.instanceError = array[1];
-		this.instanceSlow = array[2];
-		this.instanceFast = array[3];
+		this.instanceData = array;
+		this.instance_error = array[0];
+		this.instance_slow = array[1];
+		this.instance_offline = array[2];
+		this.instance_fast = array[3];
 	}
 	protected openFilterDialog(): void {
 		this.dialog.open(FilterComponent);
@@ -59,5 +64,9 @@ export class StatiComponent implements OnInit {
 	 */
 	protected isActivated(instanceOrStatus: string): boolean {
 		return this.filterService.isActivated(instanceOrStatus);
+	}
+	protected printMe() :void {
+		console.log(this.counter)
+		this.counter+=1
 	}
 }

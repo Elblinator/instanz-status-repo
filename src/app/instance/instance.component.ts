@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { StatusService } from '../status.service';
@@ -10,7 +10,8 @@ import { FormControl } from '@angular/forms';
 @Component({
 	selector: 'app-instance',
 	templateUrl: './instance.component.html',
-	styleUrls: ['./instance.component.css']
+	styleUrls: ['./instance.component.css'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class InstanceComponent implements OnInit {

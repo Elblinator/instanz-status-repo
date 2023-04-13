@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, NgZone, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
@@ -6,13 +6,15 @@ import { Observable, map, shareReplay } from 'rxjs';
 
 import { FilterService } from './filter.service';
 import { UserService } from './user.service';
+import { WarnComponent } from './warn/warn-dialog.component';
 
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
-	styleUrls: ['./app.component.css']
+	styleUrls: ['./app.component.css'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 	userName: string = this.userService.user;
 	password: string = this.userService.password;
 	inputName = new FormControl('');
@@ -25,12 +27,16 @@ export class AppComponent {
 		private userService: UserService,
 		private filterService: FilterService,
 		private breakpointObserver: BreakpointObserver,
-		private translate: TranslateService
+		private translate: TranslateService,
+		private ngZone: NgZone
 	) {
 		translate.addLangs(['en', 'de']);
 		translate.setDefaultLang('de');
 		translate.use('de');
 		this.initiateFilterData()
+	} 
+	ngOnInit() {
+		this.ngZone.runOutsideAngular(() => setInterval(() => WarnComponent, 5000));
 	}
 	isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
 		.pipe(

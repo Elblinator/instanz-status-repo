@@ -80,7 +80,7 @@ export class StatusService {
 				this.sortStatus(instance);
 			}
 		}
-		return [this.instanceOffline, this.instanceError, this.instanceSlow, this.instanceFast];
+		return [ this.instanceError, this.instanceSlow ,this.instanceOffline, this.instanceFast];
 	}
 	/**
 	 * olny running instances are sorted here

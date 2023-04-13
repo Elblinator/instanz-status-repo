@@ -19,6 +19,19 @@
         <ng-container>
             <h3> {{"Schnell Langsam Fehler"|translate}}:</h3>
             <table>
+                <th>
+                    <ng-container *ngFor="let NbOfArray of arrService; let i1=index">
+                    <ng-container *ngFor="let number of [].constructor(NbOfArray); let i=index">
+                        <ng-container *ngIf="i === 0">
+                            <td>{{NbOfArray}}</td>
+                        </ng-container>
+                        <ng-container *ngIf="!(i === 0)">
+                            <td class="emptyBox"> </td>
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+
+                </th>
                 <tr>
                     <ng-container *ngFor="let NbOfArray of arrService; let i1=index">
                         <ng-container *ngFor="let number of [].constructor(NbOfArray); let i=index">

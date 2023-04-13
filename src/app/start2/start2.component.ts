@@ -11,11 +11,11 @@ import { UserService } from '../user.service';
 
 @Component({
 	selector: 'app-start',
-	templateUrl: './start.component.html',
-	styleUrls: ['./start.component.css'],
+	templateUrl: './start2.component.html',
+	styleUrls: ['./start2.component.css'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StartComponent implements OnInit {
+export class Start2Component implements OnInit {
 	instances: Instance[] = [];
 	arrService: number[] = [0, 0, 0];
 	arrOnline: number[] = [0, 0];

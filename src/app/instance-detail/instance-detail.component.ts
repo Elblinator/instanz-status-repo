@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -13,7 +13,8 @@ import { WarnService } from '../warn.service';
 @Component({
 	selector: 'app-status-detail',
 	templateUrl: './instance-detail.component.html',
-	styleUrls: ['./instance-detail.component.css']
+	styleUrls: ['./instance-detail.component.css'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InstanceDetailComponent implements OnInit {
 	instances: Instance | undefined; 
