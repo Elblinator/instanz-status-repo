@@ -20,6 +20,8 @@ export class StartComponent implements OnInit {
 	arrOnline: number[] = [0, 0];
 	instanceNamenList: string[] = this.filterService.reachableInstances();
 	instanceNamen = new FormControl('');
+	listStatus: string[] = ['fast', 'slow', 'error']
+	listRunning: string[] = ['online', 'offline']
 
 	constructor(
 		private statusService: StatusService,

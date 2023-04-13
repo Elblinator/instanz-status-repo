@@ -27,6 +27,7 @@ import { InstanceDetailComponent } from './instance-detail/instance-detail.compo
 import { StartComponent } from './start/start.component';
 import { FilterComponent } from './filter/filter-dialog.component';
 import { WarnComponent } from './warn/warn-dialog.component';
+import { Start2Component } from './start2/start2.component';
 
 
 @NgModule({
@@ -57,6 +58,7 @@ import { WarnComponent } from './warn/warn-dialog.component';
 		InstanceComponent,
 		InstanceDetailComponent,
 		StartComponent,
+		Start2Component,
 		FilterComponent,
 		WarnComponent
 	],
