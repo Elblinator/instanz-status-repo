@@ -14,9 +14,8 @@ export class CheckStatusService {
 
 	constructor(private statusService: StatusService) { }
 
-	private getInstance(): void {
-		this.statusService.getInstance()
-			.subscribe(instances => { this.instances = instances });
+	private getData(): void {
+		this.instances = this.statusService.getInstances()
 	}
 	public resetCount(): number[] {
 		this.arrService = [0, 0, 0];
@@ -32,7 +31,7 @@ export class CheckStatusService {
 	 *  	number[2] corresponds to amount of stati which are error
 	 */
 	protected countStati(): number[] {
-		this.getInstance();
+		this.getData();
 		for (const instance of this.instances) {
 			if (instance.running) {
 				this.countStatus(instance.services);

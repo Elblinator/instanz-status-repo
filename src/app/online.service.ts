@@ -12,16 +12,15 @@ export class OnlineService {
 	arrOnline: number[] = [0, 0];
 	constructor(private statusService: StatusService) { }
 
-	public getInstance(): void {
-		this.statusService.getInstance()
-			.subscribe(instances => { this.instances = instances });
+	public getData(): void {
+		this.instances = this.statusService.getInstances()
 	}
 	/**
 	 * count how many instances are runnning or not running
 	 * @returns array first number is for running instances, second number is for stopped instances
 	 */
 	protected countOnline(): number[] {
-		this.getInstance();
+		this.getData();
 		for (const instance of this.instances) {
 			this.arrOnline[this.checkOnline(instance.running)] += 1
 		}

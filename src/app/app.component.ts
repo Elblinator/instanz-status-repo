@@ -6,7 +6,7 @@ import { Observable, map, shareReplay } from 'rxjs';
 
 import { FilterService } from './filter.service';
 import { UserService } from './user.service';
-import { WarnComponent } from './warn/warn-dialog.component';
+import { StatusService } from './status.service';
 
 @Component({
 	selector: 'app-root',
@@ -27,6 +27,7 @@ export class AppComponent implements OnInit {
 		private userService: UserService,
 		private filterService: FilterService,
 		private breakpointObserver: BreakpointObserver,
+		private statusService: StatusService,
 		private translate: TranslateService,
 		private ngZone: NgZone
 	) {
@@ -36,7 +37,10 @@ export class AppComponent implements OnInit {
 		this.initiateFilterData()
 	} 
 	ngOnInit() {
-		this.ngZone.runOutsideAngular(() => setInterval(() => WarnComponent, 5000));
+		setInterval(() => {
+		// this.statusService.updateData();
+		console.log('I would update Data every 5 minutes')
+		}, 300000)
 	}
 	isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
 		.pipe(

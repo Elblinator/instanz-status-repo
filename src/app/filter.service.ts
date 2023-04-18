@@ -36,13 +36,15 @@ export class FilterService {
 	 * possibilizies for services are in this.possibleServices.
 	 */
 	private setPossibleInstStatus(): void {
-		this.statusService.getInstance()
-			.subscribe(instances => { this.instances = instances; });
+		this.getData()
 		this.possibleInstances = this.turnIntoArray(this.instances);
 		for (const instance of this.instances) {
 			this.possibleServices = this.turnIntoArray(instance.services);
 			break;
 		}
+	}
+	private getData(): void {
+		this.instances = this.statusService.getInstances()
 	}
 	/**
 	 * activate all filter possibilities

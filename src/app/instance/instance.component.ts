@@ -32,23 +32,28 @@ export class InstanceComponent implements OnInit {
 	) {}
 
 	public ngOnInit(): void {
-		this.statusService.getInstance()
-			.subscribe(instances => { this.instances = instances });
+		this.getData();
 		this.dialog.afterAllClosed.subscribe(() => {
 			this.ref.markForCheck();
 		})
 	}
+	private getData(): void {
+		this.instances = this.statusService.getInstances()
+	}
+
 	protected openFilterDialog(): void {
 		this.dialog.open(FilterComponent);
 	}
+
 	/**
 	 * verify that the current data (instance- or service-name) is activated in the filter.
-	 * @param data = instance-name or service-name.
+	 * @param instanceOrStatus = instance-name or service-name.
 	 * @returns boolean if activated in the filter
 	 */
-	protected isActivated(data: string): boolean {
-		return this.filterService.isActivated(data);
+	protected isActivated(instanceOrStatus: string): boolean {
+		return this.filterService.isActivated(instanceOrStatus);
 	}
+
 	/**
 	 * @param instance 
 	 * @returns the worst status from instance (error>slow>fast>offline)

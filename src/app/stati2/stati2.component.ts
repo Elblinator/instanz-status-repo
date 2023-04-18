@@ -43,8 +43,7 @@ export class Stati2Component implements OnInit {
 		})
 	}
 	private getData(): void {
-		this.statusService.getInstance()
-			.subscribe(instances => { this.instances = instances });
+		this.instances = this.statusService.getInstances()
 	}
 	/**
 	 * @gets an Array with Arrays, the Arrays are filled dependend on their status.

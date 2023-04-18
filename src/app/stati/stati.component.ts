@@ -43,9 +43,21 @@ export class StatiComponent implements OnInit {
 		})
 	}
 	private getData(): void {
-		this.statusService.getInstance()
-			.subscribe(instances => { this.instances = instances });
+		this.instances = this.statusService.getInstances()
 	}
+
+	protected openFilterDialog(): void {
+		this.dialog.open(FilterComponent);
+	}
+	/**
+	 * verify that the current data (instance- or service-name) is activated in the filter.
+	 * @param instanceOrStatus = instance-name or service-name.
+	 * @returns boolean if activated in the filter
+	 */
+	protected isActivated(instanceOrStatus: string): boolean {
+		return this.filterService.isActivated(instanceOrStatus);
+	}
+
 	/**
 	 * @gets an Array with Arrays, the Arrays are filled dependend on their status.
 	 * array = [instance_offline, instance_error, instance_slow, instance_fast].
@@ -58,16 +70,5 @@ export class StatiComponent implements OnInit {
 		this.instance_slow = array[1];
 		this.instance_offline = array[2];
 		this.instance_fast = array[3];
-	}
-	protected openFilterDialog(): void {
-		this.dialog.open(FilterComponent);
-		this.ref.detectChanges()
-	}
-	/**
-	 * @param instanceOrStatus 
-	 * @returns if this instance or status is activated by the filter
-	 */
-	protected isActivated(instanceOrStatus: string): boolean {
-		return this.filterService.isActivated(instanceOrStatus);
 	}
 }

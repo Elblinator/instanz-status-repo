@@ -33,15 +33,14 @@ export class HiddenStartComponent implements OnInit {
 	) { }
 
 	public ngOnInit(): void {
-		this.getInstance();
+		this.getData()
 		this.resetCount();
 	}
 	protected isLoggedIn(): boolean {
 		return this.userService.isLoggedIn();
 	}
-	protected getInstance(): void {
-		this.statusService.getInstance()
-			.subscribe(instances => { this.instances = instances });
+	protected getData(): void {
+		this.instances = this.statusService.getInstances()
 	}
 	/**
 	 * reset count for amount of stati (fast/slow/error) and
