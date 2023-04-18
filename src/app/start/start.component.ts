@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { Instance } from '../00_data/interfaces';
@@ -23,13 +23,15 @@ export class StartComponent implements OnInit {
 	instanceNamen = new FormControl('');
 	listStatus: string[] = ['fast', 'slow', 'error']
 	listRunning: string[] = ['online', 'offline']
+	running = true
 
 	constructor(
 		private statusService: StatusService,
 		private userService: UserService,
 		private onlineService: OnlineService,
 		private checkStatusService: CheckStatusService,
-		private filterService: FilterService
+		private filterService: FilterService,
+		private changeDetRef: ChangeDetectorRef
 	) { }
 
 	public ngOnInit(): void {

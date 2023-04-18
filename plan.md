@@ -1,7 +1,14 @@
 # next Job:
+ - filter -> onpush fixing
+ - instances make pretty
+ - status make pretty
+ - Terminologie menschlich machen
+ - onPush needs fixing
  - data from url
  - cancel button für dialog
+ - start abgerundete ecken, getrennte Spalten
  - ui make me (me the program) pretty
+
  
 # Components: 
  - Blockieren von doppelten neustarts --> dummy button for now, timer, visible timer?,
@@ -25,3 +32,10 @@
  - Bei wahl von Neustart Warnung was die Konsequenzen sein können, länge, dauer, neuanmelden, wirklich ALLES neustarten etc.
  - Neustart von bestimmten Services -> key word ein ganzer Service
  - Also Cluster von Services (e.g. whole backendish)
+
+
+ 		setInterval(() => {
+			console.log(this.running)
+			this.running = false;
+			console.log(this.running)
+		}, 10000)

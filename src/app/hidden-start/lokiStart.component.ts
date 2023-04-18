@@ -11,18 +11,18 @@ import { UserService } from '../user.service';
 
 @Component({
 	selector: 'app-start',
-	templateUrl: './start2.component.html',
-	styleUrls: ['./start2.component.css'],
+	templateUrl: './lokiStart.component.html',
+	styleUrls: ['./lokiStart.component.css'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class Start2Component implements OnInit {
+export class HiddenStartComponent implements OnInit {
 	instances: Instance[] = [];
 	arrService: number[] = [0, 0, 0];
 	arrOnline: number[] = [0, 0];
 	instanceNamenList: string[] = this.filterService.reachableInstances();
 	instanceNamen = new FormControl('');
-	listStatus: string[] = ['fast', 'slow', 'error']
-	listRunning: string[] = ['online', 'offline']
+	listStatus: string[] = ['schnell', 'langsam', 'fehler']
+	onlineStatus: string[] = ['on', 'off']
 
 	constructor(
 		private statusService: StatusService,

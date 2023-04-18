@@ -110,18 +110,12 @@ button {
   font-size: 1rem;
   line-height: 0.8;
   padding: 0.5em;
-  margin: 0rem;
+  margin-left: 1em;
 }
 
 button:hover {
   background-color: #fafafa;
 }
-
-/* button:disabled {
-    background-color: #eee;
-    color: #aaa;
-    cursor: auto;
-  } */
 
 
 /* Navigation link styles */
@@ -154,6 +148,8 @@ input[type="text"] {
   box-sizing: border-box;
   width: 30%;
   padding: .5rem;
+  margin-left: 1em;
+  max-width: 13em;
 }
 
 html,
@@ -166,9 +162,10 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-span {
-  margin-left: 50px;
+.example-spacer {
+  flex: 1 1 auto;
 }
+
 
 
 .dot_green {

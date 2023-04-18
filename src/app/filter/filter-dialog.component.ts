@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ChangeDetectorRef, ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -22,6 +22,7 @@ export class FilterComponent {
 		@Inject(MAT_DIALOG_DATA) public data: DialogData,
 		private filterService: FilterService,
 		private _formBuilder: FormBuilder,
+		private ref: ChangeDetectorRef
 	) {
 		this.instances = this.filterService.reachableInstances();
 		this.services = this.filterService.reachableService();

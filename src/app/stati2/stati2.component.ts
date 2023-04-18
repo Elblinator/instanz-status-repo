@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { Instance, InstanceService, Status } from '../00_data/interfaces';
@@ -9,12 +9,12 @@ import { FormControl } from '@angular/forms';
 
 
 @Component({
-	selector: 'app-stati',
-	templateUrl: './stati.component.html',
-	styleUrls: ['./stati.component.css'],
+	selector: 'app-stati2',
+	templateUrl: './stati2.component.html',
+	styleUrls: ['./stati2.component.css'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StatiComponent implements OnInit {
+export class Stati2Component implements OnInit {
 	instances: Instance[] = [];
 	stati: Status[] = [];
 	curInstServ: InstanceService = { instance: "", service: "", status: "" };
@@ -31,8 +31,7 @@ export class StatiComponent implements OnInit {
 	constructor(
 		private statusService: StatusService,
 		private filterService: FilterService,
-		private dialog: MatDialog,
-		private ref: ChangeDetectorRef
+		private dialog: MatDialog
 	) { }
 
 	public ngOnInit(): void {
@@ -58,7 +57,6 @@ export class StatiComponent implements OnInit {
 	}
 	protected openFilterDialog(): void {
 		this.dialog.open(FilterComponent);
-		this.ref.detectChanges()
 	}
 	/**
 	 * @param instanceOrStatus 
@@ -66,5 +64,9 @@ export class StatiComponent implements OnInit {
 	 */
 	protected isActivated(instanceOrStatus: string): boolean {
 		return this.filterService.isActivated(instanceOrStatus);
+	}
+	protected printMe() :void {
+		console.log(this.counter)
+		this.counter+=1
 	}
 }

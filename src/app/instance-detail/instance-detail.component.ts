@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -13,14 +13,13 @@ import { WarnService } from '../warn.service';
 @Component({
 	selector: 'app-status-detail',
 	templateUrl: './instance-detail.component.html',
-	styleUrls: ['./instance-detail.component.css'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	styleUrls: ['./instance-detail.component.css']
 })
 export class InstanceDetailComponent implements OnInit {
 	instances: Instance | undefined; 
 	instanceNamenList: string[] = this.filterService.reachableInstances();
 	instanceNamen = new FormControl('');
-	InstanceGruppen: string[] = ["backend", "irgendeine Gruppe"];
+	InstanceGruppen: string[] = ["backEnd", "irgendeine Gruppe"];
 
 	constructor(
 		private route: ActivatedRoute,

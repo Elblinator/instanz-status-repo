@@ -1,54 +1,63 @@
-<form>
-	<mat-form-field appearance="fill">
-		<mat-label>{{"wähle Instanz"|translate}}</mat-label>
-		<mat-select [formControl]="instanceNamen">
-			<mat-option *ngFor="let instance of instanceNamenList" [value]="instance">
-				<a mat-list-item routerLink="/instance/{{instance}}">{{instance}}</a>
-			</mat-option>
-		</mat-select>
-	</mat-form-field>
-</form>
+<main>
+	<header>
+		<form>
+			<mat-form-field appearance="fill">
+				<mat-label>{{"wähle Instanz"|translate}}</mat-label>
+				<mat-select [formControl]="instanceNamen">
+					<mat-option *ngFor="let instance of instanceNamenList" [value]="instance">
+						<a mat-list-item routerLink="/instance/{{instance}}">{{instance}}</a>
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</form>
+	</header>
+	<body>
+		<div *ngIf="instances">
+			<h2>{{"Instanz"|translate}}: {{instances.name | uppercase}}
+				<button type="button" (click)="openWarnDialog('all')">{{"Neustart"|translate}}</button>
+			</h2>
+			<div>
+				<table>
+					<ng-container *ngFor="let service of instances.services">
+						<tr>
+							<td>
+								<ng-container [ngSwitch]="service.status">
+									<canvas class="dot_{{service.status}}"> </canvas>
+								</ng-container>
+							</td>
+							<td>
+								{{service.name}}
+							</td>
+							<td>
+								<button class="neustart-button" type="button"
+									(click)="openWarnDialog(service.name)">{{"Neustart"|translate}}</button>
+							</td>
+						</tr>
+						<br>
+					</ng-container>
+				</table>
+			</div>
+			<table>
+				<ng-container *ngFor="let instan of InstanceGruppen">
+					<tr>
+						<td>
+							{{instan}}:
+						</td>
+						<td>
+							<button type="button" (click)="openWarnDialog(instan)">{{"Neustart"|translate}}</button>
+						</td>
 
-<div *ngIf="instances">
-	<h2>{{"Instanz"|translate}}: {{instances.name | uppercase}}
-		<button type="button" (click)="openWarnDialog('all')">{{"Neustart"|translate}}</button>
-	</h2>
-	<div>
-		<table>
-			<ng-container *ngFor="let service of instances.services">
-				<tr>
-					<td>
-						<ng-container [ngSwitch]="service.status">
-							<canvas class="dot_{{service.status}}"> </canvas>
-						</ng-container>
-					</td>
-					<td>
-						{{service.name}}
-					</td>
-					<td>
-						<button class="neustart-button" type="button" (click)="openWarnDialog(service.name)">{{"Neustart"|translate}}</button>
-					</td>
-				</tr>
-				<br>
-			</ng-container>
-		</table>
-	</div>
-	<table>
-		<ng-container *ngFor="let instan of InstanceGruppen">
-			<tr>
-				<td>
-					{{instan}}: 
-				</td>
-				<td>
-					<button type="button" (click)="openWarnDialog(instan)">{{"Neustart"|translate}}</button>
-				</td>
+					</tr>
+				</ng-container>
+			</table>
+		</div>
+	</body>
 
-			</tr>
-		</ng-container>
-	</table>
-</div>
+	<footer>
+		<p>
+			<button type="button" (click)="goBack()">{{"Zurück"|translate}}</button>
+		</p>
+	</footer>
 
-<p>
-	<button type="button" (click)="goBack()">{{"Zurück"|translate}}</button>
-</p>
 
+</main>

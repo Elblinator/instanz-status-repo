@@ -21,13 +21,14 @@ import {
 
 import { AppComponent } from './app.component';
 import { StatiComponent } from './stati/stati.component';
+import { Stati2Component } from './stati2/stati2.component';
 import { InstanceComponent } from './instance/instance.component';
 import { AppRoutingModule } from './app-routing.module';
 import { InstanceDetailComponent } from './instance-detail/instance-detail.component';
-import { StartComponent } from './start/start.component';
+import { HiddenStartComponent } from './hidden-start/lokiStart.component';
 import { FilterComponent } from './filter/filter-dialog.component';
 import { WarnComponent } from './warn/warn-dialog.component';
-import { Start2Component } from './start2/start2.component';
+import { StartComponent } from './start/start.component';
 
 
 @NgModule({
@@ -55,10 +56,11 @@ import { Start2Component } from './start2/start2.component';
 	declarations: [
 		AppComponent,
 		StatiComponent,
+		Stati2Component,
 		InstanceComponent,
 		InstanceDetailComponent,
 		StartComponent,
-		Start2Component,
+		HiddenStartComponent,
 		FilterComponent,
 		WarnComponent
 	],
