@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { Instance, InstanceService, Status } from '../00_data/interfaces';
@@ -31,12 +31,16 @@ export class Stati2Component implements OnInit {
 	constructor(
 		private statusService: StatusService,
 		private filterService: FilterService,
-		private dialog: MatDialog
+		private dialog: MatDialog,
+		private ref: ChangeDetectorRef
 	) { }
 
 	public ngOnInit(): void {
 		this.getData();
 		this.sortData();
+		this.dialog.afterAllClosed.subscribe(() => {
+			this.ref.markForCheck();
+		})
 	}
 	private getData(): void {
 		this.statusService.getInstance()

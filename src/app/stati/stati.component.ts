@@ -38,6 +38,9 @@ export class StatiComponent implements OnInit {
 	public ngOnInit(): void {
 		this.getData();
 		this.sortData();
+		this.dialog.afterAllClosed.subscribe(() => {
+			this.ref.markForCheck();
+		})
 	}
 	private getData(): void {
 		this.statusService.getInstance()

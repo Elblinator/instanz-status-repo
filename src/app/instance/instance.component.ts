@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { StatusService } from '../status.service';
@@ -28,11 +28,15 @@ export class InstanceComponent implements OnInit {
 		private statusService: StatusService,
 		private filterService: FilterService,
 		private dialog: MatDialog,
-	) { }
+		private ref: ChangeDetectorRef
+	) {}
 
 	public ngOnInit(): void {
 		this.statusService.getInstance()
 			.subscribe(instances => { this.instances = instances });
+		this.dialog.afterAllClosed.subscribe(() => {
+			this.ref.markForCheck();
+		})
 	}
 	protected openFilterDialog(): void {
 		this.dialog.open(FilterComponent);
