@@ -23,7 +23,7 @@
 		<div>
 			<h2>{{"Fehler"|translate}} <canvas class="dot_error"></canvas></h2>
 			<ul>
-				<ng-template ngFor let-instance [ngForOf]="instance_error">
+				<div *ngFor="let instance of instance_error_Observable|async">
 					<ng-container *ngIf="isActivated(instance.instance)">
 						<li *ngIf="isActivated(instance.service)">
 							<a routerLink="/instance/{{instance.instance}}">
@@ -32,13 +32,13 @@
 							:&nbsp;{{instance.service}}
 						</li>
 					</ng-container>
-				</ng-template>
+				</div>
 			</ul>
 		</div>
 		<div>
-			<h2>{{"Langsam"|translate}}<canvas class="dot_slow"></canvas></h2>
+			<h2>{{"Langsam"|translate}} <canvas class="dot_slow"></canvas></h2>
 			<ul>
-				<ng-template ngFor let-instance [ngForOf]="instance_slow">
+				<div *ngFor="let instance of instance_slow_Observable|async">
 					<ng-container *ngIf="isActivated(instance.instance)">
 						<li *ngIf="isActivated(instance.service)">
 							<a routerLink="/instance/{{instance.instance}}">
@@ -47,25 +47,25 @@
 							:&nbsp;{{instance.service}}
 						</li>
 					</ng-container>
-				</ng-template>
+				</div>
 			</ul>
 		</div>
 		<div>
 			<h2>{{"Offline"|translate}} <canvas class="dot_offline"></canvas></h2>
 			<ul>
-				<ng-template ngFor let-instance [ngForOf]="instance_offline">
+				<div *ngFor="let instance of instance_offline_Observable|async">
 					<li *ngIf="isActivated(instance.instance)">
 						<a routerLink="/instance/{{instance.instance}}">
 							<span class="badge">{{instance.instance}}</span>
 						</a>
 					</li>
-				</ng-template>
+				</div>
 			</ul>
 		</div>
 		<div>
 			<h2>{{"Schnell"|translate}} <canvas class="dot_fast"></canvas></h2>
 			<ul>
-				<ng-template ngFor let-instance [ngForOf]="instance_fast">
+				<div *ngFor="let instance of instance_fast_Observable|async">
 					<ng-container *ngIf="isActivated(instance.instance)">
 						<li *ngIf="isActivated(instance.service)">
 							<a routerLink="/instance/{{instance.instance}}">
@@ -74,7 +74,7 @@
 							:&nbsp;{{instance.service}}
 						</li>
 					</ng-container>
-				</ng-template>
+				</div>
 			</ul>
 		</div>
 	</body>

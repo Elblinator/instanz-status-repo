@@ -13,12 +13,9 @@
 			<button type="button" (click)="openFilterDialog()">{{"Filtern"|translate}}</button>
 		</form>
 	</header>
+
 	<body>
 		<h2>{{"Instanzen aufgeteilt in Statusgruppen"|translate}} </h2>
-		<!-- <div *ngFor="let inst of instanceData">
-	<span>{{inst.instance}}</span>
-
-</div> -->
 		<div *ngFor="let insta of possibleStatus, let i=index">
 			<h2>{{insta}} <canvas class="dot_{{insta}}"> </canvas></h2>
 			<table>
@@ -39,16 +36,18 @@
 		</div>
 
 		<!-- <ng-template ngFor let-insta [ngForOf]="instanceData">
-	<ng-template ngFor let-inst [ngForOf]="insta">
-		<span>{{inst.status}}</span>
+				<ng-template ngFor let-inst [ngForOf]="insta">
+					<span>{{inst.status}}</span>
+					<br>
+				</ng-template>
+		</ng-template> -->
+
+
 		<br>
-	</ng-template>
-</ng-template> -->
-		<br><br><br>
 		<div>
 			<h2>{{"Fehler"|translate}} <canvas class="dot_error"></canvas></h2>
 			<ul>
-				<ng-template ngFor let-instance [ngForOf]="instance_error">
+				<div *ngFor="let instance of instance_error_Observable|async">
 					<ng-container *ngIf="isActivated(instance.instance)">
 						<li *ngIf="isActivated(instance.service)">
 							<a routerLink="/instance/{{instance.instance}}">
@@ -57,19 +56,19 @@
 							:&nbsp;{{instance.service}}
 						</li>
 					</ng-container>
-				</ng-template>
+				</div>
 			</ul>
 		</div>
 		<div>
 			<h2>{{"Offline"|translate}} <canvas class="dot_offline"></canvas></h2>
 			<ul>
-				<ng-template ngFor let-instance [ngForOf]="instance_offline">
+				<div *ngFor="let instance of instance_offline_Observable|async">
 					<li *ngIf="isActivated(instance.instance)">
 						<a routerLink="/instance/{{instance.instance}}">
 							<span class="badge">{{instance.instance}}</span>
 						</a>
 					</li>
-				</ng-template>
+				</div>
 			</ul>
 		</div>
 	</body>

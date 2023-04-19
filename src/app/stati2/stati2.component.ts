@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { Instance, InstanceService, Status } from '../00_data/interfaces';
+import { Instance, InstanceService } from '../00_data/interfaces';
 import { StatusService } from '../status.service';
 import { FilterComponent } from '../filter/filter-dialog.component';
 import { FilterService } from '../filter.service';
 import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -15,18 +16,17 @@ import { FormControl } from '@angular/forms';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Stati2Component implements OnInit {
-	instances: Instance[] = [];
-	stati: Status[] = [];
-	curInstServ: InstanceService = { instance: "", service: "", status: "" };
-	instance_offline: InstanceService[] = [];
-	instance_fast: InstanceService[] = [];
-	instance_slow: InstanceService[] = [];
-	instance_error: InstanceService[] = [];
+	instancesObservable: Observable<Instance[]> | undefined;
+	
+	instanceData_Observable: Observable<InstanceService[][]> | undefined;
+	instance_offline_Observable: Observable<InstanceService[]> | undefined;
+	instance_fast_Observable: Observable<InstanceService[]> | undefined;
+	instance_slow_Observable: Observable<InstanceService[]> | undefined;
+	instance_error_Observable: Observable<InstanceService[]> | undefined;
+
 	instanceNamenList: string[] = this.filterService.reachableInstances();
 	instanceNamen = new FormControl('');
 	possibleStatus: string[] = ['error', 'slow', 'offline', 'fast'];
-	instanceData: InstanceService[][] = [];
-	counter=0;
 
 	constructor(
 		private statusService: StatusService,
@@ -36,27 +36,16 @@ export class Stati2Component implements OnInit {
 	) { }
 
 	public ngOnInit(): void {
-		this.getData();
-		this.sortData();
+		this.sortDataObservable();
+		this.instanceData_Observable = this.statusService.instancesSortSubject.asObservable();
+		this.instance_offline_Observable = this.statusService.instancesSortSubject_offline.asObservable();
+		this.instance_fast_Observable = this.statusService.instancesSortSubject_fast.asObservable();
+		this.instance_slow_Observable = this.statusService.instancesSortSubject_slow.asObservable();
+		this.instance_error_Observable = this.statusService.instancesSortSubject_error.asObservable();
+
 		this.dialog.afterAllClosed.subscribe(() => {
 			this.ref.markForCheck();
 		})
-	}
-	private getData(): void {
-		this.instances = this.statusService.getInstances()
-	}
-	/**
-	 * @gets an Array with Arrays, the Arrays are filled dependend on their status.
-	 * array = [instance_offline, instance_error, instance_slow, instance_fast].
-	 * This function fills it's own arrays accordingly
-	 */
-	private sortData(): void {
-		const array = this.statusService.sortData();
-		this.instanceData = array;
-		this.instance_error = array[0];
-		this.instance_slow = array[1];
-		this.instance_offline = array[2];
-		this.instance_fast = array[3];
 	}
 	protected openFilterDialog(): void {
 		this.dialog.open(FilterComponent);
@@ -66,10 +55,15 @@ export class Stati2Component implements OnInit {
 	 * @returns if this instance or status is activated by the filter
 	 */
 	protected isActivated(instanceOrStatus: string): boolean {
+		return true
 		return this.filterService.isActivated(instanceOrStatus);
 	}
-	protected printMe() :void {
-		console.log(this.counter)
-		this.counter+=1
+	/**
+	 * @gets an Array with Arrays, the Arrays are filled dependend on their status.
+	 * array = [instance_offline, instance_error, instance_slow, instance_fast].
+	 * This function fills it's own arrays accordingly
+	 */
+	private sortDataObservable(): void {
+		this.statusService.sortDataObservable();
 	}
 }

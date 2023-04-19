@@ -13,11 +13,12 @@
 			<button type="button" (click)="openFilterDialog()">{{"Filtern"|translate}}</button>
 		</form>
 	</header>
+	<!-- ------------------------------------>
 
 	<body>
 		<h2>{{"Die Instanzen"|translate}}: </h2>
 		<ul class="instance">
-			<span *ngFor="let instance of instances">
+			<span *ngFor="let instance of instancesObservable|async">
 				<li *ngIf="isActivated(instance.name)">
 					<a routerLink="/instance/{{instance.name}}">
 						<span class="badge">{{instance.name}}</span> </a>
@@ -41,7 +42,7 @@
 		</ul>
 		<h2>{{"Schlechtester Status jeder Instanz"|translate}}: </h2>
 		<ul class="instance">
-			<span *ngFor="let instance of instances">
+			<span *ngFor="let instance of instancesObservable|async">
 				<li *ngIf="whatStatus(instance) && isActivated(instance.name)">
 					<a routerLink="/instance/{{instance.name}}">
 						<span class="badge">{{instance.name}}</span> </a>

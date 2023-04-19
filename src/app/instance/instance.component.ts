@@ -6,6 +6,7 @@ import { Instance, InstanceService } from '../00_data/interfaces';
 import { FilterComponent } from '../filter/filter-dialog.component';
 import { FilterService } from '../filter.service';
 import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'app-instance',
@@ -15,7 +16,7 @@ import { FormControl } from '@angular/forms';
 })
 
 export class InstanceComponent implements OnInit {
-	instances: Instance[] = [];
+	instancesObservable: Observable<Instance[]> | undefined;
 	instanceNamenList: string[] = this.filterService.reachableInstances();
 	instanceNamen = new FormControl('');
 
@@ -32,13 +33,10 @@ export class InstanceComponent implements OnInit {
 	) {}
 
 	public ngOnInit(): void {
-		this.getData();
 		this.dialog.afterAllClosed.subscribe(() => {
 			this.ref.markForCheck();
 		})
-	}
-	private getData(): void {
-		this.instances = this.statusService.getInstances()
+		this.instancesObservable = this.statusService.instancesSubject.asObservable();
 	}
 
 	protected openFilterDialog(): void {
@@ -51,6 +49,7 @@ export class InstanceComponent implements OnInit {
 	 * @returns boolean if activated in the filter
 	 */
 	protected isActivated(instanceOrStatus: string): boolean {
+		return true
 		return this.filterService.isActivated(instanceOrStatus);
 	}
 
@@ -59,21 +58,6 @@ export class InstanceComponent implements OnInit {
 	 * @returns the worst status from instance (error>slow>fast>offline)
 	 */
 	protected whatStatus(instance: Instance): string {
-		//let array = this.statusService.sortData()
-		const status: string[] = ["offline", "error", "slow", "fast"];
-		let id = 3;
-		if (!instance.running) {
-			id = 0;
-		} else {
-			instance.services.forEach(element => {
-				if ("error" === element.status) {
-					id = 1;
-				}
-				if ("slow" === element.status && id > 1) {
-					id = 2;
-				}
-			});
-		}
-		return status[id];
+		return this.filterService.whatStatus(instance)
 	}
 }
