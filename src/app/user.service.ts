@@ -8,13 +8,13 @@ import { USER } from './00_data/mock-user';
 	providedIn: 'root'
 })
 export class UserService {
-	users: User[] = [];
-	user = "";
-	password = "";
-	isUser = false;
+	public users: User[] = [];
+	public user = "";
+	public password = "";
+	public isUser = false;
 	//// For testing purposes /////
-	isTesting = true;
-	isTestingOnline = true;
+	public isTesting = true;
+	public isTestingOnline = true;
 	//////////////////
 
 	constructor() {

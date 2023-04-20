@@ -15,12 +15,16 @@ import { StatusService } from './status.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
-	userName: string = this.userService.user;
-	password: string = this.userService.password;
-	inputName = new FormControl('');
-	inputPassword = new FormControl('');
+	////// not yet functional //////////////////
+	protected userName: string = this.userService.user;
+	protected password: string = this.userService.password;
+	//////////////////////////////////////
+
+	protected inputName = new FormControl('');
+	protected inputPassword = new FormControl('');
+
 	/////
-	title = 'Instanzen';
+	protected title = 'Instanzen';
 	/////
 
 	constructor(
@@ -35,18 +39,20 @@ export class AppComponent implements OnInit {
 		translate.setDefaultLang('de');
 		translate.use('de');
 		this.initiateFilterData()
-	} 
-	ngOnInit() {
-		setInterval(() => {
-		// this.statusService.updateData();
-		console.log('I would update Data every 5 minutes')
-		}, 300000)
 	}
-	isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+	ngOnInit() {
+		//setInterval(() => {
+		// this.statusService.updateData();
+		// 	console.log('I would update Data every 5 minutes')
+		// }, 300000)
+		'dummy text'
+	}
+	protected isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
 		.pipe(
 			map(result => result.matches),
 			shareReplay()
 		);
+
 	protected isLoggedIn(): boolean {
 		return this.userService.isLoggedIn();
 	}
@@ -59,6 +65,7 @@ export class AppComponent implements OnInit {
 	 */
 	private initiateFilterData(): void {
 		this.filterService.getAndSetPossibleFilter();
+		this.statusService.updateData()
 	}
 	/**
 	 * @returns true if inputName and inputPassword match an existing user

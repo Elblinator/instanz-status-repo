@@ -5,8 +5,8 @@ import { WARNING } from './00_data/warn-text';
   providedIn: 'root'
 })
 export class WarnService {
-  service = "";
-  warn = "";
+  private service = "";
+  private warn = "";
 
   /* gets called with a service, 
   *  this.service is being updated

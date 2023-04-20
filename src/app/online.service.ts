@@ -9,9 +9,9 @@ import { BehaviorSubject } from 'rxjs';
 	providedIn: 'root'
 })
 export class OnlineService {
-	instances: Instance[] = [];
-	arrOnline: number[] = [0, 0];
-	instancesSubject: BehaviorSubject<Instance[]> = new BehaviorSubject<Instance[]>([]);
+	private instances: Instance[] = [];
+	private arrOnline: number[] = [0, 0];
+	private instancesSubject: BehaviorSubject<Instance[]> = new BehaviorSubject<Instance[]>([]);
 	constructor(private statusService: StatusService) { }
 
 	private getData(): void {

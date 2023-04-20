@@ -3,25 +3,30 @@ import { Injectable } from '@angular/core';
 import { Instance, Status } from './00_data/interfaces';
 
 import { StatusService } from './status.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class CheckStatusService {
-	instances: Instance[] = [];
-	arrService: number[] = [0, 0, 0];
-	listStatus: string[] = ['fast', 'slow', 'error']
+	protected instances: Instance[] = [];
+	protected arrService: number[] = [0, 0, 0];
+	protected listStatus: string[] = ['fast', 'slow', 'error']
+	protected instancesSubject: BehaviorSubject<Instance[]> = new BehaviorSubject<Instance[]>([]);
 
 	constructor(private statusService: StatusService) { }
 
 	private getData(): void {
-		this.instances = this.statusService.getInstances()
+		this.instancesSubject = this.statusService.instancesSubject
+		this.instances = this.instancesSubject.getValue()
 	}
+
 	public resetCount(): number[] {
 		this.arrService = [0, 0, 0];
 		this.countStati();
 		return this.arrService;
 	}
+
 	/**
 	 * countStati goes through each instance, verifies that the instance is running
 	 * and then calls countStatus to count up the stati in this running instance
@@ -39,6 +44,7 @@ export class CheckStatusService {
 		}
 		return this.arrService;
 	}
+
 	/**
 	 * count the status from every service from one instance => 
 	 * this.arrService is a number[] with three items
@@ -52,6 +58,7 @@ export class CheckStatusService {
 			this.arrService[this.checkStatus(service.status)] += 1
 		}
 	}
+
 	/**
 	 * @param status = status from one service
 	 * @returns the corresponding index for the status => fast has 0, slow has 1, error has 2

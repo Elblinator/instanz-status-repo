@@ -1,66 +1,82 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FormControl } from '@angular/forms';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
-import {
-	Instance,
-	InstanceService,
-	Status
-} from './00_data/interfaces'
-import { INSTANCE } from './00_data/mock-data-real'
+import { Instance, InstanceService } from './00_data/interfaces'
 
 
 
 @Injectable({ providedIn: 'root' })
 export class StatusService {
-	private _url = 'http://docker-le.whale:8000/assets/data/example-data.json'
+	/** url for data */
+	private _url = 'http://docker-le.whale:8001/assets/data/example-data.json'
+	/** All Data */
+	public instancesSubject: BehaviorSubject<Instance[]> = new BehaviorSubject<Instance[]>([]);
+	/** sorted Data */
+	public instancesSortSubject: BehaviorSubject<InstanceService[][]> = new BehaviorSubject<InstanceService[][]>([]);
+	/**last watched instance (see instance-detail) */
+	public currentInstancesSubject: BehaviorSubject<(Instance[])> = new BehaviorSubject<Instance[]>([{ id: 0, name: "", running: false, services: [{ name: "", status: "" }] }]);
+	/**  Behaviours for status */
+	public instancesSortSubject_offline: BehaviorSubject<InstanceService[]> = new BehaviorSubject<InstanceService[]>([]);
+	public instancesSortSubject_fast: BehaviorSubject<InstanceService[]> = new BehaviorSubject<InstanceService[]>([]);
+	public instancesSortSubject_slow: BehaviorSubject<InstanceService[]> = new BehaviorSubject<InstanceService[]>([]);
+	public instancesSortSubject_error: BehaviorSubject<InstanceService[]> = new BehaviorSubject<InstanceService[]>([]);
+	///////////////////////////////////////////////
 
-	instances: Instance[] = [];
-	stati: Status[] = [];
-	curInstServ: InstanceService = { instance: "", service: "", status: "" };
-	instanceOffline: InstanceService[] = [];
-	instanceFast: InstanceService[] = [];
-	instanceSlow: InstanceService[] = [];
-	instanceError: InstanceService[] = [];
-	instanceNamen = new FormControl('');
+	/** placeholder for current instance and 4 arrays to fill the stati */
+	private curInstServ: InstanceService = { instance: "", service: "", status: "" };
+	private instanceOffline: InstanceService[] = [];
+	private instanceFast: InstanceService[] = [];
+	private instanceSlow: InstanceService[] = [];
+	private instanceError: InstanceService[] = [];
+	///////////////////////////////////////////
 
 	constructor(
 		private http: HttpClient,
-	) { this.getDatas() }
-	//turn obervable Instance[] into Instance[]
-	protected getDatas(): void {
-		this.getInstance()
-			.subscribe(instances => { this.instances = instances });
-	}
-	/** missing function which calls http
-	 *  and function which calls loaded data, needs to be called differently
-	 * updateData will be the function which calls http in a set timeinterval
-	 * getData will distribute the loaded data into website
-	 * 
-	 */
+	) { this.updateData() }
 
-	public updateData(): Observable<Instance[]> {
-		//return this.http.get<Instance[]>(this._url)
-		this.http;
-		//this._url
-		const instance = of(INSTANCE);
-		return instance;
-	}
 	/** 
-	*  @returns (preloaded) data as obeservable Instance[]
-	*/
-	public getInstance(): Observable<Instance[]> {
-		const instance = of(INSTANCE);
-		return instance;
+	 * initialises the data at the beginning
+	 * and updates the data every interval (see app.component ngOnInit())
+	 */
+	public updateData(): void {
+		console.log('status-service update Data');
+		this.http.get<Instance[]>(this._url).subscribe(instances => {
+			this.instancesSubject.next(instances)
+			this.sortDataObservable()
+		});
 	}
+
+	/** can be delteted maybe see when every functionality is implemented */
+	public getInstance(): BehaviorSubject<Instance[]> {
+		return this.instancesSubject
+	}
+
+	/** can be delteted maybe see when every functionality is implemented */
+	public getInstances(): Instance[] {
+		return this.instancesSubject.getValue()
+	}
+
 	/**
 	 * @param name = name from an instance
-	 * @returns = the complete instance
+	 * saves the searched instance in this.currentInstancesSubject
 	 */
-	public getInst(name: string): Observable<Instance> {
-		const instance = INSTANCE.find(h => h.name === name)!;
-		return of(instance);
+	public getInst(name: string): void {
+		const a = this.instancesSubject.getValue().find(h => h.name === name)
+		if (!(typeof (a) === 'undefined')) {
+			this.currentInstancesSubject.next([a])
+		}
+	}
+
+	/**
+	 * puts sorted data (sorted by status and running) into BehaviourSubject
+	 */
+	public sortDataObservable(): void {
+		this.instancesSortSubject.next(this.sortData())
+		this.instancesSortSubject_error.next(this.instanceError)
+		this.instancesSortSubject_slow.next(this.instanceSlow)
+		this.instancesSortSubject_offline.next(this.instanceOffline)
+		this.instancesSortSubject_fast.next(this.instanceFast)
 	}
 	/**
 	 * if an instance is not running it's pushed onto instanceOffline otherwise it's forwarded to sortStatus().
@@ -72,7 +88,7 @@ export class StatusService {
 		this.instanceError = [];
 		this.instanceSlow = [];
 		this.instanceFast = [];
-		for (const instance of this.instances) {
+		for (const instance of this.instancesSubject.getValue()) {
 			if (!instance.running) {
 				this.curInstServ = { instance: instance.name, service: "", status: "offline" };
 				this.instanceOffline.push(this.curInstServ);
@@ -80,10 +96,10 @@ export class StatusService {
 				this.sortStatus(instance);
 			}
 		}
-		return [ this.instanceError, this.instanceSlow ,this.instanceOffline, this.instanceFast];
+		return [this.instanceError, this.instanceSlow, this.instanceOffline, this.instanceFast];
 	}
 	/**
-	 * olny running instances are sorted here
+	 * only running instances are sorted here
 	 * instance is pushed to it's corresponding array
 	 * @param instance 
 	 */

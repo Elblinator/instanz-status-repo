@@ -25,7 +25,6 @@ import { Stati2Component } from './stati2/stati2.component';
 import { InstanceComponent } from './instance/instance.component';
 import { AppRoutingModule } from './app-routing.module';
 import { InstanceDetailComponent } from './instance-detail/instance-detail.component';
-import { HiddenStartComponent } from './hidden-start/lokiStart.component';
 import { FilterComponent } from './filter/filter-dialog.component';
 import { WarnComponent } from './warn/warn-dialog.component';
 import { StartComponent } from './start/start.component';
@@ -60,7 +59,6 @@ import { StartComponent } from './start/start.component';
 		InstanceComponent,
 		InstanceDetailComponent,
 		StartComponent,
-		HiddenStartComponent,
 		FilterComponent,
 		WarnComponent
 	],
