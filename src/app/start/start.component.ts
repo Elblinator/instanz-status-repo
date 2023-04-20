@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 import { CheckStatusService } from '../check-status.service';
 import { FilterService } from '../filter.service';
 import { OnlineService } from '../online.service'
 import { StatusService } from '../status.service';
 import { UserService } from '../user.service';
+import { Instance } from '../00_data/interfaces';
 
 @Component({
 	selector: 'app-start',
@@ -14,12 +16,15 @@ import { UserService } from '../user.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StartComponent implements OnInit {
-	arrService: number[] = [0, 0, 0];
-	arrOnline: number[] = [0, 0];
-	instanceNamenList: string[] = this.filterService.reachableInstances();
-	instanceNamen = new FormControl('');
-	listStatus: string[] = ['fast', 'slow', 'error']
-	listRunning: string[] = ['online', 'offline']
+	////////// Header /////////////
+	protected instancesObservable: Observable<Instance[]> | undefined;
+	protected instanceNamenList: Observable<string[]> = new Observable<string[]>
+	protected instanceNamen: FormControl<string | null> = new FormControl('');
+	//////////////////////////////
+	protected arrService: number[] = [0, 0, 0];
+	protected arrOnline: number[] = [0, 0];
+	protected listStatus: string[] = ['fast', 'slow', 'error']
+	protected listRunning: string[] = ['online', 'offline']
 
 	constructor(
 		private statusService: StatusService,
@@ -32,6 +37,11 @@ export class StartComponent implements OnInit {
 	public ngOnInit(): void {
 		this.statusService.instancesSubject.subscribe(() => {
 			this.resetCount();
+		})
+		this.instancesObservable = this.statusService.instancesSubject.asObservable();
+		this.instanceNamenList = this.filterService.reachableInstances().asObservable();
+		this.statusService.instancesSubject.subscribe(() => {
+			this.filterService.updateFilter();
 		})
 	}
 

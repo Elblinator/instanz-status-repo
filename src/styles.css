@@ -116,24 +116,27 @@ body {
 .dot_online {
   width: 15px;
   height: 15px;
-  background-color: rgb(6, 151, 49);
+  background-color: green;
   border-radius: 50%;
+  border: 1px solid gray;
   display: inline-block;
 }
 
 .dot_slow {
   width: 15px;
   height: 15px;
-  background-color: rgb(207, 211, 3);
+  background-color: yellow;
   border-radius: 50%;
+  border: 1px solid gray;
   display: inline-block;
 }
 
 .dot_error {
   width: 15px;
   height: 15px;
-  background-color: rgb(211, 3, 3);
+  background-color: red;
   border-radius: 50%;
+  border: 1px solid gray;
   display: inline-block;
 }
 

@@ -1,24 +1,30 @@
-<h1 mat-dialog-title>{{"Suche Filter aus"|translate}}</h1>
-<mat-card-content>
-	<h2>{{"mögliche Instanzen"|translate}}</h2>
-	<section [formGroup]="inst" class="example-section" *ngFor="let instance of instances">
-		<p><mat-checkbox color="primary" formControlName="{{instance}}">{{instance}}</mat-checkbox></p>
-	</section>
-</mat-card-content>
+<html>
 
-<mat-card-content>
-	<h2>{{"mögliche Services"|translate}}</h2>
-	<section [formGroup]="serv" class="example-section" *ngFor="let service of services">
-		<p><mat-checkbox color="primary" formControlName="{{service}}">{{service}}</mat-checkbox></p>
-	</section>
-</mat-card-content> 
+<body>
+	<h1 mat-dialog-title>{{"Suche Filter aus"|translate}}</h1>
+	<mat-card-content>
+		<h2>{{"mögliche Instanzen"|translate}}</h2>
+		<section [formGroup]="inst" class="example-section" *ngFor="let instance of instances|async">
+			<p><mat-checkbox color="primary" formControlName="{{instance}}">{{instance}}</mat-checkbox></p>
+		</section>
+	</mat-card-content>
 
-<!-- <section class="example-section" [formGroup]="tops">
-  <h4>You chose:</h4>
-  {{ping.value | json}}
-</section> -->
+	<mat-card-content>
+		<h2>{{"mögliche Services"|translate}}</h2>
+		<section [formGroup]="serv" class="example-section" *ngFor="let service of services|async">
+			<p><mat-checkbox color="primary" formControlName="{{service}}">{{service}}</mat-checkbox></p>
+		</section>
+	</mat-card-content>
 
-<div mat-dialog-actions>
-	<button mat-button mat-dialog-close (click)="setFilter()">{{"Filtern"|translate}}</button>
-	<button mat-button mat-dialog-close cdkFocusInitial>{{ 'Abbrechen' | translate }}</button>
-</div>
+	<!-- <section class="example-section" [formGroup]="tops">
+		  <h4>You chose:</h4>
+		  {{ping.value | json}}
+		</section> -->
+
+	<div mat-dialog-actions>
+		<button mat-button mat-dialog-close (click)="setFilter()">{{"Filtern"|translate}}</button>
+		<button mat-button mat-dialog-close cdkFocusInitial>{{ 'Abbrechen' | translate }}</button>
+	</div>
+</body>
+
+</html>

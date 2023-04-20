@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Instance } from './00_data/interfaces'
 
 import { StatusService } from './status.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -10,10 +11,12 @@ import { StatusService } from './status.service';
 export class OnlineService {
 	instances: Instance[] = [];
 	arrOnline: number[] = [0, 0];
+	instancesSubject: BehaviorSubject<Instance[]> = new BehaviorSubject<Instance[]>([]);
 	constructor(private statusService: StatusService) { }
 
-	public getData(): void {
-		this.instances = this.statusService.getInstances()
+	private getData(): void {
+		this.instancesSubject = this.statusService.instancesSubject
+		this.instances = this.instancesSubject.getValue()
 	}
 	/**
 	 * count how many instances are runnning or not running

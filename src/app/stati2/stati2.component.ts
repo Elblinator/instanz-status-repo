@@ -16,17 +16,18 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Stati2Component implements OnInit {
-	instancesObservable: Observable<Instance[]> | undefined;
-	
-	instanceData_Observable: Observable<InstanceService[][]> | undefined;
+	////////// Header /////////////
+	protected instancesObservable: Observable<Instance[]> | undefined;
+	protected instanceNamenList: Observable<string[]> = new Observable<string[]>
+	protected instanceNamen: FormControl<string | null> = new FormControl('');
+	//////////////////////////////
+	protected instanceData_Observable: Observable<InstanceService[][]> | undefined;
+	//////////////////////////////////////
 	instance_offline_Observable: Observable<InstanceService[]> | undefined;
-	instance_fast_Observable: Observable<InstanceService[]> | undefined;
-	instance_slow_Observable: Observable<InstanceService[]> | undefined;
 	instance_error_Observable: Observable<InstanceService[]> | undefined;
+	/////////////////////////////////////
 
-	instanceNamenList: string[] = this.filterService.reachableInstances();
-	instanceNamen = new FormControl('');
-	possibleStatus: string[] = ['error', 'slow', 'offline', 'fast'];
+	protected possibleStatus: string[] = ['error', 'slow', 'offline', 'fast'];
 
 	constructor(
 		private statusService: StatusService,
@@ -39,12 +40,15 @@ export class Stati2Component implements OnInit {
 		this.sortDataObservable();
 		this.instanceData_Observable = this.statusService.instancesSortSubject.asObservable();
 		this.instance_offline_Observable = this.statusService.instancesSortSubject_offline.asObservable();
-		this.instance_fast_Observable = this.statusService.instancesSortSubject_fast.asObservable();
-		this.instance_slow_Observable = this.statusService.instancesSortSubject_slow.asObservable();
 		this.instance_error_Observable = this.statusService.instancesSortSubject_error.asObservable();
-
+		
 		this.dialog.afterAllClosed.subscribe(() => {
 			this.ref.markForCheck();
+		})
+		this.instancesObservable = this.statusService.instancesSubject.asObservable();
+		this.instanceNamenList = this.filterService.reachableInstances().asObservable();
+		this.statusService.instancesSubject.subscribe(() => {
+			this.filterService.updateFilter();
 		})
 	}
 	protected openFilterDialog(): void {
@@ -55,7 +59,6 @@ export class Stati2Component implements OnInit {
 	 * @returns if this instance or status is activated by the filter
 	 */
 	protected isActivated(instanceOrStatus: string): boolean {
-		return true
 		return this.filterService.isActivated(instanceOrStatus);
 	}
 	/**

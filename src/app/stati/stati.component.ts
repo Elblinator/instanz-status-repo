@@ -1,12 +1,14 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-
-import { InstanceService } from '../00_data/interfaces';
-import { StatusService } from '../status.service';
-import { FilterComponent } from '../filter/filter-dialog.component';
-import { FilterService } from '../filter.service';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
+
+import { Instance, InstanceService } from '../00_data/interfaces';
+
+import { FilterComponent } from '../filter/filter-dialog.component';
+
+import { StatusService } from '../status.service';
+import { FilterService } from '../filter.service';
 
 
 @Component({
@@ -16,31 +18,35 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StatiComponent implements OnInit {
-	instanceData_Observable: Observable<InstanceService[][]> | undefined;
-	instance_offline_Observable: Observable<InstanceService[]> | undefined;
-	instance_fast_Observable: Observable<InstanceService[]> | undefined;
-	instance_slow_Observable: Observable<InstanceService[]> | undefined;
-	instance_error_Observable: Observable<InstanceService[]> | undefined;
+	////////// Header /////////////
+	protected instancesObservable: Observable<Instance[]> | undefined;
+	protected instanceNamenList: Observable<string[]> = new Observable<string[]>
+	protected instanceNamen: FormControl<string | null> = new FormControl('');
+	//////////////////////////////
 
-	instanceNamenList: string[] = this.filterService.reachableInstances();
-	instanceNamen = new FormControl('');
-
-	possibleStatus: string[] = ['error', 'slow', 'offline', 'fast'];
+	protected instance_offline_Observable: Observable<InstanceService[]> | undefined;
+	protected instance_fast_Observable: Observable<InstanceService[]> | undefined;
+	protected instance_slow_Observable: Observable<InstanceService[]> | undefined;
+	protected instance_error_Observable: Observable<InstanceService[]> | undefined;
 
 	constructor(
 		private statusService: StatusService,
 		private filterService: FilterService,
 		private dialog: MatDialog,
 		private ref: ChangeDetectorRef
-	) {}
+	) { }
 
 	public ngOnInit(): void {
 		this.dialog.afterAllClosed.subscribe(() => {
 			this.ref.markForCheck();
 		})
+		this.instancesObservable = this.statusService.instancesSubject.asObservable();
+		this.instanceNamenList = this.filterService.reachableInstances().asObservable();
+		this.statusService.instancesSubject.subscribe(() => {
+			this.filterService.updateFilter();
+		})
 
 		this.sortDataObservable();
-		this.instanceData_Observable = this.statusService.instancesSortSubject.asObservable();
 		this.instance_offline_Observable = this.statusService.instancesSortSubject_offline.asObservable();
 		this.instance_fast_Observable = this.statusService.instancesSortSubject_fast.asObservable();
 		this.instance_slow_Observable = this.statusService.instancesSortSubject_slow.asObservable();
@@ -56,8 +62,6 @@ export class StatiComponent implements OnInit {
 	 * @returns boolean if activated in the filter
 	 */
 	protected isActivated(instanceOrStatus: string): boolean {
-		//console.log(this.filterService.isActivated(instanceOrStatus))
-		return true
 		return this.filterService.isActivated(instanceOrStatus);
 	}
 

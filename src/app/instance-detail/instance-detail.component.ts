@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { FormControl } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
 import { Instance } from '../00_data/interfaces';
-import { StatusService } from '../status.service';
-import { FormControl } from '@angular/forms';
-import { FilterService } from '../filter.service';
-import { MatDialog } from '@angular/material/dialog';
+
 import { WarnComponent } from '../warn/warn-dialog.component';
+
+import { StatusService } from '../status.service';
+import { FilterService } from '../filter.service';
 import { WarnService } from '../warn.service';
 
 @Component({
@@ -16,10 +19,16 @@ import { WarnService } from '../warn.service';
 	styleUrls: ['./instance-detail.component.css']
 })
 export class InstanceDetailComponent implements OnInit {
-	instances: Instance | undefined; 
-	instanceNamenList: string[] = this.filterService.reachableInstances();
-	instanceNamen = new FormControl('');
-	InstanceGruppen: string[] = ["backEnd", "irgendeine Gruppe"];
+	////////// Header /////////////
+	protected instancesObservable: Observable<Instance[]> | undefined;
+	protected instanceNamenList: Observable<string[]> = new Observable<string[]>
+	protected instanceNamen: FormControl<string | null> = new FormControl('');
+	//////////////////////////////
+
+	/** additional restart groups */
+	protected InstanceGruppen: string[] = ["backEnd", "irgendeine Gruppe"];
+	/** current instance name */
+	private name = String(this.route.snapshot.paramMap.get('name'));
 
 	constructor(
 		private route: ActivatedRoute,
@@ -31,22 +40,39 @@ export class InstanceDetailComponent implements OnInit {
 	) { }
 
 	public ngOnInit(): void {
-		this.getName();
+		this.instanceNamenList = this.filterService.reachableInstances().asObservable();
+		this.statusService.instancesSubject.subscribe(() => {
+			this.filterService.updateFilter();
+		})
+		this.initialise();
+		this.route.url.subscribe(() => {
+			this.name = String(this.route.snapshot.paramMap.get('name'));
+			this.activateInstance()
+			this.instancesObservable = this.statusService.currentInstancesSubject.asObservable();
+
+		})
 	}
+
+	private initialise() {
+		this.statusService.instancesSubject.subscribe(() => {
+			this.activateInstance();
+		})
+	}
+	
 	/**
 	 * get the name from the current instance
 	 */
-	private getName(): void {
-		const name = String(this.route.snapshot.paramMap.get('name'));
-		this.statusService.getInst(name)
-			.subscribe(instance => this.instances = instance);
+	private activateInstance(): void {
+		this.statusService.getInst(this.name);
 	}
+	
 	/**
 	 * go to previous page
 	 */
 	protected goBack(): void {
 		this.location.back();
 	}
+
 	protected openWarnDialog(str:string): void {
 		this.warnService.setServiceAndMsg(str);
 		this.dialog.open(WarnComponent);

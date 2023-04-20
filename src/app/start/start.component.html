@@ -1,16 +1,16 @@
 <main>
-    <header *ngIf="isLoggedIn()">
-        <form>
-            <mat-form-field appearance="fill">
-                <mat-label>{{"wähle Instanz"|translate}}</mat-label>
-                <mat-select [formControl]="instanceNamen">
-                    <mat-option *ngFor="let instance of instanceNamenList" [value]="instance">
-                        <a mat-list-item routerLink="/instance/{{instance}}">{{instance}}</a>
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </form>
-    </header>
+	<header>
+		<form>
+			<mat-form-field appearance="fill">
+				<mat-label>{{"wähle Instanz"|translate}}</mat-label>
+				<mat-select [formControl]="instanceNamen">
+					<mat-option *ngFor="let instance of instanceNamenList|async" [value]="instance">
+						<a mat-list-item routerLink="/instance/{{instance}}">{{instance}}</a>
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</form>
+	</header>
     <!----------------------------->
 
     <body>
