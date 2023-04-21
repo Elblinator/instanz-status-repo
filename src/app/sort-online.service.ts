@@ -1,52 +1,45 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { SimpleInstance } from './00_data/interfaces'
+import { SimpleInstance } from './00_data/interfaces';
 
 import { DataService } from './data.service';
+import { SortCategoryService } from './sort-category.service';
 
 @Injectable({
 	providedIn: 'root'
 })
-export class OnlineService {
+export class SortOnlineService extends SortCategoryService {
 	private arrOnline: number[] = [0, 0];
 	private arrSimpleOnline: BehaviorSubject<number[]> = new BehaviorSubject<number[]>([0, 0]);
 	
 	protected simpleInstances: SimpleInstance[] = [];
 	protected simpleInstancesSubject: BehaviorSubject<SimpleInstance[]> = new BehaviorSubject<SimpleInstance[]>([]);
 
-	public listRunning: string[] = ['online', 'offline']
+	public listRunning: string[] = ['online', 'offline'];
 
-	constructor(private dataService: DataService) { }
-
-	private getData(): void {
-		this.simpleInstancesSubject = this.dataService.simpleInstancesSubject
-		this.simpleInstances = this.simpleInstancesSubject.getValue()
-	}
+	constructor(public override dataService: DataService) { super(dataService) }
 
 	public simpleResetCount(): BehaviorSubject<number[]> {
 		/// Reset Container //
 		this.arrOnline = [0, 0];
 		///////////////////////
-		this.getData();
-		this.fillOnline();
+		super.getData();
+		this.fill();
 		return this.arrSimpleOnline;
 	}
-
-	protected fillOnline(): void {
-		for (const instance of this.simpleInstances) {
+	protected override fill(): void {
+		for (const instance of this.instances) {
 			if (instance.status === 'stopped') {
 				this.arrOnline[1] = (Number(instance.instances_part) * 100);
 			} else {
 				this.arrOnline[0] += (Number(instance.instances_part) * 100);
-			}
-			
+			}	
 		}
-		this.arrSimpleOnline.next(this.arrOnline)
+		this.arrSimpleOnline.next(this.arrOnline);
 	}
 
 	public updateData(): void {
-		this.getData()
-		this.arrSimpleOnline.next(this.simpleResetCount().getValue());
+		this.arrBehaviour.next(this.simpleResetCount().getValue());
 	}
 }

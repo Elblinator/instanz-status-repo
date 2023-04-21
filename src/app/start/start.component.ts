@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { CheckStatusService } from '../check-status.service';
-import { OnlineService } from '../online.service'
+import { SortStatusService } from '../sort-status.service';
+import { SortOnlineService } from '../sort-online.service'
 import { StatusService } from '../status.service';
 import { UserService } from '../user.service';
 
@@ -22,21 +22,21 @@ export class StartComponent implements OnInit {
 	constructor(
 		private statusService: StatusService,
 		private userService: UserService,
-		private onlineService: OnlineService,
-		private checkStatusService: CheckStatusService
-	) { 
-		this.listStatus = this.checkStatusService.listStatus
-		this.listRunning = this.onlineService.listRunning
+		private sortOnlineService: SortOnlineService,
+		private sortStatusService: SortStatusService
+	) {
+		this.listStatus = this.sortStatusService.listStatus
+		this.listRunning = this.sortOnlineService.listRunning
 	}
 
 	public ngOnInit(): void {
-		this.arrSimpleService = this.checkStatusService.simpleResetCount().asObservable();
-		this.arrSimpleOnline = this.onlineService.simpleResetCount().asObservable();
+		this.arrSimpleService = this.sortStatusService.simpleResetCount().asObservable();
+		this.arrSimpleOnline = this.sortOnlineService.simpleResetCount().asObservable();
 		this.statusService.simpleInstancesSubject.subscribe(() => {
 			this.simpleResetCount();
 			this.updateData();
 		})
-	
+
 	}
 
 	protected isLoggedIn(): boolean {
@@ -47,13 +47,13 @@ export class StartComponent implements OnInit {
 	 * reset count for amount of stati (fast/slow/error) and
 	 * reset count for amount of instances (running/stopped)
 	 */
-	protected simpleResetCount () {
-		this.arrSimpleService = this.checkStatusService.simpleResetCount().asObservable();
-		this.arrSimpleOnline = this.onlineService.simpleResetCount().asObservable()
+	protected simpleResetCount() {
+		this.arrSimpleService = this.sortStatusService.simpleResetCount().asObservable();
+		this.arrSimpleOnline = this.sortOnlineService.simpleResetCount().asObservable()
 	}
 
 	protected updateData() {
-		this.checkStatusService.updateData()
-		this.onlineService.updateData()
+		this.sortStatusService.updateData()
+		this.sortOnlineService.updateData()
 	}
 }

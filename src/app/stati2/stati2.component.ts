@@ -1,12 +1,15 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-
-import { Instance, InstanceService } from '../00_data/interfaces';
-import { StatusService } from '../status.service';
-import { FilterComponent } from '../filter/filter-dialog.component';
-import { FilterService } from '../filter.service';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
+
+import { Instance, InstanceService } from '../00_data/interfaces';
+
+import { FilterComponent } from '../filter/filter-dialog.component';
+
+import { StatusService } from '../status.service';
+import { FilterService } from '../filter.service';
+import { DataService } from '../data.service';
 
 
 @Component({
@@ -31,6 +34,7 @@ export class Stati2Component implements OnInit {
 
 	constructor(
 		private statusService: StatusService,
+		private dataService: DataService,
 		private filterService: FilterService,
 		private dialog: MatDialog,
 		private ref: ChangeDetectorRef
@@ -38,19 +42,18 @@ export class Stati2Component implements OnInit {
 
 	public ngOnInit(): void {
 		this.sortDataBehaviour();
-		this.instanceData_Observable = this.statusService.instancesSortSubject.asObservable();
-		this.instance_offline_Observable = this.statusService.instancesSortSubject_offline.asObservable();
-		this.instance_error_Observable = this.statusService.instancesSortSubject_error.asObservable();
 		
 		this.dialog.afterAllClosed.subscribe(() => {
 			this.ref.markForCheck();
 		})
-		this.instancesObservable = this.statusService.instancesSubject.asObservable();
+		this.instancesObservable = this.dataService.instancesSubject.asObservable();
 		this.instanceNamenList = this.filterService.reachableInstances().asObservable();
 		this.statusService.instancesSubject.subscribe(() => {
 			this.filterService.updateFilter();
+			this.sortDataBehaviour();
 		})
 	}
+	
 	protected openFilterDialog(): void {
 		this.dialog.open(FilterComponent);
 	}
@@ -68,5 +71,8 @@ export class Stati2Component implements OnInit {
 	 */
 	private sortDataBehaviour(): void {
 		this.statusService.sortDataBehaviour();
+		this.instanceData_Observable = this.statusService.instancesSortSubject.asObservable();
+		this.instance_offline_Observable = this.statusService.instancesSortSubject_offline.asObservable();
+		this.instance_error_Observable = this.statusService.instancesSortSubject_error.asObservable();
 	}
 }

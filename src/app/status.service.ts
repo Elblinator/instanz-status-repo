@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 
 import { Instance, InstanceService, RealInstance, SimpleInstance } from './00_data/interfaces'
@@ -32,7 +31,6 @@ export class StatusService {
 	///////////////////////////////////////////
 
 	constructor(
-		private http: HttpClient,
 		private dataService: DataService
 	) { this.updateData() }
 
@@ -41,10 +39,9 @@ export class StatusService {
 	 * and updates the data every interval (see app.component ngOnInit())
 	 */
 	public updateData(): void {
-		
-		this.instancesSubject = this.dataService.instancesSubject
-		this.simpleInstancesSubject = this.dataService.simpleInstancesSubject
-		this.realInstancesSubject = this.dataService.realInstancesSubject
+		this.instancesSubject = this.dataService.instancesSubject;
+		this.simpleInstancesSubject = this.dataService.simpleInstancesSubject;
+		this.realInstancesSubject = this.dataService.realInstancesSubject;
 	}
 	/** 
 	 * c
@@ -58,9 +55,9 @@ export class StatusService {
 	 * saves the searched instance in this.currentInstancesSubject
 	 */
 	public getInst(name: string): void {
-		const a = this.instancesSubject.getValue().find(h => h.name === name)
+		const a = this.instancesSubject.getValue().find(h => h.name === name);
 		if (!(typeof (a) === 'undefined')) {
-			this.currentInstancesSubject.next([a])
+			this.currentInstancesSubject.next([a]);
 		}
 	}
 
@@ -68,11 +65,11 @@ export class StatusService {
 	 * puts sorted data (sorted by status and running) into BehaviourSubject
 	 */
 	public sortDataBehaviour(): void {
-		this.instancesSortSubject.next(this.sortData())
-		this.instancesSortSubject_error.next(this.instanceError)
-		this.instancesSortSubject_slow.next(this.instanceSlow)
-		this.instancesSortSubject_offline.next(this.instanceOffline)
-		this.instancesSortSubject_fast.next(this.instanceFast)
+		this.instancesSortSubject.next(this.sortData());
+		this.instancesSortSubject_error.next(this.instanceError);
+		this.instancesSortSubject_slow.next(this.instanceSlow);
+		this.instancesSortSubject_offline.next(this.instanceOffline);
+		this.instancesSortSubject_fast.next(this.instanceFast);
 	}
 
 	/**

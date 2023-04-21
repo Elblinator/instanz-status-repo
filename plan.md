@@ -1,20 +1,31 @@
+
+
 # next Job:
- - filter -> onpush fixing
+ - update instance/stati/stati2 to new data
  - instances make pretty
  - status make pretty
  - Terminologie menschlich machen
- - onPush needs fixing
- - data from url
  - cancel button für dialog
+ - Filtern with auto-completion
+ - wähle Instanz
+ - timer
  - start abgerundete ecken, getrennte Spalten
- - ui make me (me the program) pretty
-
+ 
+# ui:
+ - instances
+ - status
+ - status 2
+ - instances detail
+ - header
  
 # Components: 
+ - cancel button für dialog
+ - Filtern with auto-completion
+ - wähle Instanz
+ - timer
  - Blockieren von doppelten neustarts --> dummy button for now, timer, visible timer?,
  - Fehlermeldung Ausgabe falls Neustart fail
  - restart != logged out (backend? python? ht access)  
- - Filtern with auto-completion
  - translate
  - Kalender Funktion, first try Nextcloud
  - (./agenda ssh-key zugriff, darf ich soll ich?)
@@ -34,8 +45,5 @@
  - Also Cluster von Services (e.g. whole backendish)
 
 
- 		setInterval(() => {
-			console.log(this.running)
-			this.running = false;
-			console.log(this.running)
-		}, 10000)
+	"running":false, //normal/error/unknown/stopped
+	//name change from running to status
