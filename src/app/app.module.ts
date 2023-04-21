@@ -14,20 +14,19 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { HttpClientModule } from '@angular/common/http';
-import {
-	TranslateModule,
-	TranslatePipe
-} from '@ngx-translate/core';
+import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+
+import { StartComponent } from './start/start.component';
 import { StatiComponent } from './stati/stati.component';
 import { Stati2Component } from './stati2/stati2.component';
 import { InstanceComponent } from './instance/instance.component';
-import { AppRoutingModule } from './app-routing.module';
 import { InstanceDetailComponent } from './instance-detail/instance-detail.component';
+
 import { FilterComponent } from './filter/filter-dialog.component';
 import { WarnComponent } from './warn/warn-dialog.component';
-import { StartComponent } from './start/start.component';
 
 
 @NgModule({

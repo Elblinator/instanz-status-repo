@@ -1,51 +1,52 @@
 import { Injectable } from '@angular/core';
-
-import { Instance } from './00_data/interfaces'
-
-import { StatusService } from './status.service';
 import { BehaviorSubject } from 'rxjs';
+
+import { SimpleInstance } from './00_data/interfaces'
+
+import { DataService } from './data.service';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class OnlineService {
-	private instances: Instance[] = [];
 	private arrOnline: number[] = [0, 0];
-	private instancesSubject: BehaviorSubject<Instance[]> = new BehaviorSubject<Instance[]>([]);
-	constructor(private statusService: StatusService) { }
+	private arrSimpleOnline: BehaviorSubject<number[]> = new BehaviorSubject<number[]>([0, 0]);
+	
+	protected simpleInstances: SimpleInstance[] = [];
+	protected simpleInstancesSubject: BehaviorSubject<SimpleInstance[]> = new BehaviorSubject<SimpleInstance[]>([]);
+
+	public listRunning: string[] = ['online', 'offline']
+
+	constructor(private dataService: DataService) { }
 
 	private getData(): void {
-		this.instancesSubject = this.statusService.instancesSubject
-		this.instances = this.instancesSubject.getValue()
+		this.simpleInstancesSubject = this.dataService.simpleInstancesSubject
+		this.simpleInstances = this.simpleInstancesSubject.getValue()
 	}
-	/**
-	 * count how many instances are runnning or not running
-	 * @returns array first number is for running instances, second number is for stopped instances
-	 */
-	protected countOnline(): number[] {
-		this.getData();
-		for (const instance of this.instances) {
-			this.arrOnline[this.checkOnline(instance.running)] += 1
-		}
-		return this.arrOnline;
-	}
-	/**
-	 * checkOnline returns the index for arrOnline 
-	 * if instance is not running it counts at arrOnline[1]
-	 * if instance is running it counts at arrOnline[0]	  
-	 * @param running = boolean if and instance is runnning
-	 * @returns index 0 if running and 1 if not running
-	 */
-	protected checkOnline(running: boolean): number {
-		if (running) {
-			return 0;
-		} else {
-			return 1;
-		}
-	}
-	public resetCount(): number[] {
+
+	public simpleResetCount(): BehaviorSubject<number[]> {
+		/// Reset Container //
 		this.arrOnline = [0, 0];
-		this.countOnline();
-		return this.arrOnline;
+		///////////////////////
+		this.getData();
+		this.fillOnline();
+		return this.arrSimpleOnline;
+	}
+
+	protected fillOnline(): void {
+		for (const instance of this.simpleInstances) {
+			if (instance.status === 'stopped') {
+				this.arrOnline[1] = (Number(instance.instances_part) * 100);
+			} else {
+				this.arrOnline[0] += (Number(instance.instances_part) * 100);
+			}
+			
+		}
+		this.arrSimpleOnline.next(this.arrOnline)
+	}
+
+	public updateData(): void {
+		this.getData()
+		this.arrSimpleOnline.next(this.simpleResetCount().getValue());
 	}
 }

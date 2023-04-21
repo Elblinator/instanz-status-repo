@@ -37,7 +37,7 @@ export class Stati2Component implements OnInit {
 	) { }
 
 	public ngOnInit(): void {
-		this.sortDataObservable();
+		this.sortDataBehaviour();
 		this.instanceData_Observable = this.statusService.instancesSortSubject.asObservable();
 		this.instance_offline_Observable = this.statusService.instancesSortSubject_offline.asObservable();
 		this.instance_error_Observable = this.statusService.instancesSortSubject_error.asObservable();
@@ -66,7 +66,7 @@ export class Stati2Component implements OnInit {
 	 * array = [instance_offline, instance_error, instance_slow, instance_fast].
 	 * This function fills it's own arrays accordingly
 	 */
-	private sortDataObservable(): void {
-		this.statusService.sortDataObservable();
+	private sortDataBehaviour(): void {
+		this.statusService.sortDataBehaviour();
 	}
 }

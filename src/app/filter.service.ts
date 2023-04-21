@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
 
 import { Instance, Status } from './00_data/interfaces';
 
-import { StatusService } from './status.service';
-import { BehaviorSubject } from 'rxjs';
+import { DataService } from './data.service';
 
 @Injectable({
 	providedIn: 'root'
@@ -22,7 +22,7 @@ export class FilterService {
 	private loaded = false
 
 	constructor(
-		private statusService: StatusService,
+		private dataService: DataService,
 	) {
 		this.getAndSetPossibleFilter();
 	}
@@ -39,6 +39,7 @@ export class FilterService {
 		this.setPossibleInstStatus();
 		this.setAllFilter();
 	}
+
 	/**
 	 * set all filter possibilities.
 	 * possibilizies for instances are in this.possibleInstances.
@@ -46,15 +47,17 @@ export class FilterService {
 	 */
 	public setPossibleInstStatus(): void {
 		this.getData()
-		this.possibleInstances.next(this.turnIntoArray(this.instances));
+		this.possibleInstances.next(this.turnIntoString(this.instances));
 		for (const instance of this.instances) {
-			this.possibleServices.next(this.turnIntoArray(instance.services));
+			this.possibleServices.next(this.turnIntoString(instance.services));
 			break;
 		}
 	}
+
 	private getData(): void {
-		this.instancesSubject = this.statusService.instancesSubject
+		this.instancesSubject = this.dataService.instancesSubject
 		this.instances = this.instancesSubject.getValue()
+		
 		if(this.instances.length > 0) {
 			this.loading = false
 		}
@@ -70,7 +73,7 @@ export class FilterService {
 		}
 	}
 	// turn Array of Status or Instance into Arrays od string with only their names
-	private turnIntoArray(list: (Status[] | Instance[])): string[] {
+	private turnIntoString(list: (Status[] | Instance[])): string[] {
 		const arr: string[] = [];
 		for (const name of list) {
 			arr.push(name.name);

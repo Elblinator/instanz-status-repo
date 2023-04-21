@@ -1,77 +1,54 @@
 import { Injectable } from '@angular/core';
-
-import { Instance, Status } from './00_data/interfaces';
-
-import { StatusService } from './status.service';
 import { BehaviorSubject } from 'rxjs';
+
+import { SimpleInstance} from './00_data/interfaces';
+
+import { DataService } from './data.service';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class CheckStatusService {
-	protected instances: Instance[] = [];
-	protected arrService: number[] = [0, 0, 0];
-	protected listStatus: string[] = ['fast', 'slow', 'error']
-	protected instancesSubject: BehaviorSubject<Instance[]> = new BehaviorSubject<Instance[]>([]);
+	protected simpleInstances: SimpleInstance[] = [];
+	protected simpleInstancesSubject: BehaviorSubject<SimpleInstance[]> = new BehaviorSubject<SimpleInstance[]>([]);
 
-	constructor(private statusService: StatusService) { }
+	protected arrService: number[] = [0, 0, 0];
+	protected arrSimpleService: BehaviorSubject<number[]> = new BehaviorSubject<number[]>([0, 0, 0]);
+
+	public listStatus: string[] = ['fast', 'slow', 'error']
+
+	constructor(private dataService: DataService) { }
 
 	private getData(): void {
-		this.instancesSubject = this.statusService.instancesSubject
-		this.instances = this.instancesSubject.getValue()
+		this.simpleInstancesSubject = this.dataService.simpleInstancesSubject
+		this.simpleInstances = this.simpleInstancesSubject.getValue()
 	}
 
-	public resetCount(): number[] {
+
+	public simpleResetCount(): BehaviorSubject<number[]> {
+		/// Reset Container /////
 		this.arrService = [0, 0, 0];
-		this.countStati();
-		return this.arrService;
-	}
+		///////////////////////////
 
-	/**
-	 * countStati goes through each instance, verifies that the instance is running
-	 * and then calls countStatus to count up the stati in this running instance
-	 * @returns number[] with three entries,
-	 *  	number[0] corresponds to amount of stati which are fast
-	 *  	number[1] corresponds to amount of stati which are slow
-	 *  	number[2] corresponds to amount of stati which are error
-	 */
-	protected countStati(): number[] {
 		this.getData();
-		for (const instance of this.instances) {
-			if (instance.running) {
-				this.countStatus(instance.services);
+		this.fillStati();
+		return this.arrSimpleService;
+	}
+	protected fillStati(): void {
+		for (const instance of this.simpleInstances) {
+			if (instance.status === 'normal') {
+				this.arrService[0] = (Number(instance.instances_part) * 100);
+			} else if (instance.status === 'unknown') {
+				this.arrService[1] = (Number(instance.instances_part) * 100);
+			} else if (instance.status === 'error') {
+				this.arrService[2] = (Number(instance.instances_part) * 100);
 			}
 		}
-		return this.arrService;
+		this.arrSimpleService.next(this.arrService)
 	}
 
-	/**
-	 * count the status from every service from one instance => 
-	 * this.arrService is a number[] with three items
-	 * there are three different stati (fast/slow/error)
-	 * checkStatus gives back the correct index for the status
-	 * and then adds one up for this status
-	 * @param services = all services from one instance
-	 */
-	protected countStatus(services: Status[]): void {
-		for (const service of services) {
-			this.arrService[this.checkStatus(service.status)] += 1
-		}
-	}
-
-	/**
-	 * @param status = status from one service
-	 * @returns the corresponding index for the status => fast has 0, slow has 1, error has 2
-	 */
-	protected checkStatus(status: string): number {
-		//numbers correspond ot the indexes from the array (arr)
-		// --> arr[0] describes the amount of fast stati
-		if (status == "fast") {
-			return 0;
-		} else if (status == "slow") {
-			return 1;
-		} else {
-			return 2;
-		}
+	public updateData() {
+		this.getData()
+		this.arrSimpleService.next(this.simpleResetCount().getValue());
 	}
 }

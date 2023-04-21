@@ -10,6 +10,15 @@ export interface Instance {
 	running: boolean;
 	services: Status[];
 }
+export interface SimpleInstance {
+	status: string;
+	instances_part: number;
+}
+export interface RealInstance {
+	name: string;
+	status: boolean;
+	services: Status[];
+}
 export interface Status {
 	name: string;
 	status: string;

@@ -2,16 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 
-import { Instance, InstanceService } from './00_data/interfaces'
+import { Instance, InstanceService, RealInstance, SimpleInstance } from './00_data/interfaces'
+import { DataService } from './data.service';
 
 
 
 @Injectable({ providedIn: 'root' })
 export class StatusService {
-	/** url for data */
-	private _url = 'http://docker-le.whale:8001/assets/data/example-data.json'
-	/** All Data */
 	public instancesSubject: BehaviorSubject<Instance[]> = new BehaviorSubject<Instance[]>([]);
+	public realInstancesSubject: BehaviorSubject<RealInstance[]> = new BehaviorSubject<RealInstance[]>([]);
+	public simpleInstancesSubject: BehaviorSubject<SimpleInstance[]> = new BehaviorSubject<SimpleInstance[]>([]);
 	/** sorted Data */
 	public instancesSortSubject: BehaviorSubject<InstanceService[][]> = new BehaviorSubject<InstanceService[][]>([]);
 	/**last watched instance (see instance-detail) */
@@ -33,6 +33,7 @@ export class StatusService {
 
 	constructor(
 		private http: HttpClient,
+		private dataService: DataService
 	) { this.updateData() }
 
 	/** 
@@ -40,21 +41,16 @@ export class StatusService {
 	 * and updates the data every interval (see app.component ngOnInit())
 	 */
 	public updateData(): void {
-		console.log('status-service update Data');
-		this.http.get<Instance[]>(this._url).subscribe(instances => {
-			this.instancesSubject.next(instances)
-			this.sortDataObservable()
-		});
+		
+		this.instancesSubject = this.dataService.instancesSubject
+		this.simpleInstancesSubject = this.dataService.simpleInstancesSubject
+		this.realInstancesSubject = this.dataService.realInstancesSubject
 	}
-
-	/** can be delteted maybe see when every functionality is implemented */
-	public getInstance(): BehaviorSubject<Instance[]> {
-		return this.instancesSubject
-	}
-
-	/** can be delteted maybe see when every functionality is implemented */
-	public getInstances(): Instance[] {
-		return this.instancesSubject.getValue()
+	/** 
+	 * c
+	 */
+	public getData(): void {
+		this.sortDataBehaviour()
 	}
 
 	/**
@@ -71,13 +67,14 @@ export class StatusService {
 	/**
 	 * puts sorted data (sorted by status and running) into BehaviourSubject
 	 */
-	public sortDataObservable(): void {
+	public sortDataBehaviour(): void {
 		this.instancesSortSubject.next(this.sortData())
 		this.instancesSortSubject_error.next(this.instanceError)
 		this.instancesSortSubject_slow.next(this.instanceSlow)
 		this.instancesSortSubject_offline.next(this.instanceOffline)
 		this.instancesSortSubject_fast.next(this.instanceFast)
 	}
+
 	/**
 	 * if an instance is not running it's pushed onto instanceOffline otherwise it's forwarded to sortStatus().
 	 * @returns an Array with Arrays, the Arrays are filled dependend on their status
@@ -98,6 +95,7 @@ export class StatusService {
 		}
 		return [this.instanceError, this.instanceSlow, this.instanceOffline, this.instanceFast];
 	}
+
 	/**
 	 * only running instances are sorted here
 	 * instance is pushed to it's corresponding array
