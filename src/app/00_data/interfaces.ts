@@ -16,7 +16,7 @@ export interface SimpleInstance {
 }
 export interface RealInstance {
 	name: string;
-	status: boolean;
+	status: string;
 	services: Status[];
 }
 export interface Status {

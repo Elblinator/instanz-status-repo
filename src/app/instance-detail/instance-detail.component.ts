@@ -5,7 +5,7 @@ import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { Instance } from '../00_data/interfaces';
+import { RealInstance } from '../00_data/interfaces';
 
 import { WarnComponent } from '../warn/warn-dialog.component';
 
@@ -20,7 +20,7 @@ import { WarnService } from '../warn.service';
 })
 export class InstanceDetailComponent implements OnInit {
 	////////// Header /////////////
-	protected instancesObservable: Observable<Instance[]> | undefined;
+	protected instancesObservable: Observable<RealInstance[]> | undefined;
 	protected instanceNamenList: Observable<string[]> = new Observable<string[]>
 	protected instanceNamen: FormControl<string | null> = new FormControl('');
 	//////////////////////////////
@@ -41,7 +41,7 @@ export class InstanceDetailComponent implements OnInit {
 
 	public ngOnInit(): void {
 		this.instanceNamenList = this.filterService.reachableInstances().asObservable();
-		this.statusService.instancesSubject.subscribe(() => {
+		this.statusService.realInstancesSubject.subscribe(() => {
 			this.filterService.updateFilter();
 		})
 		this.initialise();
@@ -54,7 +54,7 @@ export class InstanceDetailComponent implements OnInit {
 	}
 
 	private initialise() {
-		this.statusService.instancesSubject.subscribe(() => {
+		this.statusService.realInstancesSubject.subscribe(() => {
 			this.activateInstance();
 		})
 	}
@@ -76,6 +76,15 @@ export class InstanceDetailComponent implements OnInit {
 	protected openWarnDialog(str:string): void {
 		this.warnService.setServiceAndMsg(str);
 		this.dialog.open(WarnComponent);
+	}
+	protected isRunningGreen(status: string): boolean {
+		return this.filterService.isRunningGreen(status);
+	}
+	protected isRunningYellow(status: string): boolean {
+		return this.filterService.isRunningYellow(status);
+	}
+	protected isRunningRed(status: string): boolean {
+		return this.filterService.isRunningRed(status);
 	}
 }
 

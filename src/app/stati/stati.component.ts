@@ -20,14 +20,14 @@ import { DataService } from '../data.service';
 })
 export class StatiComponent implements OnInit {
 	////////// Header /////////////
-	protected instancesObservable: Observable<Instance[]> | undefined;
+	protected realInstancesObservable: Observable<RealInstance[]> | undefined;
 	protected instanceNamenList: Observable<string[]> = new Observable<string[]>
 	protected instanceNamen: FormControl<string | null> = new FormControl('');
 	//////////////////////////////
 
 	public instancesSubject: BehaviorSubject<Instance[]> = new BehaviorSubject<Instance[]>([]);
 	public realInstancesSubject: BehaviorSubject<RealInstance[]> = new BehaviorSubject<RealInstance[]>([]);
-
+	
 	protected instance_offline_Observable: Observable<InstanceService[]> | undefined;
 	protected instance_fast_Observable: Observable<InstanceService[]> | undefined;
 	protected instance_slow_Observable: Observable<InstanceService[]> | undefined;
@@ -44,15 +44,14 @@ export class StatiComponent implements OnInit {
 	public ngOnInit(): void {
 		this.dialog.afterAllClosed.subscribe(() => {
 			this.ref.markForCheck();
-		})
-		this.instancesObservable = this.dataService.instancesSubject.asObservable();
+		})	
+
+		this.realInstancesObservable = this.dataService.realInstancesSubject.asObservable();
 		this.instanceNamenList = this.filterService.reachableInstances().asObservable();
-		this.statusService.instancesSubject.subscribe(() => {
+		this.statusService.realInstancesSubject.subscribe(() => {
 			this.updateData()
 			this.sortDataBehaviour();
 		})
-
-		this.sortDataBehaviour();
 	}
 
 	protected openFilterDialog(): void {
@@ -64,8 +63,14 @@ export class StatiComponent implements OnInit {
 	 * @param instanceOrStatus = instance-name or service-name.
 	 * @returns boolean if activated in the filter
 	 */
-	protected isActivated(instanceOrStatus: string): boolean {
-		return this.filterService.isActivated(instanceOrStatus);
+	protected isActivatedReal(instanceOrStatus: string): boolean {
+		if (!(instanceOrStatus === "")) {
+			return this.filterService.isActivatedReal(instanceOrStatus);
+		}
+		return false	
+	}
+	protected isActivatedService(status: string): boolean {
+		return this.filterService.isActivatedService(status);
 	}
 
 	/**
@@ -73,9 +78,9 @@ export class StatiComponent implements OnInit {
 	 * array = [instance_offline, instance_error, instance_slow, instance_fast].
 	 * This function fills it's own arrays accordingly
 	 */
-	private sortDataBehaviour(): void {
-		this.statusService.sortDataBehaviour();
-		
+	private sortDataBehaviour(): void {		
+		this.statusService.sortDataBehaviourReal();
+
 		this.instance_offline_Observable = this.statusService.instancesSortSubject_offline.asObservable();
 		this.instance_fast_Observable = this.statusService.instancesSortSubject_fast.asObservable();
 		this.instance_slow_Observable = this.statusService.instancesSortSubject_slow.asObservable();
@@ -85,7 +90,6 @@ export class StatiComponent implements OnInit {
 	private updateData(): void {
 		this.filterService.updateFilter();
 
-		this.instancesSubject = this.dataService.instancesSubject
 		this.realInstancesSubject = this.dataService.realInstancesSubject
 	}
 }

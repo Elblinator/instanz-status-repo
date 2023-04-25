@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 
-import { Instance, Status } from './00_data/interfaces';
+import { RealInstance, Status } from './00_data/interfaces';
 
 import { DataService } from './data.service';
 
@@ -10,8 +10,8 @@ import { DataService } from './data.service';
 	providedIn: 'root'
 })
 export class FilterService {
-	private instances: Instance[] = [];
-	private instancesSubject: BehaviorSubject<Instance[]> = new BehaviorSubject<Instance[]>([]);
+	private instancesReal: RealInstance[] = [];
+	private instancesSubjectReal: BehaviorSubject<RealInstance[]> = new BehaviorSubject<RealInstance[]>([]);
 
 	private possibleInstances: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([])
 	private possibleServices: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([])
@@ -47,18 +47,19 @@ export class FilterService {
 	 */
 	public setPossibleInstStatus(): void {
 		this.getData()
-		this.possibleInstances.next(this.turnIntoString(this.instances));
-		for (const instance of this.instances) {
+
+		this.possibleInstances.next(this.turnIntoString(this.instancesReal));
+		for (const instance of this.instancesReal) {
 			this.possibleServices.next(this.turnIntoString(instance.services));
 			break;
 		}
 	}
 
 	private getData(): void {
-		this.instancesSubject = this.dataService.instancesSubject
-		this.instances = this.instancesSubject.getValue()
+		this.instancesSubjectReal = this.dataService.realInstancesSubject
+		this.instancesReal = this.instancesSubjectReal.getValue()
 		
-		if(this.instances.length > 0) {
+		if(this.instancesReal.length > 0) {
 			this.loading = false
 		}
 	}
@@ -66,14 +67,18 @@ export class FilterService {
 	 * activate all filter possibilities
 	 */
 	private setAllFilter(): void {
+		console.log('loading', this.loading)
+		console.log('loaded', this.loaded)
 		if (!this.loading && !this.loaded) {
 			this.loaded = true;
+
 			this.chosenInstances.next(this.possibleInstances.getValue());
 			this.chosenServices.next(this.possibleServices.getValue());
 		}
 	}
-	// turn Array of Status or Instance into Arrays od string with only their names
-	private turnIntoString(list: (Status[] | Instance[])): string[] {
+
+	/** -turn Array of Status or Instance into Arrays of string with only their names */
+	private turnIntoString(list: (Status[] | RealInstance [])): string[] {
 		const arr: string[] = [];
 		for (const name of list) {
 			arr.push(name.name);
@@ -141,22 +146,106 @@ export class FilterService {
 
 		return false;
 	}
+	/**
+	 * @param instanceOrStatus 
+	 * @returns if the current instance/service is activated (for the filter) then return true
+	 */
+	public isActivatedReal(instanceOrStatus: string): boolean {
+		if (this.chosenServices.getValue().includes(instanceOrStatus) || this.chosenInstances.getValue().includes(instanceOrStatus)) {
+			return true;
+		}
+		return false;
+	}
+	/**
+	 * @param instanceOrStatus 
+	 * @returns if the current instance/service is activated (for the filter) then return true
+	 */
+	public isActivatedService(status: string): boolean {
+		if (this.chosenServices.getValue().includes(status)) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * @param status 
+	 * @returns if the current status is running return true
+	 */
+	public isRunningGreen(status: string): boolean {
+		if (status === 'running') {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * @param status 
+	 * @returns if the current status is one of the equivalents of yellow return true
+	 */
+	public isRunningYellow(status: string): boolean {
+		if (status === 'new' ||
+			status === 'pending' ||
+			status === 'assigned' ||
+			status === 'accepted' ||
+			status === 'ready' ||
+			status === 'preparing' ||
+			status === 'starting') {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * @param status 
+	 * @returns if the current status is one of the equivalents of red return true
+	 */
+	public isRunningRed(status: string): boolean {
+		if (status === 'complete' ||
+			status === 'failed' ||
+			status === 'shutdown' ||
+			status === 'rejected' ||
+			status === 'orphaned' ||
+			status === 'remove') {
+			return true;
+		}
+		return false;
+	}
 
 	/**
 	 * @param instance 
 	 * @returns the worst status from instance (error>slow>fast>offline)
 	 */
-	public whatStatus(instance: Instance): string {
+	public whatStatusReal(instance: RealInstance): string {
 		const status: string[] = ["offline", "error", "slow", "fast"];
 		let id = 3;
-		if (!instance.running) {
+		if (instance.status === 'stopped') {
+			id = 0;
+		} else {
+			instance.services.forEach(element => {
+				if (this.isRunningRed(element.status)) {
+					id = 1;
+				}
+				if (this.isRunningYellow(element.status) && id > 1) {
+					id = 2;
+				}
+			});
+		}
+		return status[id];
+	}/**
+	 * @param instance 
+	 * @returns the worst status from instance (error>slow>fast>offline)
+	 */
+	public whatStatus(instance: RealInstance): string {
+		const status: string[] = ["offline", "error", "slow", "running"];
+		let id = 3;
+		if (instance.status === 'stopped') {
 			id = 0;
 		} else {
 			instance.services.forEach(element => {
 				if ("error" === element.status) {
 					id = 1;
 				}
-				if ("slow" === element.status && id > 1) {
+				if (("starting" === element.status || "unknown" === element.status) && id > 1) {
 					id = 2;
 				}
 			});

@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { Instance, InstanceService, RealInstance, SimpleInstance } from './00_data/interfaces'
+import { InstanceService, RealInstance, SimpleInstance } from './00_data/interfaces'
 import { DataService } from './data.service';
 
 
 
 @Injectable({ providedIn: 'root' })
 export class StatusService {
-	public instancesSubject: BehaviorSubject<Instance[]> = new BehaviorSubject<Instance[]>([]);
 	public realInstancesSubject: BehaviorSubject<RealInstance[]> = new BehaviorSubject<RealInstance[]>([]);
 	public simpleInstancesSubject: BehaviorSubject<SimpleInstance[]> = new BehaviorSubject<SimpleInstance[]>([]);
 	/** sorted Data */
 	public instancesSortSubject: BehaviorSubject<InstanceService[][]> = new BehaviorSubject<InstanceService[][]>([]);
 	/**last watched instance (see instance-detail) */
-	public currentInstancesSubject: BehaviorSubject<(Instance[])> = new BehaviorSubject<Instance[]>([{ id: 0, name: "", running: false, services: [{ name: "", status: "" }] }]);
+	public currentInstancesSubject: BehaviorSubject<(RealInstance[])> = new BehaviorSubject<RealInstance[]>([{name: "", status: "", services: [{ name: "", status: "" }] }]);
 	/**  Behaviours for status */
+	
 	public instancesSortSubject_offline: BehaviorSubject<InstanceService[]> = new BehaviorSubject<InstanceService[]>([]);
 	public instancesSortSubject_fast: BehaviorSubject<InstanceService[]> = new BehaviorSubject<InstanceService[]>([]);
 	public instancesSortSubject_slow: BehaviorSubject<InstanceService[]> = new BehaviorSubject<InstanceService[]>([]);
@@ -39,7 +39,6 @@ export class StatusService {
 	 * and updates the data every interval (see app.component ngOnInit())
 	 */
 	public updateData(): void {
-		this.instancesSubject = this.dataService.instancesSubject;
 		this.simpleInstancesSubject = this.dataService.simpleInstancesSubject;
 		this.realInstancesSubject = this.dataService.realInstancesSubject;
 	}
@@ -47,7 +46,7 @@ export class StatusService {
 	 * c
 	 */
 	public getData(): void {
-		this.sortDataBehaviour()
+		this.sortDataBehaviourReal()
 	}
 
 	/**
@@ -55,7 +54,7 @@ export class StatusService {
 	 * saves the searched instance in this.currentInstancesSubject
 	 */
 	public getInst(name: string): void {
-		const a = this.instancesSubject.getValue().find(h => h.name === name);
+		const a = this.realInstancesSubject.getValue().find(h => h.name === name);
 		if (!(typeof (a) === 'undefined')) {
 			this.currentInstancesSubject.next([a]);
 		}
@@ -64,8 +63,8 @@ export class StatusService {
 	/**
 	 * puts sorted data (sorted by status and running) into BehaviourSubject
 	 */
-	public sortDataBehaviour(): void {
-		this.instancesSortSubject.next(this.sortData());
+	public sortDataBehaviourReal(): void {
+		this.instancesSortSubject.next(this.sortDataReal());
 		this.instancesSortSubject_error.next(this.instanceError);
 		this.instancesSortSubject_slow.next(this.instanceSlow);
 		this.instancesSortSubject_offline.next(this.instanceOffline);
@@ -77,13 +76,13 @@ export class StatusService {
 	 * @returns an Array with Arrays, the Arrays are filled dependend on their status
 	 *  return value = [instanceOffline, instanceError, instanceSlow, instanceFast]
 	 */
-	public sortData(): InstanceService[][] {
+	public sortDataReal(): InstanceService[][] {
 		this.instanceOffline = [];
 		this.instanceError = [];
 		this.instanceSlow = [];
 		this.instanceFast = [];
-		for (const instance of this.instancesSubject.getValue()) {
-			if (!instance.running) {
+		for (const instance of this.realInstancesSubject.getValue()) {
+			if (instance.status === 'stopped') {
 				this.curInstServ = { instance: instance.name, service: "", status: "offline" };
 				this.instanceOffline.push(this.curInstServ);
 			} else {
@@ -98,17 +97,32 @@ export class StatusService {
 	 * instance is pushed to it's corresponding array
 	 * @param instance 
 	 */
-	private sortStatus(instance: Instance): void {
+	private sortStatus(instance: RealInstance): void {
 		for (const service of instance.services) {
 			this.curInstServ = { instance: instance.name, service: service.name, status: service.status };
-			if (service.status == "fast") {
+			if (service.status == "fast" ||
+				service.status == "running"				
+				) {
 				this.instanceFast.push(this.curInstServ);
 			}
-			else if (service.status == "slow") {
-				this.instanceSlow.push(this.curInstServ);
+			else if (service.status == "slow" ||
+				service.status === 'new' ||
+				service.status === 'pending' ||
+				service.status === 'assigned' ||
+				service.status === 'accepted' ||
+				service.status === 'ready' ||
+				service.status === 'preparing' ||
+				service.status === 'starting') {
+					this.instanceSlow.push(this.curInstServ);
 			}
-			else if (service.status == "error") {
-				this.instanceError.push(this.curInstServ);
+			else if (service.status == "error" ||
+					service.status === 'complete' ||
+					service.status === 'failed' ||
+					service.status === 'shutdown' ||
+					service.status === 'rejected' ||
+					service.status === 'orphaned' ||
+					service.status === 'remove') {
+					this.instanceError.push(this.curInstServ);
 			}
 		}
 	}

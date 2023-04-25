@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { Instance, RealInstance } from '../00_data/interfaces';
+import { RealInstance } from '../00_data/interfaces';
 
 import { FilterComponent } from '../filter/filter-dialog.component';
 
@@ -20,12 +20,11 @@ import { DataService } from '../data.service';
 
 export class InstanceComponent implements OnInit {
 	////////// Header /////////////
-	protected instancesObservable: Observable<Instance[]> | undefined;
+	protected realInstancesObservable: Observable<RealInstance[]> | undefined;
 	protected instanceNamenList: Observable<string[]> = new Observable<string[]>
 	protected instanceNamen: FormControl<string | null> = new FormControl('');
 	//////////////////////////////
 
-	public instancesSubject: BehaviorSubject<Instance[]> = new BehaviorSubject<Instance[]>([]);
 	public realInstancesSubject: BehaviorSubject<RealInstance[]> = new BehaviorSubject<RealInstance[]>([]);
 
 	constructor(
@@ -40,9 +39,11 @@ export class InstanceComponent implements OnInit {
 		this.dialog.afterAllClosed.subscribe(() => {
 			this.ref.markForCheck();
 		})
-		this.instancesObservable = this.dataService.instancesSubject.asObservable();
 		this.instanceNamenList = this.filterService.reachableInstances().asObservable();
-		this.statusService.instancesSubject.subscribe(() => {
+
+		this.realInstancesObservable = this.dataService.realInstancesSubject.asObservable();
+		this.instanceNamenList = this.filterService.reachableInstances().asObservable();
+		this.statusService.realInstancesSubject.subscribe(() => {
 			this.updateData()
 		})
 	}
@@ -56,22 +57,46 @@ export class InstanceComponent implements OnInit {
 	 * @param instanceOrStatus = instance-name or service-name.
 	 * @returns boolean if activated in the filter
 	 */
+	protected isActivatedReal(instanceOrStatus: string): boolean {
+		if (!(instanceOrStatus === "")) {
+			return this.filterService.isActivatedReal(instanceOrStatus);
+		}
+		return false	
+	}
+	protected isActivatedInstance(instance: string): boolean {
+		if (!(instance === "")) {
+			return this.filterService.isActivatedReal(instance);
+		}
+		return false
+		
+	}
 	protected isActivated(instanceOrStatus: string): boolean {
 		return this.filterService.isActivated(instanceOrStatus);
+	}
+	protected isActivatedService(status: string): boolean {
+		return this.filterService.isActivatedService(status);
+	}
+	protected isRunningGreen(status: string): boolean {
+		return this.filterService.isRunningGreen(status);
+	}
+	protected isRunningYellow(status: string): boolean {
+		return this.filterService.isRunningYellow(status);
+	}
+	protected isRunningRed(status: string): boolean {
+		return this.filterService.isRunningRed(status);
 	}
 
 	/**
 	 * @param instance 
 	 * @returns the worst status from instance (error>slow>fast>offline)
 	 */
-	protected whatStatus(instance: Instance): string {
-		return this.filterService.whatStatus(instance);
+	protected whatStatus(instance: RealInstance): string {
+		return this.filterService.whatStatusReal(instance);
 	}
 
 	private updateData(): void { 
 		this.filterService.updateFilter();
 		
-		this.instancesSubject = this.dataService.instancesSubject
 		this.realInstancesSubject = this.dataService.realInstancesSubject
 	}
 }

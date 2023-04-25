@@ -17,32 +17,59 @@
 
 	<body>
 		<h2>{{"Die Instanzen"|translate}}: </h2>
-		<ul class="instance">
-			<span *ngFor="let instance of instancesObservable|async">
-				<li *ngIf="isActivated(instance.name)">
+		<app-grid>
+			<app-tile *ngFor="let instance of realInstancesObservable|async">
+				<span *ngIf="isActivated(instance.name)">
 					<a routerLink="/instance/{{instance.name}}">
 						<span class="badge">{{instance.name}}</span> </a>
 					<br>
-					<ng-container *ngIf="instance.running">
+					<ng-container *ngIf="instance.status === 'stopped'">
+						<canvas class="dot_offline"> </canvas>
+					</ng-container>
+					<ng-container *ngIf="!(instance.status === 'stopped') ">
 						<ng-container *ngFor="let service of instance.services">
 							<span class="items" *ngIf="isActivated(service.name)">
-								<ng-container [ngSwitch]="service.status">
-									<canvas class="dot_{{service.status}}"> </canvas>
-								</ng-container>
-								{{service.name}}
-								&nbsp;
+								<span *ngIf="isRunningGreen(service.status)">
+									<ng-container [ngSwitch]="service.status">
+										<canvas class="dot_running"> </canvas>
+									</ng-container>
+								</span>
+								<span *ngIf="isRunningYellow(service.status)">
+									<ng-container [ngSwitch]="service.status">
+										<canvas class="dot_slow"> </canvas>
+									</ng-container>
+								</span>
+								<span *ngIf="isRunningRed(service.status)">
+									<ng-container [ngSwitch]="service.status">
+										<canvas class="dot_error"> </canvas>
+									</ng-container>
+								</span>
+								<span>
+									&nbsp;
+									{{service.name}}
+									&nbsp;
+								</span>
 							</span>
 						</ng-container>
 					</ng-container>
-					<ng-container *ngIf="!instance.running">
-						<canvas class="dot_offline"> </canvas>
-					</ng-container>
-				</li>
-			</span>
-		</ul>
+				</span>
+			</app-tile>
+		</app-grid>
 		<h2>{{"Schlechtester Status jeder Instanz"|translate}}: </h2>
-		<ul class="instance">
-			<span *ngFor="let instance of instancesObservable|async">
+			<app-grid>
+				<app-tile *ngFor="let instance of realInstancesObservable|async">
+					<span *ngIf="isActivatedReal(instance.name)">
+						<ng-container>
+							<canvas class="dot_{{whatStatus(instance)}}"> </canvas>
+							&nbsp;
+						</ng-container>
+						<a routerLink="/instance/{{instance.name}}">
+							<span class="badge">{{instance.name}}</span> </a>
+						<br>
+					</span>
+				</app-tile>
+			</app-grid>
+			<!-- <span *ngFor="let instance of instancesRealObservable|async">
 				<li *ngIf="whatStatus(instance) && isActivated(instance.name)">
 					<a routerLink="/instance/{{instance.name}}">
 						<span class="badge">{{instance.name}}</span> </a>
@@ -51,7 +78,6 @@
 						<canvas class="dot_{{whatStatus(instance)}}"> </canvas>
 					</ng-container>
 				</li>
-			</span>
-		</ul>
+			</span> -->
 	</body>
 </main>

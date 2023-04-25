@@ -22,9 +22,21 @@
 					<ng-container *ngFor="let service of inst.services">
 						<tr>
 							<td>
-								<ng-container [ngSwitch]="service.status">
-									<canvas class="dot_{{service.status}}"> </canvas>
-								</ng-container>
+								<span *ngIf="isRunningGreen(service.status)">
+									<ng-container [ngSwitch]="service.status">
+										<canvas class="dot_running"> </canvas>
+									</ng-container>
+								</span>
+								<span *ngIf="isRunningYellow(service.status)">
+									<ng-container [ngSwitch]="service.status">
+										<canvas class="dot_slow"> </canvas>
+									</ng-container>
+								</span>
+								<span *ngIf="isRunningRed(service.status)">
+									<ng-container [ngSwitch]="service.status">
+										<canvas class="dot_error"> </canvas>
+									</ng-container>
+								</span>
 							</td>
 							<td>
 								{{service.name}}
