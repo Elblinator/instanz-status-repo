@@ -1,11 +1,9 @@
 
 
 # next Job:
- - update instance/stati/stati2 to new data
  - instances make pretty
  - status make pretty
  - Terminologie menschlich machen
- - cancel button für dialog
  - Filtern with auto-completion
  - wähle Instanz
  - timer
@@ -19,7 +17,6 @@
  - header
  
 # Components: 
- - cancel button für dialog
  - Filtern with auto-completion
  - wähle Instanz
  - timer
@@ -46,4 +43,3 @@
 
 
 	"running":false, //normal/error/unknown/stopped
-	//name change from running to status
