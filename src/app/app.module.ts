@@ -21,12 +21,13 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { StartComponent } from './start/start.component';
 import { StatiComponent } from './stati/stati.component';
-import { Stati2Component } from './stati2/stati2.component';
 import { InstanceComponent } from './instance/instance.component';
 import { InstanceDetailComponent } from './instance-detail/instance-detail.component';
 
 import { FilterComponent } from './filter/filter-dialog.component';
 import { WarnComponent } from './warn/warn-dialog.component';
+import { GridComponent } from './grid/grid/grid.component';
+import { TileComponent } from './grid/tile/tile.component';
 
 
 @NgModule({
@@ -54,12 +55,13 @@ import { WarnComponent } from './warn/warn-dialog.component';
 	declarations: [
 		AppComponent,
 		StatiComponent,
-		Stati2Component,
 		InstanceComponent,
 		InstanceDetailComponent,
 		StartComponent,
 		FilterComponent,
-		WarnComponent
+		WarnComponent, 
+		GridComponent,
+		TileComponent
 	],
 	bootstrap: [AppComponent,],
 	providers: [FilterComponent, ReactiveFormsModule, WarnComponent],

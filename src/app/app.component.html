@@ -1,5 +1,6 @@
 <html>
 <div *ngIf="isLoggedIn(); then LoggedInPage; else LoggedOutPage"></div>
+
 </html>
 
 <ng-template #LoggedInPage>
@@ -15,7 +16,6 @@
 					<a mat-list-item routerLink="/start">{{"Start"|translate}}</a>
 					<a mat-list-item routerLink="/instance">{{"Instanzen"|translate}}</a>
 					<a mat-list-item routerLink="/status">{{"Status"|translate}}</a>
-					<a mat-list-item routerLink="/status2">{{"Status2"|translate}}</a>
 				</mat-nav-list>
 			</div>
 		</mat-sidenav>
@@ -57,10 +57,29 @@
 							<img class="img-responsive" src="assets/img/openslides-logo.svg" height="30px">
 						</span>
 						<span class="example-spacer"></span>
-						<input id="name" type="text" [formControl]="inputName" placeholder="{{'Name'|translate}}">
-						<input id="passwort" type="text" [formControl]="inputPassword"
-							placeholder="{{'Passwort'|translate}}">
-						<button type="button" (click)="checkLogin()">{{"anmelden"|translate}}</button>
+						<form [formGroup]="loginForm" class="login-container " (ngSubmit)="checkLogin()">
+							<mat-form-field>
+								<input 
+									class="input"
+									id="name" 
+									type="text" 
+									osAutofocus 
+									required
+									[formControl]="inputName"
+									placeholder="{{'Name'|translate}}">
+							</mat-form-field>
+							<mat-form-field>
+								<input 
+									class="input"
+									id="passwort" 
+									type="password"
+									required
+									[formControl]="inputPassword"
+									formControlName="password"
+									placeholder="{{'Passwort'|translate}}">
+							</mat-form-field>
+							<button type="submit" (click)="checkLogin()">{{"anmelden"|translate}}</button>
+						</form>
 					</mat-toolbar-row>
 				</mat-toolbar>
 			</div>

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, NgZone, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { FormControl } from '@angular/forms';
+import { FormControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, map, shareReplay } from 'rxjs';
 
@@ -31,6 +31,7 @@ export class AppComponent implements OnInit {
 		private userService: UserService,
 		private filterService: FilterService,
 		private breakpointObserver: BreakpointObserver,
+        private formBuilder: UntypedFormBuilder,
 		private statusService: StatusService,
 		private translate: TranslateService,
 		private ngZone: NgZone
@@ -38,7 +39,8 @@ export class AppComponent implements OnInit {
 		translate.addLangs(['en', 'de']);
 		translate.setDefaultLang('de');
 		translate.use('de');
-		this.initiateFilterData()
+		this.initiateFilterData();
+		this.loginForm = this.createForm();
 	}
 	ngOnInit() {
 		//setInterval(() => {
@@ -52,6 +54,11 @@ export class AppComponent implements OnInit {
 			map(result => result.matches),
 			shareReplay()
 		);
+
+	/**
+     * Form group for the login form
+     */
+	public loginForm: UntypedFormGroup;
 
 	protected isLoggedIn(): boolean {
 		return this.userService.isLoggedIn();
@@ -73,4 +80,13 @@ export class AppComponent implements OnInit {
 	protected checkLogin(): boolean {
 		return this.userService.checkLogin(this.inputName.value, this.inputPassword.value);
 	}
+	/**
+     * Create the login Form
+     */
+    private createForm(): UntypedFormGroup {
+        return this.formBuilder.group({
+            username: [``, [Validators.required, Validators.maxLength(128)]],
+            password: [``, [Validators.required, Validators.maxLength(128)]]
+        });
+    }
 }

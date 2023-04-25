@@ -113,7 +113,8 @@ body {
 }
 
 .dot_fast,
-.dot_online {
+.dot_online, 
+.dot_running {
   width: 15px;
   height: 15px;
   background-color: green;
