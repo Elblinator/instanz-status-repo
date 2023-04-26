@@ -24,18 +24,23 @@ export class DataService {
    * and updates the data every interval (see app.component ngOnInit())
    */
   public updateData(): void {
-    console.log('status-service update Data');
+    console.log('update Data');
     this.http.get<SimpleInstance[]>(this.simple_url).subscribe(instances => {
       this.simpleInstancesSubject.next(instances)
     });
     this.http.get<RealInstance[]>(this.real_url).subscribe(instances => {
       const list: RealInstance[] = []
-      instances.forEach((value) => {
-        if(!(value.status === 'unknown')) {
-          list.push(value)
+      instances.forEach((instance) => {
+        if (!(instance.status === 'unknown')) {
+          list.push(instance)
         }
       })
       this.realInstancesSubject.next(list)
     });
+  }
+
+  public getData(): void {
+		this.simpleInstancesSubject 
+		this.realInstancesSubject 
   }
 }

@@ -29,8 +29,8 @@ export class FilterComponent {
 		this.instances = this.filterService.reachableInstances();
 		this.services = this.filterService.reachableService();
 
-		this.inst = this._formBuilder.group(Object.fromEntries(this.instances.getValue().map(e => [e, (this.filterService.isActivatedReal(e))])));
-		this.serv = this._formBuilder.group(Object.fromEntries(this.services.getValue().map(e => [e, (this.filterService.isActivatedReal(e))])));
+		this.inst = this._formBuilder.group(Object.fromEntries(this.instances.getValue().map(e => [e, (this.filterService.isActivated(e))])));
+		this.serv = this._formBuilder.group(Object.fromEntries(this.services.getValue().map(e => [e, (this.filterService.isActivated(e))])));
 	}
 	/**
 	 * activate only selected filter 

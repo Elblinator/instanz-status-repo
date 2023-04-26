@@ -48,7 +48,7 @@ export class InstanceDetailComponent implements OnInit {
 		this.route.url.subscribe(() => {
 			this.name = String(this.route.snapshot.paramMap.get('name'));
 			this.activateInstance()
-			this.instancesObservable = this.statusService.currentInstancesSubject.asObservable();
+			this.instancesObservable = this.statusService.currentInstanceSubject.asObservable();
 
 		})
 	}
@@ -58,14 +58,14 @@ export class InstanceDetailComponent implements OnInit {
 			this.activateInstance();
 		})
 	}
-	
+
 	/**
 	 * get the name from the current instance
 	 */
 	private activateInstance(): void {
-		this.statusService.getInst(this.name);
+		this.statusService.setInstSubj(this.name);
 	}
-	
+
 	/**
 	 * go to previous page
 	 */
@@ -73,7 +73,7 @@ export class InstanceDetailComponent implements OnInit {
 		this.location.back();
 	}
 
-	protected openWarnDialog(str:string): void {
+	protected openWarnDialog(str: string): void {
 		this.warnService.setServiceAndMsg(str);
 		this.dialog.open(WarnComponent);
 	}

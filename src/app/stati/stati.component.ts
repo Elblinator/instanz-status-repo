@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { Instance, InstanceService, RealInstance } from '../00_data/interfaces';
+import { InstanceService, RealInstance } from '../00_data/interfaces';
 
 import { FilterComponent } from '../filter/filter-dialog.component';
 
@@ -25,9 +25,8 @@ export class StatiComponent implements OnInit {
 	protected instanceNamen: FormControl<string | null> = new FormControl('');
 	//////////////////////////////
 
-	public instancesSubject: BehaviorSubject<Instance[]> = new BehaviorSubject<Instance[]>([]);
 	public realInstancesSubject: BehaviorSubject<RealInstance[]> = new BehaviorSubject<RealInstance[]>([]);
-	
+
 	protected instance_offline_Observable: Observable<InstanceService[]> | undefined;
 	protected instance_fast_Observable: Observable<InstanceService[]> | undefined;
 	protected instance_slow_Observable: Observable<InstanceService[]> | undefined;
@@ -44,11 +43,11 @@ export class StatiComponent implements OnInit {
 	public ngOnInit(): void {
 		this.dialog.afterAllClosed.subscribe(() => {
 			this.ref.markForCheck();
-		})	
+		})
 
 		this.realInstancesObservable = this.dataService.realInstancesSubject.asObservable();
 		this.instanceNamenList = this.filterService.reachableInstances().asObservable();
-		this.statusService.realInstancesSubject.subscribe(() => {
+		this.dataService.realInstancesSubject.subscribe(() => {
 			this.updateData()
 			this.sortDataBehaviour();
 		})
@@ -67,7 +66,7 @@ export class StatiComponent implements OnInit {
 		if (!(instanceOrStatus === "")) {
 			return this.filterService.isActivatedReal(instanceOrStatus);
 		}
-		return false	
+		return false
 	}
 	protected isActivatedService(status: string): boolean {
 		return this.filterService.isActivatedService(status);
@@ -78,7 +77,7 @@ export class StatiComponent implements OnInit {
 	 * array = [instance_offline, instance_error, instance_slow, instance_fast].
 	 * This function fills it's own arrays accordingly
 	 */
-	private sortDataBehaviour(): void {		
+	private sortDataBehaviour(): void {
 		this.statusService.sortDataBehaviourReal();
 
 		this.instance_offline_Observable = this.statusService.instancesSortSubject_offline.asObservable();

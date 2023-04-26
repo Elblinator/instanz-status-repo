@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 
 import { SortStatusService } from '../sort-status.service';
 import { SortOnlineService } from '../sort-online.service'
-import { StatusService } from '../status.service';
 import { UserService } from '../user.service';
+import { DataService } from '../data.service';
 
 @Component({
 	selector: 'app-start',
@@ -20,7 +20,7 @@ export class StartComponent implements OnInit {
 	protected arrSimpleOnline: Observable<number[]> = new Observable<number[]>
 
 	constructor(
-		private statusService: StatusService,
+		private dataService: DataService,
 		private userService: UserService,
 		private sortOnlineService: SortOnlineService,
 		private sortStatusService: SortStatusService
@@ -32,7 +32,7 @@ export class StartComponent implements OnInit {
 	public ngOnInit(): void {
 		this.arrSimpleService = this.sortStatusService.simpleResetCount().asObservable();
 		this.arrSimpleOnline = this.sortOnlineService.simpleResetCount().asObservable();
-		this.statusService.simpleInstancesSubject.subscribe(() => {
+		this.dataService.simpleInstancesSubject.subscribe(() => {
 			this.simpleResetCount();
 			this.updateData();
 		})

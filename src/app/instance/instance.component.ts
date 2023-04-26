@@ -43,7 +43,7 @@ export class InstanceComponent implements OnInit {
 
 		this.realInstancesObservable = this.dataService.realInstancesSubject.asObservable();
 		this.instanceNamenList = this.filterService.reachableInstances().asObservable();
-		this.statusService.realInstancesSubject.subscribe(() => {
+		this.dataService.realInstancesSubject.subscribe(() => {
 			this.updateData()
 		})
 	}
@@ -61,14 +61,14 @@ export class InstanceComponent implements OnInit {
 		if (!(instanceOrStatus === "")) {
 			return this.filterService.isActivatedReal(instanceOrStatus);
 		}
-		return false	
+		return false
 	}
 	protected isActivatedInstance(instance: string): boolean {
 		if (!(instance === "")) {
 			return this.filterService.isActivatedReal(instance);
 		}
 		return false
-		
+
 	}
 	protected isActivated(instanceOrStatus: string): boolean {
 		return this.filterService.isActivated(instanceOrStatus);
@@ -94,9 +94,9 @@ export class InstanceComponent implements OnInit {
 		return this.filterService.whatStatusReal(instance);
 	}
 
-	private updateData(): void { 
+	private updateData(): void {
 		this.filterService.updateFilter();
-		
+
 		this.realInstancesSubject = this.dataService.realInstancesSubject
 	}
 }

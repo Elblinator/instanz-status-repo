@@ -4,11 +4,11 @@ export interface User {
 	user: string;
 	password: string;
 }
-export interface Instance {
-	id: number;
-	name: string;
-	running: boolean;
-	services: Status[];
+export enum STATUS {
+	ERROR = 'error',
+	OFFLINE = 'offline',
+	SLOW = 'slow',
+	FAST = 'fast'
 }
 export interface SimpleInstance {
 	status: string;
@@ -42,6 +42,6 @@ export interface Warning {
 	service: string;
 	warn: string;
 }
-export function isStatus(name: Status[] | Instance[]): name is Status[] {
+export function isStatus(name: Status[]): name is Status[] {
 	return (name as Status[]) !== undefined;
 }

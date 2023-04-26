@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 
 import { InstanceService, RealInstance, SimpleInstance } from './00_data/interfaces'
 import { DataService } from './data.service';
+import { FilterService } from './filter.service';
 
 
 
@@ -13,9 +14,11 @@ export class StatusService {
 	/** sorted Data */
 	public instancesSortSubject: BehaviorSubject<InstanceService[][]> = new BehaviorSubject<InstanceService[][]>([]);
 	/**last watched instance (see instance-detail) */
-	public currentInstancesSubject: BehaviorSubject<(RealInstance[])> = new BehaviorSubject<RealInstance[]>([{name: "", status: "", services: [{ name: "", status: "" }] }]);
+	public currentInstanceSubject: BehaviorSubject<(RealInstance[])> = new BehaviorSubject<RealInstance[]>([{ name: "", status: "", services: [{ name: "", status: "" }] }]);
+
 	/**  Behaviours for status */
-	
+	public currentInstance: RealInstance = { name: "", status: "", services: [{ name: "", status: "" }] }
+
 	public instancesSortSubject_offline: BehaviorSubject<InstanceService[]> = new BehaviorSubject<InstanceService[]>([]);
 	public instancesSortSubject_fast: BehaviorSubject<InstanceService[]> = new BehaviorSubject<InstanceService[]>([]);
 	public instancesSortSubject_slow: BehaviorSubject<InstanceService[]> = new BehaviorSubject<InstanceService[]>([]);
@@ -31,8 +34,9 @@ export class StatusService {
 	///////////////////////////////////////////
 
 	constructor(
-		private dataService: DataService
-	) { this.updateData() }
+		private dataService: DataService,
+		private filterService: FilterService
+	) { }
 
 	/** 
 	 * initialises the data at the beginning
@@ -51,12 +55,12 @@ export class StatusService {
 
 	/**
 	 * @param name = name from an instance
-	 * saves the searched instance in this.currentInstancesSubject
+	 * saves the searched instance in this.currentInstanceSubject
 	 */
-	public getInst(name: string): void {
+	public setInstSubj(name: string): void {
 		const a = this.realInstancesSubject.getValue().find(h => h.name === name);
 		if (!(typeof (a) === 'undefined')) {
-			this.currentInstancesSubject.next([a]);
+			this.currentInstanceSubject.next([a]);
 		}
 	}
 
@@ -100,29 +104,16 @@ export class StatusService {
 	private sortStatus(instance: RealInstance): void {
 		for (const service of instance.services) {
 			this.curInstServ = { instance: instance.name, service: service.name, status: service.status };
-			if (service.status == "fast" ||
-				service.status == "running"				
-				) {
+			if (this.filterService.isRunningGreen(service.status)) {
 				this.instanceFast.push(this.curInstServ);
 			}
-			else if (service.status == "slow" ||
-				service.status === 'new' ||
-				service.status === 'pending' ||
-				service.status === 'assigned' ||
-				service.status === 'accepted' ||
-				service.status === 'ready' ||
-				service.status === 'preparing' ||
-				service.status === 'starting') {
-					this.instanceSlow.push(this.curInstServ);
+			else if (this.filterService.isRunningYellow(service.status)) {
+				this.instanceSlow.push(this.curInstServ);
 			}
-			else if (service.status == "error" ||
-					service.status === 'complete' ||
-					service.status === 'failed' ||
-					service.status === 'shutdown' ||
-					service.status === 'rejected' ||
-					service.status === 'orphaned' ||
-					service.status === 'remove') {
-					this.instanceError.push(this.curInstServ);
+			else if (this.filterService.isRunningRed(service.status)) {
+				this.instanceError.push(this.curInstServ);
+			} else {
+				console.log('No known usage for ', service.status)
 			}
 		}
 	}

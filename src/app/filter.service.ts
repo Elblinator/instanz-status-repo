@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 
-import { RealInstance, Status } from './00_data/interfaces';
+import { RealInstance, SimpleInstance, Status, STATUS } from './00_data/interfaces';
 
 import { DataService } from './data.service';
 
@@ -10,26 +10,38 @@ import { DataService } from './data.service';
 	providedIn: 'root'
 })
 export class FilterService {
-	private instancesReal: RealInstance[] = [];
-	private instancesSubjectReal: BehaviorSubject<RealInstance[]> = new BehaviorSubject<RealInstance[]>([]);
+	private realInstances: RealInstance[] = [];
+	private filteredInstances: RealInstance[] = [];
+	private realInstancesSubject: BehaviorSubject<RealInstance[]> = new BehaviorSubject<RealInstance[]>([]);
+	public filteredInstancesSubject: BehaviorSubject<RealInstance[]> = new BehaviorSubject<RealInstance[]>([]);
+	public simpleInstancesSubject: BehaviorSubject<SimpleInstance[]> = new BehaviorSubject<SimpleInstance[]>([]);
 
 	private possibleInstances: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([])
 	private possibleServices: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([])
 	private chosenInstances: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([])
 	private chosenServices: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([])
 
+	public currentInstance: RealInstance = { name: "", status: "", services: [{ name: "", status: "" }] }
+
 	private loading = true
 	private loaded = false
 
 	constructor(
-		private dataService: DataService,
+		private dataService: DataService
 	) {
 		this.getAndSetPossibleFilter();
 	}
 
 	public updateFilter(): void {
+		this.dataService.realInstancesSubject.subscribe(() => {
+			this.setPossibleInstStatus();
+			this.setAllFilter();
+			this.filterInstances();
+		})
+
 		this.setPossibleInstStatus();
 		this.setAllFilter();
+		this.filterInstances();
 	}
 
 	/**
@@ -48,27 +60,27 @@ export class FilterService {
 	public setPossibleInstStatus(): void {
 		this.getData()
 
-		this.possibleInstances.next(this.turnIntoString(this.instancesReal));
-		for (const instance of this.instancesReal) {
+		this.possibleInstances.next(this.turnIntoString(this.realInstances));
+		for (const instance of this.realInstances) {
 			this.possibleServices.next(this.turnIntoString(instance.services));
 			break;
 		}
 	}
 
 	private getData(): void {
-		this.instancesSubjectReal = this.dataService.realInstancesSubject
-		this.instancesReal = this.instancesSubjectReal.getValue()
-		
-		if(this.instancesReal.length > 0) {
+		this.realInstancesSubject = this.dataService.realInstancesSubject
+		this.realInstances = this.realInstancesSubject.getValue()
+		this.filterInstances()
+
+		if (this.realInstances.length > 0) {
 			this.loading = false
 		}
 	}
 	/**
-	 * activate all filter possibilities
+	 * activate all filter possibilities 
+	 * only once and only after the data was loaded
 	 */
 	private setAllFilter(): void {
-		console.log('loading', this.loading)
-		console.log('loaded', this.loaded)
 		if (!this.loading && !this.loaded) {
 			this.loaded = true;
 
@@ -78,17 +90,17 @@ export class FilterService {
 	}
 
 	/** -turn Array of Status or Instance into Arrays of string with only their names */
-	private turnIntoString(list: (Status[] | RealInstance [])): string[] {
-		const arr: string[] = [];
+	private turnIntoString(list: (Status[] | RealInstance[])): string[] {
+		const names: string[] = [];
 		for (const name of list) {
-			arr.push(name.name);
+			names.push(name.name);
 		}
-		return arr;
+		return names;
 	}
 	/**
 	 * reset chosenValues 
 	 * get new chosenValues @param data 
-	 * and set them (as this.chosenInstances amd this.chosenServices)
+	 * and set them (as this.chosenInstances and this.chosenServices)
 	 */
 	public setFilter(data: FormGroup[]): void {
 		const inst: FormGroup = data[0];
@@ -111,30 +123,35 @@ export class FilterService {
 		}
 		this.chosenServices.next(currentList);
 	}
+
 	/**
-	 * @returns the Instances which  could be used
+	 * @returns the instances which could be used
 	 */
 	public reachableInstances(): BehaviorSubject<string[]> {
 		return this.possibleInstances;
 	}
+
 	/**
-	 * @returns the Services which could be used
+	 * @returns the services which could be used
 	 */
 	public reachableService(): BehaviorSubject<string[]> {
 		return this.possibleServices;
 	}
+
 	/**
-	 * @returns the Instances which are used
+	 * @returns the instances which are being used
 	 */
 	public activatedInstances(): BehaviorSubject<string[]> {
 		return this.chosenInstances;
 	}
+
 	/**
-	 * @returns the Services which are used
+	 * @returns the services which are being used
 	 */
 	public activatedService(): BehaviorSubject<string[]> {
 		return this.chosenServices;
 	}
+
 	/**
 	 * @param instanceOrStatus 
 	 * @returns if the current instance/service is activated (for the filter) then return true
@@ -200,12 +217,13 @@ export class FilterService {
 	 * @returns if the current status is one of the equivalents of red return true
 	 */
 	public isRunningRed(status: string): boolean {
-		if (status === 'complete' ||
+		if ( //Object.values(STATUS).includes(status as STATUS)
+			status === 'complete' ||
 			status === 'failed' ||
 			status === 'shutdown' ||
 			status === 'rejected' ||
 			status === 'orphaned' ||
-			status === 'remove') {
+			status === 'remove'	) {
 			return true;
 		}
 		return false;
@@ -216,7 +234,7 @@ export class FilterService {
 	 * @returns the worst status from instance (error>slow>fast>offline)
 	 */
 	public whatStatusReal(instance: RealInstance): string {
-		const status: string[] = ["offline", "error", "slow", "fast"];
+		const status: string[] = [STATUS.OFFLINE, STATUS.ERROR, STATUS.SLOW, STATUS.FAST];
 		let id = 3;
 		if (instance.status === 'stopped') {
 			id = 0;
@@ -231,25 +249,28 @@ export class FilterService {
 			});
 		}
 		return status[id];
-	}/**
-	 * @param instance 
-	 * @returns the worst status from instance (error>slow>fast>offline)
+	}
+
+	/**
+	 * fill filteredInstances and filteredInstancesSubject only with the (in the Filter activated) instances
 	 */
-	public whatStatus(instance: RealInstance): string {
-		const status: string[] = ["offline", "error", "slow", "running"];
-		let id = 3;
-		if (instance.status === 'stopped') {
-			id = 0;
-		} else {
-			instance.services.forEach(element => {
-				if ("error" === element.status) {
-					id = 1;
-				}
-				if (("starting" === element.status || "unknown" === element.status) && id > 1) {
-					id = 2;
-				}
-			});
+	public filterInstances(): void {
+		this.filteredInstances = []
+		for (const instance of this.chosenInstances.getValue()) {
+			this.setInst(instance)
+			this.filteredInstances.push(this.currentInstance)
 		}
-		return status[id];
+
+		this.filteredInstancesSubject.next(this.filteredInstances)
+	}
+	/**
+	 * @param name = name from an instance
+	 * saves the searched instance in this.currentInstanceSubject
+	 */
+	public setInst(name: string): void {
+		const a = this.realInstancesSubject.getValue().find(h => h.name === name);
+		if (!(typeof (a) === 'undefined')) {
+			this.currentInstance = a;
+		}
 	}
 }
