@@ -6,7 +6,7 @@ import { Observable, map, shareReplay } from 'rxjs';
 
 import { FilterService } from './filter.service';
 import { UserService } from './user.service';
-import { StatusService } from './status.service';
+import { DataService } from './data.service';
 
 @Component({
 	selector: 'app-root',
@@ -31,8 +31,8 @@ export class AppComponent implements OnInit {
 		private userService: UserService,
 		private filterService: FilterService,
 		private breakpointObserver: BreakpointObserver,
-        private formBuilder: UntypedFormBuilder,
-		private statusService: StatusService,
+		private formBuilder: UntypedFormBuilder,
+		private dataService: DataService,
 		private translate: TranslateService,
 		private ngZone: NgZone
 	) {
@@ -44,7 +44,7 @@ export class AppComponent implements OnInit {
 	}
 	ngOnInit() {
 		//setInterval(() => {
-		// this.statusService.updateData();
+		// this.dataService.updateData();
 		// 	console.log('I would update Data every 5 minutes')
 		// }, 300000)
 		'dummy text'
@@ -56,8 +56,8 @@ export class AppComponent implements OnInit {
 		);
 
 	/**
-     * Form group for the login form
-     */
+	 * Form group for the login form
+	 */
 	public loginForm: UntypedFormGroup;
 
 	protected isLoggedIn(): boolean {
@@ -72,7 +72,7 @@ export class AppComponent implements OnInit {
 	 */
 	private initiateFilterData(): void {
 		this.filterService.getAndSetPossibleFilter();
-		this.statusService.updateData()
+		this.dataService.getData();
 	}
 	/**
 	 * @returns true if inputName and inputPassword match an existing user
@@ -81,12 +81,12 @@ export class AppComponent implements OnInit {
 		return this.userService.checkLogin(this.inputName.value, this.inputPassword.value);
 	}
 	/**
-     * Create the login Form
-     */
-    private createForm(): UntypedFormGroup {
-        return this.formBuilder.group({
-            username: [``, [Validators.required, Validators.maxLength(128)]],
-            password: [``, [Validators.required, Validators.maxLength(128)]]
-        });
-    }
+	 * Create the login Form
+	 */
+	private createForm(): UntypedFormGroup {
+		return this.formBuilder.group({
+			username: [``, [Validators.required, Validators.maxLength(128)]],
+			password: [``, [Validators.required, Validators.maxLength(128)]]
+		});
+	}
 }
