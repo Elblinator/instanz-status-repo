@@ -9,7 +9,7 @@ import { UserService } from './user.service';
 
 const routes: Routes = [
 	{ path: 'start', component: StartComponent },
-	{ path: 'status', component: StatiComponent, data: { isUser: true }, canActivate: [UserService] },
+	{ path: 'service', component: StatiComponent, data: { isUser: true }, canActivate: [UserService] },
 	{ path: 'instance', component: InstanceComponent, data: { isUser: true }, canActivate: [UserService] },
 	{ path: 'instance/:name', component: InstanceDetailComponent, data: { isUser: true }, canActivate: [UserService] },
 	{ path: '', redirectTo: '/start', pathMatch: 'full', data: { isUser: false } },
