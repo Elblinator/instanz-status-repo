@@ -12,6 +12,7 @@ import { WarnComponent } from '../warn/warn-dialog.component';
 import { StatusService } from '../status.service';
 import { FilterService } from '../filter.service';
 import { WarnService } from '../warn.service';
+import { DataService } from '../data.service';
 
 @Component({
 	selector: 'app-status-detail',
@@ -36,34 +37,33 @@ export class InstanceDetailComponent implements OnInit {
 		private location: Location,
 		private filterService: FilterService,
 		private dialog: MatDialog,
-		private warnService: WarnService
+		private warnService: WarnService,
+		private dataService: DataService
 	) { }
 
 	public ngOnInit(): void {
 		this.instanceNamenList = this.filterService.reachableInstances().asObservable();
-		this.statusService.realInstancesSubject.subscribe(() => {
+		this.dataService.realInstancesSubject.subscribe(() => {
 			this.filterService.updateFilter();
 		})
 		this.initialise();
 		this.route.url.subscribe(() => {
-			this.name = String(this.route.snapshot.paramMap.get('name'));
 			this.activateInstance()
-			this.instancesObservable = this.statusService.currentInstanceSubject.asObservable();
-
 		})
 	}
 
 	private initialise() {
-		this.statusService.realInstancesSubject.subscribe(() => {
+		this.dataService.realInstancesSubject.subscribe(() => {
 			this.activateInstance();
 		})
 	}
 
 	/**
-	 * get the name from the current instance
+	 * set the current instance
 	 */
 	private activateInstance(): void {
-		this.statusService.setInstSubj(this.name);
+		this.name = String(this.route.snapshot.paramMap.get('name'));
+		this.instancesObservable = this.statusService.setInstSubj(this.name);		
 	}
 
 	/**
@@ -77,6 +77,7 @@ export class InstanceDetailComponent implements OnInit {
 		this.warnService.setServiceAndMsg(str);
 		this.dialog.open(WarnComponent);
 	}
+
 	protected isRunningGreen(status: string): boolean {
 		return this.filterService.isRunningGreen(status);
 	}

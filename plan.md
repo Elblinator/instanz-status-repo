@@ -1,6 +1,7 @@
 
 
 # next Job:
+ - change to Filtered Subjects in instance.comp and status.com, after that see if instance-detail.comp fixed itself
  - instances make pretty
  - status make pretty
  - Terminologie menschlich machen

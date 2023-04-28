@@ -39,10 +39,6 @@ export class FilterService {
 			this.setAllFilter();
 			this.filterInstances();
 		})
-
-		this.setPossibleInstStatus();
-		this.setAllFilter();
-		this.filterInstances();
 	}
 
 	/**
@@ -251,6 +247,10 @@ export class FilterService {
 		}
 
 		this.filteredInstancesSubject.next(this.filteredInstances)
+	}
+
+	public getFilterInst(): BehaviorSubject<RealInstance[]>{
+		return this.filteredInstancesSubject
 	}
 	/**
 	 * @param name = name from an instance

@@ -20,7 +20,7 @@ import { DataService } from '../data.service';
 })
 export class StatiComponent implements OnInit {
 	////////// Header /////////////
-	protected realInstancesObservable: Observable<RealInstance[]> | undefined;
+	protected filteredInstancesObservable: Observable<RealInstance[]> | undefined;
 	protected instanceNamenList: Observable<string[]> = new Observable<string[]>
 	protected instanceNamen: FormControl<string | null> = new FormControl('');
 	//////////////////////////////
@@ -45,7 +45,8 @@ export class StatiComponent implements OnInit {
 			this.ref.markForCheck();
 		})
 
-		this.realInstancesObservable = this.dataService.realInstancesSubject.asObservable();
+		this.filteredInstancesObservable = this.filterService.filteredInstancesSubject.asObservable();
+		console.log(this.filteredInstancesObservable)
 		this.instanceNamenList = this.filterService.reachableInstances().asObservable();
 		this.dataService.realInstancesSubject.subscribe(() => {
 			this.updateData()

@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
-import { InstanceService, RealInstance, SimpleInstance } from './00_data/interfaces'
-import { DataService } from './data.service';
+import { InstanceService, RealInstance } from './00_data/interfaces'
+
 import { FilterService } from './filter.service';
 
 
 
 @Injectable({ providedIn: 'root' })
 export class StatusService {
-	public realInstancesSubject: BehaviorSubject<RealInstance[]> = new BehaviorSubject<RealInstance[]>([]);
-	public simpleInstancesSubject: BehaviorSubject<SimpleInstance[]> = new BehaviorSubject<SimpleInstance[]>([]);
+	public filteredInstancesSubject: BehaviorSubject<RealInstance[]> = new BehaviorSubject<RealInstance[]>([]);
 	/** sorted Data */
 	public instancesSortSubject: BehaviorSubject<InstanceService[][]> = new BehaviorSubject<InstanceService[][]>([]);
 	/**last watched instance (see instance-detail) */
@@ -34,7 +33,6 @@ export class StatusService {
 	///////////////////////////////////////////
 
 	constructor(
-		private dataService: DataService,
 		private filterService: FilterService
 	) { }
 
@@ -43,8 +41,7 @@ export class StatusService {
 	 * and updates the data every interval (see app.component ngOnInit())
 	 */
 	public updateData(): void {
-		this.simpleInstancesSubject = this.dataService.simpleInstancesSubject;
-		this.realInstancesSubject = this.dataService.realInstancesSubject;
+		this.filteredInstancesSubject = this.filterService.filteredInstancesSubject;
 	}
 	/** 
 	 * c
@@ -57,11 +54,12 @@ export class StatusService {
 	 * @param name = name from an instance
 	 * saves the searched instance in this.currentInstanceSubject
 	 */
-	public setInstSubj(name: string): void {
-		const a = this.realInstancesSubject.getValue().find(h => h.name === name);
+	public setInstSubj(name: string): Observable<RealInstance[]> {
+		const a = this.filteredInstancesSubject.getValue().find(h => h.name === name);
 		if (!(typeof (a) === 'undefined')) {
 			this.currentInstanceSubject.next([a]);
 		}
+		return this.currentInstanceSubject.asObservable();
 	}
 
 	/**
@@ -85,7 +83,7 @@ export class StatusService {
 		this.instanceError = [];
 		this.instanceSlow = [];
 		this.instanceFast = [];
-		for (const instance of this.realInstancesSubject.getValue()) {
+		for (const instance of this.filteredInstancesSubject.getValue()) {
 			if (instance.status === 'stopped') {
 				this.curInstServ = { instance: instance.name, service: "", status: "offline" };
 				this.instanceOffline.push(this.curInstServ);
