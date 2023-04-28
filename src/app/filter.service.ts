@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 
-import { RealInstance, SimpleInstance, Status, STATUS } from './00_data/interfaces';
+import { RealInstance, SimpleInstance, Status } from './00_data/interfaces';
+import { BLACK, GREEN, RED, STATUS_LIST, YELLOW } from './00_data/magic_strings';
 
 import { DataService } from './data.service';
 
@@ -189,7 +190,7 @@ export class FilterService {
 	 * @returns if the current status is running return true
 	 */
 	public isRunningGreen(status: string): boolean {
-		if (status === 'running') {
+		if (Object.values(GREEN).includes(status as GREEN)) {
 			return true;
 		}
 		return false;
@@ -200,13 +201,7 @@ export class FilterService {
 	 * @returns if the current status is one of the equivalents of yellow return true
 	 */
 	public isRunningYellow(status: string): boolean {
-		if (status === 'new' ||
-			status === 'pending' ||
-			status === 'assigned' ||
-			status === 'accepted' ||
-			status === 'ready' ||
-			status === 'preparing' ||
-			status === 'starting') {
+		if (Object.values(YELLOW).includes(status as YELLOW)) {
 			return true;
 		}
 		return false;
@@ -217,13 +212,7 @@ export class FilterService {
 	 * @returns if the current status is one of the equivalents of red return true
 	 */
 	public isRunningRed(status: string): boolean {
-		if ( //Object.values(STATUS).includes(status as STATUS)
-			status === 'complete' ||
-			status === 'failed' ||
-			status === 'shutdown' ||
-			status === 'rejected' ||
-			status === 'orphaned' ||
-			status === 'remove'	) {
+		if (Object.values(RED).includes(status as RED)) {
 			return true;
 		}
 		return false;
@@ -234,9 +223,9 @@ export class FilterService {
 	 * @returns the worst status from instance (error>slow>fast>offline)
 	 */
 	public whatStatusReal(instance: RealInstance): string {
-		const status: string[] = [STATUS.OFFLINE, STATUS.ERROR, STATUS.SLOW, STATUS.FAST];
+		const status: string[] = [STATUS_LIST.OFFLINE, STATUS_LIST.ERROR, STATUS_LIST.SLOW, STATUS_LIST.FAST];
 		let id = 3;
-		if (instance.status === 'stopped') {
+		if (Object.values(BLACK).includes(instance.status as BLACK)) {
 			id = 0;
 		} else {
 			instance.services.forEach(element => {

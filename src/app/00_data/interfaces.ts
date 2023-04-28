@@ -4,12 +4,6 @@ export interface User {
 	user: string;
 	password: string;
 }
-export enum STATUS {
-	ERROR = 'error',
-	OFFLINE = 'offline',
-	SLOW = 'slow',
-	FAST = 'fast'
-}
 export interface SimpleInstance {
 	status: string;
 	instances_part: number;

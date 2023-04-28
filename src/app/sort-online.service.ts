@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { SimpleInstance } from './00_data/interfaces';
+import { BLACK, OFFLINE_LIST } from './00_data/magic_strings';
 
 import { DataService } from './data.service';
 import { SortCategoryService } from './sort-category.service';
@@ -16,7 +17,7 @@ export class SortOnlineService extends SortCategoryService {
 	protected simpleInstances: SimpleInstance[] = [];
 	protected simpleInstancesSubject: BehaviorSubject<SimpleInstance[]> = new BehaviorSubject<SimpleInstance[]>([]);
 
-	public listRunning: string[] = ['online', 'offline'];
+	public listRunning: string[] = Object.values(OFFLINE_LIST);
 
 	constructor(public override dataService: DataService) { super(dataService) }
 
@@ -30,7 +31,7 @@ export class SortOnlineService extends SortCategoryService {
 	}
 	protected override fill(): void {
 		for (const instance of this.instances) {
-			if (instance.status === 'stopped') {
+			if (Object.values(BLACK).includes(instance.status as BLACK)) {
 				this.arrOnline[1] = (Number(instance.instances_part) * 100);
 			} else {
 				this.arrOnline[0] += (Number(instance.instances_part) * 100);

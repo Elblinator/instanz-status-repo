@@ -16,7 +16,6 @@ export abstract class SortCategoryService {
 	protected instancesSubject: BehaviorSubject<SimpleInstance[]> = new BehaviorSubject<SimpleInstance[]>([]);
 
   constructor(public dataService: DataService) { 
-    this.arr
   }
   
   protected getData(): SimpleInstance[] {

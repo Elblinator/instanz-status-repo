@@ -42,7 +42,7 @@ export class UserService {
 	public checkLogin(name: (string | null), password: (string | null)): boolean {
 		let id = -1;
 		this.getUsers();
-		if (typeof (name) === "string" && typeof (password) === "string") {
+		if (typeof(name) === "string" && typeof(password) === "string") {
 			// check if user actually exists
 			this.users.forEach(element => {
 				if (element.user == name) {
@@ -69,6 +69,7 @@ export class UserService {
 	public isLoggedIn(): boolean {
 		return this.isUser;
 	}
+
 	// same as above, but app-routing.module needs this one 
 	protected canActivate(): boolean {
 		return this.isLoggedIn();
@@ -79,9 +80,11 @@ export class UserService {
 			.subscribe(user => { this.users = user });
 		return (this.users);
 	}
-	// get Users as Observables
+	/** 
+	 * get User as Observables
+	 */
 	private getUser(): Observable<User[]> {
-		//return this.http.get<Instance[]>(this._url)
+		//return this.http.get<User[]>(this._url)
 		const user = of(USER);
 		return user;
 	}
