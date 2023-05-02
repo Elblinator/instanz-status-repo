@@ -45,9 +45,9 @@ export class StatiComponent implements OnInit {
 			this.ref.markForCheck();
 		})
 
-		this.filteredInstancesObservable = this.filterService.filteredInstancesSubject.asObservable();
+		this.filteredInstancesObservable = this.filterService.filteredInstancesSubject as Observable<RealInstance[]>;
 		console.log(this.filteredInstancesObservable)
-		this.instanceNamenList = this.filterService.reachableInstances().asObservable();
+		this.instanceNamenList = this.filterService.reachableInstances() as Observable<string[]>;
 		this.dataService.realInstancesSubject.subscribe(() => {
 			this.updateData()
 			this.sortDataBehaviour();
@@ -81,10 +81,10 @@ export class StatiComponent implements OnInit {
 	private sortDataBehaviour(): void {
 		this.statusService.sortDataBehaviourReal();
 
-		this.instance_offline_Observable = this.statusService.instancesSortSubject_offline.asObservable();
-		this.instance_fast_Observable = this.statusService.instancesSortSubject_fast.asObservable();
-		this.instance_slow_Observable = this.statusService.instancesSortSubject_slow.asObservable();
-		this.instance_error_Observable = this.statusService.instancesSortSubject_error.asObservable();
+		this.instance_offline_Observable = this.statusService.instancesSortSubject_offline as Observable<InstanceService[]>;
+		this.instance_fast_Observable = this.statusService.instancesSortSubject_fast as Observable<InstanceService[]>;
+		this.instance_slow_Observable = this.statusService.instancesSortSubject_slow as Observable<InstanceService[]>;
+		this.instance_error_Observable = this.statusService.instancesSortSubject_error as Observable<InstanceService[]>;
 	}
 
 	private updateData(): void {

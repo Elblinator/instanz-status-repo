@@ -59,7 +59,7 @@ export class StatusService {
 		if (!(typeof (a) === 'undefined')) {
 			this.currentInstanceSubject.next([a]);
 		}
-		return this.currentInstanceSubject.asObservable();
+		return this.currentInstanceSubject as Observable<RealInstance[]>;
 	}
 
 	/**

@@ -30,8 +30,8 @@ export class StartComponent implements OnInit {
 	}
 
 	public ngOnInit(): void {
-		this.arrSimpleService = this.sortStatusService.simpleResetCount().asObservable();
-		this.arrSimpleOnline = this.sortOnlineService.simpleResetCount().asObservable();
+		this.arrSimpleService = this.sortStatusService.simpleResetCount() as Observable<number[]>;
+		this.arrSimpleOnline = this.sortOnlineService.simpleResetCount() as Observable<number[]>;
 		this.dataService.simpleInstancesSubject.subscribe(() => {
 			this.simpleResetCount();
 			this.updateData();
@@ -48,8 +48,8 @@ export class StartComponent implements OnInit {
 	 * reset count for amount of instances (running/stopped)
 	 */
 	protected simpleResetCount() {
-		this.arrSimpleService = this.sortStatusService.simpleResetCount().asObservable();
-		this.arrSimpleOnline = this.sortOnlineService.simpleResetCount().asObservable()
+		this.arrSimpleService = this.sortStatusService.simpleResetCount() as Observable<number[]>;
+		this.arrSimpleOnline = this.sortOnlineService.simpleResetCount() as Observable<number[]>;
 	}
 
 	protected updateData() {

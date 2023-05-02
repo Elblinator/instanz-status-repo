@@ -39,10 +39,10 @@ export class InstanceComponent implements OnInit {
 		this.dialog.afterAllClosed.subscribe(() => {
 			this.ref.markForCheck();
 		})
-		this.instanceNamenList = this.filterService.reachableInstances().asObservable();
+		this.instanceNamenList = this.filterService.reachableInstances() as Observable<string[]>;
 
-		this.realInstancesObservable = this.dataService.realInstancesSubject.asObservable();
-		this.instanceNamenList = this.filterService.reachableInstances().asObservable();
+		this.realInstancesObservable = this.dataService.realInstancesSubject as Observable<RealInstance[]>;
+		this.instanceNamenList = this.filterService.reachableInstances() as Observable<string[]>;
 		this.dataService.realInstancesSubject.subscribe(() => {
 			this.getData()
 		})

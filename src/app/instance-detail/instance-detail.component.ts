@@ -42,7 +42,7 @@ export class InstanceDetailComponent implements OnInit {
 	) { }
 
 	public ngOnInit(): void {
-		this.instanceNamenList = this.filterService.reachableInstances().asObservable();
+		this.instanceNamenList = this.filterService.reachableInstances() as Observable<string[]>;
 		this.dataService.realInstancesSubject.subscribe(() => {
 			this.filterService.updateFilter();
 		})
