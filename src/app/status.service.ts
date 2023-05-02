@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject} from 'rxjs';
 
 import { InstanceService, RealInstance } from './00_data/interfaces'
 
@@ -12,16 +12,14 @@ export class StatusService {
 	public filteredInstancesSubject: BehaviorSubject<RealInstance[]> = new BehaviorSubject<RealInstance[]>([]);
 	/** sorted Data */
 	public instancesSortSubject: BehaviorSubject<InstanceService[][]> = new BehaviorSubject<InstanceService[][]>([]);
-	/**last watched instance (see instance-detail) */
-	public currentInstanceSubject: BehaviorSubject<(RealInstance[])> = new BehaviorSubject<RealInstance[]>([{ name: "", status: "", services: [{ name: "", status: "" }] }]);
-
 	/**  Behaviours for status */
-	public currentInstance: RealInstance = { name: "", status: "", services: [{ name: "", status: "" }] }
-
 	public instancesSortSubject_offline: BehaviorSubject<InstanceService[]> = new BehaviorSubject<InstanceService[]>([]);
 	public instancesSortSubject_fast: BehaviorSubject<InstanceService[]> = new BehaviorSubject<InstanceService[]>([]);
 	public instancesSortSubject_slow: BehaviorSubject<InstanceService[]> = new BehaviorSubject<InstanceService[]>([]);
 	public instancesSortSubject_error: BehaviorSubject<InstanceService[]> = new BehaviorSubject<InstanceService[]>([]);
+
+	public instancesAmountSubj: BehaviorSubject<number[]> = new BehaviorSubject<number[]>([]);
+	public instancesAmount: number[] = [];
 	///////////////////////////////////////////////
 
 	/** placeholder for current instance and 4 arrays to fill the stati */
@@ -34,7 +32,9 @@ export class StatusService {
 
 	constructor(
 		private filterService: FilterService
-	) { }
+	) {
+		this.updateData()
+	}
 
 	/** 
 	 * initialises the data at the beginning
@@ -42,25 +42,11 @@ export class StatusService {
 	 */
 	public updateData(): void {
 		this.filteredInstancesSubject = this.filterService.filteredInstancesSubject;
-	}
-	/** 
-	 * c
-	 */
-	public getData(): void {
-		this.sortDataBehaviourReal()
+		this.filterService.filteredInstancesSubject.subscribe(() => {
+			this.sortDataBehaviourReal()
+		})
 	}
 
-	/**
-	 * @param name = name from an instance
-	 * saves the searched instance in this.currentInstanceSubject
-	 */
-	public setInstSubj(name: string): Observable<RealInstance[]> {
-		const a = this.filteredInstancesSubject.getValue().find(h => h.name === name);
-		if (!(typeof (a) === 'undefined')) {
-			this.currentInstanceSubject.next([a]);
-		}
-		return this.currentInstanceSubject as Observable<RealInstance[]>;
-	}
 
 	/**
 	 * puts sorted data (sorted by status and running) into BehaviourSubject
@@ -71,6 +57,15 @@ export class StatusService {
 		this.instancesSortSubject_slow.next(this.instanceSlow);
 		this.instancesSortSubject_offline.next(this.instanceOffline);
 		this.instancesSortSubject_fast.next(this.instanceFast);
+
+		this.instancesAmount = [
+			this.instanceError.length,
+			this.instanceSlow.length,
+			this.instanceOffline.length,
+			this.instanceFast.length
+		]
+		this.instancesAmountSubj.next(this.instancesAmount)
+		
 	}
 
 	/**

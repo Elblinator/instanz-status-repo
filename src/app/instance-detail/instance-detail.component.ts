@@ -43,9 +43,7 @@ export class InstanceDetailComponent implements OnInit {
 
 	public ngOnInit(): void {
 		this.instanceNamenList = this.filterService.reachableInstances() as Observable<string[]>;
-		this.dataService.realInstancesSubject.subscribe(() => {
-			this.filterService.updateFilter();
-		})
+
 		this.initialise();
 		this.route.url.subscribe(() => {
 			this.activateInstance()
@@ -63,7 +61,7 @@ export class InstanceDetailComponent implements OnInit {
 	 */
 	private activateInstance(): void {
 		this.name = String(this.route.snapshot.paramMap.get('name'));
-		this.instancesObservable = this.statusService.setInstSubj(this.name);		
+		this.instancesObservable = this.filterService.setInstSubj(this.name);		
 	}
 
 	/**
@@ -86,6 +84,9 @@ export class InstanceDetailComponent implements OnInit {
 	}
 	protected isRunningRed(status: string): boolean {
 		return this.filterService.isRunningRed(status);
+	}
+	protected isRunningOnline(status: string): boolean {
+		return this.filterService.isRunningOnline(status);
 	}
 }
 

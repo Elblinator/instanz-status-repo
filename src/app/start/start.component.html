@@ -5,9 +5,6 @@
         <div #offlineInfo>
             <h2>{{"Status der Services"|translate}}</h2>
             <!-- Bar Content -->
-            <p *ngIf="isLoggedIn()">
-                {{"Als Bar chart"|translate}}:
-            </p>
             <table class="bar-table">
                 <tr class="bar-row">
                     <ng-container *ngFor="let array of arrSimpleService|async; let i1=index">
@@ -47,9 +44,6 @@
 
             <h2>{{"Laufende Instanzen"|translate}} On/Off</h2>
             <!-- Bar Content -->
-            <p>
-                {{"Als Bar chart"|translate}}:
-            </p>
             <table class="bar-table">
                 <tr class="bar-row">
                     <ng-container *ngFor="let array of arrSimpleOnline|async; let i1=index">

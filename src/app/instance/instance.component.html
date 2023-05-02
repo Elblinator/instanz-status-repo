@@ -18,66 +18,52 @@
 	<body>
 		<h2>{{"Die Instanzen"|translate}}: </h2>
 		<app-grid>
-			<app-tile *ngFor="let instance of realInstancesObservable|async">
-				<span *ngIf="isActivated(instance.name)">
-					<a routerLink="/instance/{{instance.name}}">
-						<span class="badge">{{instance.name}}</span> </a>
-					<br>
-					<ng-container *ngIf="instance.status === 'stopped'">
-						<canvas class="dot_offline"> </canvas>
-					</ng-container>
-					<ng-container *ngIf="!(instance.status === 'stopped') ">
-						<ng-container *ngFor="let service of instance.services">
-							<span class="items" *ngIf="isActivated(service.name)">
-								<span *ngIf="isRunningGreen(service.status)">
-									<ng-container [ngSwitch]="service.status">
-										<canvas class="dot_running"> </canvas>
-									</ng-container>
-								</span>
-								<span *ngIf="isRunningYellow(service.status)">
-									<ng-container [ngSwitch]="service.status">
-										<canvas class="dot_slow"> </canvas>
-									</ng-container>
-								</span>
-								<span *ngIf="isRunningRed(service.status)">
-									<ng-container [ngSwitch]="service.status">
-										<canvas class="dot_error"> </canvas>
-									</ng-container>
-								</span>
-								<span>
-									&nbsp;
-									{{service.name}}
-									&nbsp;
-								</span>
+			<app-tile *ngFor="let instance of filteredInstancesObservable|async">
+				<a routerLink="/instance/{{instance.name}}">
+					<span class="badge">{{instance.name}}</span> </a>
+				<br>
+				<ng-container *ngIf="instance.status === 'stopped'">
+					<canvas class="dot_offline"> </canvas>
+				</ng-container>
+				<ng-container *ngIf="!(instance.status === 'stopped') ">
+					<ng-container *ngFor="let service of instance.services">
+						<span class="items" *ngIf="isActivatedService(service.name)">
+							<span *ngIf="isRunningGreen(service.status)">
+								<ng-container [ngSwitch]="service.status">
+									<canvas class="dot_running"> </canvas>
+								</ng-container>
 							</span>
-						</ng-container>
+							<span *ngIf="isRunningYellow(service.status)">
+								<ng-container [ngSwitch]="service.status">
+									<canvas class="dot_slow"> </canvas>
+								</ng-container>
+							</span>
+							<span *ngIf="isRunningRed(service.status)">
+								<ng-container [ngSwitch]="service.status">
+									<canvas class="dot_error"> </canvas>
+								</ng-container>
+							</span>
+							<span>
+								&nbsp;
+								{{service.name}}
+								&nbsp;
+							</span>
+						</span>
 					</ng-container>
-				</span>
+				</ng-container>
 			</app-tile>
 		</app-grid>
 		<h2>{{"Schlechtester Status jeder Instanz"|translate}}: </h2>
-			<app-grid>
-				<app-tile *ngFor="let instance of realInstancesObservable|async">
-					<span *ngIf="isActivatedReal(instance.name)">
-						<ng-container>
-							<canvas class="dot_{{whatStatus(instance)}}"> </canvas>
-							&nbsp;
-						</ng-container>
-						<a routerLink="/instance/{{instance.name}}">
-							<span class="badge">{{instance.name}}</span> </a>
-						<br>
-					</span>
-				</app-tile>
-			</app-grid>
-			<!-- <span *ngFor="let instance of realInstancesObservable|async">
-				<li *ngIf="whatStatus(instance) && isActivated(instance.name)">
-					<a routerLink="/instance/{{instance.name}}">
-						<span class="badge">{{instance.name}}</span> </a>
-					<br>
-					<ng-container [ngSwitch]="whatStatus(instance)">
-						<canvas class="dot_{{whatStatus(instance)}}"> </canvas>
-					</ng-container>
-				</li>
-			</span> -->
+		<app-grid>
+			<app-tile *ngFor="let instance of filteredInstancesObservable|async">
+				<ng-container>
+					<canvas class="dot_{{whatStatus(instance)}}"> </canvas>
+					&nbsp;
+				</ng-container>
+				<a routerLink="/instance/{{instance.name}}">
+					<span class="badge">{{instance.name}}</span> </a>
+				<br>
+			</app-tile>
+		</app-grid>
 	</body>
 </main>

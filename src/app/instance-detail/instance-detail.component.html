@@ -14,58 +14,60 @@
 
 	<body>
 		<span *ngFor="let inst of (instancesObservable|async)">
-			<span>{{inst.status}}</span>
 			<h2>{{"Instanz"|translate}}: {{inst.name | uppercase}}
 				<button type="button" (click)="openWarnDialog('all')">{{"Neustart"|translate}}</button>
 			</h2>
-			<div>
+			<span *ngIf="isRunningOnline(inst.status)">
+				<div>
+					<table>
+						<ng-container *ngFor="let service of inst.services">
+							<tr>
+								<td>
+									<span *ngIf="isRunningGreen(service.status)">
+										<ng-container [ngSwitch]="service.status">
+											<canvas class="dot_running"> </canvas>
+										</ng-container>
+									</span>
+									<span *ngIf="isRunningYellow(service.status)">
+										<ng-container [ngSwitch]="service.status">
+											<canvas class="dot_slow"> </canvas>
+										</ng-container>
+									</span>
+									<span *ngIf="isRunningRed(service.status)">
+										<ng-container [ngSwitch]="service.status">
+											<canvas class="dot_error"> </canvas>
+										</ng-container>
+									</span>
+								</td>
+								<td>
+									{{service.name}}
+								</td>
+								<td>
+									<button class="neustart-button" type="button"
+										(click)="openWarnDialog(service.name)">{{"Neustart"|translate}}</button>
+								</td>
+							</tr>
+							<br>
+						</ng-container>
+					</table>
+				</div>
 				<table>
-					<ng-container *ngFor="let service of inst.services">
+					<ng-container *ngFor="let instan of InstanceGruppen">
 						<tr>
 							<td>
-								<span *ngIf="isRunningGreen(service.status)">
-									<ng-container [ngSwitch]="service.status">
-										<canvas class="dot_running"> </canvas>
-									</ng-container>
-								</span>
-								<span *ngIf="isRunningYellow(service.status)">
-									<ng-container [ngSwitch]="service.status">
-										<canvas class="dot_slow"> </canvas>
-									</ng-container>
-								</span>
-								<span *ngIf="isRunningRed(service.status)">
-									<ng-container [ngSwitch]="service.status">
-										<canvas class="dot_error"> </canvas>
-									</ng-container>
-								</span>
+								{{instan}}:
 							</td>
 							<td>
-								{{service.name}}
+								<button type="button" (click)="openWarnDialog(instan)">{{"Neustart"|translate}}</button>
 							</td>
-							<td>
-								<button class="neustart-button" type="button"
-									(click)="openWarnDialog(service.name)">{{"Neustart"|translate}}</button>
-							</td>
+
 						</tr>
-						<br>
 					</ng-container>
 				</table>
-			</div>
-			<table>
-				<ng-container *ngFor="let instan of InstanceGruppen">
-					<tr>
-						<td>
-							{{instan}}:
-						</td>
-						<td>
-							<button type="button" (click)="openWarnDialog(instan)">{{"Neustart"|translate}}</button>
-						</td>
-
-					</tr>
-				</ng-container>
-			</table>
-
-
+			</span>
+			<span *ngIf="!isRunningOnline(inst.status)">
+				<h3>{{"Diese Instanz ist offline"|translate}} </h3>
+			</span>
 		</span>
 		<!-- <div *ngIf="instance">
 			<h2>{{"Instanz"|translate}}: {{instance.name | uppercase}}
