@@ -46,6 +46,10 @@ export class InstanceComponent implements OnInit {
 		this.dataService.realInstancesSubject.subscribe(() => {
 			this.getData()
 		})
+
+		// this.filterService.filteredInstancesSubject.subscribe(() => {
+		// 	this.getData()
+		// })
 	}
 
 	protected openFilterDialog(): void {
@@ -93,7 +97,10 @@ export class InstanceComponent implements OnInit {
 	protected whatStatus(instance: RealInstance): string {
 		return this.filterService.whatStatusReal(instance);
 	}
+
 	private getData(): void {
-		this.realInstancesSubject = this.filterService.getFilterInst();
+		this.filterService.updateData();
+		console.log('data: ', this.dataService.realInstancesSubject)
+		console.log('filtered data: ', this.filterService.filteredInstancesSubject)
 	}
 }

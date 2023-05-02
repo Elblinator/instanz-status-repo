@@ -239,7 +239,7 @@ export class FilterService {
 	/**
 	 * fill filteredInstances and filteredInstancesSubject only with the (in the Filter activated) instances
 	 */
-	public filterInstances(): void {
+	private filterInstances(): void {
 		this.filteredInstances = []
 		for (const instance of this.chosenInstances.getValue()) {
 			this.setInst(instance)
@@ -249,9 +249,14 @@ export class FilterService {
 		this.filteredInstancesSubject.next(this.filteredInstances)
 	}
 
-	public getFilterInst(): BehaviorSubject<RealInstance[]>{
+	public getFilterInst(): BehaviorSubject<RealInstance[]> {
 		return this.filteredInstancesSubject
 	}
+
+	public updateData(): void {
+		this.filteredInstancesSubject.next(this.filteredInstances)
+	}
+
 	/**
 	 * @param name = name from an instance
 	 * saves the searched instance in this.currentInstanceSubject

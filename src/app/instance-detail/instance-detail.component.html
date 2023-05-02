@@ -14,6 +14,7 @@
 
 	<body>
 		<span *ngFor="let inst of (instancesObservable|async)">
+			<span>{{inst.status}}</span>
 			<h2>{{"Instanz"|translate}}: {{inst.name | uppercase}}
 				<button type="button" (click)="openWarnDialog('all')">{{"Neustart"|translate}}</button>
 			</h2>
