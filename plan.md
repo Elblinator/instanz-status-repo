@@ -1,7 +1,8 @@
 
 
 # next Job:
- - change to Filtered Subjects in instance.comp and status.com, after that see if instance-detail.comp fixed itself
+ - filter-dialog -> fix footer at bottom; make that tab enter deactivates the current instance/service
+ - make 'wähle instanz bigger'
  - instances make pretty
  - status make pretty
  - Terminologie menschlich machen
@@ -42,5 +43,3 @@
  - Neustart von bestimmten Services -> key word ein ganzer Service
  - Also Cluster von Services (e.g. whole backendish)
 
-
-	"running":false, //normal/error/unknown/stopped

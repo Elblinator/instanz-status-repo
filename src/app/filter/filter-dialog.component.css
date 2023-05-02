@@ -9,8 +9,32 @@ button:hover {
 
 .example-section {
 	display: flex;
+	flex-direction: column;
 	align-content: center;
 	align-items: center;
-	height: 50px;
-	width: 350px;
 }
+
+body {
+	display: flex;
+	flex-direction: column;
+	height: 700px;
+	width: auto;
+}
+
+.card-content {
+	display: flex;
+	flex-direction: column;
+}
+
+h1,
+h2 {
+	text-align: center;
+}
+
+/* footer {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
+} */
