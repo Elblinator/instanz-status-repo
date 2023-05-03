@@ -20,7 +20,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { StartComponent } from './start/start.component';
-import { StatiComponent } from './stati/stati.component';
+import { ServiceComponent } from './service/service.component';
 import { InstanceComponent } from './instance/instance.component';
 import { InstanceDetailComponent } from './instance-detail/instance-detail.component';
 
@@ -54,7 +54,7 @@ import { TileComponent } from './grid/tile/tile.component';
 	exports: [TranslatePipe],
 	declarations: [
 		AppComponent,
-		StatiComponent,
+		ServiceComponent,
 		InstanceComponent,
 		InstanceDetailComponent,
 		StartComponent,

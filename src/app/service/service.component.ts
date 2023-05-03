@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { InstanceService, RealInstance } from '../00_data/interfaces';
+import { InstanceService, RealInstance, ServiceService } from '../00_data/interfaces';
 
 import { FilterComponent } from '../filter/filter-dialog.component';
 
@@ -13,24 +13,26 @@ import { DataService } from '../data.service';
 
 
 @Component({
-	selector: 'app-stati',
-	templateUrl: './stati.component.html',
-	styleUrls: ['./stati.component.css'],
+	selector: 'app-service',
+	templateUrl: './service.component.html',
+	styleUrls: ['./service.component.css'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StatiComponent implements OnInit {
+export class ServiceComponent implements OnInit {
 	////////// Header /////////////
 	protected filteredInstancesObservable: Observable<RealInstance[]> | undefined;
 	protected instanceNamenList: Observable<string[]> = new Observable<string[]>
 	protected instanceNamen: FormControl<string | null> = new FormControl('');
 	//////////////////////////////
-
-	public realInstancesSubject: BehaviorSubject<RealInstance[]> = new BehaviorSubject<RealInstance[]>([]);
-
 	protected instance_offline_Observable: Observable<InstanceService[]> | undefined;
 	protected instance_fast_Observable: Observable<InstanceService[]> | undefined;
 	protected instance_slow_Observable: Observable<InstanceService[]> | undefined;
 	protected instance_error_Observable: Observable<InstanceService[]> | undefined;
+	/** 2D arrays for services */
+	protected instances2D_fast: BehaviorSubject<ServiceService[][]> = new BehaviorSubject<ServiceService[][]>([]);
+	protected instances2D_slow: BehaviorSubject<ServiceService[][]> = new BehaviorSubject<ServiceService[][]>([]);
+	protected instances2D_error: BehaviorSubject<ServiceService[][]> = new BehaviorSubject<ServiceService[][]>([]);
+
 	protected instanceAmount: number[] = [];
 
 	constructor(
@@ -48,7 +50,12 @@ export class StatiComponent implements OnInit {
 		this.instance_fast_Observable = this.statusService.instancesSortSubject_fast as Observable<InstanceService[]>;
 		this.instance_slow_Observable = this.statusService.instancesSortSubject_slow as Observable<InstanceService[]>;
 		this.instance_error_Observable = this.statusService.instancesSortSubject_error as Observable<InstanceService[]>;
-			
+
+
+		//this.instances2D_fast = this.statusService.instances2D_fast as Observable<ServiceService[][]>;
+		//this.instances2D_slow = this.statusService.instances2D_slow as Observable<ServiceService[][]>;
+		//this.instances2D_error = this.statusService.instances2D_error as Observable<ServiceService[][]>;
+
 		this.statusService.instancesAmountSubj.subscribe(() => {
 			this.instanceAmount = this.statusService.instancesAmount
 		})
