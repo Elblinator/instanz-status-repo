@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { InstanceService, RealInstance, ServiceService } from '../00_data/interfaces';
 
@@ -9,7 +9,6 @@ import { FilterComponent } from '../filter/filter-dialog.component';
 
 import { StatusService } from '../status.service';
 import { FilterService } from '../filter.service';
-import { DataService } from '../data.service';
 
 
 @Component({
@@ -29,15 +28,14 @@ export class ServiceComponent implements OnInit {
 	protected instance_slow_Observable: Observable<InstanceService[]> | undefined;
 	protected instance_error_Observable: Observable<InstanceService[]> | undefined;
 	/** 2D arrays for services */
-	protected instances2D_fast: BehaviorSubject<ServiceService[][]> = new BehaviorSubject<ServiceService[][]>([]);
-	protected instances2D_slow: BehaviorSubject<ServiceService[][]> = new BehaviorSubject<ServiceService[][]>([]);
-	protected instances2D_error: BehaviorSubject<ServiceService[][]> = new BehaviorSubject<ServiceService[][]>([]);
+	protected instances2D_fast: Observable<ServiceService[][]> | undefined;
+	protected instances2D_slow: Observable<ServiceService[][]> | undefined;
+	protected instances2D_error: Observable<ServiceService[][]> | undefined;
 
 	protected instanceAmount: number[] = [];
 
 	constructor(
 		private statusService: StatusService,
-		private dataService: DataService,
 		private filterService: FilterService,
 		private dialog: MatDialog,
 		private ref: ChangeDetectorRef
@@ -52,9 +50,9 @@ export class ServiceComponent implements OnInit {
 		this.instance_error_Observable = this.statusService.instancesSortSubject_error as Observable<InstanceService[]>;
 
 
-		//this.instances2D_fast = this.statusService.instances2D_fast as Observable<ServiceService[][]>;
-		//this.instances2D_slow = this.statusService.instances2D_slow as Observable<ServiceService[][]>;
-		//this.instances2D_error = this.statusService.instances2D_error as Observable<ServiceService[][]>;
+		this.instances2D_fast = this.statusService.instances2D_fast as Observable<ServiceService[][]>;
+		this.instances2D_slow = this.statusService.instances2D_slow as Observable<ServiceService[][]>;
+		this.instances2D_error = this.statusService.instances2D_error as Observable<ServiceService[][]>;
 
 		this.statusService.instancesAmountSubj.subscribe(() => {
 			this.instanceAmount = this.statusService.instancesAmount

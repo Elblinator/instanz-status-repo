@@ -7,6 +7,8 @@ import { BLACK, GREEN, RED, STATUS_LIST, YELLOW } from './00_data/magic_strings'
 
 import { DataService } from './data.service';
 
+export type BackgroundPossibilities = 'backgroundGreen' | 'backgroundRed' | 'backgroundYellow' | 'backgroundBlack' | 'backgroundWhite';
+
 @Injectable({
 	providedIn: 'root'
 })
@@ -27,6 +29,8 @@ export class FilterService {
 	public currentInstanceSubject: BehaviorSubject<(RealInstance[])> = new BehaviorSubject<RealInstance[]>([{ name: "", status: "", services: [{ name: "", status: "" }] }]);
 
 	public currentInstance: RealInstance = { name: "", status: "", services: [{ name: "", status: "" }] }
+	public worstStatusArr: BackgroundPossibilities[] = [];
+	public worstStatusArrSubj: BehaviorSubject<BackgroundPossibilities[]> = new BehaviorSubject<BackgroundPossibilities[]>([]);
 
 	private loading = true
 	private loaded = false
@@ -43,6 +47,7 @@ export class FilterService {
 			this.setPossibleInstStatus();
 			this.setAllFilter();
 			this.filterInstances();
+			this.setWorstStatusArr();
 		})
 	}
 
@@ -213,7 +218,14 @@ export class FilterService {
 		}
 		return true;
 	}
+	public setWorstStatusArr(): void {
+		this.worstStatusArr = []
+		for (const instance of this.filteredInstances) {
+			this.worstStatusArr.push(this.getBackground(instance))
+		}
 
+		this.worstStatusArrSubj.next(this.worstStatusArr)
+	}
 	/**
 	 * @param instance 
 	 * @returns the worst status from instance (error>slow>fast>offline)
@@ -235,7 +247,28 @@ export class FilterService {
 		}
 		return status[id];
 	}
-
+	/**
+	 * @param instance 
+	 * @returns the worst status from instance (error>slow>fast>offline)
+	 */
+	public getBackground(instance: RealInstance): BackgroundPossibilities {
+		const status: BackgroundPossibilities[] = ['backgroundBlack', 'backgroundRed', 'backgroundYellow', 'backgroundGreen'];
+		//BackgroundPossibilities = 'backgroundGreen' | 'backgroundGreen' | 'backgroundGreen' | 'backgroundBlack' | 'backgroundWhite';
+		let id = 3;
+		if (Object.values(BLACK).includes(instance.status as BLACK)) {
+			id = 0;
+		} else {
+			instance.services.forEach(element => {
+				if (this.isRunningRed(element.status)) {
+					id = 1;
+				}
+				if (this.isRunningYellow(element.status) && id > 1) {
+					id = 2;
+				}
+			});
+		}
+		return status[id];
+	}
 	/**
 	 * fill filteredInstances and filteredInstancesSubject only with the (in the Filter activated) instances
 	 */

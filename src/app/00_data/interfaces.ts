@@ -28,6 +28,10 @@ export interface InstanceService {
 	service: string;
 	status: string;
 }
+export interface ServiceService {
+	instance: string;
+	service: string;
+}
 export interface DialogData {
 	instances: string[];
 	services: string[];

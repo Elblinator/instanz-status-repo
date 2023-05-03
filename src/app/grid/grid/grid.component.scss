@@ -59,8 +59,10 @@ $lg: lg;
     height: auto;
     margin: 8px;
     position: relative;
-    border: 1px solid gray;
-    box-shadow: 10px 10px 2px 1px rgba(0, 0, 255, .2);
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    box-shadow: 5px 5px 2px 1px rgba(0, 0, 255, .2);
+    background-color: white;
 }
 
 @include set-breakpoint-lower(xs) {
@@ -113,4 +115,19 @@ $lg: lg;
 
 .tile-placeholder {
     margin-top: 0% !important;
+}
+.backgroundGreen {
+	background-color: green;
+}
+.backgroundYellow {
+	background-color: yellow;
+}
+.backgroundRed {
+	background-color: red;
+}
+.backgroundBlack {
+	background-color: black;
+}
+.backgroundWhite {
+	background-color: white;
 }

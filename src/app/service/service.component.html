@@ -16,6 +16,23 @@
 
 	<body>
 		<h2>{{"Instanzen aufgeteilt in Statusgruppen"|translate}} </h2>
+		<!-- <div>
+			<h2>{{"Test"|translate}}</h2>
+			<app-grid>
+				<app-tile *ngFor="let instance of instances2D_fast|async">
+					{{instance}}
+					<span *ngFor="let inst of instance">
+						<span *ngIf="isActivatedService(inst.service)">
+							<a routerLink="/instance/{{inst.instance}}">
+								<span class="badge">{{inst.instance}}</span>
+							</a>
+							:&nbsp;{{inst.service}}
+						</span>
+					</span>
+
+				</app-tile>
+			</app-grid>
+		</div> -->
 
 		<div>
 			<h2 *ngIf="instanceAmount[0] > 0">{{"Fehler"|translate}} <canvas class="dot_error"></canvas></h2>

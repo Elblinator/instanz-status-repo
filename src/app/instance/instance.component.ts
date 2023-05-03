@@ -7,9 +7,10 @@ import { RealInstance } from '../00_data/interfaces';
 
 import { FilterComponent } from '../filter/filter-dialog.component';
 
-import { StatusService } from '../status.service';
-import { FilterService } from '../filter.service';
-import { DataService } from '../data.service';
+import { BackgroundPossibilities, FilterService } from '../filter.service';
+import { STATUS_LIST } from '../00_data/magic_strings';
+
+
 
 @Component({
 	selector: 'app-instance',
@@ -25,11 +26,12 @@ export class InstanceComponent implements OnInit {
 	protected instanceNamen: FormControl<string | null> = new FormControl('');
 	//////////////////////////////
 
-	public realInstancesSubject: BehaviorSubject<RealInstance[]> = new BehaviorSubject<RealInstance[]>([]);
+	protected realInstancesSubject: BehaviorSubject<RealInstance[]> = new BehaviorSubject<RealInstance[]>([]);
+
+	protected worstStatusArrSubj: Observable<BackgroundPossibilities[]> = new Observable<BackgroundPossibilities[]>;
+	protected worstStatusArr: BackgroundPossibilities[] = [];
 
 	constructor(
-		private statusService: StatusService,
-		private dataService: DataService,
 		private filterService: FilterService,
 		private dialog: MatDialog,
 		private ref: ChangeDetectorRef
@@ -37,7 +39,12 @@ export class InstanceComponent implements OnInit {
 
 	public ngOnInit(): void {
 		this.instanceNamenList = this.filterService.reachableInstances() as Observable<string[]>;
-		this.filteredInstancesObservable = this.filterService.filteredInstancesSubject as Observable<RealInstance[]>;	
+		this.filteredInstancesObservable = this.filterService.filteredInstancesSubject as Observable<RealInstance[]>;
+		this.worstStatusArrSubj = this.filterService.worstStatusArrSubj as Observable<BackgroundPossibilities[]>;
+		this.filterService.filteredInstancesSubject.subscribe(() => {
+			this.worstStatusArr = this.filterService.worstStatusArr
+			console.log(this.worstStatusArr)
+		})
 	}
 
 	protected openFilterDialog(): void {
@@ -70,5 +77,22 @@ export class InstanceComponent implements OnInit {
 	 */
 	protected whatStatus(instance: RealInstance): string {
 		return this.filterService.whatStatus(instance);
+	}
+	/**
+	 * @param instance 
+	 * @returns the worst status from instance (error>slow>fast>offline)
+	 */
+	protected getBackground(instance: RealInstance): string {
+		if (this.filterService.whatStatus(instance) === STATUS_LIST.OFFLINE) {
+			return 'backgroundGreen';
+		} else if (this.filterService.whatStatus(instance) === STATUS_LIST.FAST) {
+			return 'backgroundGreen';
+		} else if (this.filterService.whatStatus(instance) === STATUS_LIST.SLOW) {
+			return 'backgroundGreen'
+		} else if (this.filterService.whatStatus(instance) === STATUS_LIST.ERROR) {
+			return 'backgroundGreen'
+		} else {
+			return 'backgroundWhite'
+		}
 	}
 }

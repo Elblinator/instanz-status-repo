@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject} from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
-import { InstanceService, RealInstance } from './00_data/interfaces'
+import { InstanceService, RealInstance, ServiceService } from './00_data/interfaces'
 
 import { FilterService } from './filter.service';
+import { SERVICE } from './00_data/magic_strings';
 
 
 
@@ -17,6 +18,12 @@ export class StatusService {
 	public instancesSortSubject_fast: BehaviorSubject<InstanceService[]> = new BehaviorSubject<InstanceService[]>([]);
 	public instancesSortSubject_slow: BehaviorSubject<InstanceService[]> = new BehaviorSubject<InstanceService[]>([]);
 	public instancesSortSubject_error: BehaviorSubject<InstanceService[]> = new BehaviorSubject<InstanceService[]>([]);
+	/** 2D arrays for services */
+	public instances2D_fast: BehaviorSubject<ServiceService[][]> = new BehaviorSubject<ServiceService[][]>([]);
+	public instances2D_slow: BehaviorSubject<ServiceService[][]> = new BehaviorSubject<ServiceService[][]>([]);
+	public instances2D_error: BehaviorSubject<ServiceService[][]> = new BehaviorSubject<ServiceService[][]>([]);
+	private curServServ: ServiceService = { instance: "", service: "" };
+	private curServServArr: ServiceService[][] = [];
 
 	public instancesAmountSubj: BehaviorSubject<number[]> = new BehaviorSubject<number[]>([]);
 	public instancesAmount: number[] = [];
@@ -44,6 +51,7 @@ export class StatusService {
 		this.filteredInstancesSubject = this.filterService.filteredInstancesSubject;
 		this.filterService.filteredInstancesSubject.subscribe(() => {
 			this.sortDataBehaviourReal()
+			this.sortServices()
 		})
 	}
 
@@ -51,7 +59,7 @@ export class StatusService {
 	/**
 	 * puts sorted data (sorted by status and running) into BehaviourSubject
 	 */
-	public sortDataBehaviourReal(): void {
+	private sortDataBehaviourReal(): void {
 		this.instancesSortSubject.next(this.sortDataReal());
 		this.instancesSortSubject_error.next(this.instanceError);
 		this.instancesSortSubject_slow.next(this.instanceSlow);
@@ -65,7 +73,7 @@ export class StatusService {
 			this.instanceFast.length
 		]
 		this.instancesAmountSubj.next(this.instancesAmount)
-		
+
 	}
 
 	/**
@@ -73,7 +81,7 @@ export class StatusService {
 	 * @returns an Array with Arrays, the Arrays are filled dependend on their status
 	 *  return value = [instanceOffline, instanceError, instanceSlow, instanceFast]
 	 */
-	public sortDataReal(): InstanceService[][] {
+	private sortDataReal(): InstanceService[][] {
 		this.instanceOffline = [];
 		this.instanceError = [];
 		this.instanceSlow = [];
@@ -107,6 +115,54 @@ export class StatusService {
 				this.instanceError.push(this.curInstServ);
 			} else {
 				console.log('No known usage for ', service.status)
+			}
+		}
+	}
+
+	private sortServices(): void {
+		this.sortService(this.instanceFast, this.instances2D_fast)
+		this.sortService(this.instanceSlow, this.instances2D_slow)
+		this.sortService(this.instanceError, this.instances2D_error)
+	}
+	private sortService(arr: InstanceService[], goal: BehaviorSubject<ServiceService[][]>): void {
+		for (const instance of arr) {
+			this.curServServ = { instance: instance.instance, service: instance.service };
+			this.determineService(this.curServServ)
+		}
+		goal.next(this.curServServArr)
+	}
+
+	private determineService(inst: ServiceService): void {
+		this.curServServArr = [[], [], [], [], [], [], [], [], [], [], [], [], [], []];
+		if (!(typeof inst === 'undefined')) {
+			if (inst.service === SERVICE.AUTH) {
+				this.curServServArr[0].push(inst);
+			} else if (inst.service === SERVICE.AUTOUPDATE) {
+				this.curServServArr[1].push(inst);
+			} else if (inst.service === SERVICE.BACKENDACTION) {
+				this.curServServArr[2].push(inst);
+			} else if (inst.service === SERVICE.BACKENDMANAGE) {
+				this.curServServArr[3].push(inst);
+			} else if (inst.service === SERVICE.BACKENDPRESENTER) {
+				this.curServServArr[4].push(inst);
+			} else if (inst.service === SERVICE.CLIENT) {
+				this.curServServArr[5].push(inst);
+			} else if (inst.service === SERVICE.DATASTOREREADER) {
+				this.curServServArr[6].push(inst);
+			} else if (inst.service === SERVICE.DATASTOREWRITER) {
+				this.curServServArr[7].push(inst);
+			} else if (inst.service === SERVICE.ICC) {
+				this.curServServArr[8].push(inst);
+			} else if (inst.service === SERVICE.MANAGE) {
+				this.curServServArr[9].push(inst);
+			} else if (inst.service === SERVICE.MEDIA) {
+				this.curServServArr[10].push(inst);
+			} else if (inst.service === SERVICE.PROXY) {
+				this.curServServArr[11].push(inst);
+			} else if (inst.service === SERVICE.REDIS) {
+				this.curServServArr[12].push(inst);
+			} else if (inst.service === SERVICE.VOTE) {
+				this.curServServArr[13].push(inst);
 			}
 		}
 	}

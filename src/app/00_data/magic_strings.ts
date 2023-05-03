@@ -14,6 +14,22 @@ export enum STATUS_LIST {
 	SLOW = 'slow',
 	FAST = 'fast'
 }
+export enum SERVICE {
+	AUTH = 'auth',
+	AUTOUPDATE = 'autoupdate',
+	BACKENDACTION = 'backendaction',
+	BACKENDMANAGE = 'backendmanage',
+	BACKENDPRESENTER = 'backendpresenter',
+	CLIENT = 'client',
+	DATASTOREREADER = 'datastorereader',
+	DATASTOREWRITER = 'datastorewriter',
+	ICC = 'icc',
+	MANAGE = 'manage',
+	MEDIA = 'media',
+	PROXY = 'proxy',
+	REDIS = 'redis',
+	VOTE = 'vote'
+}
 export enum GREEN {
 	RUNNING = 'running',
 	NORMAL = 'normal'
@@ -34,7 +50,7 @@ export enum RED {
 	SHUTDOWN = 'shutdown',
 	REJECTED = 'rejected',
 	ORPHANED = 'orphaned',
-	REMOVE = 'remove'	
+	REMOVE = 'remove'
 }
 export enum BLACK {
 	STOPPED = 'stopped'

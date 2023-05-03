@@ -1,6 +1,9 @@
 
 
 # next Job:
+ - array for css class which is synchon
+ - delay in bckground arr
+ - service umstellung
  - filter-dialog -> fix footer at bottom; make that tab enter deactivates the current instance/service
  - make 'wähle instanz bigger'
  - instances make pretty
