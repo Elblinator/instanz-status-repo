@@ -10,31 +10,31 @@ import { SERVICE } from './00_data/magic_strings';
 
 @Injectable({ providedIn: 'root' })
 export class StatusService {
-	public filteredInstancesSubject: BehaviorSubject<RealInstance[]> = new BehaviorSubject<RealInstance[]>([]);
-	/** sorted Data */
-	public instancesSortSubject: BehaviorSubject<InstanceService[][]> = new BehaviorSubject<InstanceService[][]>([]);
-	/**  Behaviours for status */
+	/** filtered but not sorted Data */
+	private filteredInstancesSubject: BehaviorSubject<RealInstance[]> = new BehaviorSubject<RealInstance[]>([]);
+	///////////////////////////////////////////////
+	/**    array dependend on status: offline */
 	public instancesSortSubject_offline: BehaviorSubject<InstanceService[]> = new BehaviorSubject<InstanceService[]>([]);
-	public instancesSortSubject_fast: BehaviorSubject<InstanceService[]> = new BehaviorSubject<InstanceService[]>([]);
-	public instancesSortSubject_slow: BehaviorSubject<InstanceService[]> = new BehaviorSubject<InstanceService[]>([]);
-	public instancesSortSubject_error: BehaviorSubject<InstanceService[]> = new BehaviorSubject<InstanceService[]>([]);
-	/** 2D arrays for services */
+	/** 2D array dependend on service */
 	public instances2D_fast: BehaviorSubject<ServiceService[][]> = new BehaviorSubject<ServiceService[][]>([]);
+	/** 2D array dependend on service */
 	public instances2D_slow: BehaviorSubject<ServiceService[][]> = new BehaviorSubject<ServiceService[][]>([]);
+	/** 2D array dependend on service */
 	public instances2D_error: BehaviorSubject<ServiceService[][]> = new BehaviorSubject<ServiceService[][]>([]);
-	private curServServ: ServiceService = { instance: "", service: "" };
-	private curServServArr: ServiceService[][] = [];
+	//////////////////////////////////////////////
 
 	public instancesAmountSubj: BehaviorSubject<number[]> = new BehaviorSubject<number[]>([]);
 	public instancesAmount: number[] = [];
-	///////////////////////////////////////////////
 
-	/** placeholder for current instance and 4 arrays to fill the stati */
+	///////////////////////////////////////////////
+	/** placeholder for current instance */
+	private curServServ: ServiceService = { instance: "", service: "" };
+	/** placeholder to fill arrays dependend on service */
+	private curServServArr: ServiceService[][] = [];
+	/** placeholder for current instance */
 	private curInstServ: InstanceService = { instance: "", service: "", status: "" };
-	private instanceOffline: InstanceService[] = [];
-	private instanceFast: InstanceService[] = [];
-	private instanceSlow: InstanceService[] = [];
-	private instanceError: InstanceService[] = [];
+	/** placeholder to save the current instance dependend on their status*/
+	private curInstServArr: InstanceService[][] = [];
 	///////////////////////////////////////////
 
 	constructor(
@@ -60,19 +60,17 @@ export class StatusService {
 	 * puts sorted data (sorted by status and running) into BehaviourSubject
 	 */
 	private sortDataBehaviourReal(): void {
-		this.instancesSortSubject.next(this.sortDataReal());
-		this.instancesSortSubject_error.next(this.instanceError);
-		this.instancesSortSubject_slow.next(this.instanceSlow);
-		this.instancesSortSubject_offline.next(this.instanceOffline);
-		this.instancesSortSubject_fast.next(this.instanceFast);
+		this.sortDataReal();
+		this.instancesSortSubject_offline.next(this.curInstServArr[2]);
 
 		this.instancesAmount = [
-			this.instanceError.length,
-			this.instanceSlow.length,
-			this.instanceOffline.length,
-			this.instanceFast.length
+			this.curInstServArr[0].length,
+			this.curInstServArr[1].length,
+			this.curInstServArr[2].length,
+			this.curInstServArr[3].length
 		]
 		this.instancesAmountSubj.next(this.instancesAmount)
+
 
 	}
 
@@ -82,19 +80,17 @@ export class StatusService {
 	 *  return value = [instanceOffline, instanceError, instanceSlow, instanceFast]
 	 */
 	private sortDataReal(): InstanceService[][] {
-		this.instanceOffline = [];
-		this.instanceError = [];
-		this.instanceSlow = [];
-		this.instanceFast = [];
+		//empty the placeholder arr
+		this.curInstServArr = [[],[],[],[]]
 		for (const instance of this.filteredInstancesSubject.getValue()) {
 			if (instance.status === 'stopped') {
 				this.curInstServ = { instance: instance.name, service: "", status: "offline" };
-				this.instanceOffline.push(this.curInstServ);
+				this.curInstServArr[2].push(this.curInstServ);
 			} else {
 				this.sortStatus(instance);
 			}
 		}
-		return [this.instanceError, this.instanceSlow, this.instanceOffline, this.instanceFast];
+		return this.curInstServArr;
 	}
 
 	/**
@@ -104,36 +100,53 @@ export class StatusService {
 	 */
 	private sortStatus(instance: RealInstance): void {
 		for (const service of instance.services) {
-			this.curInstServ = { instance: instance.name, service: service.name, status: service.status };
-			if (this.filterService.isRunningGreen(service.status)) {
-				this.instanceFast.push(this.curInstServ);
-			}
-			else if (this.filterService.isRunningYellow(service.status)) {
-				this.instanceSlow.push(this.curInstServ);
-			}
-			else if (this.filterService.isRunningRed(service.status)) {
-				this.instanceError.push(this.curInstServ);
-			} else {
-				console.log('No known usage for ', service.status)
+			if (this.filterService.isActivated(service.name)) {
+				this.curInstServ = { instance: instance.name, service: service.name, status: service.status };
+				if (this.filterService.isRunningGreen(service.status)) {
+					this.curInstServArr[3].push(this.curInstServ);
+				}
+				else if (this.filterService.isRunningYellow(service.status)) {
+					this.curInstServArr[1].push(this.curInstServ);
+				}
+				else if (this.filterService.isRunningRed(service.status)) {
+					this.curInstServArr[0].push(this.curInstServ);
+				} else {
+					console.log('No known usage for ', service.status)
+				}
 			}
 		}
 	}
 
+	/**
+	 * sort all three arrays (which are already sorted dependend on their status) 
+	 * into 2D arrays dependend on their service
+	 */
 	private sortServices(): void {
-		this.sortService(this.instanceFast, this.instances2D_fast)
-		this.sortService(this.instanceSlow, this.instances2D_slow)
-		this.sortService(this.instanceError, this.instances2D_error)
+		this.sortService(this.curInstServArr[3], this.instances2D_fast)
+		this.sortService(this.curInstServArr[1], this.instances2D_slow)
+		this.sortService(this.curInstServArr[0], this.instances2D_error)
 	}
+
+	/**
+	 * @param arr is the arr which needs sorting
+	 * @param goal is the 2D arr in which is being sorted into
+	 */
 	private sortService(arr: InstanceService[], goal: BehaviorSubject<ServiceService[][]>): void {
+		// empty placeholer array
+		this.curServServArr = [[], [], [], [], [], [], [], [], [], [], [], [], [], []];
 		for (const instance of arr) {
 			this.curServServ = { instance: instance.instance, service: instance.service };
 			this.determineService(this.curServServ)
 		}
+		this.trimArr()
 		goal.next(this.curServServArr)
 	}
 
+	/**
+	 * fills the 2D array curServServArr dependend on the services
+	 * @param inst 
+	 */
 	private determineService(inst: ServiceService): void {
-		this.curServServArr = [[], [], [], [], [], [], [], [], [], [], [], [], [], []];
 		if (!(typeof inst === 'undefined')) {
 			if (inst.service === SERVICE.AUTH) {
 				this.curServServArr[0].push(inst);
@@ -163,7 +176,22 @@ export class StatusService {
 				this.curServServArr[12].push(inst);
 			} else if (inst.service === SERVICE.VOTE) {
 				this.curServServArr[13].push(inst);
+			} else {
+				console.log('I am a forgotten service: ', inst.service)
 			}
 		}
+	}
+	/**
+	 * this function removes all empty arrays 
+	 * every empty array would be presented as an empty tile ; aka. the tile would not vanish
+	 */
+	private trimArr(): void {
+		const dummyArr: ServiceService[][] = []
+		for (const instance of this.curServServArr) {
+			if (instance.length > 0) {
+				dummyArr.push(instance)
+			}
+		}
+		this.curServServArr = dummyArr
 	}
 }

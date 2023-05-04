@@ -45,10 +45,6 @@ export class ServiceComponent implements OnInit {
 		this.instanceNamenList = this.filterService.reachableInstances() as Observable<string[]>;
 
 		this.instance_offline_Observable = this.statusService.instancesSortSubject_offline as Observable<InstanceService[]>;
-		this.instance_fast_Observable = this.statusService.instancesSortSubject_fast as Observable<InstanceService[]>;
-		this.instance_slow_Observable = this.statusService.instancesSortSubject_slow as Observable<InstanceService[]>;
-		this.instance_error_Observable = this.statusService.instancesSortSubject_error as Observable<InstanceService[]>;
-
 
 		this.instances2D_fast = this.statusService.instances2D_fast as Observable<ServiceService[][]>;
 		this.instances2D_slow = this.statusService.instances2D_slow as Observable<ServiceService[][]>;

@@ -48,14 +48,6 @@ export class InstanceComponent implements OnInit {
 	protected openFilterDialog(): void {
 		this.dialog.open(FilterComponent);
 	}
-	/**
-	 * verify that the current data (instance- or service-name) is activated in the filter.
-	 * @param instanceOrStatus = instance-name or service-name.
-	 * @returns boolean if activated in the filter
-	 */
-	protected isActivatedService(instanceOrStatus: string): boolean {
-		return this.filterService.isActivated(instanceOrStatus);
-	}
 
 	protected isRunningGreen(status: string): boolean {
 		return this.filterService.isRunningGreen(status);

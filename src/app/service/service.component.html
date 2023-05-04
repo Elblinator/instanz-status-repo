@@ -4,7 +4,8 @@
 			<mat-form-field appearance="fill">
 				<mat-label>{{"wähle Instanz"|translate}}</mat-label>
 				<mat-select [formControl]="instanceNamen">
-					<mat-option [ngClass]="setInstEmpty()" *ngFor="let instance of instanceNamenList|async" [value]="instance">
+					<mat-option [ngClass]="setInstEmpty()" *ngFor="let instance of instanceNamenList|async"
+						[value]="instance">
 						<a mat-list-item routerLink="/instance/{{instance}}">{{instance}}</a>
 					</mat-option>
 				</mat-select>
@@ -15,73 +16,70 @@
 	</header>
 
 	<body>
-		<h2>{{"Instanzen aufgeteilt in Statusgruppen"|translate}} </h2>
-		<!-- <div>
-			<h2>{{"Test"|translate}}</h2>
-			<app-grid>
-				<app-tile *ngFor="let instance of instances2D_fast|async">
-					{{instance}}
-					<span *ngFor="let inst of instance">
-						<span *ngIf="isActivatedService(inst.service)">
-							<a routerLink="/instance/{{inst.instance}}">
-								<span class="badge">{{inst.instance}}</span>
-							</a>
-							:&nbsp;{{inst.service}}
+		<h2>{{"Instanzen aufgeteilt in Servicegruppen"|translate}} </h2>
+
+		<h2 *ngIf="instanceAmount[0] > 0">{{"Error"|translate}} <canvas class="dot_error"></canvas></h2>
+		<app-grid>
+			<app-tile *ngFor="let service of instances2D_error|async">
+				<ul>
+					<ng-container *ngFor="let instance of service; let i = index">
+						<span *ngIf="isActivatedService(instance.service)">
+							<h3 class="service-title" *ngIf="i === 0"> {{instance.service}}</h3>
+							<li>
+								<a routerLink="/instance/{{instance.instance}}">
+									<span class="badge">{{instance.instance}}</span>
+								</a>
+							</li>
 						</span>
-					</span>
-
-				</app-tile>
-			</app-grid>
-		</div> -->
-
-		<div>
-			<h2 *ngIf="instanceAmount[0] > 0">{{"Fehler"|translate}} <canvas class="dot_error"></canvas></h2>
-			<app-grid>
-				<app-tile *ngFor="let instance of instance_error_Observable|async">
-					<span *ngIf="isActivatedService(instance.service)">
-						<a routerLink="/instance/{{instance.instance}}">
-							<span class="badge">{{instance.instance}}</span>
-						</a>
-						:&nbsp;{{instance.service}}
-					</span>
-				</app-tile>
-			</app-grid>
-		</div>
-		<div>
-			<h2 *ngIf="instanceAmount[1] > 0">{{"Langsam"|translate}} <canvas class="dot_slow"></canvas></h2>
-			<app-grid>
-				<app-tile *ngFor="let instance of instance_slow_Observable|async">
-					<span *ngIf="isActivatedService(instance.service)">
-						<a routerLink="/instance/{{instance.instance}}">
-							<span class="badge">{{instance.instance}}</span>
-						</a>
-						:&nbsp;{{instance.service}}
-					</span>
-				</app-tile>
-			</app-grid>
-		</div>
-		<div>
-			<h2 *ngIf="instanceAmount[2] > 0">{{"Offline"|translate}} <canvas class="dot_offline"></canvas></h2>
-			<app-grid>
-				<app-tile *ngFor="let instance of instance_offline_Observable|async">
-					<a routerLink="/instance/{{instance.instance}}">
-						<span class="badge">{{instance.instance}}</span>
-					</a>
-				</app-tile>
-			</app-grid>
-		</div>
-		<div>
-			<h2 *ngIf="instanceAmount[3] > 0">{{"Schnell"|translate}} <canvas class="dot_fast"></canvas></h2>
-			<app-grid>
-				<app-tile *ngFor="let instance of instance_fast_Observable|async">
-					<span *ngIf="isActivatedService(instance.service)">
-						<a routerLink="/instance/{{instance.instance}}">
-							<span class="badge">{{instance.instance}}</span>
-						</a>
-						:&nbsp;{{instance.service}}
-					</span>
-				</app-tile>
-			</app-grid>
-		</div>
+					</ng-container>
+				</ul>
+			</app-tile>
+		</app-grid>
+		<h2 *ngIf="instanceAmount[1] > 0">{{"Langsam"|translate}} <canvas class="dot_slow"></canvas></h2>
+		<app-grid>
+			<app-tile *ngFor="let service of instances2D_slow|async">
+				<ul>
+					<ng-container *ngFor="let instance of service; let i = index">
+						<span *ngIf="isActivatedService(instance.service)">
+							<h3 class="service-title" *ngIf="i === 0"> {{instance.service}}</h3>
+							<li>
+								<a routerLink="/instance/{{instance.instance}}">
+									<span class="badge">{{instance.instance}}</span>
+								</a>
+							</li>
+						</span>
+					</ng-container>
+				</ul>
+			</app-tile>
+		</app-grid>
+		<h2 *ngIf="instanceAmount[3] > 0">{{"Offline"|translate}} <canvas class="dot_offline"></canvas></h2>
+		<app-grid>
+				<app-tile>
+					<ng-container *ngFor="let instance of instance_offline_Observable|async">
+						<li>
+							<a routerLink="/instance/{{instance.instance}}">
+								<span class="badge">{{instance.instance}}</span>
+							</a>
+						</li>
+					</ng-container>
+				</app-tile>			
+		</app-grid>
+		<h2 *ngIf="instanceAmount[3] > 0">{{"Schnell"|translate}} <canvas class="dot_fast"></canvas></h2>
+		<app-grid>
+			<app-tile *ngFor="let service of instances2D_fast|async">
+				<ul>
+					<ng-container *ngFor="let instance of service; let i = index">
+						<span *ngIf="isActivatedService(instance.service)">
+							<h3 class="service-title" *ngIf="i === 0"> {{instance.service}}</h3>
+							<li>
+								<a routerLink="/instance/{{instance.instance}}">
+									<span class="badge">{{instance.instance}}</span>
+								</a>
+							</li>
+						</span>
+					</ng-container>
+				</ul>
+			</app-tile>
+		</app-grid>
 	</body>
 </main>
