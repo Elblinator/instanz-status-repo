@@ -10,7 +10,7 @@ import { SERVICE } from './00_data/magic_strings';
 
 @Injectable({ providedIn: 'root' })
 export class StatusService {
-	/** filtered but not sorted Data */
+	/** filtered and to be sorted Data */
 	private filteredInstancesSubject: BehaviorSubject<RealInstance[]> = new BehaviorSubject<RealInstance[]>([]);
 	///////////////////////////////////////////////
 	/**    array dependend on status: offline */
@@ -22,10 +22,10 @@ export class StatusService {
 	/** 2D array dependend on service */
 	public instances2D_error: BehaviorSubject<ServiceService[][]> = new BehaviorSubject<ServiceService[][]>([]);
 	//////////////////////////////////////////////
-
-	public instancesAmountSubj: BehaviorSubject<number[]> = new BehaviorSubject<number[]>([]);
+	/** the length of each array in curInstServArr */
 	public instancesAmount: number[] = [];
-
+	/** the length of each array in curInstServArr as BehaviourSubject (to make observing possible)*/
+	public instancesAmountSubj: BehaviorSubject<number[]> = new BehaviorSubject<number[]>([]);
 	///////////////////////////////////////////////
 	/** placeholder for current instance */
 	private curServServ: ServiceService = { instance: "", service: "" };
@@ -55,12 +55,11 @@ export class StatusService {
 		})
 	}
 
-
 	/**
 	 * puts sorted data (sorted by status and running) into BehaviourSubject
 	 */
 	private sortDataBehaviourReal(): void {
-		this.sortDataReal();
+		this.sortData();
 		this.instancesSortSubject_offline.next(this.curInstServArr[2]);
 
 		this.instancesAmount = [
@@ -70,8 +69,6 @@ export class StatusService {
 			this.curInstServArr[3].length
 		]
 		this.instancesAmountSubj.next(this.instancesAmount)
-
-
 	}
 
 	/**
@@ -79,9 +76,9 @@ export class StatusService {
 	 * @returns an Array with Arrays, the Arrays are filled dependend on their status
 	 *  return value = [instanceOffline, instanceError, instanceSlow, instanceFast]
 	 */
-	private sortDataReal(): InstanceService[][] {
+	private sortData(): InstanceService[][] {
 		//empty the placeholder arr
-		this.curInstServArr = [[],[],[],[]]
+		this.curInstServArr = [[], [], [], []]
 		for (const instance of this.filteredInstancesSubject.getValue()) {
 			if (instance.status === 'stopped') {
 				this.curInstServ = { instance: instance.name, service: "", status: "offline" };
@@ -181,6 +178,7 @@ export class StatusService {
 			}
 		}
 	}
+	
 	/**
 	 * this function removes all empty arrays 
 	 * every empty array would be presented as an empty tile ; aka. the tile would not vanish

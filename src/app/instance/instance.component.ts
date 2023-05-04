@@ -43,6 +43,8 @@ export class InstanceComponent implements OnInit {
 		this.filterService.worstStatusArrSubj.subscribe(() => {
 			this.worstStatusArr = this.filterService.worstStatusArr
 		})
+
+		this.filterService.setComesFromService(false);
 	}
 
 	protected openFilterDialog(): void {

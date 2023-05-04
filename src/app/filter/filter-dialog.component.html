@@ -13,7 +13,7 @@
 
 		</mat-card-content>
 
-		<mat-card-content class="card-content" t>
+		<mat-card-content class="card-content" *ngIf="comesFromService">
 			<h2>{{"mögliche Services"|translate}}</h2>
 			<app-grid>
 				<app-tile [formGroup]="serv" class="example-section" *ngFor="let service of services|async">

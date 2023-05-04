@@ -14,10 +14,12 @@ import { FilterService } from '../filter.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilterComponent {
-	public instances: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+	protected instances: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 	protected services: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 	protected inst: FormGroup;
 	protected serv: FormGroup;
+
+	protected comesFromService = false;
 
 	constructor(
 		@Inject(MAT_DIALOG_DATA) public data: DialogData,
@@ -31,7 +33,10 @@ export class FilterComponent {
 
 		this.inst = this._formBuilder.group(Object.fromEntries(this.instances.getValue().map(e => [e, (this.filterService.isActivated(e))])));
 		this.serv = this._formBuilder.group(Object.fromEntries(this.services.getValue().map(e => [e, (this.filterService.isActivated(e))])));
+
+		this.comesFromService = this.filterService.comesFromService
 	}
+
 	/**
 	 * activate only selected filter 
 	 */

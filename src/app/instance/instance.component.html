@@ -19,7 +19,7 @@
 		<h2>{{"Die Instanzen"|translate}}: </h2>
 		<app-grid>
 			<app-tile [ngClass]="setInst(instance.name)"
-				*ngFor="let instance of filteredInstancesObservable|async; let i = index;">
+				*ngFor="let instance of filteredInstancesObservable|async">
 				<span>
 					<a routerLink="/instance/{{instance.name}}">
 						<span class="badge">{{instance.name}}</span>
@@ -59,21 +59,5 @@
 				</span>
 			</app-tile>
 		</app-grid>
-
-		<h2>{{"Schlechtester Status jeder Instanz"|translate}}: </h2>
-		<app-grid>
-			<app-tile [ngClass]="setInstEmpty()" *ngFor="let instance of filteredInstancesObservable|async">
-				<ng-container>
-					<canvas class="dot_{{getStatus(instance)}}"> </canvas>
-					&nbsp;
-				</ng-container>
-				<a routerLink="/instance/{{instance.name}}">
-					<span class="badge">{{instance.name}}</span>
-				</a>
-				<br>
-			</app-tile>
-		</app-grid>
 	</body>
 </main>
-
-<ng-template #worstStatus> </ng-template>

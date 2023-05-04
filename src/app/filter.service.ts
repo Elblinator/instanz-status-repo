@@ -19,6 +19,7 @@ export class FilterService {
 	public filteredInstancesSubject: BehaviorSubject<RealInstance[]> = new BehaviorSubject<RealInstance[]>([]);
 	public simpleInstancesSubject: BehaviorSubject<SimpleInstance[]> = new BehaviorSubject<SimpleInstance[]>([]);
 
+	public comesFromService = false;
 
 	private possibleInstances: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([])
 	private possibleServices: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([])
@@ -317,5 +318,9 @@ export class FilterService {
 	 */
 	public setInstEmpty(): void {
 		this.currentInstance = this.emptyInstance;
+	}
+
+	public setComesFromService(boo: boolean): void {
+		this.comesFromService = boo;
 	}
 }

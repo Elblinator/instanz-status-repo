@@ -4,7 +4,7 @@
 			<mat-form-field appearance="fill">
 				<mat-label>{{"wähle Instanz"|translate}}</mat-label>
 				<mat-select [formControl]="instanceNamen">
-					<mat-option [ngClass]="setInstEmpty()" *ngFor="let instance of instanceNamenList|async"
+					<mat-option *ngFor="let instance of instanceNamenList|async"
 						[value]="instance">
 						<a mat-list-item routerLink="/instance/{{instance}}">{{instance}}</a>
 					</mat-option>
@@ -54,19 +54,19 @@
 		</app-grid>
 		<h2 *ngIf="instanceAmount[3] > 0">{{"Offline"|translate}} <canvas class="dot_offline"></canvas></h2>
 		<app-grid>
-				<app-tile>
-					<ng-container *ngFor="let instance of instance_offline_Observable|async">
-						<li>
-							<a routerLink="/instance/{{instance.instance}}">
-								<span class="badge">{{instance.instance}}</span>
-							</a>
-						</li>
-					</ng-container>
-				</app-tile>			
+			<app-tile [ngClass]="setInstEmpty()">
+				<ng-container *ngFor="let instance of instance_offline_Observable|async">
+					<li>
+						<a routerLink="/instance/{{instance.instance}}">
+							<span class="badge">{{instance.instance}}</span>
+						</a>
+					</li>
+				</ng-container>
+			</app-tile>
 		</app-grid>
 		<h2 *ngIf="instanceAmount[3] > 0">{{"Schnell"|translate}} <canvas class="dot_fast"></canvas></h2>
 		<app-grid>
-			<app-tile *ngFor="let service of instances2D_fast|async">
+			<app-tile [ngClass]="setInstEmpty()" *ngFor="let service of instances2D_fast|async">
 				<ul>
 					<ng-container *ngFor="let instance of service; let i = index">
 						<span *ngIf="isActivatedService(instance.service)">

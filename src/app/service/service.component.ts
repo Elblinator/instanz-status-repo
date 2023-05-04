@@ -53,6 +53,8 @@ export class ServiceComponent implements OnInit {
 		this.statusService.instancesAmountSubj.subscribe(() => {
 			this.instanceAmount = this.statusService.instancesAmount
 		})
+
+		this.filterService.setComesFromService(true);
 	}
 
 	protected openFilterDialog(): void {

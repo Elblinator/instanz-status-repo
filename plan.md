@@ -7,7 +7,6 @@
  - status make pretty
  - Terminologie menschlich machen
  - Filtern with auto-completion
- - wähle Instanz
  - timer
  - start abgerundete ecken, getrennte Spalten
  
