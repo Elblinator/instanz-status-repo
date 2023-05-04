@@ -83,6 +83,7 @@ a>span {
 	display: table;
 	margin: 0 auto;
 	font-weight: 1000;
+	line-break: anywhere;
 }
 
 ul {

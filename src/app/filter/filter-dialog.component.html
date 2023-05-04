@@ -1,10 +1,9 @@
 <html>
 
 <body>
-	<h1 mat-dialog-title>{{"Suche Filter aus"|translate}}</h1>
 	<span class="content">
 		<mat-card-content class="card-content">
-			<h2>{{"mögliche Instanzen"|translate}}</h2>
+			<h1>{{"Mögliche Instanzen"|translate}}</h1>
 				<app-grid>
 					<app-tile [formGroup]="inst" [ngClass]="setInstEmpty()" class="example-section" *ngFor="let instance of instances|async">
 						<p><mat-checkbox color="primary" formControlName="{{instance}}">{{instance}}</mat-checkbox></p>
@@ -14,7 +13,7 @@
 		</mat-card-content>
 
 		<mat-card-content class="card-content" *ngIf="comesFromService">
-			<h2>{{"mögliche Services"|translate}}</h2>
+			<h1>{{"Mögliche Services"|translate}}</h1>
 			<app-grid>
 				<app-tile [formGroup]="serv" class="example-section" *ngFor="let service of services|async">
 					<p><mat-checkbox color="primary" formControlName="{{service}}">{{service}}</mat-checkbox></p>

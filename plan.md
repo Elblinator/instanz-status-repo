@@ -1,8 +1,10 @@
 
 
 # next Job:
- - filter-dialog -> fix footer at bottom; make that tab enter deactivates the current instance/service
  - make 'wähle instanz bigger'
+ - filter-dialog -> fix footer at bottom; make that tab enter deactivates the current instance/service
+ - Instanzen make changes (talked about with Martin)
+ - make tiles less wonky
  - instances make pretty
  - status make pretty
  - Terminologie menschlich machen

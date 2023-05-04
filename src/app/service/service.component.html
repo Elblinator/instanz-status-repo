@@ -16,9 +16,9 @@
 	</header>
 
 	<body>
-		<h2>{{"Instanzen aufgeteilt in Servicegruppen"|translate}} </h2>
+		<!-- <h1>{{"Instanzen aufgeteilt in Servicegruppen"|translate}} </h1> -->
 
-		<h2 *ngIf="instanceAmount[0] > 0">{{"Error"|translate}} <canvas class="dot_error"></canvas></h2>
+		<h1 *ngIf="instanceAmount[0] > 0">{{"Error"|translate}} <canvas class="dot_error"></canvas></h1>
 		<app-grid>
 			<app-tile *ngFor="let service of instances2D_error|async">
 				<ul>
@@ -35,7 +35,7 @@
 				</ul>
 			</app-tile>
 		</app-grid>
-		<h2 *ngIf="instanceAmount[1] > 0">{{"Langsam"|translate}} <canvas class="dot_slow"></canvas></h2>
+		<h1 *ngIf="instanceAmount[1] > 0">{{"Langsam"|translate}} <canvas class="dot_slow"></canvas></h1>
 		<app-grid>
 			<app-tile *ngFor="let service of instances2D_slow|async">
 				<ul>
@@ -52,7 +52,7 @@
 				</ul>
 			</app-tile>
 		</app-grid>
-		<h2 *ngIf="instanceAmount[3] > 0">{{"Offline"|translate}} <canvas class="dot_offline"></canvas></h2>
+		<h1 *ngIf="instanceAmount[3] > 0">{{"Offline"|translate}} <canvas class="dot_offline"></canvas></h1>
 		<app-grid>
 			<app-tile [ngClass]="setInstEmpty()">
 				<ng-container *ngFor="let instance of instance_offline_Observable|async">
@@ -64,7 +64,7 @@
 				</ng-container>
 			</app-tile>
 		</app-grid>
-		<h2 *ngIf="instanceAmount[3] > 0">{{"Schnell"|translate}} <canvas class="dot_fast"></canvas></h2>
+		<h1 *ngIf="instanceAmount[3] > 0">{{"Schnell"|translate}} <canvas class="dot_fast"></canvas></h1>
 		<app-grid>
 			<app-tile [ngClass]="setInstEmpty()" *ngFor="let service of instances2D_fast|async">
 				<ul>

@@ -28,7 +28,12 @@ body {
 
 h1,
 h2 {
+	margin-top: 1em;
 	text-align: center;
+}
+
+p>mat-checkbox {
+	line-break: anywhere;
 }
 
 /* footer {
