@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 
-import { GridTileClickEvent, GridTileDimension } from '../definitions';
+import { BackgroundPossibilities, GridTileClickEvent, GridTileDimension } from '../definitions';
+import { NumberValueAccessor } from '@angular/forms';
+import { FilterService } from 'src/app/filter.service';
 
 @Component({
     selector: `app-tile`,
@@ -8,6 +10,8 @@ import { GridTileClickEvent, GridTileDimension } from '../definitions';
     styleUrls: [`./tile.component.scss`]
 })
 export class TileComponent implements OnInit {
+
+    constructor(private filterService: FilterService) { }
     public get classes(): string {
         return (
             `app-tile` +
@@ -18,7 +22,9 @@ export class TileComponent implements OnInit {
             ` app-tile--md-` +
             this.mediumSize +
             ` app-tile--lg-` +
-            this.largeSize
+            this.largeSize +
+            ` ` +
+            this.backgroundColour
         );
     }
 
@@ -66,6 +72,11 @@ export class TileComponent implements OnInit {
     public largeSize: number | null = null;
 
     /**
+     * property which defines the background colour
+     */
+    public backgroundColour: string | BackgroundPossibilities = `backgroundGreen`;
+
+    /**
      * OnInit method.
      * The preferred size for the tile will calculated.
      */
@@ -87,6 +98,8 @@ export class TileComponent implements OnInit {
             this.setMediumSize(medium);
             this.setLargeSize(large);
         }
+
+
     }
 
     /**
@@ -152,4 +165,10 @@ export class TileComponent implements OnInit {
             this.largeSize = 16;
         }
     }
+
+    private setBackgroundColour(status: string): void {
+        'hi'
+        status
+    }
 }
+  

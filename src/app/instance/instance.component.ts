@@ -8,7 +8,6 @@ import { RealInstance } from '../00_data/interfaces';
 import { FilterComponent } from '../filter/filter-dialog.component';
 
 import { BackgroundPossibilities, FilterService } from '../filter.service';
-import { STATUS_LIST } from '../00_data/magic_strings';
 
 
 
@@ -41,9 +40,8 @@ export class InstanceComponent implements OnInit {
 		this.instanceNamenList = this.filterService.reachableInstances() as Observable<string[]>;
 		this.filteredInstancesObservable = this.filterService.filteredInstancesSubject as Observable<RealInstance[]>;
 		this.worstStatusArrSubj = this.filterService.worstStatusArrSubj as Observable<BackgroundPossibilities[]>;
-		this.filterService.filteredInstancesSubject.subscribe(() => {
+		this.filterService.worstStatusArrSubj.subscribe(() => {
 			this.worstStatusArr = this.filterService.worstStatusArr
-			console.log(this.worstStatusArr)
 		})
 	}
 
@@ -56,11 +54,9 @@ export class InstanceComponent implements OnInit {
 	 * @returns boolean if activated in the filter
 	 */
 	protected isActivatedService(instanceOrStatus: string): boolean {
-		if (!(instanceOrStatus === "")) {
-			return this.filterService.isActivated(instanceOrStatus);
-		}
-		return false
+		return this.filterService.isActivated(instanceOrStatus);
 	}
+
 	protected isRunningGreen(status: string): boolean {
 		return this.filterService.isRunningGreen(status);
 	}
@@ -75,24 +71,7 @@ export class InstanceComponent implements OnInit {
 	 * @param instance 
 	 * @returns the worst status from instance (error>slow>fast>offline)
 	 */
-	protected whatStatus(instance: RealInstance): string {
-		return this.filterService.whatStatus(instance);
-	}
-	/**
-	 * @param instance 
-	 * @returns the worst status from instance (error>slow>fast>offline)
-	 */
-	protected getBackground(instance: RealInstance): string {
-		if (this.filterService.whatStatus(instance) === STATUS_LIST.OFFLINE) {
-			return 'backgroundGreen';
-		} else if (this.filterService.whatStatus(instance) === STATUS_LIST.FAST) {
-			return 'backgroundGreen';
-		} else if (this.filterService.whatStatus(instance) === STATUS_LIST.SLOW) {
-			return 'backgroundGreen'
-		} else if (this.filterService.whatStatus(instance) === STATUS_LIST.ERROR) {
-			return 'backgroundGreen'
-		} else {
-			return 'backgroundWhite'
-		}
+	protected getStatus(instance: RealInstance): string {
+		return this.filterService.getStatus(instance);
 	}
 }

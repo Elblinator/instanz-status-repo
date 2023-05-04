@@ -33,3 +33,9 @@ export type GridBlockTileOrientation = 'horizontal' | 'vertical';
  * Tells, if the tile should only display the content or the title in the content part.
  */
 export type GridBlockTileShowOnly = 'title' | 'content' | null;
+
+
+
+export type BackgroundPossibilities = 'backgroundGreen' | 'backgroundRed' | 'backgroundYellow' | 'backgroundBlack' | 'backgroundWhite';
+
+

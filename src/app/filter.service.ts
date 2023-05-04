@@ -230,7 +230,7 @@ export class FilterService {
 	 * @param instance 
 	 * @returns the worst status from instance (error>slow>fast>offline)
 	 */
-	public whatStatus(instance: RealInstance): string {
+	public getStatus(instance: RealInstance): string {
 		const status: string[] = [STATUS_LIST.OFFLINE, STATUS_LIST.ERROR, STATUS_LIST.SLOW, STATUS_LIST.FAST];
 		let id = 3;
 		if (Object.values(BLACK).includes(instance.status as BLACK)) {
