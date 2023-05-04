@@ -74,4 +74,22 @@ export class InstanceComponent implements OnInit {
 	protected getStatus(instance: RealInstance): string {
 		return this.filterService.getStatus(instance);
 	}
+
+	/**
+	 * pushes the pointer currentInstanc onto this instance
+	 * @param name name of current instance
+	 * @returns a placeholder string because ngClass needs a string as return
+	 */
+	protected setInst(name: string): string { 
+		this.filterService.setInst(name);
+		return ''
+	}
+	/**
+	 * pushes the pointer currentInstanc onto an empty Instance to point to a white background colour
+	 * @returns a placeholder string because ngClass needs a string as return
+	 */
+	protected setInstEmpty(): string {
+		this.filterService.setInstEmpty();
+		return ''
+	}
 }

@@ -28,6 +28,7 @@ export class FilterService {
 	/**last watched instance (see instance-detail) */
 	public currentInstanceSubject: BehaviorSubject<(RealInstance[])> = new BehaviorSubject<RealInstance[]>([{ name: "", status: "", services: [{ name: "", status: "" }] }]);
 
+	public emptyInstance: RealInstance = { name: "", status: "", services: [] }
 	public currentInstance: RealInstance = { name: "", status: "", services: [{ name: "", status: "" }] }
 	public worstStatusArr: BackgroundPossibilities[] = [];
 	public worstStatusArrSubj: BehaviorSubject<BackgroundPossibilities[]> = new BehaviorSubject<BackgroundPossibilities[]>([]);
@@ -252,9 +253,9 @@ export class FilterService {
 	 * @returns the worst status from instance (error>slow>fast>offline)
 	 */
 	public getBackground(instance: RealInstance): BackgroundPossibilities {
-		const status: BackgroundPossibilities[] = ['backgroundBlack', 'backgroundRed', 'backgroundYellow', 'backgroundGreen'];
+		const status: BackgroundPossibilities[] = ['backgroundBlack', 'backgroundRed', 'backgroundYellow', 'backgroundGreen', 'backgroundWhite'];
 		//BackgroundPossibilities = 'backgroundGreen' | 'backgroundGreen' | 'backgroundGreen' | 'backgroundBlack' | 'backgroundWhite';
-		let id = 3;
+		let id = 4;
 		if (Object.values(BLACK).includes(instance.status as BLACK)) {
 			id = 0;
 		} else {
@@ -264,6 +265,9 @@ export class FilterService {
 				}
 				if (this.isRunningYellow(element.status) && id > 1) {
 					id = 2;
+				}
+				if (this.isRunningGreen(element.status) && id > 2) {
+					id = 3;
 				}
 			});
 		}
@@ -306,5 +310,12 @@ export class FilterService {
 			this.currentInstanceSubject.next([a]);
 		}
 		return this.currentInstanceSubject as Observable<RealInstance[]>;
+	}
+	/**
+	 * @param name = name from an instance
+	 * saves the searched instance in this.currentInstanceSubject
+	 */
+	public setInstEmpty(): void {
+		this.currentInstance = this.emptyInstance;
 	}
 }

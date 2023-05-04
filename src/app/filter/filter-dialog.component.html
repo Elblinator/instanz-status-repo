@@ -6,7 +6,7 @@
 		<mat-card-content class="card-content">
 			<h2>{{"mögliche Instanzen"|translate}}</h2>
 				<app-grid>
-					<app-tile [formGroup]="inst" class="example-section" *ngFor="let instance of instances|async">
+					<app-tile [formGroup]="inst" [ngClass]="setInstEmpty()" class="example-section" *ngFor="let instance of instances|async">
 						<p><mat-checkbox color="primary" formControlName="{{instance}}">{{instance}}</mat-checkbox></p>
 					</app-tile>
 				</app-grid>

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 
 import { BackgroundPossibilities, GridTileClickEvent, GridTileDimension } from '../definitions';
-import { NumberValueAccessor } from '@angular/forms';
+
 import { FilterService } from 'src/app/filter.service';
 
 @Component({
@@ -74,7 +74,7 @@ export class TileComponent implements OnInit {
     /**
      * property which defines the background colour
      */
-    public backgroundColour: string | BackgroundPossibilities = `backgroundGreen`;
+    public backgroundColour: string | BackgroundPossibilities = `backgroundWhite`;
 
     /**
      * OnInit method.
@@ -98,7 +98,7 @@ export class TileComponent implements OnInit {
             this.setMediumSize(medium);
             this.setLargeSize(large);
         }
-
+        this.setBackgroundColour()
 
     }
 
@@ -166,9 +166,8 @@ export class TileComponent implements OnInit {
         }
     }
 
-    private setBackgroundColour(status: string): void {
-        'hi'
-        status
+    private setBackgroundColour(): void {
+        this.backgroundColour = this.filterService.getBackground(this.filterService.currentInstance);
     }
 }
   

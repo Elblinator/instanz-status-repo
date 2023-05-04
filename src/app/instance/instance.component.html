@@ -18,59 +18,58 @@
 	<body>
 		<h2>{{"Die Instanzen"|translate}}: </h2>
 		<app-grid>
-			<app-tile
+			<app-tile [ngClass]="setInst(instance.name)"
 				*ngFor="let instance of filteredInstancesObservable|async; let i = index;">
-				<!-- [ngClass]="worstStatusArr[i]" -->
-				
-				
-				<span>{{worstStatusArr[i]}}</span>
-				<br>
 				<span>
 					<a routerLink="/instance/{{instance.name}}">
 						<span class="badge">{{instance.name}}</span>
 					</a>
-					<br>
 					<ng-container *ngIf="instance.status === 'stopped'">
-						<canvas class="dot_offline"> </canvas>
+						<span> {{"Diese Instanz ist offline"|translate }}</span>
 					</ng-container>
 					<ng-container *ngIf="!(instance.status === 'stopped') ">
-						<ng-container *ngFor="let service of instance.services">
-							<span class="items" *ngIf="isActivatedService(service.name)">
-								<span *ngIf="isRunningGreen(service.status)">
-									<ng-container [ngSwitch]="service.status">
-										<canvas class="dot_running"> </canvas>
-									</ng-container>
-								</span>
-								<span *ngIf="isRunningYellow(service.status)">
-									<ng-container [ngSwitch]="service.status">
-										<canvas class="dot_slow"> </canvas>
-									</ng-container>
-								</span>
-								<span *ngIf="isRunningRed(service.status)">
-									<ng-container [ngSwitch]="service.status">
-										<canvas class="dot_error"> </canvas>
-									</ng-container>
-								</span>
-								<span>
-									&nbsp;
-									{{service.name}}
-									&nbsp;
-								</span>
-							</span>
+						<ng-container *ngIf="isRunningGreen(getStatus(instance))">
+							{{"Alles läuft!"|translate}}
+						</ng-container>
+						<ng-container *ngIf="isRunningYellow(getStatus(instance))">
+							{{"Langsame Services:"|translate}}
+							<ul *ngFor="let service of instance.services">
+								<li *ngIf="isRunningYellow(service.status)">
+									<div>{{service.name}}</div>
+								</li>
+							</ul>
+						</ng-container>
+						<ng-container *ngIf="isRunningRed(getStatus(instance))">
+							{{"Error Services:"|translate}}
+							<ul *ngFor="let service of instance.services">
+								<li *ngIf="isRunningRed(service.status)">
+									<div>{{service.name}}</div>
+								</li>
+							</ul>
+							<ng-container *ngIf="isRunningYellow(getStatus(instance))">
+								{{"Langsame Services:"|translate}}
+								<ul *ngFor="let service of instance.services">
+									<li *ngIf="isRunningYellow(service.status)">
+										<div>{{service.name}}</div>
+									</li>
+								</ul>
+							</ng-container>
 						</ng-container>
 					</ng-container>
 				</span>
 			</app-tile>
 		</app-grid>
+
 		<h2>{{"Schlechtester Status jeder Instanz"|translate}}: </h2>
 		<app-grid>
-			<app-tile *ngFor="let instance of filteredInstancesObservable|async">
+			<app-tile [ngClass]="setInstEmpty()" *ngFor="let instance of filteredInstancesObservable|async">
 				<ng-container>
 					<canvas class="dot_{{getStatus(instance)}}"> </canvas>
 					&nbsp;
 				</ng-container>
 				<a routerLink="/instance/{{instance.name}}">
-					<span class="badge">{{instance.name}}</span> </a>
+					<span class="badge">{{instance.name}}</span>
+				</a>
 				<br>
 			</app-tile>
 		</app-grid>

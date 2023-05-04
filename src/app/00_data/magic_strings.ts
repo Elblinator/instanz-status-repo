@@ -32,7 +32,8 @@ export enum SERVICE {
 }
 export enum GREEN {
 	RUNNING = 'running',
-	NORMAL = 'normal'
+	NORMAL = 'normal',
+	FAST = 'fast'
 }
 export enum YELLOW {
 	NEW = 'new',
@@ -41,11 +42,13 @@ export enum YELLOW {
 	ACCEPTED = 'accepted',
 	READY = 'ready',
 	PREPARING = 'preparing',
+	SLOW = 'slow',
 	STARTING = 'starting',
 	UNKNOWN = 'unknown'
 }
 export enum RED {
 	RUNNING = 'complete',
+	ERROR = 'error',
 	FAILED = 'failed',
 	SHUTDOWN = 'shutdown',
 	REJECTED = 'rejected',
@@ -53,5 +56,6 @@ export enum RED {
 	REMOVE = 'remove'
 }
 export enum BLACK {
-	STOPPED = 'stopped'
+	STOPPED = 'stopped',
+	OFFLINE = 'offline'
 }

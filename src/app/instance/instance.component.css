@@ -75,7 +75,16 @@ body {
 	font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.items {
-	display:inline-flex;
-	justify-content: space-between;
+li {
+	display: flex;
+}
+
+a>span {
+	display: table;
+	margin: 0 auto;
+	font-weight: 1000;
+}
+
+ul {
+	margin: 2px 0;
 }
