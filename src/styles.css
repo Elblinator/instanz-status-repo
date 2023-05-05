@@ -1,99 +1,99 @@
 /* Global Styles */
 * {
-  font-family: Arial, Helvetica, sans-serif;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 h1 {
-  color: #264D73;
-  font-size: 2.5rem;
+	color: #264D73;
+	font-size: 2.5rem;
 }
 
 h2,
 h3 {
-  color: #444;
-  font-weight: lighter;
+	color: #444;
+	font-weight: lighter;
 }
 
 h3 {
-  font-size: 1.3rem;
+	font-size: 1.3rem;
 }
 
 body {
-  padding: 0rem;
-  max-width: 2000px;
-  margin: 0;
+	padding: 0rem;
+	max-width: 2000px;
+	margin: 0;
 
-  /* display:center; */
+	/* display:center; */
 }
 
 @media (min-width: 600px) {
-  body {
-    padding: 0rem;
-  }
+	body {
+		padding: 0rem;
+	}
 }
 
 body,
 input[text] {
-  color: #333;
-  font-family: Cambria, Georgia, serif;
+	color: #333;
+	font-family: Cambria, Georgia, serif;
 }
 
 a {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 button {
-  background-color: #fafafa;
-  border: 1px solid #fafafa;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1.2rem;
-  padding: 1rem;
-  /* margin-left: 1rem; */
-  margin:  0.25rem 1rem;
-  line-height: 0.8;
+	background-color: #fafafa;
+	border: 1px solid #fafafa;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 1.2rem;
+	padding: 1rem;
+	/* margin-left: 1rem; */
+	margin: 0.25rem 1rem;
+	line-height: 0.8;
 }
 
 button:hover {
-  border: 1px solid lightgrey;
+	border: 1px solid lightgrey;
 }
 
 button:disabled {
-  background-color: #eee;
-  color: #aaa;
-  cursor: auto;
+	background-color: #eee;
+	color: #aaa;
+	cursor: auto;
 }
 
 /* Navigation link styles */
 nav a {
-  padding: 5px 10px;
-  text-decoration: none;
-  margin-right: 10px;
-  margin-top: 10px;
-  display: inline-block;
-  background-color: #e8e8e8;
-  color: #3d3d3d;
-  border-radius: 4px;
+	padding: 5px 10px;
+	text-decoration: none;
+	margin-right: 10px;
+	margin-top: 10px;
+	display: inline-block;
+	background-color: #e8e8e8;
+	color: #3d3d3d;
+	border-radius: 4px;
 }
 
 nav a:hover {
-  color: white;
-  background-color: #42545C;
+	color: white;
+	background-color: #42545C;
 }
 
 nav a.active {
-  background-color: black;
-  color: white;
+	background-color: black;
+	color: white;
 }
 
 hr {
-  margin: 1.5rem 0;
+	margin: 1.5rem 0;
 }
 
 input[type="text"] {
-  box-sizing: border-box;
-  width: 100%;
-  padding: .5rem;
+	box-sizing: border-box;
+	width: 100%;
+	padding: .5rem;
 }
 
 
@@ -104,121 +104,149 @@ can be found in the LICENSE file at https://angular.io/license
 */
 html,
 body {
-  height: 100%;
+	height: 100%;
 }
 
 body {
-  margin: 0px;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+	margin: 0px;
+	font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 .dot_fast,
-.dot_online, 
+.dot_online,
 .dot_running {
-  width: 15px;
-  height: 15px;
-  background-color: green;
-  border-radius: 50%;
-  border: 1px solid gray;
-  display: inline-block;
+	width: 15px;
+	height: 15px;
+	background-color: green;
+	border-radius: 50%;
+	border: 1px solid gray;
+	display: inline-block;
 }
 
 .dot_slow {
-  width: 15px;
-  height: 15px;
-  background-color: yellow;
-  border-radius: 50%;
-  border: 1px solid gray;
-  display: inline-block;
+	width: 15px;
+	height: 15px;
+	background-color: yellow;
+	border-radius: 50%;
+	border: 1px solid gray;
+	display: inline-block;
 }
 
 .dot_error {
-  width: 15px;
-  height: 15px;
-  background-color: red;
-  border-radius: 50%;
-  border: 1px solid gray;
-  display: inline-block;
+	width: 15px;
+	height: 15px;
+	background-color: red;
+	border-radius: 50%;
+	border: 1px solid gray;
+	display: inline-block;
 }
 
 .dot_offline {
-  width: 15px;
-  height: 15px;
-  background-color: rgb(0, 0, 0);
-  border-radius: 50%;
-  display: inline-block;
+	width: 15px;
+	height: 15px;
+	background-color: rgb(0, 0, 0);
+	border-radius: 50%;
+	display: inline-block;
 }
 
 .square_fast,
 .square_online {
-  width: 1em;
-  height: 1em;
-  background-color: green;
-  display: inline-block;
+	width: 1em;
+	height: 1em;
+	background-color: green;
+	display: inline-block;
 }
 
 .square_slow {
-  width: 1em;
-  height: 1em;
-  background-color: yellow;
-  display: inline-block;
+	width: 1em;
+	height: 1em;
+	background-color: yellow;
+	display: inline-block;
 }
 
 .square_error {
-  width: 1em;
-  height: 1em;
-  background-color: red;
-  display: inline-block;
+	width: 1em;
+	height: 1em;
+	background-color: red;
+	display: inline-block;
 }
 
 
 .square_offline {
-  width: 1em;
-  height: 1em;
-  background-color: black;
-  display: inline-block;
+	width: 1em;
+	height: 1em;
+	background-color: black;
+	display: inline-block;
 }
 
 .colorRunning1 {
-  width: 10em;
-  background-color: black;
+	width: 10em;
+	background-color: black;
 }
 
 .colorStatus0,
 .colorRunning0 {
-  width: 10em;
-  background-color: green;
+	width: 10em;
+	background-color: green;
 }
 
 .colorStatus1 {
-  width: 10em;
-  background-color: yellow;
+	width: 10em;
+	background-color: yellow;
 }
 
 .colorStatus2 {
-  width: 10em;
-  background-color: red;
+	width: 10em;
+	background-color: red;
 }
 
 .bar {
-  height: 1em;
-  padding: 0px;
+	height: 1em;
+	padding: 0px;
 }
 
 mat-form-field {
-  margin-bottom: -20px;
+	margin-bottom: -20px;
+	width: 400px;
+	width: auto;
+	width: fit-content
+}
+
+/* mat-form-field-infix {
+	min-width: 75px !important;
+	width: fit-content !important;
+} */
+.mat-mdc-text-field-wrapper {
+    width: fit-content;
+}
+
+
+mat-select {
+	width: fit-content !important;
+	min-width: 100%;
+}
+
+mat-select .mat-select-value {
+	width: fit-content;
+	min-width: 2ch;
+	max-width: 25ch;
+}
+
+mat-select .mat-select-placeholder {
+	width: fit-content;
+	min-width: 10ch;
 }
 
 header {
-  background-color: white;
-  padding-bottom: 3px;
-  margin-bottom: 3px;
+	background-color: white;
+	padding-bottom: 3px;
+	margin-bottom: 3px;
 }
 
 form {
-  padding: 5px 10px;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0px;
-  padding-bottom: 0px;
+	padding: 5px 10px;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
 }

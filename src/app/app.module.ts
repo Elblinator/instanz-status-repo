@@ -28,6 +28,7 @@ import { FilterComponent } from './filter/filter-dialog.component';
 import { WarnComponent } from './warn/warn-dialog.component';
 import { GridComponent } from './grid/grid/grid.component';
 import { TileComponent } from './grid/tile/tile.component';
+import { SelectInstanceComponent } from './select-instance/select-instance.component';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { TileComponent } from './grid/tile/tile.component';
 		FilterComponent,
 		WarnComponent, 
 		GridComponent,
-		TileComponent
+		TileComponent,
+  SelectInstanceComponent
 	],
 	bootstrap: [AppComponent,],
 	providers: [FilterComponent, ReactiveFormsModule, WarnComponent],

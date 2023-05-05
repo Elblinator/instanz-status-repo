@@ -1,6 +1,9 @@
 
 
 # next Job:
+ - beim filtern options alles an/ab- zu wählen
+ - Farbbar in instanz-detail?
+ - möglichkeit nach Status zu filtern eher nur auf Instanzen-page
  - make 'wähle instanz bigger'
  - filter-dialog -> fix footer at bottom; make that tab enter deactivates the current instance/service
  - Instanzen make changes (talked about with Martin)
@@ -15,7 +18,6 @@
 # ui:
  - instances
  - status
- - status 2
  - instances detail
  - header
  
