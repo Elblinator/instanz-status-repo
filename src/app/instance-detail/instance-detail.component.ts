@@ -24,6 +24,7 @@ export class InstanceDetailComponent implements OnInit {
 	protected instancesObservable: Observable<RealInstance[]> | undefined;
 	protected instanceNamenList: Observable<string[]> = new Observable<string[]>
 	protected instanceNamen: FormControl<string | null> = new FormControl('');
+	protected myControl: FormControl<string | null> = new FormControl('');
 	//////////////////////////////
 
 	/** additional restart groups */
