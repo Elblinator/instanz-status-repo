@@ -5,6 +5,7 @@ import { ServiceComponent } from './service/service.component';
 import { InstanceComponent } from './instance/instance.component';
 import { InstanceDetailComponent } from './instance-detail/instance-detail.component';
 import { StartComponent } from './start/start.component';
+import { Start2Component } from './start2/start2.component';
 import { UserService } from './user.service';
 
 const routes: Routes = [

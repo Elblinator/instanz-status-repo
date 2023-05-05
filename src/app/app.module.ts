@@ -59,6 +59,7 @@ import { SelectInstanceComponent } from './select-instance/select-instance.compo
 		InstanceComponent,
 		InstanceDetailComponent,
 		StartComponent,
+		Start2Component,
 		FilterComponent,
 		WarnComponent, 
 		GridComponent,

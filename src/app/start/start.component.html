@@ -1,6 +1,5 @@
 <main>
     <!----------------------------->
-
     <body>
         <div #offlineInfo>
             <h2>{{"Status der Services"|translate}}</h2>
@@ -10,6 +9,7 @@
                     <ng-container *ngFor="let array of arrSimpleService|async; let i1=index">
                         <ng-container *ngFor="let number of [].constructor(array); let i2=index">
                             <td class="colorStatus{{i1}} bar"></td>
+
                         </ng-container>
                     </ng-container>
                 </tr>
@@ -71,6 +71,5 @@
                 </tbody>
             </table>
         </div>
-
     </body>
 </main>
