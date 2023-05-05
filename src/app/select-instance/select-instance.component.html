@@ -1,7 +1,6 @@
 <mat-select
     #matSelect
     [formControl]="contentForm"
-    [multiple]="multiple"
     [panelClass]="{ 'os-search-selector-wider': wider }"
     [errorStateMatcher]="errorStateMatcher"
     (openedChange)="onOpenChanged($event)"
@@ -21,12 +20,8 @@
             #currentOption
             *cdkVirtualFor="let selectableItem of filteredItemsObservable | async"
             [value]="selectableItem.id"
-            [disabled]="disableOptionWhenFn(selectableItem) || selectableItem.disabled"
-            [matTooltip]="tooltipFn(selectableItem, currentOption)"
-            (onSelectionChange)="onSelectionChange(selectableItem, $event)"
-            (click)="keepOpen ? matSelect.open() : null"
         >
-            {{ selectableItem.getTitle() | translate }}
+            {{ selectableItem }}
         </mat-option>
     </cdk-virtual-scroll-viewport>
 </mat-select>
