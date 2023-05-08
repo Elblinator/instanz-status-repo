@@ -1,15 +1,7 @@
 <main>
 	<header>
-		<form class="auto-width">
-			<mat-form-field appearance="fill">
-				<input type="text" [matAutocomplete]="auto" matInput [formControl]="myControl" placeholder="{{'wähle Instanz'|translate}}">
-				<!-- <mat-label>{{"wähle Instanz"|translate}}</mat-label> -->
-			</mat-form-field>
-			<mat-autocomplete #auto="matAutocomplete">
-				<mat-option *ngFor="let instance of instanceNamenList|async" [value]="instance">
-					<a mat-list-item routerLink="/instance/{{instance}}">{{instance}}</a>
-				</mat-option>
-			</mat-autocomplete>
+		<form>
+			<app-autocomplete></app-autocomplete>
 		</form>
 	</header>
 

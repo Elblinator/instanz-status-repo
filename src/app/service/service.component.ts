@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { InstanceService, RealInstance, ServiceService } from '../00_data/interfaces';
@@ -18,11 +17,7 @@ import { FilterService } from '../filter.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ServiceComponent implements OnInit {
-	////////// Header /////////////
 	protected filteredInstancesObservable: Observable<RealInstance[]> | undefined;
-	protected instanceNamenList: Observable<string[]> = new Observable<string[]>
-	protected instanceNamen: FormControl<string | null> = new FormControl('');
-	//////////////////////////////
 	protected instance_offline_Observable: Observable<InstanceService[]> | undefined;
 	protected instance_fast_Observable: Observable<InstanceService[]> | undefined;
 	protected instance_slow_Observable: Observable<InstanceService[]> | undefined;
@@ -42,7 +37,6 @@ export class ServiceComponent implements OnInit {
 	) { }
 
 	public ngOnInit(): void {
-		this.instanceNamenList = this.filterService.reachableInstances() as Observable<string[]>;
 
 		this.instance_offline_Observable = this.statusService.instancesSortSubject_offline as Observable<InstanceService[]>;
 

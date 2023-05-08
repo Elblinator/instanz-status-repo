@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { FormControl } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { RealInstance } from '../00_data/interfaces';
@@ -19,11 +18,7 @@ import { BackgroundPossibilities, FilterService } from '../filter.service';
 })
 
 export class InstanceComponent implements OnInit {
-	////////// Header /////////////
 	protected filteredInstancesObservable: Observable<RealInstance[]> | undefined;
-	protected instanceNamenList: Observable<string[]> = new Observable<string[]>
-	protected instanceNamen: FormControl<string | null> = new FormControl('');
-	//////////////////////////////
 
 	protected realInstancesSubject: BehaviorSubject<RealInstance[]> = new BehaviorSubject<RealInstance[]>([]);
 
@@ -37,7 +32,6 @@ export class InstanceComponent implements OnInit {
 	) { }
 
 	public ngOnInit(): void {
-		this.instanceNamenList = this.filterService.reachableInstances() as Observable<string[]>;
 		this.filteredInstancesObservable = this.filterService.filteredInstancesSubject as Observable<RealInstance[]>;
 		this.worstStatusArrSubj = this.filterService.worstStatusArrSubj as Observable<BackgroundPossibilities[]>;
 		this.filterService.worstStatusArrSubj.subscribe(() => {

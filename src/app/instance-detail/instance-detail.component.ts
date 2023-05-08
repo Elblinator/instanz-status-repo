@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
-import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -9,7 +8,6 @@ import { RealInstance } from '../00_data/interfaces';
 
 import { WarnComponent } from '../warn/warn-dialog.component';
 
-import { StatusService } from '../status.service';
 import { FilterService } from '../filter.service';
 import { WarnService } from '../warn.service';
 import { DataService } from '../data.service';
@@ -20,12 +18,7 @@ import { DataService } from '../data.service';
 	styleUrls: ['./instance-detail.component.css']
 })
 export class InstanceDetailComponent implements OnInit {
-	////////// Header /////////////
 	protected instancesObservable: Observable<RealInstance[]> | undefined;
-	protected instanceNamenList: Observable<string[]> = new Observable<string[]>
-	protected instanceNamen: FormControl<string | null> = new FormControl('');
-	protected myControl: FormControl<string | null> = new FormControl('');
-	//////////////////////////////
 
 	/** additional restart groups */
 	protected InstanceGruppen: string[] = ["backEnd", "irgendeine Gruppe"];
@@ -34,7 +27,6 @@ export class InstanceDetailComponent implements OnInit {
 
 	constructor(
 		private route: ActivatedRoute,
-		private statusService: StatusService,
 		private location: Location,
 		private filterService: FilterService,
 		private dialog: MatDialog,
@@ -43,7 +35,6 @@ export class InstanceDetailComponent implements OnInit {
 	) { }
 
 	public ngOnInit(): void {
-		this.instanceNamenList = this.filterService.reachableInstances() as Observable<string[]>;
 
 		this.initialise();
 		this.route.url.subscribe(() => {

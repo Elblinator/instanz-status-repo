@@ -7,6 +7,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { LayoutModule } from '@angular/cdk/layout';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -28,7 +31,7 @@ import { FilterComponent } from './filter/filter-dialog.component';
 import { WarnComponent } from './warn/warn-dialog.component';
 import { GridComponent } from './grid/grid/grid.component';
 import { TileComponent } from './grid/tile/tile.component';
-//import { SelectInstanceComponent } from './select-instance/select-instance.component';
+import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 
 
 @NgModule({
@@ -50,7 +53,9 @@ import { TileComponent } from './grid/tile/tile.component';
 		MatIconModule,
 		MatListModule,
 		BrowserAnimationsModule,
-		TranslateModule.forRoot()
+		TranslateModule.forRoot(),
+		MatAutocompleteModule,
+		MatInputModule
 	],
 	exports: [TranslatePipe],
 	declarations: [
@@ -62,7 +67,8 @@ import { TileComponent } from './grid/tile/tile.component';
 		FilterComponent,
 		WarnComponent,
 		GridComponent,
-		TileComponent
+		TileComponent,
+		AutocompleteComponent
 	],
 	bootstrap: [AppComponent,],
 	providers: [FilterComponent, ReactiveFormsModule, WarnComponent],

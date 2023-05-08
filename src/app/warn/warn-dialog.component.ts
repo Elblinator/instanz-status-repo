@@ -9,8 +9,8 @@ import { WarnService } from '../warn.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WarnComponent {
-	service = ""
-	warn = ""
+	service = "";
+	warn = "";
 
 	constructor(
 		private warnService: WarnService,
@@ -25,8 +25,8 @@ export class WarnComponent {
 	 * here take a dummy console.log
 	 */
 	protected warning(): void {
-		console.log("I need a restart function")
-		this.cd.markForCheck
+		console.log("I need a restart function");
+		this.cd.markForCheck;
 		// restart this.service
 	}
 }

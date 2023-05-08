@@ -1,16 +1,11 @@
 <main>
 	<header>
 		<form>
-			<mat-form-field appearance="fill">
-				<mat-label>{{"wähle Instanz"|translate}}</mat-label>
-				<mat-select [formControl]="instanceNamen">
-					<mat-option *ngFor="let instance of instanceNamenList|async" [value]="instance">
-						<a mat-list-item routerLink="/instance/{{instance}}">{{instance}}</a>
-					</mat-option>
-				</mat-select>
-			</mat-form-field>
-			<span class="badge"></span>
-			<button type="button" (click)="openFilterDialog()">{{"Filtern"|translate}}</button>
+			<app-autocomplete></app-autocomplete>
+			<ng-container>
+				<span class="badge"></span>
+				<button type="button" (click)="openFilterDialog()">{{"Filtern"|translate}}</button>
+			</ng-container>
 		</form>
 	</header>
 	<!-- ------------------------------------>
