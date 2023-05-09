@@ -208,33 +208,6 @@ body {
 mat-form-field {
 	margin-bottom: -20px;
 	width: 400px;
-	width: auto;
-	width: fit-content
-}
-
-/* mat-form-field-infix {
-	min-width: 75px !important;
-	width: fit-content !important;
-} */
-.mat-mdc-text-field-wrapper {
-    width: fit-content;
-}
-
-
-mat-select {
-	width: fit-content !important;
-	min-width: 100%;
-}
-
-mat-select .mat-select-value {
-	width: fit-content;
-	min-width: 2ch;
-	max-width: 25ch;
-}
-
-mat-select .mat-select-placeholder {
-	width: fit-content;
-	min-width: 10ch;
 }
 
 header {

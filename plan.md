@@ -1,6 +1,8 @@
 
 
 # next Job:
+ - moving from instanz-detail to instanz-detail -> filter saves the name of the instance (it shouldn't do that)
+ - if a instanz is selected while filtering, the name needs to be directly clicked on, the general area will disply the Instanz's name but not go to the wanted page
  - beim filtern options alles an/ab- zu wählen
  - Farbbar in instanz-detail?
  - möglichkeit nach Status zu filtern eher nur auf Instanzen-page
@@ -11,9 +13,7 @@
  - instances make pretty
  - status make pretty
  - Terminologie menschlich machen
- - Filtern with auto-completion
  - timer
- - start abgerundete ecken, getrennte Spalten
  
 # ui:
  - instances
@@ -22,8 +22,6 @@
  - header
  
 # Components: 
- - Filtern with auto-completion
- - wähle Instanz
  - timer
  - Blockieren von doppelten neustarts --> dummy button for now, timer, visible timer?,
  - Fehlermeldung Ausgabe falls Neustart fail
