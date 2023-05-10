@@ -16,9 +16,11 @@
 			<app-tile [ngClass]="setInst(instance.name)"
 				*ngFor="let instance of filteredInstancesObservable|async">
 				<span>
-					<a routerLink="/instance/{{instance.name}}">
-						<span class="badge">{{instance.name}}</span>
-					</a>
+					<mat-nav-list>
+						<a routerLink="/instance/{{instance.name}}">
+							<span class="badge">{{instance.name}}</span>
+						</a>
+					</mat-nav-list>
 					<ng-container *ngIf="instance.status === 'stopped'">
 						<span> {{"Diese Instanz ist offline"|translate }}</span>
 					</ng-container>

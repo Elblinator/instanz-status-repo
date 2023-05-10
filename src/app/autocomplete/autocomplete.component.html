@@ -6,10 +6,14 @@
             [formControl]="instanceNamen" 
             [matAutocomplete]="auto">
     <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let instance of instanceNamenListObs|async" [value]="instance">
-            <a mat-list-item routerLink="/instance/{{instance}}" class="whole-box" (click)="resetList()">
-                {{instance}}
-            </a>
+        <mat-option *ngFor="let instance of instanceNamenListObs|async">
+            <mat-nav-list>
+                <a routerLink="/instance/{{instance}}" class="whole-box">
+                    <button >
+                        {{instance}}
+                    </button>
+                </a>
+            </mat-nav-list>
         </mat-option>
     </mat-autocomplete>
 </mat-form-field>

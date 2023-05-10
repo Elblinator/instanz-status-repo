@@ -20,9 +20,11 @@
 						<span *ngIf="isActivatedService(instance.service)">
 							<h3 class="service-title" *ngIf="i === 0"> {{instance.service}}</h3>
 							<li>
-								<a routerLink="/instance/{{instance.instance}}">
-									<span class="badge">{{instance.instance}}</span>
-								</a>
+								<mat-nav-list>
+									<a routerLink="/instance/{{instance.instance}}">
+										<span class="badge">{{instance.instance}}</span>
+									</a>
+								</mat-nav-list>
 							</li>
 						</span>
 					</ng-container>
@@ -37,9 +39,11 @@
 						<span *ngIf="isActivatedService(instance.service)">
 							<h3 class="service-title" *ngIf="i === 0"> {{instance.service}}</h3>
 							<li>
-								<a routerLink="/instance/{{instance.instance}}">
-									<span class="badge">{{instance.instance}}</span>
-								</a>
+								<mat-nav-list>
+									<a routerLink="/instance/{{instance.instance}}">
+										<span class="badge">{{instance.instance}}</span>
+									</a>
+								</mat-nav-list>
 							</li>
 						</span>
 					</ng-container>
@@ -51,9 +55,11 @@
 			<app-tile [ngClass]="setInstEmpty()">
 				<ng-container *ngFor="let instance of instance_offline_Observable|async">
 					<li>
-						<a routerLink="/instance/{{instance.instance}}">
-							<span class="badge">{{instance.instance}}</span>
-						</a>
+						<mat-nav-list>
+							<a routerLink="/instance/{{instance.instance}}">
+								<span class="badge">{{instance.instance}}</span>
+							</a>
+						</mat-nav-list>
 					</li>
 				</ng-container>
 			</app-tile>
@@ -66,9 +72,11 @@
 						<span *ngIf="isActivatedService(instance.service)">
 							<h3 class="service-title" *ngIf="i === 0"> {{instance.service}}</h3>
 							<li>
-								<a routerLink="/instance/{{instance.instance}}">
-									<span class="badge">{{instance.instance}}</span>
-								</a>
+								<mat-nav-list>
+									<a routerLink="/instance/{{instance.instance}}">
+										<span class="badge">{{instance.instance}}</span>
+									</a>
+								</mat-nav-list>
 							</li>
 						</span>
 					</ng-container>
