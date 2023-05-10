@@ -49,6 +49,7 @@ export class ServiceComponent implements OnInit {
 		})
 
 		this.filterService.setComesFromService(true);
+		this.filterService.setComesFromInstanzen(false);
 	}
 
 	protected openFilterDialog(): void {
@@ -60,7 +61,7 @@ export class ServiceComponent implements OnInit {
 	 * @param status = service-name.
 	 * @returns boolean if activated in the filter
 	 */
-	protected isActivatedService(status: string): boolean {
+	protected isActivated(status: string): boolean {
 		return this.filterService.isActivated(status);
 	}
 	

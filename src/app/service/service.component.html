@@ -12,76 +12,71 @@
 	<body>
 		<!-- <h1>{{"Instanzen aufgeteilt in Servicegruppen"|translate}} </h1> -->
 
-		<h1 *ngIf="instanceAmount[0] > 0">{{"Error"|translate}} <canvas class="dot_error"></canvas></h1>
+		<h1 *ngIf="instanceAmount[0]>0" [ngClass]="setInstEmpty()">{{"Error"|translate}} <canvas class="dot_error"></canvas></h1>
 		<app-grid>
 			<app-tile *ngFor="let service of instances2D_error|async">
 				<ul>
 					<ng-container *ngFor="let instance of service; let i = index">
-						<span *ngIf="isActivatedService(instance.service)">
+						<span *ngIf="isActivated(instance.service)">
 							<h3 class="service-title" *ngIf="i === 0"> {{instance.service}}</h3>
 							<li>
-								<mat-nav-list>
-									<a routerLink="/instance/{{instance.instance}}">
-										<span class="badge">{{instance.instance}}</span>
-									</a>
-								</mat-nav-list>
+								<a routerLink="/instance/{{instance.instance}}">
+									<span class="badge">{{instance.instance}}</span>
+								</a>
 							</li>
 						</span>
 					</ng-container>
 				</ul>
 			</app-tile>
 		</app-grid>
-		<h1 *ngIf="instanceAmount[1] > 0">{{"Langsam"|translate}} <canvas class="dot_slow"></canvas></h1>
+		<h1 *ngIf="instanceAmount[1]>0">{{"Langsam"|translate}} <canvas class="dot_slow"></canvas></h1>
 		<app-grid>
-			<app-tile *ngFor="let service of instances2D_slow|async">
+			<app-tile *ngFor="let service of instances2D_slow|async" [ngClass]="setInstEmpty()">
 				<ul>
 					<ng-container *ngFor="let instance of service; let i = index">
-						<span *ngIf="isActivatedService(instance.service)">
+						<span *ngIf="isActivated(instance.service)">
 							<h3 class="service-title" *ngIf="i === 0"> {{instance.service}}</h3>
 							<li>
-								<mat-nav-list>
-									<a routerLink="/instance/{{instance.instance}}">
-										<span class="badge">{{instance.instance}}</span>
-									</a>
-								</mat-nav-list>
+								<a routerLink="/instance/{{instance.instance}}">
+									<span class="badge">{{instance.instance}}</span>
+								</a>
 							</li>
 						</span>
 					</ng-container>
 				</ul>
 			</app-tile>
 		</app-grid>
-		<h1 *ngIf="instanceAmount[3] > 0">{{"Offline"|translate}} <canvas class="dot_offline"></canvas></h1>
+		<h1 *ngIf="instanceAmount[2]>0">{{"Offline"|translate}} <canvas class="dot_offline"></canvas></h1>
 		<app-grid>
-			<app-tile [ngClass]="setInstEmpty()">
+			<app-tile [ngClass]="setInstEmpty()" *ngIf="instanceAmount[2]>0">
 				<ng-container *ngFor="let instance of instance_offline_Observable|async">
 					<li>
-						<mat-nav-list>
-							<a routerLink="/instance/{{instance.instance}}">
-								<span class="badge">{{instance.instance}}</span>
-							</a>
-						</mat-nav-list>
+						<a routerLink="/instance/{{instance.instance}}">
+							<span class="badge">{{instance.instance}}</span>
+						</a>
 					</li>
 				</ng-container>
 			</app-tile>
 		</app-grid>
-		<h1 *ngIf="instanceAmount[3] > 0">{{"Schnell"|translate}} <canvas class="dot_fast"></canvas></h1>
+		<h1 *ngIf="instanceAmount[3]>0">{{"Schnell"|translate}} <canvas class="dot_fast"></canvas></h1>
 		<app-grid>
 			<app-tile [ngClass]="setInstEmpty()" *ngFor="let service of instances2D_fast|async">
 				<ul>
 					<ng-container *ngFor="let instance of service; let i = index">
-						<span *ngIf="isActivatedService(instance.service)">
+						<span *ngIf="isActivated(instance.service)">
 							<h3 class="service-title" *ngIf="i === 0"> {{instance.service}}</h3>
 							<li>
-								<mat-nav-list>
-									<a routerLink="/instance/{{instance.instance}}">
-										<span class="badge">{{instance.instance}}</span>
-									</a>
-								</mat-nav-list>
+								<a routerLink="/instance/{{instance.instance}}">
+									<span class="badge">{{instance.instance}}</span>
+								</a>
 							</li>
 						</span>
 					</ng-container>
 				</ul>
 			</app-tile>
 		</app-grid>
+		<h1 *ngIf="instanceAmount[0]===0 && instanceAmount[1]===0 && instanceAmount[2]===0 && instanceAmount[3]===0">
+			<span>{{'Du hast alles ausgeschaltet =(' | translate}}</span>
+		</h1>
 	</body>
 </main>

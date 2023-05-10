@@ -3,17 +3,51 @@
 <body>
 	<span class="content">
 		<mat-card-content class="card-content">
-			<h1>{{"Mögliche Instanzen"|translate}}</h1>
-				<app-grid>
-					<app-tile [formGroup]="inst" [ngClass]="setInstEmpty()" class="example-section" *ngFor="let instance of instances|async">
-						<p><mat-checkbox color="primary" formControlName="{{instance}}">{{instance}}</mat-checkbox></p>
-					</app-tile>
-				</app-grid>
-
+			<h1>
+				{{"Mögliche Instanzen"|translate}}
+				<mat-radio-group color="primary">
+					<mat-radio-button value="1" (click)="deactivateAllInst()">
+						{{'Deaktiviere alle Instanzen'|translate}}
+					</mat-radio-button>
+					<mat-radio-button value="2" (click)="activateAllInst()">
+						{{'Aktiviere alle Instanzen'|translate}}
+					</mat-radio-button>
+				</mat-radio-group>
+			</h1>
+			<div *ngIf="comesFromInstanzen">
+				<span>{{"Zeige an: "|translate}}</span>
+				<mat-checkbox color="primary"[(ngModel)]="offline" (click)="switchOffline()">
+					{{'Offline'|translate}}
+				</mat-checkbox>
+				<mat-checkbox color="primary"[(ngModel)]="fast" (click)="switchFast()">
+					{{'Schnell'|translate}}
+				</mat-checkbox>
+				<mat-checkbox color="primary"[(ngModel)]="slow" (click)="switchSlow()">
+					{{'Langsam'|translate}}
+				</mat-checkbox>
+				<mat-checkbox color="primary"[(ngModel)]="error" (click)="switchError()">
+					{{'Error'|translate}}
+				</mat-checkbox>
+			</div>
+			<app-grid>
+				<app-tile [formGroup]="inst" [ngClass]="setInstEmpty()" class="example-section"
+					*ngFor="let instance of instances|async">
+					<p><mat-checkbox color="primary" formControlName="{{instance}}">{{instance}}</mat-checkbox></p>
+				</app-tile>
+			</app-grid>
 		</mat-card-content>
 
 		<mat-card-content class="card-content" *ngIf="comesFromService">
-			<h1>{{"Mögliche Services"|translate}}</h1>
+			<h1>
+				{{"Mögliche Services"|translate}}
+				<mat-radio-group color="primary">
+				<mat-radio-button value="1" (click)="deactivateAllServ()">
+					{{'Deaktiviere alle Services'|translate}}
+				</mat-radio-button>
+				<mat-radio-button value="2" (click)="activateAllServ()">
+					{{'Aktiviere alle Services'|translate}}
+				</mat-radio-button>
+			</mat-radio-group></h1>
 			<app-grid>
 				<app-tile [formGroup]="serv" class="example-section" *ngFor="let service of services|async">
 					<p><mat-checkbox color="primary" formControlName="{{service}}">{{service}}</mat-checkbox></p>
@@ -25,7 +59,7 @@
 	<footer>
 		<div mat-dialog-actions>
 			<button mat-button mat-dialog-close (click)="setFilter()">{{"Filtern"|translate}}</button>
-			<button mat-button mat-dialog-close cdkFocusInitial>{{ 'Abbrechen' | translate }}</button>
+			<button mat-button mat-dialog-close>{{ 'Abbrechen' | translate }}</button>
 		</div>
 	</footer>
 </body>

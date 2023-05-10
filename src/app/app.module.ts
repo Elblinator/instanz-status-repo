@@ -9,6 +9,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
+
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -55,7 +57,8 @@ import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 		BrowserAnimationsModule,
 		TranslateModule.forRoot(),
 		MatAutocompleteModule,
-		MatInputModule
+		MatInputModule,
+		MatRadioModule
 	],
 	exports: [TranslatePipe],
 	declarations: [

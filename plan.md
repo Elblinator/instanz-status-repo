@@ -2,11 +2,8 @@
 
 # next Job:
  - moving from instanz-detail to instanz-detail -> filter saves the name of the instance (it shouldn't do that)
- - if a instanz is selected while filtering, the name needs to be directly clicked on, the general area will disply the Instanz's name but not go to the wanted page
- - beim filtern options alles an/ab- zu wählen
- - Farbbar in instanz-detail?
- - möglichkeit nach Status zu filtern eher nur auf Instanzen-page
- - make 'wähle instanz bigger'
+ - Farb Bar in instanz-detail?
+ - dummy_chosenInstance/dummy_chosenService is presented wonkily -> needs 'resetting'
  - filter-dialog -> fix footer at bottom; make that tab enter deactivates the current instance/service
  - Instanzen make changes (talked about with Martin)
  - make tiles less wonky
@@ -43,4 +40,3 @@
  - Bei wahl von Neustart Warnung was die Konsequenzen sein können, länge, dauer, neuanmelden, wirklich ALLES neustarten etc.
  - Neustart von bestimmten Services -> key word ein ganzer Service
  - Also Cluster von Services (e.g. whole backendish)
-

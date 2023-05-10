@@ -77,8 +77,8 @@ export class InstanceDetailComponent implements OnInit {
 	protected isRunningRed(status: string): boolean {
 		return this.filterService.isRunningRed(status);
 	}
-	protected isRunningOnline(status: string): boolean {
-		return this.filterService.isRunningOnline(status);
+	protected isRunningOffline(status: string): boolean {
+		return this.filterService.isRunningOffline(status);
 	}
 }
 

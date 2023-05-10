@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { RealInstance, SimpleInstance, Status } from './00_data/interfaces';
@@ -20,11 +20,14 @@ export class FilterService {
 	public simpleInstancesSubject: BehaviorSubject<SimpleInstance[]> = new BehaviorSubject<SimpleInstance[]>([]);
 
 	public comesFromService = false;
+	public comesFromInstanzen = false;
 
-	private possibleInstances: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([])
-	private possibleServices: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([])
-	private chosenInstances: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([])
-	private chosenServices: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([])
+	private possibleInstances: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+	private possibleServices: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+	private chosenInstances: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+	private chosenServices: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+	private dummy_chosenInstances: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+	private dummy_chosenServices: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 
 	/**last watched instance (see instance-detail) */
 	public currentInstanceSubject: BehaviorSubject<(RealInstance[])> = new BehaviorSubject<RealInstance[]>([{ name: "", status: "", services: [{ name: "", status: "" }] }]);
@@ -38,7 +41,8 @@ export class FilterService {
 	private loaded = false
 
 	constructor(
-		private dataService: DataService
+		private dataService: DataService,
+		private _formBuilder: FormBuilder
 	) {
 		this.getAndSetPossibleFilter();
 		this.updateFilter()
@@ -89,6 +93,9 @@ export class FilterService {
 		this.filteredInstancesSubject
 	}
 
+	public getFilterInst(): BehaviorSubject<RealInstance[]> {
+		return this.filteredInstancesSubject
+	}
 	/**
 	 * activate all filter possibilities 
 	 * only once and only after the data was loaded
@@ -99,6 +106,8 @@ export class FilterService {
 
 			this.chosenInstances.next(this.possibleInstances.getValue());
 			this.chosenServices.next(this.possibleServices.getValue());
+			this.dummy_chosenInstances.next(this.possibleInstances.getValue());
+			this.dummy_chosenServices.next(this.possibleServices.getValue());
 			this.filterInstances()
 		}
 	}
@@ -112,7 +121,7 @@ export class FilterService {
 		return names;
 	}
 	/**
-	 * reset chosenValues 
+	 * set chosenValues 
 	 * get new chosenValues @param data 
 	 * and set them (as this.chosenInstances and this.chosenServices)
 	 */
@@ -139,6 +148,76 @@ export class FilterService {
 
 		this.filterInstances();
 	}
+	/**
+	 * set Dummy_chosenValues 
+	 * get new Dummy_chosenValues @param data 
+	 * and set them (as this.Dummy_chosenInstances and this.Dummy_chosenServices)
+	 */
+	public setDummyFilter(data: FormGroup[]): void {
+		const inst: FormGroup = data[0];
+		const serv: FormGroup = data[1];
+		let currentList: string[] = [];
+		let mapped = Object.entries(inst.value);
+		for (const map of mapped) {
+			if (map[1]) {
+				currentList.push(map[0]);
+			}
+		}
+		this.dummy_chosenInstances.next(currentList);
+
+
+		currentList = []
+		mapped = Object.entries(serv.value)
+		for (const map of mapped) {
+			if (map[1]) {
+				currentList.push(map[0]);
+			}
+		}
+		this.dummy_chosenServices.next(currentList);
+	}
+	/**
+	 * activae/deavtivatet a whole status group 
+	 * set new keep unrelated chosenValues @param data 
+	 * and set the status group (as this.chosenInstances and this.chosenServices)
+	 */
+	public setDummyFilterBox(data: FormGroup[], boo: boolean, str: string): void {
+		const inst: FormGroup = data[0];
+		const mapped = Object.entries(inst.value);
+		const currentList: string[] = [];
+		let curInst = '';
+		let a: (b: string) => boolean;
+		if (this.isRunningOffline(str)) {
+			a = this.isRunningOffline;
+		} else if (this.isRunningGreen(str)) {
+			a = this.isRunningGreen;
+		} else if (this.isRunningYellow(str)) {
+			a = this.isRunningYellow;
+		} else {
+			a = this.isRunningRed;
+		}
+
+		for (const map of mapped) {
+			this.setInst(map[0])
+			// dependend on on/off we need to look at a different status
+			curInst = this.currentInstance.status;
+			if (!this.isRunningOffline(str)) {
+				curInst = this.getStatus(this.currentInstance)
+			}
+			if (a(str)) {
+				if (!a(curInst)) {
+					if (map[1]) {
+						currentList.push(map[0]);
+					}
+				} else {
+					if (boo) {
+						currentList.push(map[0]);
+					}
+				}
+			}
+		}
+		this.dummy_chosenInstances.next(currentList);
+		this.setDummyFilter([this._formBuilder.group(Object.fromEntries(this.reachableInstances().getValue().map(e => [e, this.isActivatedDummy(e)]))), data[1]]);
+	}
 
 	/**
 	 * @returns the instances which could be used
@@ -146,36 +225,38 @@ export class FilterService {
 	public reachableInstances(): BehaviorSubject<string[]> {
 		return this.possibleInstances;
 	}
-
 	/**
 	 * @returns the services which could be used
 	 */
 	public reachableService(): BehaviorSubject<string[]> {
 		return this.possibleServices;
 	}
-
 	/**
 	 * @returns the instances which are being used
 	 */
 	public activatedInstances(): BehaviorSubject<string[]> {
-		return this.chosenInstances;
+		return this.dummy_chosenInstances;
 	}
-
 	/**
 	 * @returns the services which are being used
 	 */
 	public activatedService(): BehaviorSubject<string[]> {
-		return this.chosenServices;
+		return this.dummy_chosenServices;
 	}
+
 	/**
 	 * @param instanceOrStatus 
 	 * @returns if the current instance/service is activated (for the filter) then return true
 	 */
 	public isActivated(instanceOrStatus: string): boolean {
-		if (this.chosenServices.getValue().includes(instanceOrStatus) || this.chosenInstances.getValue().includes(instanceOrStatus)) {
-			return true;
-		}
-		return false;
+		return (this.chosenServices.getValue().includes(instanceOrStatus) || this.chosenInstances.getValue().includes(instanceOrStatus))
+	}
+	/**
+	 * @param instanceOrStatus 
+	 * @returns if the current instance/service is activated (for the filter) then return true
+	 */
+	public isActivatedDummy(instanceOrStatus: string): boolean {
+		return (this.dummy_chosenServices.getValue().includes(instanceOrStatus) || this.dummy_chosenInstances.getValue().includes(instanceOrStatus))
 	}
 
 	/**
@@ -183,43 +264,30 @@ export class FilterService {
 	 * @returns if the current status is running return true
 	 */
 	public isRunningGreen(status: string): boolean {
-		if (Object.values(GREEN).includes(status as GREEN)) {
-			return true;
-		}
-		return false;
+		return (Object.values(GREEN).includes(status as GREEN))
 	}
-
 	/**
 	 * @param status 
 	 * @returns if the current status is one of the equivalents of yellow return true
 	 */
 	public isRunningYellow(status: string): boolean {
-		if (Object.values(YELLOW).includes(status as YELLOW)) {
-			return true;
-		}
-		return false;
+		return (Object.values(YELLOW).includes(status as YELLOW))
 	}
-
 	/**
 	 * @param status 
 	 * @returns if the current status is one of the equivalents of red return true
 	 */
 	public isRunningRed(status: string): boolean {
-		if (Object.values(RED).includes(status as RED)) {
-			return true;
-		}
-		return false;
+		return (Object.values(RED).includes(status as RED))
 	}
 	/**
 	 * @param status 
 	 * @returns if the current status is one of the equivalents of red return true
 	 */
-	public isRunningOnline(status: string): boolean {
-		if (Object.values(BLACK).includes(status as BLACK)) {
-			return false;
-		}
-		return true;
+	public isRunningOffline(status: string): boolean {
+		return (Object.values(BLACK).includes(status as BLACK))
 	}
+
 	public setWorstStatusArr(): void {
 		this.worstStatusArr = []
 		for (const instance of this.filteredInstances) {
@@ -249,6 +317,7 @@ export class FilterService {
 		}
 		return status[id];
 	}
+
 	/**
 	 * @param instance 
 	 * @returns the worst status from instance (error>slow>fast>offline)
@@ -274,6 +343,7 @@ export class FilterService {
 		}
 		return status[id];
 	}
+
 	/**
 	 * fill filteredInstances and filteredInstancesSubject only with the (in the Filter activated) instances
 	 */
@@ -285,10 +355,6 @@ export class FilterService {
 		}
 
 		this.filteredInstancesSubject.next(this.filteredInstances)
-	}
-
-	public getFilterInst(): BehaviorSubject<RealInstance[]> {
-		return this.filteredInstancesSubject
 	}
 
 	/**
@@ -322,5 +388,8 @@ export class FilterService {
 
 	public setComesFromService(boo: boolean): void {
 		this.comesFromService = boo;
+	}
+	public setComesFromInstanzen(boo: boolean): void {
+		this.comesFromInstanzen = boo;
 	}
 }

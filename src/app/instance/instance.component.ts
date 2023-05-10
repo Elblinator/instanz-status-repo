@@ -39,6 +39,7 @@ export class InstanceComponent implements OnInit {
 		})
 
 		this.filterService.setComesFromService(false);
+		this.filterService.setComesFromInstanzen(true);
 	}
 
 	protected openFilterDialog(): void {
