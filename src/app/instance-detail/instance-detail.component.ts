@@ -21,7 +21,7 @@ export class InstanceDetailComponent implements OnInit {
 	protected instancesObservable: Observable<RealInstance[]> | undefined;
 
 	/** additional restart groups */
-	protected InstanceGruppen: string[] = ["backEnd", "irgendeine Gruppe"];
+	protected instanceGruppen: string[] = ["backEnd", "irgendeine Gruppe"];
 	/** current instance name */
 	private name = String(this.route.snapshot.paramMap.get('name'));
 

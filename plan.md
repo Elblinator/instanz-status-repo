@@ -1,6 +1,13 @@
 
 
 # next Job:
+ - link color to black
+ - tiles-instanz:
+        - the left-hand-side the background colour, the other background-color back to white
+        - dot infront of '...' services, or dot instead of '...'
+ - asking martin for nicer colours
+ - instanz-details in chips (mat-basic-chips)
+ - in instanz-page: displayed services in chips?
  - Farb Bar in instanz-detail?
  - dummy_chosenInstance/dummy_chosenService is presented wonkily -> needs 'resetting'
  - filter-dialog -> fix footer at bottom; make that tab enter deactivates the current instance/service
@@ -26,9 +33,6 @@
  - Kalender Funktion, first try Nextcloud
  - (./agenda ssh-key zugriff, darf ich soll ich?)
 
-  # needs fixing:
- - if a instanz is selected while filtering, the name needs to be directly clicked on, the general area will disply the Instanz's name but not go to the wanted page
-
  # Log (backend):
  - Hinzufügen Log wer war überhaupt da
  - Log wer hat etwas an den Instanzen verändert (?)
@@ -38,4 +42,3 @@
  - neustart vorschlag für 'optimale Handlung'
  - Bei wahl von Neustart Warnung was die Konsequenzen sein können, länge, dauer, neuanmelden, wirklich ALLES neustarten etc.
  - Neustart von bestimmten Services -> key word ein ganzer Service
- - Also Cluster von Services (e.g. whole backendish)

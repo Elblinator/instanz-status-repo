@@ -13,6 +13,25 @@
 			<span *ngIf="!isRunningOffline(inst.status)">
 				<ng-container>
 					<table>
+						<ng-container *ngFor="let instan of instanceGruppen">
+							<tr>
+								<td>
+									{{instan}}:
+								</td>
+								<td>
+									<button type="button" (click)="openWarnDialog(instan)">
+										<mat-icon aria-label="restart-button">
+											<img class="img-responsive" src="assets/img/change_circle.svg"
+												height="25">
+										</mat-icon>
+									</button>
+								</td>
+							</tr>
+						</ng-container>
+					</table>
+				</ng-container>
+				<ng-container>
+					<table>
 						<ng-container *ngFor="let service of inst.services">
 							<tr>
 								<td>
@@ -36,24 +55,12 @@
 									{{service.name}}
 								</td>
 								<td>
-									<button class="neustart-button" type="button"
-										(click)="openWarnDialog(service.name)">{{"Neustart"|translate}}</button>
-								</td>
-							</tr>
-							<br>
-						</ng-container>
-					</table>
-				</ng-container>
-				<ng-container>
-					<table>
-						<ng-container *ngFor="let instan of InstanceGruppen">
-							<tr>
-								<td>
-									{{instan}}:
-								</td>
-								<td>
-									<button type="button"
-										(click)="openWarnDialog(instan)">{{"Neustart"|translate}}</button>
+									<button type="button" (click)="openWarnDialog(service.name)">
+										<mat-icon aria-label="restart-button">
+											<img class="img-responsive" src="assets/img/change_circle.svg"
+												height="25">
+										</mat-icon>
+									</button>
 								</td>
 							</tr>
 						</ng-container>

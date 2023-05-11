@@ -1,7 +1,8 @@
 <main>
     <!----------------------------->
+
     <body>
-        <ng-container #offlineInfo>
+        <div #offlineInfo>
             <h2>{{"Status der Services"|translate}}</h2>
             <!-- Bar Content -->
             <table class="bar-table">
@@ -15,33 +16,30 @@
                 </tr>
             </table>
             <!-- Table Content -->
-            <ng-container *ngIf="isLoggedIn()">
-                <ng-container *ngIf="arrSimpleService">
-                    <table>
-                        <thead>
+            <ng-container *ngIf="isLoggedIn() && arrSimpleService">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="left" scope="col">{{"Status"|translate}}</th>
+                            <th class="middle" scope="col">{{"Prozent %"|translate}}</th>
+                            <th class="right" scope="col">{{"Farbe"|translate}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let NbOfArray of arrSimpleService|async; let i1=index">
                             <tr>
-                                <th class="left" scope="col">{{"Status"|translate}}</th>
-                                <th class="middle" scope="col">{{"Prozent %"|translate}}</th>
-                                <th class="right" scope="col">{{"Farbe"|translate}}</th>
+                                <td class="left">{{listStatus[i1]}}</td>
+                                <td class="middle">{{NbOfArray}}</td>
+                                <td class="square_{{listStatus[i1]}} right square"></td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <ng-container *ngFor="let NbOfArray of arrSimpleService|async; let i1=index">
-                                <tr>
-                                    <td class="left">{{listStatus[i1]}}</td>
-                                    <td class="middle">{{NbOfArray}}</td>
-                                    <td class="square_{{listStatus[i1]}} right square"></td>
-                                </tr>
-                            </ng-container>
-                        </tbody>
-                    </table>
-                </ng-container>
+                        </ng-container>
+                    </tbody>
+                </table>
             </ng-container>
 
-        </ng-container>
-        <!-- On/Off Trennung -->
-        <ng-container #onlineInfo *ngIf="isLoggedIn() && arrSimpleOnline">
-
+        </div>
+        <!-- On/Off Trennung -------------------------->
+        <div #onlineInfo *ngIf="isLoggedIn() && arrSimpleOnline">
             <h2>{{"Laufende Instanzen"|translate}} On/Off</h2>
             <!-- Bar Content -->
             <table class="bar-table">
@@ -70,6 +68,6 @@
                     </tr>
                 </tbody>
             </table>
-        </ng-container>
+        </div>
     </body>
 </main>
