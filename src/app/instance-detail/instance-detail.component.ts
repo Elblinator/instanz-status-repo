@@ -80,5 +80,9 @@ export class InstanceDetailComponent implements OnInit {
 	protected isRunningOffline(status: string): boolean {
 		return this.filterService.isRunningOffline(status);
 	}
+
+	protected print() {
+		console.log('I need to know which groups are in here and with that knowledge I need to calculate the worst status')
+	}
 }
 

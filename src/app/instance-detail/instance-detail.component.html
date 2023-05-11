@@ -5,65 +5,64 @@
 		</form>
 	</header>
 
-	<body>
+	<body class="content">
 		<span *ngFor="let inst of (instancesObservable|async)">
-			<h2>{{"Instanz"|translate}}: {{inst.name | uppercase}}
-				<button type="button" (click)="openWarnDialog('all')">{{"Neustart"|translate}}</button>
+			<h2>{{inst.name | uppercase}}
+				<button type="button" class="neustart-button" (click)="openWarnDialog('all')">
+					<mat-icon aria-label="restart-button">
+						<img class="img-responsive" src="assets/img/change_circle.svg" height="25">
+					</mat-icon>
+				</button>
 			</h2>
 			<span *ngIf="!isRunningOffline(inst.status)">
 				<ng-container>
 					<table>
-						<ng-container *ngFor="let instan of instanceGruppen">
-							<tr>
-								<td>
-									{{instan}}:
-								</td>
-								<td>
-									<button type="button" (click)="openWarnDialog(instan)">
-										<mat-icon aria-label="restart-button">
-											<img class="img-responsive" src="assets/img/change_circle.svg"
-												height="25">
-										</mat-icon>
-									</button>
-								</td>
-							</tr>
-						</ng-container>
-					</table>
-				</ng-container>
-				<ng-container>
-					<table>
-						<ng-container *ngFor="let service of inst.services">
-							<tr>
-								<td>
-									<span *ngIf="isRunningGreen(service.status)">
-										<ng-container [ngSwitch]="service.status">
-											<canvas class="dot_running"> </canvas>
-										</ng-container>
-									</span>
-									<span *ngIf="isRunningYellow(service.status)">
-										<ng-container [ngSwitch]="service.status">
-											<canvas class="dot_slow"> </canvas>
-										</ng-container>
-									</span>
-									<span *ngIf="isRunningRed(service.status)">
-										<ng-container [ngSwitch]="service.status">
-											<canvas class="dot_error"> </canvas>
-										</ng-container>
-									</span>
-								</td>
-								<td>
-									{{service.name}}
-								</td>
-								<td>
-									<button type="button" (click)="openWarnDialog(service.name)">
-										<mat-icon aria-label="restart-button">
-											<img class="img-responsive" src="assets/img/change_circle.svg"
-												height="25">
-										</mat-icon>
-									</button>
-								</td>
-							</tr>
-						</ng-container>
+						<tr *ngFor="let instan of instanceGruppen">
+							<td>
+								<button class="dummy_style" (click)="print()">
+									<canvas class="dot_dummy"> </canvas>
+								</button>
+							</td>
+							<td>
+								{{instan}}:
+							</td>
+							<td>
+								<button type="button" class="neustart-button" (click)="openWarnDialog(instan)">
+									<mat-icon aria-label="restart-button">
+										<img class="img-responsive" src="assets/img/change_circle.svg" height="25">
+									</mat-icon>
+								</button>
+							</td>
+						</tr>
+						<tr *ngFor="let service of inst.services">
+							<td>
+								<span *ngIf="isRunningGreen(service.status)">
+									<ng-container [ngSwitch]="service.status">
+										<canvas class="dot_running"> </canvas>
+									</ng-container>
+								</span>
+								<span *ngIf="isRunningYellow(service.status)">
+									<ng-container [ngSwitch]="service.status">
+										<canvas class="dot_slow"> </canvas>
+									</ng-container>
+								</span>
+								<span *ngIf="isRunningRed(service.status)">
+									<ng-container [ngSwitch]="service.status">
+										<canvas class="dot_error"> </canvas>
+									</ng-container>
+								</span>
+							</td>
+							<td>
+								{{service.name}}
+							</td>
+							<td>
+								<button class="neustart-button" type="button" (click)="openWarnDialog(service.name)">
+									<mat-icon aria-label="restart-button">
+										<img class="img-responsive" src="assets/img/change_circle.svg" height="25">
+									</mat-icon>
+								</button>
+							</td>
+						</tr>
 					</table>
 				</ng-container>
 			</span>
