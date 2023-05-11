@@ -29,6 +29,9 @@ export class FilterComponent {
 	protected fast = true;
 	protected slow = true;
 	protected error = true;
+	protected allInst = true;
+	protected allServ = true;
+
 
 
 	constructor(
@@ -80,8 +83,14 @@ export class FilterComponent {
 	protected deactivateAllInst(): void {
 		this.filterService.setDummyFilter([this._formBuilder.group(Object.fromEntries(this.instances.getValue().map(e => [e, false]))), this.serv]);
 	}
+	protected switchAllInst(): void {
+		this.filterService.setDummyFilter([this._formBuilder.group(Object.fromEntries(this.instances.getValue().map(e => [e, this.allInst]))), this.serv]);
+	}
 	protected deactivateAllServ(): void {
 		this.filterService.setDummyFilter([this.inst, this._formBuilder.group(Object.fromEntries(this.services.getValue().map(e => [e, false])))]);
+	}
+	protected switchAllServ(): void {
+		this.filterService.setDummyFilter([this.inst, this._formBuilder.group(Object.fromEntries(this.services.getValue().map(e => [e, this.allServ])))]);
 	}
 
 	protected switchOffline(): void {

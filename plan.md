@@ -1,7 +1,6 @@
 
 
 # next Job:
- - moving from instanz-detail to instanz-detail -> filter saves the name of the instance (it shouldn't do that)
  - Farb Bar in instanz-detail?
  - dummy_chosenInstance/dummy_chosenService is presented wonkily -> needs 'resetting'
  - filter-dialog -> fix footer at bottom; make that tab enter deactivates the current instance/service

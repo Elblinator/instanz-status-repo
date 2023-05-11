@@ -10,7 +10,7 @@
 			<h2>{{"Instanz"|translate}}: {{inst.name | uppercase}}
 				<button type="button" (click)="openWarnDialog('all')">{{"Neustart"|translate}}</button>
 			</h2>
-			<span *ngIf="isRunningOffline(inst.status)">
+			<span *ngIf="!isRunningOffline(inst.status)">
 				<div>
 					<table>
 						<ng-container *ngFor="let service of inst.services">
@@ -58,7 +58,7 @@
 					</ng-container>
 				</table>
 			</span>
-			<span *ngIf="!isRunningOffline(inst.status)">
+			<span *ngIf="isRunningOffline(inst.status)">
 				<h3>{{"Diese Instanz ist offline"|translate}} </h3>
 			</span>
 		</span>

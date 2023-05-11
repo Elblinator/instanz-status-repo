@@ -4,6 +4,7 @@ export const WARNING: Warning[] = [
     //Gruppen-Services//
     //----------------------------/
     {
+        //services: jede einzelnes Service
         service: "all",
         warn: "Alles. Willst du wirklich alles neustarten?"
     },

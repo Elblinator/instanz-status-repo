@@ -5,16 +5,11 @@
 		<mat-card-content class="card-content">
 			<h1>
 				{{"Mögliche Instanzen"|translate}}
-				<mat-radio-group color="primary">
-					<mat-radio-button value="1" (click)="deactivateAllInst()">
-						{{'Deaktiviere alle Instanzen'|translate}}
-					</mat-radio-button>
-					<mat-radio-button value="2" (click)="activateAllInst()">
-						{{'Aktiviere alle Instanzen'|translate}}
-					</mat-radio-button>
-				</mat-radio-group>
+				<mat-checkbox color="primary" [(ngModel)]="allInst" (click)="switchAllInst()">
+					{{'Aktiviere/Deaktiviere alle Instanzen'|translate}}
+				</mat-checkbox>
 			</h1>
-			<div *ngIf="comesFromInstanzen">
+			<div >
 				<span>{{"Zeige an: "|translate}}</span>
 				<mat-checkbox color="primary"[(ngModel)]="offline" (click)="switchOffline()">
 					{{'Offline'|translate}}
@@ -40,14 +35,10 @@
 		<mat-card-content class="card-content" *ngIf="comesFromService">
 			<h1>
 				{{"Mögliche Services"|translate}}
-				<mat-radio-group color="primary">
-				<mat-radio-button value="1" (click)="deactivateAllServ()">
-					{{'Deaktiviere alle Services'|translate}}
-				</mat-radio-button>
-				<mat-radio-button value="2" (click)="activateAllServ()">
-					{{'Aktiviere alle Services'|translate}}
-				</mat-radio-button>
-			</mat-radio-group></h1>
+				<mat-checkbox color="primary" [(ngModel)]="allServ" (click)="switchAllServ()">
+					{{'Aktiviere/Deaktiviere alle Services'|translate}}
+				</mat-checkbox>
+			</h1>
 			<app-grid>
 				<app-tile [formGroup]="serv" class="example-section" *ngFor="let service of services|async">
 					<p><mat-checkbox color="primary" formControlName="{{service}}">{{service}}</mat-checkbox></p>
