@@ -11,13 +11,14 @@ import { WarnService } from '../warn.service';
 export class WarnComponent {
 	service = "";
 	warn = "";
+	hint = "";
 
 	constructor(
 		private warnService: WarnService,
 		private ngZone: NgZone,
 		private cd: ChangeDetectorRef
 	) {
-		[this.service, this.warn] = this.warnService.getServiceAndMsg()
+		[this.service, this.warn, this.hint] = this.warnService.getServiceAndMsg()
 	}
 	/**
 	 * this function is supposed to restart this.service, 

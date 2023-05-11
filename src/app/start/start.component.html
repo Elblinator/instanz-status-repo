@@ -1,7 +1,7 @@
 <main>
     <!----------------------------->
     <body>
-        <div #offlineInfo>
+        <ng-container #offlineInfo>
             <h2>{{"Status der Services"|translate}}</h2>
             <!-- Bar Content -->
             <table class="bar-table">
@@ -15,8 +15,8 @@
                 </tr>
             </table>
             <!-- Table Content -->
-            <div *ngIf="isLoggedIn()">
-                <div *ngIf="arrSimpleService">
+            <ng-container *ngIf="isLoggedIn()">
+                <ng-container *ngIf="arrSimpleService">
                     <table>
                         <thead>
                             <tr>
@@ -35,12 +35,12 @@
                             </ng-container>
                         </tbody>
                     </table>
-                </div>
-            </div>
+                </ng-container>
+            </ng-container>
 
-        </div>
+        </ng-container>
         <!-- On/Off Trennung -->
-        <div #onlineInfo *ngIf="isLoggedIn() && arrSimpleOnline">
+        <ng-container #onlineInfo *ngIf="isLoggedIn() && arrSimpleOnline">
 
             <h2>{{"Laufende Instanzen"|translate}} On/Off</h2>
             <!-- Bar Content -->
@@ -70,6 +70,6 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </ng-container>
     </body>
 </main>

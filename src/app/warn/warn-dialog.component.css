@@ -23,3 +23,8 @@ h1, h2 {
 	text-align: center;
 	color:red!important;
 }
+
+section {
+	margin-bottom: 8px;
+	border-bottom: 1px solid lightslategray;
+}

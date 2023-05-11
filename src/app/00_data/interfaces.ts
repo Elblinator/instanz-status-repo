@@ -39,6 +39,7 @@ export interface DialogData {
 export interface Warning {
 	service: string;
 	warn: string;
+	hint: string;
 }
 export function isStatus(name: Status[]): name is Status[] {
 	return (name as Status[]) !== undefined;

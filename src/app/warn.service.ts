@@ -7,6 +7,7 @@ import { WARNING } from './00_data/warn-text';
 export class WarnService {
 	private service = "";
 	private warn = "";
+	private hint = "";
 
 	/* gets called with a service, 
 	*  this.service is being updated
@@ -17,6 +18,7 @@ export class WarnService {
 		WARNING.forEach(element => {
 			if (element.service === service) {
 				this.warn = element.warn;
+				this.hint = element.hint;
 			}
 		})
 	}
@@ -24,7 +26,7 @@ export class WarnService {
 	  return the service and warning which were set earlier
 	*/
 	public getServiceAndMsg(): string[] {
-		return ([this.service, this.warn]);
+		return ([this.service, this.warn, this.hint]);
 	}
 }
 

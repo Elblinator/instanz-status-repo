@@ -60,6 +60,7 @@ export class FilterComponent {
 
 	/**
 	 * activate only selected filter 
+	 * !! also activates the actual presented instances and services and not the dummies for the filter-presentation
 	 */
 	protected setFilter() {
 		this.filterService.setFilter([this.inst, this.serv]);
@@ -74,34 +75,50 @@ export class FilterComponent {
 		return ''
 	}
 
-	protected activateAllInst(): void {
-		this.filterService.setDummyFilter([this._formBuilder.group(Object.fromEntries(this.instances.getValue().map(e => [e, true]))), this.serv]);
-	}
-	protected activateAllServ(): void {
-		this.filterService.setDummyFilter([this.inst, this._formBuilder.group(Object.fromEntries(this.services.getValue().map(e => [e, true])))]);
-	}
-	protected deactivateAllInst(): void {
-		this.filterService.setDummyFilter([this._formBuilder.group(Object.fromEntries(this.instances.getValue().map(e => [e, false]))), this.serv]);
-	}
+	/** deactivate/activate all Instances 
+	 * the status quo from services (which are already actived/deactivated) is: this.serv in [(...), this.serv]
+	 * which way to switch to (active/deactive) controlled by boolean: this.allInst
+	*/
 	protected switchAllInst(): void {
 		this.filterService.setDummyFilter([this._formBuilder.group(Object.fromEntries(this.instances.getValue().map(e => [e, this.allInst]))), this.serv]);
 	}
-	protected deactivateAllServ(): void {
-		this.filterService.setDummyFilter([this.inst, this._formBuilder.group(Object.fromEntries(this.services.getValue().map(e => [e, false])))]);
-	}
+	/** deactivate/activate all Services 
+	 * the status quo from instances (which are already actived/deactivated) is: this.inst in [this.inst, (...)]
+	 * which way to switch to (active/deactive) controlled by boolean: this.allServ
+	*/
 	protected switchAllServ(): void {
 		this.filterService.setDummyFilter([this.inst, this._formBuilder.group(Object.fromEntries(this.services.getValue().map(e => [e, this.allServ])))]);
 	}
 
+	/** deactivate/activate all offline Instances 
+	 * the status quo (which are already actived/deactivated) is: [this.inst, this.serv]
+	 * which way to switch to (active/deactive) controlled by boolean: this.offline
+	 * indication which group needs switching in the string 'offline
+	*/
 	protected switchOffline(): void {
 		this.filterService.setDummyFilterBox([this.inst, this.serv], this.offline, 'offline');
 	}
+	/** deactivate/activate all fast Instances 
+	 * the status quo (which are already actived/deactivated) is: [this.inst, this.serv]
+	 * which way to switch to (active/deactive) controlled by boolean: this.fast
+	 * indication which group needs switching in the string 'fast
+	*/
 	protected switchFast(): void {
 		this.filterService.setDummyFilterBox([this.inst, this.serv], this.fast, 'fast');
 	}
+	/** deactivate/activate all slow Instances 
+	 * the status quo (which are already actived/deactivated) is: [this.inst, this.serv]
+	 * which way to switch to (active/deactive) controlled by boolean: this.slow
+	 * indication which group needs switching in the string 'slow
+	*/
 	protected switchSlow(): void {
 		this.filterService.setDummyFilterBox([this.inst, this.serv], this.slow, 'slow');
 	}
+	/** deactivate/activate all error Instances 
+	 * the status quo (which are already actived/deactivated) is: [this.inst, this.serv]
+	 * which way to switch to (active/deactive) controlled by boolean: this.error
+	 * indication which group needs switching in the string 'error
+	*/
 	protected switchError(): void {
 		this.filterService.setDummyFilterBox([this.inst, this.serv], this.error, 'error');
 	}

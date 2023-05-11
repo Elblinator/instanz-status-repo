@@ -32,7 +32,7 @@
 							{{"Langsame Services:"|translate}}
 							<ul *ngFor="let service of instance.services">
 								<li *ngIf="isRunningYellow(service.status)">
-									<div>{{service.name}}</div>
+									<ng-container>{{service.name}}</ng-container>
 								</li>
 							</ul>
 						</ng-container>
@@ -40,14 +40,14 @@
 							{{"Error Services:"|translate}}
 							<ul *ngFor="let service of instance.services">
 								<li *ngIf="isRunningRed(service.status)">
-									<div>{{service.name}}</div>
+									<ng-container>{{service.name}}</ng-container>
 								</li>
 							</ul>
 							<ng-container *ngIf="isRunningYellow(getStatus(instance))">
 								{{"Langsame Services:"|translate}}
 								<ul *ngFor="let service of instance.services">
 									<li *ngIf="isRunningYellow(service.status)">
-										<div>{{service.name}}</div>
+										<ng-container>{{service.name}}</ng-container>
 									</li>
 								</ul>
 							</ng-container>

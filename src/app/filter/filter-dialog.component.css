@@ -1,3 +1,4 @@
+
 button {
 	margin-right: 8px;
 	margin-left: 8px;
@@ -14,7 +15,7 @@ button:hover {
 	align-items: center;
 }
 
-body {
+main {
 	display: flex;
 	flex-direction: column;
 	height: 720px;
@@ -36,10 +37,10 @@ p>mat-checkbox {
 	line-break: anywhere;
 }
 
-/* footer {
-	position: absolute;
+footer {
+	/* position:relative; */
 	left: 0;
 	bottom: 0;
 	width: 100%;
 	text-align: center;
-} */
+}

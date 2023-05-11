@@ -11,7 +11,7 @@
 				<button type="button" (click)="openWarnDialog('all')">{{"Neustart"|translate}}</button>
 			</h2>
 			<span *ngIf="!isRunningOffline(inst.status)">
-				<div>
+				<ng-container>
 					<table>
 						<ng-container *ngFor="let service of inst.services">
 							<tr>
@@ -43,64 +43,27 @@
 							<br>
 						</ng-container>
 					</table>
-				</div>
-				<table>
-					<ng-container *ngFor="let instan of InstanceGruppen">
-						<tr>
-							<td>
-								{{instan}}:
-							</td>
-							<td>
-								<button type="button" (click)="openWarnDialog(instan)">{{"Neustart"|translate}}</button>
-							</td>
-
-						</tr>
-					</ng-container>
-				</table>
+				</ng-container>
+				<ng-container>
+					<table>
+						<ng-container *ngFor="let instan of InstanceGruppen">
+							<tr>
+								<td>
+									{{instan}}:
+								</td>
+								<td>
+									<button type="button"
+										(click)="openWarnDialog(instan)">{{"Neustart"|translate}}</button>
+								</td>
+							</tr>
+						</ng-container>
+					</table>
+				</ng-container>
 			</span>
 			<span *ngIf="isRunningOffline(inst.status)">
 				<h3>{{"Diese Instanz ist offline"|translate}} </h3>
 			</span>
 		</span>
-		<!-- <div *ngIf="instance">
-			<h2>{{"Instanz"|translate}}: {{instance.name | uppercase}}
-				<button type="button" (click)="openWarnDialog('all')">{{"Neustart"|translate}}</button>
-			</h2>
-			<div>
-				<table>
-					<ng-container *ngFor="let service of instance.services">
-						<tr>
-							<td>
-								<ng-container [ngSwitch]="service.status">
-									<canvas class="dot_{{service.status}}"> </canvas>
-								</ng-container>
-							</td>
-							<td>
-								{{service.name}}
-							</td>
-							<td>
-								<button class="neustart-button" type="button"
-									(click)="openWarnDialog(service.name)">{{"Neustart"|translate}}</button>
-							</td>
-						</tr>
-						<br>
-					</ng-container>
-				</table>
-			</div>
-			<table>
-				<ng-container *ngFor="let instan of InstanceGruppen">
-					<tr>
-						<td>
-							{{instan}}:
-						</td>
-						<td>
-							<button type="button" (click)="openWarnDialog(instan)">{{"Neustart"|translate}}</button>
-						</td>
-
-					</tr>
-				</ng-container>
-			</table>
-		</div> -->
 	</body>
 
 	<footer>
