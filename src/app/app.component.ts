@@ -49,7 +49,17 @@ export class AppComponent implements OnInit {
 		// }, 300000)
 		'dummy text'
 	}
-	protected isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+	protected isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Small)
+		.pipe(
+			map(result => result.matches),
+			shareReplay()
+		);
+	protected isHandset2$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.XSmall)
+		.pipe(
+			map(result => result.matches),
+			shareReplay()
+		); 
+	protected isHandset3$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
 		.pipe(
 			map(result => result.matches),
 			shareReplay()

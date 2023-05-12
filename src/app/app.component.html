@@ -7,7 +7,7 @@
 	<mat-sidenav-container class="side-bar">
 		<mat-sidenav #drawer class="sidenav" fixedInViewport
 			[attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
-			[opened]="(isHandset$ | async) === false">
+			[opened]="((isHandset$ | async)||(isHandset2$ | async)) === false">
 			<mat-toolbar>
 				<img class="img-responsive" src="assets/img/openslides-logo.svg" height="30px">
 			</mat-toolbar>
@@ -25,7 +25,7 @@
 				<mat-toolbar color="primary" class="light-head">
 					<mat-toolbar-row>
 						<button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
-							*ngIf="isHandset$ | async">
+							*ngIf="(isHandset$ | async)||(isHandset2$ | async) ">
 							<mat-icon aria-label="Side nav toggle icon">
 								<img class="img-responsive" src="assets/img/menu_black_24dp.svg" height="30">
 							</mat-icon>
@@ -52,7 +52,7 @@
 			<div class="first-header">
 				<mat-toolbar color="top" class="dark-head"></mat-toolbar>
 				<mat-toolbar color="primary" class="light-head">
-					<mat-toolbar-row>
+					<mat-toolbar-row class="head">
 						<span>
 							<img class="img-responsive" src="assets/img/openslides-logo.svg" height="30px">
 						</span>
