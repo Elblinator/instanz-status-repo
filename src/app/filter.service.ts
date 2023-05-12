@@ -186,7 +186,7 @@ export class FilterService {
 		const currentList: string[] = [];
 		let curInst = '';
 		let a: (b: string) => boolean;
-		if (this.isRunningOffline(str)) {
+		if (this.isRunningOffline(str) || str === 'online') {
 			a = this.isRunningOffline;
 		} else if (this.isRunningGreen(str)) {
 			a = this.isRunningGreen;
@@ -200,17 +200,30 @@ export class FilterService {
 			this.setInst(map[0])
 			// dependend on on/off we need to look at a different status
 			curInst = this.currentInstance.status;
-			if (!this.isRunningOffline(str)) {
-				curInst = this.getStatus(this.currentInstance)
-			}
-			if (a(str)) {
-				if (!a(curInst)) {
+			if (str === 'online') {
+				if (a(curInst)) {
 					if (map[1]) {
 						currentList.push(map[0]);
 					}
 				} else {
 					if (boo) {
 						currentList.push(map[0]);
+					}
+				}
+
+			} else {
+				if (!this.isRunningOffline(str)) {
+					curInst = this.getStatus(this.currentInstance)
+				}
+				if (a(str)) {
+					if (!a(curInst)) {
+						if (map[1]) {
+							currentList.push(map[0]);
+						}
+					} else {
+						if (boo) {
+							currentList.push(map[0]);
+						}
 					}
 				}
 			}

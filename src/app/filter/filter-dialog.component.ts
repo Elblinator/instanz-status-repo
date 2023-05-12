@@ -25,11 +25,12 @@ export class FilterComponent {
 	protected comesFromService = false;
 	protected comesFromInstanzen = false;
 
-	protected offline = true;
-	protected fast = true;
+	protected offline = false;
+	protected online = false;
+	protected fast = false;
 	protected slow = true;
 	protected error = true;
-	protected allInst = true;
+	protected allInst = false;
 	protected allServ = true;
 
 
@@ -56,6 +57,7 @@ export class FilterComponent {
 		this.filterService.activatedService().subscribe(() => {
 			this.serv = this._formBuilder.group(Object.fromEntries(this.services.getValue().map(e => [e, (this.filterService.isActivatedDummy(e))])));
 		})
+		this.initiate();
 	}
 
 	/**
@@ -75,12 +77,21 @@ export class FilterComponent {
 		return ''
 	}
 
+	private initiate(): void {
+		this.switchFast();
+		this.switchOffline();
+		this.switchSlow();
+		this.switchError();
+		this.setFilter();
+	}
+
 	/** deactivate/activate all Instances 
 	 * the status quo from services (which are already actived/deactivated) is: this.serv in [(...), this.serv]
 	 * which way to switch to (active/deactive) controlled by boolean: this.allInst
 	*/
 	protected switchAllInst(): void {
 		this.filterService.setDummyFilter([this._formBuilder.group(Object.fromEntries(this.instances.getValue().map(e => [e, this.allInst]))), this.serv]);
+		this.switchBooleans()
 	}
 	/** deactivate/activate all Services 
 	 * the status quo from instances (which are already actived/deactivated) is: this.inst in [this.inst, (...)]
@@ -97,6 +108,14 @@ export class FilterComponent {
 	*/
 	protected switchOffline(): void {
 		this.filterService.setDummyFilterBox([this.inst, this.serv], this.offline, 'offline');
+	}
+	/** deactivate/activate all offline Instances 
+	 * the status quo (which are already actived/deactivated) is: [this.inst, this.serv]
+	 * which way to switch to (active/deactive) controlled by boolean: this.offline
+	 * indication which group needs switching in the string 'offline
+	*/
+	protected switchOnline(): void {
+		this.filterService.setDummyFilterBox([this.inst, this.serv], this.online, 'online');
 	}
 	/** deactivate/activate all fast Instances 
 	 * the status quo (which are already actived/deactivated) is: [this.inst, this.serv]
@@ -121,5 +140,13 @@ export class FilterComponent {
 	*/
 	protected switchError(): void {
 		this.filterService.setDummyFilterBox([this.inst, this.serv], this.error, 'error');
+	}
+
+	private switchBooleans(): void {
+		this.online = this.allInst;
+		this.offline = this.allInst;
+		this.fast = this.allInst;
+		this.slow = this.allInst;
+		this.error = this.allInst;
 	}
 }

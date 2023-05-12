@@ -6,14 +6,14 @@
 			<h1>
 				{{"Mögliche Instanzen"|translate}}
 				<mat-checkbox color="primary" [(ngModel)]="allInst" (click)="switchAllInst()">
-					{{'Aktiviere/Deaktiviere alle Instanzen'|translate}}
+					{{'Aktiviere alle Instanzen'|translate}}
+				</mat-checkbox>
+				<mat-checkbox color="primary" [(ngModel)]="allInst" (click)="switchAllInst()">
+					{{'Deaktiviere alle Instanzen'|translate}}
 				</mat-checkbox>
 			</h1>
 			<div >
 				<span>{{"Zeige an: "|translate}}</span>
-				<mat-checkbox color="primary"[(ngModel)]="offline" (click)="switchOffline()">
-					{{'Offline'|translate}}
-				</mat-checkbox>
 				<mat-checkbox color="primary"[(ngModel)]="fast" (click)="switchFast()">
 					{{'Schnell'|translate}}
 				</mat-checkbox>
@@ -22,6 +22,12 @@
 				</mat-checkbox>
 				<mat-checkbox color="primary"[(ngModel)]="error" (click)="switchError()">
 					{{'Error'|translate}}
+				</mat-checkbox>
+				<mat-checkbox color="primary"[(ngModel)]="online" (click)="switchOnline()">
+					{{'Online'|translate}}
+				</mat-checkbox>
+				<mat-checkbox color="primary"[(ngModel)]="offline" (click)="switchOffline()">
+					{{'Offline'|translate}}
 				</mat-checkbox>
 			</div>
 			<app-grid>
