@@ -126,7 +126,7 @@ input[text] {
 .dot_running {
 	width: 15px;
 	height: 15px;
-	background-color: green;
+	background-color: #019701;
 	border-radius: 50%;
 	border: 1px solid gray;
 	display: inline-block;
@@ -135,7 +135,7 @@ input[text] {
 .dot_slow2 {
 	width: 15px;
 	height: 15px;
-	background-color: #f7f59c;
+	background-color: #eab102;
 	border-radius: 50%;
 	border: 1px solid gray;
 	display: inline-block;
@@ -145,7 +145,7 @@ input[text] {
 .dot_slow {
 	width: 15px;
 	height: 15px;
-	background-color: yellow;
+	background-color: #eab102;
 	border-radius: 50%;
 	border: 1px solid gray;
 	display: inline-block;
@@ -154,7 +154,7 @@ input[text] {
 .dot_error {
 	width: 15px;
 	height: 15px;
-	background-color: red;
+	background-color: #e80101;
 	border-radius: 50%;
 	border: 1px solid gray;
 	display: inline-block;
@@ -163,7 +163,7 @@ input[text] {
 .dot_offline {
 	width: 15px;
 	height: 15px;
-	background-color: rgb(0, 0, 0);
+	background-color: #151619;
 	border-radius: 50%;
 	display: inline-block;
 }
@@ -180,21 +180,21 @@ input[text] {
 .square_online {
 	width: 1em;
 	height: 1em;
-	background-color: green;
+	background-color: #019701;
 	display: inline-block;
 }
 
 .square_slow {
 	width: 1em;
 	height: 1em;
-	background-color: yellow;
+	background-color: #eab102;
 	display: inline-block;
 }
 
 .square_error {
 	width: 1em;
 	height: 1em;
-	background-color: red;
+	background-color: #e80101;
 	display: inline-block;
 }
 
@@ -202,29 +202,29 @@ input[text] {
 .square_offline {
 	width: 1em;
 	height: 1em;
-	background-color: black;
+	background-color: #151619;
 	display: inline-block;
 }
 
 .colorRunning1 {
 	width: 10em;
-	background-color: black;
+	background-color: #151619;
 }
 
 .colorStatus0,
 .colorRunning0 {
 	width: 10em;
-	background-color: green;
+	background-color: #019701;
 }
 
 .colorStatus1 {
 	width: 10em;
-	background-color: yellow;
+	background-color: #eab102;
 }
 
 .colorStatus2 {
 	width: 10em;
-	background-color: red;
+	background-color: #e80101;
 }
 
 .bar {
@@ -238,7 +238,7 @@ mat-form-field {
 }
 
 header {
-	background-color: white;
+	background-color: #fff;
 	padding-bottom: 3px;
 	margin-bottom: 3px;
 }

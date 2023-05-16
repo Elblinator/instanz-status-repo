@@ -1,6 +1,18 @@
 
 
 # next Job:
+ - service-tiles wie instanzen-tiles
+ - instanz-page ganze tile anklickbar, hover unteschiedlich aussehen
+ - shadow ändern
+ - 'wähle Instanz'/search function gleiche Farbe
+ - 'wähle Instanz' -> 'instanz'
+ - unterstrich Farbänderung, wenn angewählt
+ - Hintergrundfarbe von Instanzen auch weiß -> nur grau wenn hover
+ - buttons:hover grau #efefef
+ - abstände titel tiles (in service-page)
+ - keine liste-punkte (service-page)
+ - Überschrift linksbündig (service-page)
+ - info-messages what which group stands for -> instance-detail-page
  - asking martin for nicer colours
  - instanz-details in chips (mat-basic-chips)
  - Farb Bar in instanz-detail?
@@ -37,3 +49,9 @@
  - neustart vorschlag für 'optimale Handlung'
  - Bei wahl von Neustart Warnung was die Konsequenzen sein können, länge, dauer, neuanmelden, wirklich ALLES neustarten etc.
  - Neustart von bestimmten Services -> key word ein ganzer Service
+
+ black #151619
+ grey #cbc5c2
+ green #019701
+ yellow #eab102
+ red  #e80101

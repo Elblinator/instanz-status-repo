@@ -90,13 +90,9 @@ ul {
 
 
 .backgroundYellow {
-	background-color: #f7f59c !important;
+	background-color: #eab102 !important;
 }
 
 .backgroundRed {
-	background-color: #f39797 !important;
-}
-
-.mat-primary {
-	background-color: #f7f59c;
+	background-color: #e80101 !important;
 }
