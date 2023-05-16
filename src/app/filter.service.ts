@@ -335,6 +335,20 @@ export class FilterService {
 	 * @param instance 
 	 * @returns the worst status from instance (error>slow>fast>offline)
 	 */
+	public getStatusYellow(instance: RealInstance): boolean {
+		let isYellow = false;
+		instance.services.forEach(element => {
+			if (this.isRunningYellow(element.status)) {
+				isYellow = true;
+			}
+		});
+		return isYellow;
+	}
+
+	/**
+	 * @param instance 
+	 * @returns the worst status from instance (error>slow>fast>offline)
+	 */
 	public getBackground(instance: RealInstance): BackgroundPossibilities {
 		const status: BackgroundPossibilities[] = ['backgroundBlack', 'backgroundRed', 'backgroundYellow', 'backgroundGreen', 'backgroundWhite'];
 		//BackgroundPossibilities = 'backgroundGreen' | 'backgroundGreen' | 'backgroundGreen' | 'backgroundBlack' | 'backgroundWhite';

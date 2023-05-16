@@ -15,44 +15,47 @@
 		<app-grid>
 			<app-tile [ngClass]="setInst(instance.name)"
 				*ngFor="let instance of filteredInstancesObservable|async">
-				<span>
-					<mat-nav-list>
-						<a routerLink="/instance/{{instance.name}}">
-							<span class="badge">{{instance.name}}</span>
-						</a>
-					</mat-nav-list>
-					<ng-container *ngIf="instance.status === 'stopped'">
-						<span> {{"Diese Instanz ist offline"|translate }}</span>
-					</ng-container>
-					<ng-container *ngIf="!(instance.status === 'stopped') ">
-						<ng-container *ngIf="isRunningGreen(getStatus(instance))">
-							{{"Alles läuft!"|translate}}
+				<span class="box-tile">
+					<span class="area-left"></span>
+					<span class="area-right">
+						<mat-nav-list>
+							<a routerLink="/instance/{{instance.name}}">
+								<span class="badge">{{instance.name}}</span>
+							</a>
+						</mat-nav-list>
+						<ng-container *ngIf="instance.status === 'stopped'">
+							<span> {{"Diese Instanz ist offline"|translate }}</span>
 						</ng-container>
-						<ng-container *ngIf="isRunningYellow(getStatus(instance))">
-							{{"Langsame Services:"|translate}}
-							<ul *ngFor="let service of instance.services">
-								<li *ngIf="isRunningYellow(service.status)">
-									<ng-container>{{service.name}}</ng-container>
-								</li>
-							</ul>
-						</ng-container>
-						<ng-container *ngIf="isRunningRed(getStatus(instance))">
-							{{"Error Services:"|translate}}
-							<ul *ngFor="let service of instance.services">
-								<li *ngIf="isRunningRed(service.status)">
-									<ng-container>{{service.name}}</ng-container>
-								</li>
-							</ul>
+						<ng-container *ngIf="!(instance.status === 'stopped') ">
+							<ng-container *ngIf="isRunningGreen(getStatus(instance))">
+								{{"Alles läuft!"|translate}}
+							</ng-container>
 							<ng-container *ngIf="isRunningYellow(getStatus(instance))">
-								{{"Langsame Services:"|translate}}
-								<ul *ngFor="let service of instance.services">
-									<li *ngIf="isRunningYellow(service.status)">
-										<ng-container>{{service.name}}</ng-container>
-									</li>
-								</ul>
+								<span>{{"Langsame Services:"|translate}}</span>
+								<mat-list *ngFor="let service of instance.services">
+									<mat-chip-set *ngIf="isRunningYellow(service.status)">
+										<mat-chip class="backgroundYellow" selected> {{service.name}}</mat-chip>
+									</mat-chip-set>
+								</mat-list>
+							</ng-container>
+							<ng-container *ngIf="isRunningRed(getStatus(instance))">
+								<span>{{"Error Services:"|translate}} </span>
+								<mat-list *ngFor="let service of instance.services">
+									<mat-chip-set *ngIf="isRunningRed(service.status)">
+										<mat-chip class="backgroundRed" selected> {{service.name}}</mat-chip>
+									</mat-chip-set>
+								</mat-list>
+								<ng-container *ngIf="getStatusYellow(instance)">
+									<span>{{"Langsame Services:"|translate}}</span>
+									<mat-list *ngFor="let service of instance.services">
+										<mat-chip-set selectable="true" *ngIf="isRunningYellow(service.status)">
+											<mat-chip class="backgroundYellow" selected> {{service.name}}</mat-chip>
+										</mat-chip-set>
+									</mat-list>
+								</ng-container>
 							</ng-container>
 						</ng-container>
-					</ng-container>
+					</span>
 				</span>
 			</app-tile>
 		</app-grid>

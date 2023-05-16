@@ -20,6 +20,7 @@ import { MatListModule } from '@angular/material/list';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { HttpClientModule } from '@angular/common/http';
 import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
+import { MatChipsModule } from '@angular/material/chips';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -58,7 +59,8 @@ import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 		TranslateModule.forRoot(),
 		MatAutocompleteModule,
 		MatInputModule,
-		MatRadioModule
+		MatRadioModule,
+		MatChipsModule
 	],
 	exports: [TranslatePipe],
 	declarations: [

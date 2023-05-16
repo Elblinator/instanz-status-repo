@@ -1,13 +1,8 @@
 
 
 # next Job:
- - link color to black
- - tiles-instanz:
-        - the left-hand-side the background colour, the other background-color back to white
-        - dot infront of '...' services, or dot instead of '...'
  - asking martin for nicer colours
  - instanz-details in chips (mat-basic-chips)
- - in instanz-page: displayed services in chips?
  - Farb Bar in instanz-detail?
  - dummy_chosenInstance/dummy_chosenService is presented wonkily -> needs 'resetting'
  - filter-dialog -> fix footer at bottom; make that tab enter deactivates the current instance/service
@@ -15,7 +10,7 @@
  - make tiles less wonky
  - instances make pretty
  - status make pretty
- - Terminologie menschlich machen
+ - Terminologie menschlich machen (Mit ABS-Team absprechen, die sollen das verwenden)
  - timer
  
 # ui:

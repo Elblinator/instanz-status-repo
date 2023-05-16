@@ -63,6 +63,13 @@ export class InstanceComponent implements OnInit {
 	protected getStatus(instance: RealInstance): string {
 		return this.filterService.getStatus(instance);
 	}
+	/**
+	 * @param instance 
+	 * @returns true if at least one status is slow/yellow
+	 */
+	protected getStatusYellow(instance: RealInstance): boolean {
+		return this.filterService.getStatusYellow(instance);
+	}
 
 	/**
 	 * pushes the pointer currentInstanc onto this instance

@@ -42,6 +42,7 @@ a {
 		padding: 0;
 	}
 }
+
 .content {
 	margin-left: 10px;
 }
@@ -61,7 +62,7 @@ button {
 .dummy_style {
 	background-color: #fafafa;
 	border: none;
-    box-shadow: none;
+	box-shadow: none;
 	border-radius: none;
 	cursor: pointer;
 	font-size: 1.2rem;
@@ -77,6 +78,10 @@ button {
 	letter-spacing: 0em;
 	padding: 0 !important;
 	margin: 0;
+}
+
+.mdc-list {
+	padding: 0 !important;
 }
 
 nav a.active {
@@ -127,6 +132,16 @@ input[text] {
 	display: inline-block;
 }
 
+.dot_slow2 {
+	width: 15px;
+	height: 15px;
+	background-color: #f7f59c;
+	border-radius: 50%;
+	border: 1px solid gray;
+	display: inline-block;
+	margin-right: 4px;
+}
+
 .dot_slow {
 	width: 15px;
 	height: 15px;
@@ -152,6 +167,7 @@ input[text] {
 	border-radius: 50%;
 	display: inline-block;
 }
+
 .dot_dummy {
 	width: 15px;
 	height: 15px;
