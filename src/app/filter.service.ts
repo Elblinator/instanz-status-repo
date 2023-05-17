@@ -351,7 +351,6 @@ export class FilterService {
 	 */
 	public getBackground(instance: RealInstance): BackgroundPossibilities {
 		const status: BackgroundPossibilities[] = ['backgroundBlack', 'backgroundRed', 'backgroundYellow', 'backgroundGreen', 'backgroundWhite'];
-		//BackgroundPossibilities = 'backgroundGreen' | 'backgroundGreen' | 'backgroundGreen' | 'backgroundBlack' | 'backgroundWhite';
 		let id = 4;
 		if (Object.values(BLACK).includes(instance.status as BLACK)) {
 			id = 0;
@@ -405,12 +404,31 @@ export class FilterService {
 		}
 		return this.currentInstanceSubject as Observable<RealInstance>;
 	}
+	
 	/**
 	 * @param name = name from an instance
 	 * saves the searched instance in this.currentInstanceSubject
 	 */
 	public setInstEmpty(): void {
 		this.currentInstance = this.emptyInstance;
+	}
+	/**
+	 * @param name = name from an instance
+	 * saves the searched instance in this.currentInstanceSubject
+	 */
+	public setInstColour(colour: string): void {
+		if (colour === "green") {
+			this.currentInstance = { name: "", status: "", services: [{ name: "", status: "fast"}]};
+		}
+		else if ( colour === "yellow" ) {
+			this.currentInstance = { name: "", status: "", services: [{ name: "", status: "starting"}]};
+		}
+		else if ( colour === "red" ) {
+			this.currentInstance = { name: "", status: "", services: [{ name: "", status: "error"}]};
+		}
+		else {
+			this.currentInstance = { name: "", status: "stopped", services: [{ name: "", status: ""}]};
+		}
 	}
 
 	public setComesFromService(boo: boolean): void {

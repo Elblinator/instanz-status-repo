@@ -68,13 +68,21 @@ export class ServiceComponent implements OnInit {
 	protected isActivated(status: string): boolean {
 		return this.filterService.isActivated(status);
 	}
-	
+
 	/**
 	 * pushes the pointer currentInstanc onto an empty Instance to point to a white background colour
 	 * @returns a placeholder string because ngClass needs a string as return
 	 */
 	protected setInstEmpty(): string {
 		this.filterService.setInstEmpty();
+		return ''
+	}
+	/**
+	 * pushes the pointer currentInstanc onto an empty Instance to point to a white background colour
+	 * @returns a placeholder string because ngClass needs a string as return
+	 */
+	protected setInstColour(colour: string): string {
+		this.filterService.setInstColour(colour);
 		return ''
 	}
 }

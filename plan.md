@@ -2,7 +2,6 @@
 
 # next Job:
  - chips für ausgewählte Filter
- - service-tiles wie instanzen-tiles
  - instanz-page ganze tile anklickbar, hover unteschiedlich aussehen
  - shadow ändern
  - 'wähle Instanz'/search function gleiche Farbe
