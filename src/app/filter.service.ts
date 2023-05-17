@@ -30,7 +30,7 @@ export class FilterService {
 	private dummy_chosenServices: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 
 	/**last watched instance (see instance-detail) */
-	public currentInstanceSubject: BehaviorSubject<(RealInstance[])> = new BehaviorSubject<RealInstance[]>([{ name: "", status: "", services: [{ name: "", status: "" }] }]);
+	public currentInstanceSubject: BehaviorSubject<(RealInstance)> = new BehaviorSubject<RealInstance>({ name: "", status: "", services: [{ name: "", status: "" }] });
 
 	public emptyInstance: RealInstance = { name: "", status: "", services: [] }
 	public currentInstance: RealInstance = { name: "", status: "", services: [{ name: "", status: "" }] }
@@ -398,12 +398,12 @@ export class FilterService {
 	 * @param name = name from an instance
 	 * saves the searched instance in this.currentInstanceSubject
 	 */
-	public setInstSubj(name: string): Observable<RealInstance[]> {
+	public setInstSubj(name: string): Observable<RealInstance> {
 		const a = this.dataService.realInstancesSubject.getValue().find(h => h.name === name);
 		if (!(typeof (a) === 'undefined')) {
-			this.currentInstanceSubject.next([a]);
+			this.currentInstanceSubject.next(a);
 		}
-		return this.currentInstanceSubject as Observable<RealInstance[]>;
+		return this.currentInstanceSubject as Observable<RealInstance>;
 	}
 	/**
 	 * @param name = name from an instance

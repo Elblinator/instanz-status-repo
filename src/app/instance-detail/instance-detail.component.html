@@ -6,7 +6,7 @@
 	</header>
 
 	<body class="content">
-		<span *ngFor="let inst of (instancesObservable|async)">
+		<span *ngIf="instancesObservable|async as inst">
 			<h2>{{inst.name | uppercase}}
 				<button type="button" class="neustart-button" (click)="openWarnDialog('all')">
 					<mat-icon aria-label="restart-button">

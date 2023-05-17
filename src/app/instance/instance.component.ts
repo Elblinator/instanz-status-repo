@@ -7,6 +7,7 @@ import { RealInstance } from '../00_data/interfaces';
 import { FilterComponent } from '../filter/filter-dialog.component';
 
 import { BackgroundPossibilities, FilterService } from '../filter.service';
+import { DataService } from '../data.service';
 
 
 
@@ -27,6 +28,7 @@ export class InstanceComponent implements OnInit {
 
 	constructor(
 		private filterService: FilterService,
+		private dataService: DataService,
 		private dialog: MatDialog,
 		private ref: ChangeDetectorRef
 	) { }
@@ -40,6 +42,8 @@ export class InstanceComponent implements OnInit {
 
 		this.filterService.setComesFromService(false);
 		this.filterService.setComesFromInstanzen(true);
+
+		this.dataService.setTitle("Instanzen");
 	}
 
 	protected openFilterDialog(): void {

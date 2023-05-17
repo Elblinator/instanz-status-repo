@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, NgZone, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { FormControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, map, shareReplay } from 'rxjs';
+import { Observable, delay, map, shareReplay } from 'rxjs';
 
 import { FilterService } from './filter.service';
 import { UserService } from './user.service';
@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
 	protected inputPassword = new FormControl('');
 
 	/////
-	protected title = 'Instanzen';
+	protected titleObs:Observable<string> = this.dataService.getTitleObs();
 	/////
 
 	constructor(
@@ -34,14 +34,20 @@ export class AppComponent implements OnInit {
 		private formBuilder: UntypedFormBuilder,
 		private dataService: DataService,
 		private translate: TranslateService,
-		private ngZone: NgZone
+		private ngZone: NgZone,
+		private cd:ChangeDetectorRef
 	) {
 		translate.addLangs(['en', 'de']);
 		translate.setDefaultLang('de');
 		translate.use('de');
 		this.initiateFilterData();
 		this.loginForm = this.createForm();
+		this.getTitleObs();
+		this.titleObs.pipe(delay(100)).subscribe(() => {
+			this.cd.markForCheck();
+		})
 	}
+
 	ngOnInit() {
 		//setInterval(() => {
 		// this.dataService.updateData();
@@ -49,6 +55,11 @@ export class AppComponent implements OnInit {
 		// }, 300000)
 		'dummy text'
 	}
+
+	private getTitleObs(): void {
+		this.titleObs = this.dataService.getTitleObs();
+	}
+
 	protected isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Small)
 		.pipe(
 			map(result => result.matches),

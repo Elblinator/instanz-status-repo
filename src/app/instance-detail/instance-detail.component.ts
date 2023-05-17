@@ -19,7 +19,7 @@ import { DataService } from '../data.service';
 	styleUrls: ['./instance-detail.component.css']
 })
 export class InstanceDetailComponent implements OnInit {
-	protected instancesObservable: Observable<RealInstance[]> | undefined;
+	protected instancesObservable: Observable<RealInstance> | undefined;
 
 	/** additional restart groups */
 	protected instanceGruppen: string[] = ["backEnd", "irgendeine Gruppe"];
@@ -41,6 +41,7 @@ export class InstanceDetailComponent implements OnInit {
 		this.route.url.subscribe(() => {
 			this.activateInstance()
 		})
+
 	}
 
 	private initialise() {
@@ -54,7 +55,8 @@ export class InstanceDetailComponent implements OnInit {
 	 */
 	private activateInstance(): void {
 		this.name = String(this.route.snapshot.paramMap.get('name'));
-		this.instancesObservable = this.filterService.setInstSubj(this.name);		
+		this.instancesObservable = this.filterService.setInstSubj(this.name);
+		this.dataService.setTitle(this.name);
 	}
 
 	/**

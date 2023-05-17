@@ -8,6 +8,7 @@ import { FilterComponent } from '../filter/filter-dialog.component';
 
 import { StatusService } from '../status.service';
 import { FilterService } from '../filter.service';
+import { DataService } from '../data.service';
 
 
 @Component({
@@ -32,6 +33,7 @@ export class ServiceComponent implements OnInit {
 	constructor(
 		private statusService: StatusService,
 		private filterService: FilterService,
+		private dataService: DataService,
 		private dialog: MatDialog,
 		private ref: ChangeDetectorRef
 	) { }
@@ -50,6 +52,8 @@ export class ServiceComponent implements OnInit {
 
 		this.filterService.setComesFromService(true);
 		this.filterService.setComesFromInstanzen(false);
+
+		this.dataService.setTitle("Service");
 	}
 
 	protected openFilterDialog(): void {

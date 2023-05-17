@@ -30,9 +30,7 @@
 								<img class="img-responsive" src="assets/img/menu_black_24dp.svg" height="30">
 							</mat-icon>
 						</button>
-						<span>
-							<h1>{{title|translate}}</h1>
-						</span>
+						<h1 *ngIf="titleObs|async as title">{{title|translate}}</h1>
 						<span class="example-spacer"></span>
 						<a routerLink="/start">
 							<button type="button" (click)="logout()">{{"abmelden"|translate}}</button>
@@ -59,23 +57,12 @@
 						<span class="example-spacer"></span>
 						<form [formGroup]="loginForm" class="login-container " (ngSubmit)="checkLogin()">
 							<mat-form-field>
-								<input 
-									class="input"
-									id="name" 
-									type="text" 
-									osAutofocus 
-									required
-									[formControl]="inputName"
-									placeholder="{{'Name'|translate}}">
+								<input class="input" id="name" type="text" osAutofocus required
+									[formControl]="inputName" placeholder="{{'Name'|translate}}">
 							</mat-form-field>
 							<mat-form-field>
-								<input 
-									class="input"
-									id="passwort" 
-									type="password"
-									required
-									[formControl]="inputPassword"
-									formControlName="password"
+								<input class="input" id="passwort" type="password" required
+									[formControl]="inputPassword" formControlName="password"
 									placeholder="{{'Passwort'|translate}}">
 							</mat-form-field>
 							<button type="submit" (click)="checkLogin()">{{"anmelden"|translate}}</button>

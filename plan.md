@@ -1,19 +1,17 @@
 
 
 # next Job:
+ - chips für ausgewählte Filter
  - service-tiles wie instanzen-tiles
  - instanz-page ganze tile anklickbar, hover unteschiedlich aussehen
  - shadow ändern
  - 'wähle Instanz'/search function gleiche Farbe
- - 'wähle Instanz' -> 'instanz'
  - unterstrich Farbänderung, wenn angewählt
  - Hintergrundfarbe von Instanzen auch weiß -> nur grau wenn hover
  - buttons:hover grau #efefef
  - abstände titel tiles (in service-page)
- - keine liste-punkte (service-page)
+ - keine liste-punkte in (service-page)
  - Überschrift linksbündig (service-page)
- - info-messages what which group stands for -> instance-detail-page
- - asking martin for nicer colours
  - instanz-details in chips (mat-basic-chips)
  - Farb Bar in instanz-detail?
  - dummy_chosenInstance/dummy_chosenService is presented wonkily -> needs 'resetting'

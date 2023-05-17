@@ -13,8 +13,8 @@ import { DataService } from '../data.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StartComponent implements OnInit {
-	protected listStatus: string[]
-	protected listRunning: string[]
+	protected listStatus: string[] = [];
+	protected listRunning: string[] = [];
 
 	protected arrSimpleService: Observable<number[]> = new Observable<number[]>
 	protected arrSimpleOnline: Observable<number[]> = new Observable<number[]>
@@ -24,12 +24,11 @@ export class StartComponent implements OnInit {
 		private userService: UserService,
 		private sortOnlineService: SortOnlineService,
 		private sortStatusService: SortStatusService
-	) {
-		this.listStatus = this.sortStatusService.listStatus
-		this.listRunning = this.sortOnlineService.listRunning
-	}
+	) {	}
 
 	public ngOnInit(): void {
+		this.listStatus = this.sortStatusService.listStatus
+		this.listRunning = this.sortOnlineService.listRunning
 		this.arrSimpleService = this.sortStatusService.simpleResetCount() as Observable<number[]>;
 		this.arrSimpleOnline = this.sortOnlineService.simpleResetCount() as Observable<number[]>;
 		this.dataService.simpleInstancesSubject.subscribe(() => {
@@ -37,6 +36,7 @@ export class StartComponent implements OnInit {
 			this.updateData();
 		})
 
+		this.dataService.setTitle("Instanzen Übersicht");
 	}
 
 	protected isLoggedIn(): boolean {
