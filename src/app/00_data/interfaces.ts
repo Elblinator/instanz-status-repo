@@ -41,6 +41,10 @@ export interface Warning {
 	warn: string;
 	hint: string;
 }
+export interface Info {
+	group: string;
+	members: string[];
+}
 export function isStatus(name: Status[]): name is Status[] {
 	return (name as Status[]) !== undefined;
 }

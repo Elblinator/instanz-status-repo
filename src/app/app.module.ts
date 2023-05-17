@@ -35,6 +35,7 @@ import { WarnComponent } from './warn/warn-dialog.component';
 import { GridComponent } from './grid/grid/grid.component';
 import { TileComponent } from './grid/tile/tile.component';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
+import { GroupInfoComponent } from './GroupInfo/GroupInfo.component';
 
 
 @NgModule({
@@ -73,7 +74,8 @@ import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 		WarnComponent,
 		GridComponent,
 		TileComponent,
-		AutocompleteComponent
+		AutocompleteComponent,
+		GroupInfoComponent
 	],
 	bootstrap: [AppComponent,],
 	providers: [FilterComponent, ReactiveFormsModule, WarnComponent],

@@ -16,7 +16,7 @@
 			</h2>
 			<span *ngIf="!isRunningOffline(inst.status)">
 				<ng-container>
-					<table>
+					<table class="restart-content">
 						<tr *ngFor="let instan of instanceGruppen">
 							<td>
 								<button class="dummy_style" (click)="print()">
@@ -30,6 +30,13 @@
 								<button type="button" class="neustart-button" (click)="openWarnDialog(instan)">
 									<mat-icon aria-label="restart-button">
 										<img class="img-responsive" src="assets/img/change_circle.svg" height="25">
+									</mat-icon>
+								</button>
+							</td>
+							<td>
+								<button class="info-button" type="button" (click)="openInfoDialog(instan)">
+									<mat-icon aria-label="restart-button">
+										<img class="img-responsive" src="assets/img/info_icon.svg" height="25">
 									</mat-icon>
 								</button>
 							</td>
@@ -72,10 +79,10 @@
 		</span>
 	</body>
 
-	<footer>
+	<!-- <footer>
 		<p>
 			<button type="button" (click)="goBack()">{{"Zurück"|translate}}</button>
 		</p>
-	</footer>
+	</footer> -->
 
 </main>

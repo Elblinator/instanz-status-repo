@@ -1,4 +1,15 @@
-import { Warning } from "./interfaces";
+import { Info, Warning } from "./interfaces";
+
+export const INFO: Info[] = [
+    {
+        group: "backEnd",
+        members: ["backend"]
+    },
+    {
+        group:"irgendeine Gruppe",
+        members: ["Who", "You", "Gonna", "Call?"]
+    }
+]
 
 export const WARNING: Warning[] = [
     //Gruppen-Services//
@@ -10,7 +21,7 @@ export const WARNING: Warning[] = [
         hint: " Das ist die Box für best mögliche Action"
     },
     {
-        service: "backend",
+        service: "backEnd",
         warn: "Das Backend. Willst du wirklich das gesamte backend neustarten?",
         hint: " Das ist die Box für best mögliche Action"
     },
@@ -28,12 +39,17 @@ export const WARNING: Warning[] = [
         hint: " Das ist die Box für best mögliche Action"
     },
     {
-        service: "backend-action",
+        service: "backendAction",
         warn: "das ist ein Test-Text",
         hint: " Das ist die Box für best mögliche Action"
     },
     {
-        service: "backend-presenter",
+        service: "backendPresenter",
+        warn: "das ist ein Test-Text",
+        hint: " Das ist die Box für best mögliche Action"
+    },
+    {
+        service: "backendManage",
         warn: "das ist ein Test-Text",
         hint: " Das ist die Box für best mögliche Action"
     },
@@ -53,12 +69,12 @@ export const WARNING: Warning[] = [
         hint: " Das ist die Box für best mögliche Action"
     },
     {
-        service: "datastore-reader",
+        service: "datastoreReader",
         warn: "das ist ein Test-Text",
         hint: " Das ist die Box für best mögliche Action"
     },
     {
-        service: "datastore-writer",
+        service: "datastoreWriter",
         warn: "das ist ein Test-Text",
         hint: " Das ist die Box für best mögliche Action"
     },
@@ -69,6 +85,21 @@ export const WARNING: Warning[] = [
     },
     {
         service: "media",
+        warn: "das ist ein Test-Text",
+        hint: " Das ist die Box für best mögliche Action"
+    },
+    {
+        service: "manage",
+        warn: "das ist ein Test-Text",
+        hint: " Das ist die Box für best mögliche Action"
+    },
+    {
+        service: "proxy",
+        warn: "das ist ein Test-Text",
+        hint: " Das ist die Box für best mögliche Action"
+    },
+    {
+        service: "redis",
         warn: "das ist ein Test-Text",
         hint: " Das ist die Box für best mögliche Action"
     },

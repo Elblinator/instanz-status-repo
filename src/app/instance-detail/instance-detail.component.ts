@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { RealInstance } from '../00_data/interfaces';
 
 import { WarnComponent } from '../warn/warn-dialog.component';
+import { GroupInfoComponent } from '../GroupInfo/GroupInfo.component';
 
 import { FilterService } from '../filter.service';
 import { WarnService } from '../warn.service';
@@ -66,6 +67,11 @@ export class InstanceDetailComponent implements OnInit {
 	protected openWarnDialog(str: string): void {
 		this.warnService.setServiceAndMsg(str);
 		this.dialog.open(WarnComponent);
+	}
+
+	protected openInfoDialog(str: string): void {
+		this.warnService.setInfo(str);
+		this.dialog.open(GroupInfoComponent);
 	}
 
 	protected isRunningGreen(status: string): boolean {

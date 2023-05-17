@@ -9,7 +9,6 @@ Passwort
 Service wirklich Neustarten
 ausgewählter Service:
 Neustart Warnung
-wähle Instanz
 Filtern
 Instanzen aufgeteilt in Statusgruppen 
 Online
