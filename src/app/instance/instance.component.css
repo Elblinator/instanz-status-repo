@@ -68,27 +68,6 @@ ul {
 	margin: 2px 0;
 }
 
-.box-tile {
-	display: flex;
-	flex-direction: row;
-	height: 100%;
-
-}
-
-.area-left {
-	width: 20px;
-	border-right: 1px solid lightgray;
-
-}
-
-.area-right {
-	background-color: white;
-	width: 100%;
-	height: inherit;
-	padding-left: 5px;
-}
-
-
 .backgroundYellow {
 	background-color: #eab102 !important;
 }

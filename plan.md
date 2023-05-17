@@ -2,12 +2,8 @@
 
 # next Job:
  - chips für ausgewählte Filter
- - instanz-page hover unteschiedlich aussehen
- - shadow ändern
  - 'wähle Instanz'/search function gleiche Farbe
  - unterstrich Farbänderung, wenn angewählt
- - Hintergrundfarbe von Instanzen auch weiß -> nur grau wenn hover
- - buttons:hover grau #efefef
  - abstände titel tiles (in service-page)
  - keine liste-punkte in (service-page)
  - Überschrift linksbündig (service-page)
