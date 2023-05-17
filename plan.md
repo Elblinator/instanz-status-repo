@@ -2,7 +2,7 @@
 
 # next Job:
  - chips für ausgewählte Filter
- - instanz-page ganze tile anklickbar, hover unteschiedlich aussehen
+ - instanz-page hover unteschiedlich aussehen
  - shadow ändern
  - 'wähle Instanz'/search function gleiche Farbe
  - unterstrich Farbänderung, wenn angewählt

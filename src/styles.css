@@ -27,16 +27,13 @@ body {
 
 a {
 	cursor: pointer;
-	color: rgb(0, 0, 238);
+	text-decoration: none;
+	color: inherit;
 }
 
-/* @media (max-width: 600px) {
-	.head {
-		padding: 2rem;
-		padding-left: 0;
-	}
-} */
-
+.badge {
+	color: rgb(0, 0, 238);
+}
 @media (min-width: 600px) {
 	body {
 		padding: 0;
