@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+/* eslint-disable no-unexpected-multiline */
+import { ChangeDetectorRef, ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
 
 import { DialogData } from '../00_data/interfaces';
 
@@ -13,28 +15,138 @@ import { FilterService } from '../filter.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilterComponent {
-	instances: string[] = [];
-	services: string[] = [];
-	inst: FormGroup;
-	serv: FormGroup;
+	/** complete list of all possible Instances */
+	protected instances: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+	/** complete list of all possible Services */
+	protected services: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+	protected inst: FormGroup;
+	protected serv: FormGroup;
+
+	protected comesFromService = false;
+	protected comesFromInstanzen = false;
+
+	protected offline = false;
+	protected online = false;
+	protected fast = false;
+	protected slow = true;
+	protected error = true;
+	protected allInst = false;
+	protected allServ = true;
+
+
 
 	constructor(
 		@Inject(MAT_DIALOG_DATA) public data: DialogData,
 		private filterService: FilterService,
 		private _formBuilder: FormBuilder,
+		private ref: ChangeDetectorRef,
 	) {
+		this.filterService.updateFilter()
 		this.instances = this.filterService.reachableInstances();
 		this.services = this.filterService.reachableService();
 
-		this.inst = this._formBuilder.group(Object.fromEntries(this.instances.map(e => [e, (this.filterService.isActivated(e))])));
-		this.serv = this._formBuilder.group(Object.fromEntries(this.services.map(e => [e, (this.filterService.isActivated(e))])));
+		this.inst = this._formBuilder.group(Object.fromEntries(this.instances.getValue().map(e => [e, (this.filterService.isActivated(e))])));
+		this.serv = this._formBuilder.group(Object.fromEntries(this.services.getValue().map(e => [e, (this.filterService.isActivated(e))])));
 
-		this.filterService.setFilter([this.inst, this.serv]);
+		this.comesFromService = this.filterService.comesFromService
+		this.comesFromInstanzen = this.filterService.comesFromInstanzen
+
+		this.filterService.activatedInstances().subscribe(() => {
+			this.inst = this._formBuilder.group(Object.fromEntries(this.instances.getValue().map(e => [e, (this.filterService.isActivatedDummy(e))])));
+		})
+		this.filterService.activatedService().subscribe(() => {
+			this.serv = this._formBuilder.group(Object.fromEntries(this.services.getValue().map(e => [e, (this.filterService.isActivatedDummy(e))])));
+		})
+		this.initiate();
 	}
+
 	/**
 	 * activate only selected filter 
+	 * !! also activates the actual presented instances and services and not the dummies for the filter-presentation
 	 */
 	protected setFilter() {
 		this.filterService.setFilter([this.inst, this.serv]);
+	}
+
+	/**
+	 * pushes the pointer currentInstanc onto an empty Instance to point to a white background colour
+	 * @returns a placeholder string because ngClass needs a string as return
+	 */
+	protected setInstEmpty(): string {
+		this.filterService.setInstEmpty();
+		return ''
+	}
+
+	private initiate(): void {
+		this.switchFast();
+		this.switchOffline();
+		this.switchSlow();
+		this.switchError();
+		this.setFilter();
+	}
+
+	/** deactivate/activate all Instances 
+	 * the status quo from services (which are already actived/deactivated) is: this.serv in [(...), this.serv]
+	 * which way to switch to (active/deactive) controlled by boolean: this.allInst
+	*/
+	protected switchAllInst(): void {
+		this.filterService.setDummyFilter([this._formBuilder.group(Object.fromEntries(this.instances.getValue().map(e => [e, this.allInst]))), this.serv]);
+		this.switchBooleans()
+	}
+	/** deactivate/activate all Services 
+	 * the status quo from instances (which are already actived/deactivated) is: this.inst in [this.inst, (...)]
+	 * which way to switch to (active/deactive) controlled by boolean: this.allServ
+	*/
+	protected switchAllServ(): void {
+		this.filterService.setDummyFilter([this.inst, this._formBuilder.group(Object.fromEntries(this.services.getValue().map(e => [e, this.allServ])))]);
+	}
+
+	/** deactivate/activate all offline Instances 
+	 * the status quo (which are already actived/deactivated) is: [this.inst, this.serv]
+	 * which way to switch to (active/deactive) controlled by boolean: this.offline
+	 * indication which group needs switching in the string 'offline
+	*/
+	protected switchOffline(): void {
+		this.filterService.setDummyFilterBox([this.inst, this.serv], this.offline, 'offline');
+	}
+	/** deactivate/activate all offline Instances 
+	 * the status quo (which are already actived/deactivated) is: [this.inst, this.serv]
+	 * which way to switch to (active/deactive) controlled by boolean: this.offline
+	 * indication which group needs switching in the string 'offline
+	*/
+	protected switchOnline(): void {
+		this.filterService.setDummyFilterBox([this.inst, this.serv], this.online, 'online');
+	}
+	/** deactivate/activate all fast Instances 
+	 * the status quo (which are already actived/deactivated) is: [this.inst, this.serv]
+	 * which way to switch to (active/deactive) controlled by boolean: this.fast
+	 * indication which group needs switching in the string 'fast
+	*/
+	protected switchFast(): void {
+		this.filterService.setDummyFilterBox([this.inst, this.serv], this.fast, 'fast');
+	}
+	/** deactivate/activate all slow Instances 
+	 * the status quo (which are already actived/deactivated) is: [this.inst, this.serv]
+	 * which way to switch to (active/deactive) controlled by boolean: this.slow
+	 * indication which group needs switching in the string 'slow
+	*/
+	protected switchSlow(): void {
+		this.filterService.setDummyFilterBox([this.inst, this.serv], this.slow, 'slow');
+	}
+	/** deactivate/activate all error Instances 
+	 * the status quo (which are already actived/deactivated) is: [this.inst, this.serv]
+	 * which way to switch to (active/deactive) controlled by boolean: this.error
+	 * indication which group needs switching in the string 'error
+	*/
+	protected switchError(): void {
+		this.filterService.setDummyFilterBox([this.inst, this.serv], this.error, 'error');
+	}
+
+	private switchBooleans(): void {
+		this.online = this.allInst;
+		this.offline = this.allInst;
+		this.fast = this.allInst;
+		this.slow = this.allInst;
+		this.error = this.allInst;
 	}
 }

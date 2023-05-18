@@ -1,3 +1,4 @@
+
 button {
 	margin-right: 8px;
 	margin-left: 8px;
@@ -9,8 +10,37 @@ button:hover {
 
 .example-section {
 	display: flex;
+	flex-direction: column;
 	align-content: center;
 	align-items: center;
-	height: 50px;
-	width: 350px;
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	height: 720px;
+	width: auto;
+}
+
+.card-content {
+	display: flex;
+	flex-direction: column;
+}
+
+h1,
+h2 {
+	margin-top: 1em;
+	text-align: center;
+}
+
+p>mat-checkbox {
+	line-break: anywhere;
+}
+
+footer {
+	/* position:relative; */
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
 }

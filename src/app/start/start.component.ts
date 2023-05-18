@@ -1,53 +1,59 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { Instance } from '../00_data/interfaces';
-
-import { CheckStatusService } from '../check-status.service';
-import { FilterService } from '../filter.service';
-import { OnlineService } from '../online.service'
-import { StatusService } from '../status.service';
+import { SortStatusService } from '../sort-status.service';
+import { SortOnlineService } from '../sort-online.service'
 import { UserService } from '../user.service';
+import { DataService } from '../data.service';
 
 @Component({
 	selector: 'app-start',
 	templateUrl: './start.component.html',
-	styleUrls: ['./start.component.css']
+	styleUrls: ['./start.component.css'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StartComponent implements OnInit {
-	instances: Instance[] = [];
-	arrService: number[] = [0, 0, 0];
-	arrOnline: number[] = [0, 0];
-	instanceNamenList: string[] = this.filterService.reachableInstances();
-	instanceNamen = new FormControl('');
-	listStatus: string[] = ['fast', 'slow', 'error']
-	listRunning: string[] = ['online', 'offline']
+	protected listStatus: string[] = [];
+	protected listRunning: string[] = [];
+
+	protected arrSimpleService: Observable<number[]> = new Observable<number[]>
+	protected arrSimpleOnline: Observable<number[]> = new Observable<number[]>
 
 	constructor(
-		private statusService: StatusService,
+		private dataService: DataService,
 		private userService: UserService,
-		private onlineService: OnlineService,
-		private checkStatusService: CheckStatusService,
-		private filterService: FilterService
-	) { }
+		private sortOnlineService: SortOnlineService,
+		private sortStatusService: SortStatusService
+	) {	}
 
 	public ngOnInit(): void {
-		this.getInstance();
-		this.resetCount();
+		this.listStatus = this.sortStatusService.listStatus
+		this.listRunning = this.sortOnlineService.listRunning
+		this.arrSimpleService = this.sortStatusService.simpleResetCount() as Observable<number[]>;
+		this.arrSimpleOnline = this.sortOnlineService.simpleResetCount() as Observable<number[]>;
+		this.dataService.simpleInstancesSubject.subscribe(() => {
+			this.simpleResetCount();
+			this.updateData();
+		})
+
+		this.dataService.setTitle("Instanzen Übersicht");
 	}
+
 	protected isLoggedIn(): boolean {
 		return this.userService.isLoggedIn();
 	}
-	protected getInstance(): void {
-		this.statusService.getInstance()
-			.subscribe(instances => { this.instances = instances });
-	}
+
 	/**
 	 * reset count for amount of stati (fast/slow/error) and
 	 * reset count for amount of instances (running/stopped)
 	 */
-	protected resetCount(): void {
-		this.arrService = this.checkStatusService.resetCount();
-		this.arrOnline = this.onlineService.resetCount();
+	protected simpleResetCount() {
+		this.arrSimpleService = this.sortStatusService.simpleResetCount() as Observable<number[]>;
+		this.arrSimpleOnline = this.sortOnlineService.simpleResetCount() as Observable<number[]>;
+	}
+
+	protected updateData() {
+		this.sortStatusService.updateData()
+		this.sortOnlineService.updateData()
 	}
 }

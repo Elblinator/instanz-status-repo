@@ -1,0 +1,135 @@
+.heading-container {
+    padding: 0 16px;
+}
+
+.heading-container.no-space {
+    padding: 0;
+}
+
+.app-grid {
+    padding: 8px;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.app-grid.no-space {
+    padding: 0;
+}
+
+@import 'src/assets/styles/media-queries.scss';
+
+$sm: sm;
+$xs: xs;
+$md: md;
+$lg: lg;
+
+@mixin calc-width($property, $size, $space) {
+    @if $property == $xs {
+        @if $space == true {
+            width: calc(#{$size} / 4 * 100% - 16px);
+        } @else {
+            width: calc($size / 4) * 100%;
+        }
+    }
+    @if $property == $sm {
+        @if $space == true {
+            width: calc(#{$size} / 8 * 100% - 16px);
+        } @else {
+            width: calc($size / 8) * 100%;
+        }
+    }
+    @if $property == $md {
+        @if $space == true {
+            width: calc(#{$size} / 12 * 100% - 16px);
+        } @else {
+            width: calc($size / 12) * 100%;
+        }
+    }
+    @if $property == $lg {
+        @if $space == true {
+            width: calc(#{$size} / 16 * 100% - 16px);
+        } @else {
+            width: calc($size / 16) * 100%;
+        }
+    }
+}
+
+.app-tile {
+    box-sizing: border-box;
+    height: 100%;
+    margin: 8px;
+    padding-left: 6px;
+    position: relative;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0 3px 14px 2px rgba(0, 0, 0, 0.12);
+    background-color: white;
+}
+
+@include set-breakpoint-lower(xs) {
+    @for $i from 1 through 4 {
+        .app-tile--xs-#{$i} {
+            @include calc-width($xs, $i, true);
+        }
+        .app-grid.no-space > .app-tile--xs-#{$i} {
+            @include calc-width($xs, $i, false);
+        }
+    }
+}
+
+@include set-breakpoint-between(xs, sm) {
+    @for $i from 1 through 8 {
+        .app-tile--sm-#{$i} {
+            @include calc-width($sm, $i, true);
+        }
+        .app-grid.no-space > .app-tile--sm-#{$i} {
+            @include calc-width($sm, $i, false);
+        }
+    }
+}
+
+@include set-breakpoint-between(sm, lg) {
+    @for $i from 1 through 12 {
+        .app-tile--md-#{$i} {
+            @include calc-width($md, $i, true);
+        }
+        .app-grid.no-space > .app-tile--md-#{$i} {
+            @include calc-width($md, $i, false);
+        }
+    }
+}
+
+@include set-breakpoint-upper(lg) {
+    @for $i from 1 through 16 {
+        .app-tile--lg-#{$i} {
+            @include calc-width($lg, $i, true);
+        }
+        .app-grid.no-space > .app-tile--lg-#{$i} {
+            @include calc-width($lg, $i, false);
+        }
+    }
+}
+.app-grid.no-space > .app-tile {
+    height: 50%;
+    margin: 0;
+}
+
+.tile-placeholder {
+    margin-top: 0% !important;
+}
+.backgroundGreen {
+	background-color: #019701;
+}
+.backgroundYellow {
+	background-color: #eab102;
+}
+.backgroundRed {
+	background-color: #e80101;
+}
+.backgroundBlack {
+	background-color: #cbc5c2;
+}
+.backgroundWhite {
+	background-color: #fff;
+}

@@ -1,11 +1,26 @@
+
 .neustart-button{
     line-height: 0.5;
     height:1;
     font-size: 1em;
     margin-left:0;
     padding: 0.2em;
-    background-color: #ccc9c9;
+    background-color: #8e9ceb;
 }
-.neustart-button:hover {
-    border:none;
+
+.info-button{
+    line-height: 0.5;
+    height:0.75;
+    font-size: 1em;
+    margin-left:0;
+    padding: 0.2em;
+	border-radius: 50%;
+}
+
+td {
+    border-bottom: 1px solid  rgba(0,0,0,.12) !important;
+}
+
+.restart-content {
+    margin: 0 20px;
 }

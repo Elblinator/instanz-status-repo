@@ -14,18 +14,6 @@ h3 {
 	font-weight: lighter;
 }
 
-body {
-	padding: .5rem;
-	max-width: 1000px;
-	margin: auto;
-}
-
-@media (min-width: 600px) {
-	body {
-		padding: 2rem;
-	}
-}
-
 body,
 input[text] {
 	color: #333;
@@ -65,17 +53,25 @@ input[type="text"] {
 	padding: .5rem;
 }
 
-html,
-body {
-	height: 100%;
+li {
+	display: flex;
 }
 
-body {
-	margin: 0;
-	font-family: Roboto, "Helvetica Neue", sans-serif;
+a>span {
+	display: table;
+	margin: 0 auto;
+	font-weight: 1000;
+	line-break: anywhere;
 }
 
-.items {
-	display:inline-flex;
-	justify-content: space-between;
+ul {
+	margin: 2px 0;
+}
+
+.backgroundYellow {
+	background-color: #eab102 !important;
+}
+
+.backgroundRed {
+	background-color: #e80101 !important;
 }

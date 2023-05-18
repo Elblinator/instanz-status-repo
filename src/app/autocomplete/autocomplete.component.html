@@ -1,0 +1,20 @@
+<mat-form-field>
+    <mat-label>{{"Instanz"|translate}}</mat-label>
+    <input  type="text"  
+            aria-label="Instanzen-Liste" 
+            matInput
+            [formControl]="instanceNamen" 
+            [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let instance of instanceNamenListObs|async">
+            <mat-nav-list>
+                <a routerLink="/instance/{{instance}}" class="whole-box">
+                    <button >
+                        {{instance}}
+                    </button>
+                </a>
+            </mat-nav-list>
+        </mat-option>
+    </mat-autocomplete>
+</mat-form-field>
+

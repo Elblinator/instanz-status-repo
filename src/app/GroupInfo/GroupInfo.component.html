@@ -1,0 +1,20 @@
+<body>
+	<mat-card-content>
+		<h2>{{"Gruppe:" | translate}} &nbsp; {{this.group}}</h2>
+		<div>
+			{{"Diese Gruppe beinhaltet folgende Services:" | translate}}
+		</div>
+		<span *ngFor="let mem of this.members, let last = last">
+			<span *ngIf="!last">
+				{{mem}},
+			</span>
+			<span *ngIf="last">
+				{{mem}}
+			</span>
+		</span>
+	</mat-card-content>
+	<br>
+	<ng-container mat-dialog-actions>
+		<button mat-button mat-dialog-close>{{ "Schließen" | translate }}</button>
+	</ng-container>
+</body>

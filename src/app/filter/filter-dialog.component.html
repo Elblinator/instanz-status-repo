@@ -1,24 +1,64 @@
-<h1 mat-dialog-title>{{"Suche Filter aus"|translate}}</h1>
-<mat-card-content>
-	<h2>{{"mögliche Instanzen"|translate}}</h2>
-	<section [formGroup]="inst" class="example-section" *ngFor="let instance of instances">
-		<p><mat-checkbox color="primary" formControlName="{{instance}}">{{instance}}</mat-checkbox></p>
-	</section>
-</mat-card-content>
+<html>
 
-<mat-card-content>
-	<h2>{{"mögliche Services"|translate}}</h2>
-	<section [formGroup]="serv" class="example-section" *ngFor="let service of services">
-		<p><mat-checkbox color="primary" formControlName="{{service}}">{{service}}</mat-checkbox></p>
-	</section>
-</mat-card-content>
+<main>
+	<span class="content">
+		<mat-card-content class="card-content">
+			<h1>
+				{{"Mögliche Instanzen"|translate}}
+				<mat-checkbox color="primary" [(ngModel)]="allInst" (click)="switchAllInst()">
+					{{'Aktiviere alle Instanzen'|translate}}
+				</mat-checkbox>
+				<mat-checkbox color="primary" [(ngModel)]="allInst" (click)="switchAllInst()">
+					{{'Deaktiviere alle Instanzen'|translate}}
+				</mat-checkbox>
+			</h1>
+			<div >
+				<span>{{"Zeige an: "|translate}}</span>
+				<mat-checkbox color="primary"[(ngModel)]="fast" (click)="switchFast()">
+					{{'Schnell'|translate}}
+				</mat-checkbox>
+				<mat-checkbox color="primary"[(ngModel)]="slow" (click)="switchSlow()">
+					{{'Langsam'|translate}}
+				</mat-checkbox>
+				<mat-checkbox color="primary"[(ngModel)]="error" (click)="switchError()">
+					{{'Error'|translate}}
+				</mat-checkbox>
+				<mat-checkbox color="primary"[(ngModel)]="online" (click)="switchOnline()">
+					{{'Online'|translate}}
+				</mat-checkbox>
+				<mat-checkbox color="primary"[(ngModel)]="offline" (click)="switchOffline()">
+					{{'Offline'|translate}}
+				</mat-checkbox>
+			</div>
+			<app-grid>
+				<app-tile [formGroup]="inst" [ngClass]="setInstEmpty()" class="example-section"
+					*ngFor="let instance of instances|async">
+					<p><mat-checkbox color="primary" formControlName="{{instance}}">{{instance}}</mat-checkbox></p>
+				</app-tile>
+			</app-grid>
+		</mat-card-content>
 
-<!-- <section class="example-section" [formGroup]="tops">
-  <h4>You chose:</h4>
-  {{ping.value | json}}
-</section> -->
+		<mat-card-content class="card-content" *ngIf="comesFromService">
+			<h1>
+				{{"Mögliche Services"|translate}}
+				<mat-checkbox color="primary" [(ngModel)]="allServ" (click)="switchAllServ()">
+					{{'Aktiviere/Deaktiviere alle Services'|translate}}
+				</mat-checkbox>
+			</h1>
+			<app-grid>
+				<app-tile [formGroup]="serv" class="example-section" *ngFor="let service of services|async">
+					<p><mat-checkbox color="primary" formControlName="{{service}}">{{service}}</mat-checkbox></p>
+				</app-tile>
+			</app-grid>
+		</mat-card-content>
+	</span>
 
-<div mat-dialog-actions>
-	<button mat-button mat-dialog-close (click)="setFilter()">{{"Filtern"|translate}}</button>
-	<button mat-button mat-dialog-close cdkFocusInitial>{{ 'Abbrechen' | translate }}</button>
-</div>
+	<footer>
+		<div mat-dialog-actions>
+			<button mat-button mat-dialog-close (click)="setFilter()">{{"Filtern"|translate}}</button>
+			<button mat-button mat-dialog-close>{{ 'Abbrechen' | translate }}</button>
+		</div>
+	</footer>
+</main>
+
+</html>

@@ -1,0 +1,25 @@
+mat-form-field {
+    width:400px;
+}
+
+mat-option {
+    padding: 0;
+    height: 48px !important;
+}
+
+span {
+    padding: 0;
+    margin: 0 !important;
+    height: 48px !important;
+	width: fit-content;
+}
+
+a {
+    height: 48px;
+    width: 380px;
+    padding: 0;
+}
+
+button {
+    width: 380px;
+}

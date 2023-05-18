@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-
-import { Instance } from '../00_data/interfaces';
-import { StatusService } from '../status.service';
-import { FormControl } from '@angular/forms';
-import { FilterService } from '../filter.service';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+
+import { RealInstance } from '../00_data/interfaces';
+
 import { WarnComponent } from '../warn/warn-dialog.component';
+import { GroupInfoComponent } from '../GroupInfo/GroupInfo.component';
+
+import { FilterService } from '../filter.service';
 import { WarnService } from '../warn.service';
+import { DataService } from '../data.service';
 
 @Component({
 	selector: 'app-status-detail',
@@ -16,40 +19,78 @@ import { WarnService } from '../warn.service';
 	styleUrls: ['./instance-detail.component.css']
 })
 export class InstanceDetailComponent implements OnInit {
-	instances: Instance | undefined; 
-	instanceNamenList: string[] = this.filterService.reachableInstances();
-	instanceNamen = new FormControl('');
-	InstanceGruppen: string[] = ["backend", "irgendeine Gruppe"];
+	protected instancesObservable: Observable<RealInstance> | undefined;
+
+	/** additional restart groups */
+	protected instanceGruppen: string[] = ["backEnd", "irgendeine Gruppe"];
+	/** current instance name */
+	private name = String(this.route.snapshot.paramMap.get('name'));
 
 	constructor(
 		private route: ActivatedRoute,
-		private statusService: StatusService,
 		private location: Location,
 		private filterService: FilterService,
 		private dialog: MatDialog,
-		private warnService: WarnService
+		private warnService: WarnService,
+		private dataService: DataService
 	) { }
 
 	public ngOnInit(): void {
-		this.getName();
+
+		this.initialise();
+		this.route.url.subscribe(() => {
+			this.activateInstance()
+		})
+
 	}
+
+	private initialise() {
+		this.dataService.realInstancesSubject.subscribe(() => {
+			this.activateInstance();
+		})
+	}
+
 	/**
-	 * get the name from the current instance
+	 * set the current instance
 	 */
-	private getName(): void {
-		const name = String(this.route.snapshot.paramMap.get('name'));
-		this.statusService.getInst(name)
-			.subscribe(instance => this.instances = instance);
+	private activateInstance(): void {
+		this.name = String(this.route.snapshot.paramMap.get('name'));
+		this.instancesObservable = this.filterService.setInstSubj(this.name);
+		this.dataService.setTitle(this.name);
 	}
+
 	/**
 	 * go to previous page
 	 */
 	protected goBack(): void {
 		this.location.back();
 	}
-	protected openWarnDialog(str:string): void {
+
+	protected openWarnDialog(str: string): void {
 		this.warnService.setServiceAndMsg(str);
 		this.dialog.open(WarnComponent);
+	}
+
+	protected openInfoDialog(str: string): void {
+		this.warnService.setInfo(str);
+		this.dialog.open(GroupInfoComponent);
+	}
+
+	protected isRunningGreen(status: string): boolean {
+		return this.filterService.isRunningGreen(status);
+	}
+	protected isRunningYellow(status: string): boolean {
+		return this.filterService.isRunningYellow(status);
+	}
+	protected isRunningRed(status: string): boolean {
+		return this.filterService.isRunningRed(status);
+	}
+	protected isRunningOffline(status: string): boolean {
+		return this.filterService.isRunningOffline(status);
+	}
+
+	protected print() {
+		console.log('I need to know which groups are in here and with that knowledge I need to calculate the worst status')
 	}
 }
 

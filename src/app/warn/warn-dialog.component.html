@@ -1,14 +1,22 @@
-
 <body class="warn-body">
 	<h1 mat-dialog-title>{{"Neustart Warnung" | translate}}!!</h1>
 	<mat-card-content>
 		<h2>{{"ausgewählter Service:" | translate}} &nbsp; {{this.service}}</h2>
-		<section  class="example-section">
-			{{this.warn}}
+		<section class="warn-section">
+			<ng-container>
+				{{this.warn}}
+			</ng-container>
+		</section>
+		<section class="hint-section">
+			<ng-container>
+				{{this.hint}}
+			</ng-container>
 		</section>
 	</mat-card-content>
-	<div mat-dialog-actions>
-		<button mat-button mat-dialog-close cdkFocusInitial (click)="warning()">{{"Service wirklich Neustarten"|translate}}</button>
+	<ng-container mat-dialog-actions>
+		<button mat-button mat-dialog-close cdkFocusInitial (click)="warning()">
+			{{"Service wirklich	Neustarten"|translate}}
+		</button>
 		<button mat-button mat-dialog-close>{{ "Abbrechen" | translate }}</button>
-	</div>
+	</ng-container>
 </body>

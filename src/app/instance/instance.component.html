@@ -1,52 +1,62 @@
-<form>
-	<mat-form-field appearance="fill">
-		<mat-label>{{"wähle Instanz"|translate}}</mat-label>
-		<mat-select [formControl]="instanceNamen">
-			<mat-option *ngFor="let instance of instanceNamenList" [value]="instance">
-				<a mat-list-item routerLink="/instance/{{instance}}">{{instance}}</a>
-			</mat-option>
-		</mat-select>
-	</mat-form-field>
+<main>
+	<header>
+		<form>
+			<app-autocomplete></app-autocomplete>
+			<ng-container>
+				<span class="badge"></span>
+				<button type="button" (click)="openFilterDialog()">{{"Filtern"|translate}}</button>
+			</ng-container>
+		</form>
+	</header>
+	<!-- ------------------------------------>
 
-	<span class="badge"></span>
-	<button type="button" (click)="openFilterDialog()">{{"Filtern"|translate}}</button>
-</form>
-
-<h2>{{"Die Instanzen"|translate}}: </h2>
-<ul class="instance">
-	<span *ngFor="let instance of instances">
-		<li *ngIf="isActivated(instance.name)">
-			<a routerLink="/instance/{{instance.name}}">
-				<span class="badge">{{instance.name}}</span> </a>
-			<br>
-			<ng-container *ngIf="instance.running">
-				<ng-container *ngFor="let service of instance.services">
-					<span class="items" *ngIf="isActivated(service.name)">
-						<ng-container [ngSwitch]="service.status">
-							<canvas class="dot_{{service.status}}"> </canvas>
-						</ng-container>
-						{{service.name}}
-						&nbsp;
+	<body>
+		<h2>{{"Die Instanzen"|translate}}: </h2>
+		<app-grid>
+			<app-tile [ngClass]="setInst(instance.name)" *ngFor="let instance of filteredInstancesObservable|async">
+				<span class="box-tile">
+					<span class="area-left"></span>
+					<span class="area-right">
+						<a routerLink="/instance/{{instance.name}}">
+							<mat-nav-list>
+								<span class="badge">{{instance.name}}</span>
+							</mat-nav-list>
+							<ng-container *ngIf="instance.status === 'stopped'">
+								<span> {{"Diese Instanz ist offline"|translate }}</span>
+							</ng-container>
+							<ng-container *ngIf="!(instance.status === 'stopped') ">
+								<span *ngIf="isRunningGreen(getStatus(instance))">
+									{{"Alles läuft!"|translate}}
+								</span>
+								<ng-container *ngIf="isRunningYellow(getStatus(instance))">
+									<span>{{"Langsame Services:"|translate}}</span>
+									<mat-list *ngFor="let service of instance.services">
+										<mat-chip-set *ngIf="isRunningYellow(service.status)">
+											<mat-chip class="backgroundYellow" selected> {{service.name}}</mat-chip>
+										</mat-chip-set>
+									</mat-list>
+								</ng-container>
+								<ng-container *ngIf="isRunningRed(getStatus(instance))">
+									<span>{{"Error Services:"|translate}} </span>
+									<mat-list *ngFor="let service of instance.services">
+										<mat-chip-set *ngIf="isRunningRed(service.status)">
+											<mat-chip class="backgroundRed" selected> {{service.name}}</mat-chip>
+										</mat-chip-set>
+									</mat-list>
+									<ng-container *ngIf="getStatusYellow(instance)">
+										<span>{{"Langsame Services:"|translate}}</span>
+										<mat-list *ngFor="let service of instance.services">
+											<mat-chip-set selectable="true" *ngIf="isRunningYellow(service.status)">
+												<mat-chip class="backgroundYellow" selected> {{service.name}}</mat-chip>
+											</mat-chip-set>
+										</mat-list>
+									</ng-container>
+								</ng-container>
+							</ng-container>
+						</a>
 					</span>
-				</ng-container>
-			</ng-container>
-			<ng-container *ngIf="!instance.running">
-				<canvas class="dot_offline"> </canvas>
-			</ng-container>
-		</li>
-	</span>
-</ul>
-
-<h2>{{"Schlechtester Status jeder Instanz"|translate}}: </h2>
-<ul class="instance">
-	<span *ngFor="let instance of instances">
-		<li *ngIf="whatStatus(instance) && isActivated(instance.name)">
-			<a routerLink="/instance/{{instance.name}}">
-				<span class="badge">{{instance.name}}</span> </a>
-			<br>
-			<ng-container [ngSwitch]="whatStatus(instance)">
-				<canvas class="dot_{{whatStatus(instance)}}"> </canvas>
-			</ng-container>
-		</li>
-	</span>
-</ul>
+				</span>
+			</app-tile>
+		</app-grid>
+	</body>
+</main>

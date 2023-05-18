@@ -1,54 +1,88 @@
-<form>
-	<mat-form-field appearance="fill">
-		<mat-label>{{"wähle Instanz"|translate}}</mat-label>
-		<mat-select [formControl]="instanceNamen">
-			<mat-option *ngFor="let instance of instanceNamenList" [value]="instance">
-				<a mat-list-item routerLink="/instance/{{instance}}">{{instance}}</a>
-			</mat-option>
-		</mat-select>
-	</mat-form-field>
-</form>
+<main>
+	<header>
+		<form>
+			<app-autocomplete></app-autocomplete>
+		</form>
+	</header>
 
-<div *ngIf="instances">
-	<h2>{{"Instanz"|translate}}: {{instances.name | uppercase}}
-		<button type="button" (click)="openWarnDialog('all')">{{"Neustart"|translate}}</button>
-	</h2>
-	<div>
-		<table>
-			<ng-container *ngFor="let service of instances.services">
-				<tr>
-					<td>
-						<ng-container [ngSwitch]="service.status">
-							<canvas class="dot_{{service.status}}"> </canvas>
-						</ng-container>
-					</td>
-					<td>
-						{{service.name}}
-					</td>
-					<td>
-						<button class="neustart-button" type="button" (click)="openWarnDialog(service.name)">{{"Neustart"|translate}}</button>
-					</td>
-				</tr>
-				<br>
-			</ng-container>
-		</table>
-	</div>
-	<table>
-		<ng-container *ngFor="let instan of InstanceGruppen">
-			<tr>
-				<td>
-					{{instan}}: 
-				</td>
-				<td>
-					<button type="button" (click)="openWarnDialog(instan)">{{"Neustart"|translate}}</button>
-				</td>
+	<body class="content">
+		<span *ngIf="instancesObservable|async as inst">
+			<h2>{{inst.name | uppercase}}
+				<button type="button" class="neustart-button" (click)="openWarnDialog('all')">
+					<mat-icon aria-label="restart-button">
+						<img class="img-responsive" src="assets/img/change_circle.svg" height="25">
+					</mat-icon>
+				</button>
+			</h2>
+			<span *ngIf="!isRunningOffline(inst.status)">
+				<ng-container>
+					<table class="restart-content">
+						<tr *ngFor="let instan of instanceGruppen">
+							<td>
+								<button class="dummy_style" (click)="print()">
+									<canvas class="dot_dummy"> </canvas>
+								</button>
+							</td>
+							<td>
+								{{instan}}:
+							</td>
+							<td>
+								<button type="button" class="neustart-button" (click)="openWarnDialog(instan)">
+									<mat-icon aria-label="restart-button">
+										<img class="img-responsive" src="assets/img/change_circle.svg" height="25">
+									</mat-icon>
+								</button>
+							</td>
+							<td>
+								<button class="info-button" type="button" (click)="openInfoDialog(instan)">
+									<mat-icon aria-label="restart-button">
+										<img class="img-responsive" src="assets/img/info_icon.svg" height="25">
+									</mat-icon>
+								</button>
+							</td>
+						</tr>
+						<tr *ngFor="let service of inst.services">
+							<td>
+								<span *ngIf="isRunningGreen(service.status)">
+									<ng-container [ngSwitch]="service.status">
+										<canvas class="dot_running"> </canvas>
+									</ng-container>
+								</span>
+								<span *ngIf="isRunningYellow(service.status)">
+									<ng-container [ngSwitch]="service.status">
+										<canvas class="dot_slow"> </canvas>
+									</ng-container>
+								</span>
+								<span *ngIf="isRunningRed(service.status)">
+									<ng-container [ngSwitch]="service.status">
+										<canvas class="dot_error"> </canvas>
+									</ng-container>
+								</span>
+							</td>
+							<td>
+								{{service.name}}
+							</td>
+							<td>
+								<button class="neustart-button" type="button" (click)="openWarnDialog(service.name)">
+									<mat-icon aria-label="restart-button">
+										<img class="img-responsive" src="assets/img/change_circle.svg" height="25">
+									</mat-icon>
+								</button>
+							</td>
+						</tr>
+					</table>
+				</ng-container>
+			</span>
+			<span *ngIf="isRunningOffline(inst.status)">
+				<h3>{{"Diese Instanz ist offline"|translate}} </h3>
+			</span>
+		</span>
+	</body>
 
-			</tr>
-		</ng-container>
-	</table>
-</div>
+	<!-- <footer>
+		<p>
+			<button type="button" (click)="goBack()">{{"Zurück"|translate}}</button>
+		</p>
+	</footer> -->
 
-<p>
-	<button type="button" (click)="goBack()">{{"Zurück"|translate}}</button>
-</p>
-
+</main>

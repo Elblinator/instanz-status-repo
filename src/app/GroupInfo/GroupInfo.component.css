@@ -12,19 +12,6 @@ button {
 	width: 350px;
 }
 
-.warn-body {
-	border-radius: 6;
-	padding:3em;
-	margin: 5, 2;
-	color:red;
-}
-
 h1, h2 {
 	text-align: center;
-	color:red!important;
-}
-
-section {
-	margin-bottom: 8px;
-	border-bottom: 1px solid lightslategray;
 }

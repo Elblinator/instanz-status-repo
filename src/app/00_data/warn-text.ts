@@ -1,61 +1,106 @@
-import { Warning } from "./interfaces";
+import { Info, Warning } from "./interfaces";
+
+export const INFO: Info[] = [
+    {
+        group: "backEnd",
+        members: ["backend"]
+    },
+    {
+        group:"irgendeine Gruppe",
+        members: ["Who", "You", "Gonna", "Call?"]
+    }
+]
 
 export const WARNING: Warning[] = [
     //Gruppen-Services//
     //----------------------------/
     {
+        //services: jede einzelnes Service
         service: "all",
-        warn: "Alles. Willst du wirklich alles neustarten?"
+        warn: "Alles. Willst du wirklich alles neustarten?",
+        hint: " Das ist die Box für best mögliche Action"
     },
     {
-        service: "backend",
-        warn: "Das Backend. Willst du wirklich das gesamte backend neustarten?"
+        service: "backEnd",
+        warn: "Das Backend. Willst du wirklich das gesamte backend neustarten?",
+        hint: " Das ist die Box für best mögliche Action"
     },
     {
         service: "irgendeine Gruppe",
-        warn: "das ist ein Test-Text"
+        warn: "das ist ein Test-Text",
+        hint: " Das ist die Box für best mögliche Action"
     },
 
     //Base services//
     //-------------------------------/
     {
         service: "client",
-        warn: "das ist ein Test-Text für client"
+        warn: "das ist ein Test-Text für client",
+        hint: " Das ist die Box für best mögliche Action"
     },
     {
-        service: "backend-action",
-        warn: "das ist ein Test-Text"
+        service: "backendAction",
+        warn: "das ist ein Test-Text",
+        hint: " Das ist die Box für best mögliche Action"
     },
     {
-        service: "backend-presenter",
-        warn: "das ist ein Test-Text"
+        service: "backendPresenter",
+        warn: "das ist ein Test-Text",
+        hint: " Das ist die Box für best mögliche Action"
+    },
+    {
+        service: "backendManage",
+        warn: "das ist ein Test-Text",
+        hint: " Das ist die Box für best mögliche Action"
     },
     {
         service: "autoupdate",
-        warn: "das ist ein Test-Text"
+        warn: "das ist ein Test-Text",
+        hint: " Das ist die Box für best mögliche Action"
     },
     {
         service: "vote",
-        warn: "das ist ein Test-Text"
+        warn: "das ist ein Test-Text",
+        hint: " Das ist die Box für best mögliche Action"
     },
     {
         service: "auth",
-        warn: "das ist ein Test-Text"
+        warn: "das ist ein Test-Text",
+        hint: " Das ist die Box für best mögliche Action"
     },
     {
-        service: "datastore-reader",
-        warn: "das ist ein Test-Text"
+        service: "datastoreReader",
+        warn: "das ist ein Test-Text",
+        hint: " Das ist die Box für best mögliche Action"
     },
     {
-        service: "datastore-writer",
-        warn: "das ist ein Test-Text"
+        service: "datastoreWriter",
+        warn: "das ist ein Test-Text",
+        hint: " Das ist die Box für best mögliche Action"
     },
     {
         service: "icc",
-        warn: "das ist ein Test-Text"
+        warn: "das ist ein Test-Text",
+        hint: " Das ist die Box für best mögliche Action"
     },
     {
         service: "media",
-        warn: "das ist ein Test-Text"
+        warn: "das ist ein Test-Text",
+        hint: " Das ist die Box für best mögliche Action"
+    },
+    {
+        service: "manage",
+        warn: "das ist ein Test-Text",
+        hint: " Das ist die Box für best mögliche Action"
+    },
+    {
+        service: "proxy",
+        warn: "das ist ein Test-Text",
+        hint: " Das ist die Box für best mögliche Action"
+    },
+    {
+        service: "redis",
+        warn: "das ist ein Test-Text",
+        hint: " Das ist die Box für best mögliche Action"
     },
 ]

@@ -9,15 +9,16 @@ import { WarnService } from '../warn.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WarnComponent {
-	service = ""
-	warn = ""
+	service = "";
+	warn = "";
+	hint = "";
 
 	constructor(
 		private warnService: WarnService,
 		private ngZone: NgZone,
 		private cd: ChangeDetectorRef
 	) {
-		[this.service, this.warn] = this.warnService.getServiceAndMsg()
+		[this.service, this.warn, this.hint] = this.warnService.getServiceAndMsg()
 	}
 	/**
 	 * this function is supposed to restart this.service, 
@@ -25,8 +26,8 @@ export class WarnComponent {
 	 * here take a dummy console.log
 	 */
 	protected warning(): void {
-		console.log("I need a restart function")
-		this.cd.markForCheck
+		console.log("I need a restart function");
+		this.cd.markForCheck;
 		// restart this.service
 	}
 }

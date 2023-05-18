@@ -7,6 +7,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { LayoutModule } from '@angular/cdk/layout';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
+
+
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -14,20 +19,23 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { HttpClientModule } from '@angular/common/http';
-import {
-	TranslateModule,
-	TranslatePipe
-} from '@ngx-translate/core';
+import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
+import { MatChipsModule } from '@angular/material/chips';
 
 import { AppComponent } from './app.component';
-import { StatiComponent } from './stati/stati.component';
-import { InstanceComponent } from './instance/instance.component';
 import { AppRoutingModule } from './app-routing.module';
-import { InstanceDetailComponent } from './instance-detail/instance-detail.component';
+
 import { StartComponent } from './start/start.component';
+import { ServiceComponent } from './service/service.component';
+import { InstanceComponent } from './instance/instance.component';
+import { InstanceDetailComponent } from './instance-detail/instance-detail.component';
+
 import { FilterComponent } from './filter/filter-dialog.component';
 import { WarnComponent } from './warn/warn-dialog.component';
-import { Start2Component } from './start2/start2.component';
+import { GridComponent } from './grid/grid/grid.component';
+import { TileComponent } from './grid/tile/tile.component';
+import { AutocompleteComponent } from './autocomplete/autocomplete.component';
+import { GroupInfoComponent } from './GroupInfo/GroupInfo.component';
 
 
 @NgModule({
@@ -49,18 +57,25 @@ import { Start2Component } from './start2/start2.component';
 		MatIconModule,
 		MatListModule,
 		BrowserAnimationsModule,
-		TranslateModule.forRoot()
+		TranslateModule.forRoot(),
+		MatAutocompleteModule,
+		MatInputModule,
+		MatRadioModule,
+		MatChipsModule
 	],
 	exports: [TranslatePipe],
 	declarations: [
 		AppComponent,
-		StatiComponent,
+		ServiceComponent,
 		InstanceComponent,
 		InstanceDetailComponent,
 		StartComponent,
-		Start2Component,
 		FilterComponent,
-		WarnComponent
+		WarnComponent,
+		GridComponent,
+		TileComponent,
+		AutocompleteComponent,
+		GroupInfoComponent
 	],
 	bootstrap: [AppComponent,],
 	providers: [FilterComponent, ReactiveFormsModule, WarnComponent],

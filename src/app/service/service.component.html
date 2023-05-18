@@ -1,0 +1,95 @@
+<main>
+	<header>
+		<form>
+			<app-autocomplete></app-autocomplete>
+			<ng-container>
+				<span class="badge"></span>
+				<button type="button" (click)="openFilterDialog()">{{"Filtern"|translate}}</button>
+			</ng-container>
+		</form>
+	</header>
+	<!-- ------------------------------------>
+
+	<body class="content">
+		<h2 *ngIf="instanceAmount[0]>0" [ngClass]="setInstEmpty()">{{"Error"|translate}}</h2>
+		<app-grid>
+			<app-tile [ngClass]="setInstColour('red')" *ngFor="let service of instances2D_error|async">
+				<span class="box-tile">
+					<span class="area-left"></span>
+					<span class="area-right">
+						<ng-container *ngFor="let instance of service; let i = index">
+							<span *ngIf="isActivated(instance.service)">
+								<h3 class="service-title" *ngIf="i === 0"> {{instance.service}}</h3>
+								<div>
+									<a routerLink="/instance/{{instance.instance}}">
+										<span class="badge">{{instance.instance}}</span>
+									</a>
+								</div>
+							</span>
+						</ng-container>
+					</span>
+				</span>
+			</app-tile>
+		</app-grid>
+		<h2 *ngIf="instanceAmount[1]>0">{{"Langsam"|translate}}</h2>
+		<app-grid>
+			<app-tile [ngClass]="setInstColour('yellow')" *ngFor="let service of instances2D_slow|async">
+				<span class="box-tile">
+					<span class="area-left"></span>
+					<span class="area-right">
+						<ng-container *ngFor="let instance of service; let i = index">
+							<span *ngIf="isActivated(instance.service)">
+								<h3 class="service-title" *ngIf="i === 0"> {{instance.service}}</h3>
+								<div>
+									<a routerLink="/instance/{{instance.instance}}">
+										<span class="badge">{{instance.instance}}</span>
+									</a>
+								</div>
+							</span>
+						</ng-container>
+					</span>					
+				</span>
+			</app-tile>
+		</app-grid>
+		<h2 *ngIf="instanceAmount[2]>0">{{"Offline"|translate}}</h2>
+		<app-grid>
+			<app-tile [ngClass]="setInstColour('offline')" *ngIf="instanceAmount[2]>0">
+				<span class="box-tile">
+					<span class="area-left"></span>
+					<span class="area-right">
+						<ng-container *ngFor="let instance of instance_offline_Observable|async">
+							<div>
+								<a routerLink="/instance/{{instance.instance}}">
+									<span class="badge">{{instance.instance}}</span>
+								</a>
+							</div>
+						</ng-container>
+					</span>					
+				</span>
+			</app-tile>
+		</app-grid>
+		<h2 *ngIf="instanceAmount[3]>0">{{"Schnell"|translate}}</h2>
+		<app-grid>
+			<app-tile [ngClass]="setInstColour('green')" *ngFor="let service of instances2D_fast|async">
+				<span class="box-tile">
+					<span class="area-left"></span>
+					<span class="area-right">
+						<ng-container *ngFor="let instance of service; let i = index">
+							<span *ngIf="isActivated(instance.service)">
+								<h3 class="service-title" *ngIf="i === 0"> {{instance.service}}</h3>
+								<div>
+									<a routerLink="/instance/{{instance.instance}}">
+										<span class="badge">{{instance.instance}}</span>
+									</a>
+								</div>
+							</span>
+						</ng-container>
+					</span>					
+				</span>
+			</app-tile>
+		</app-grid>
+		<h1 *ngIf="instanceAmount[0]===0 && instanceAmount[1]===0 && instanceAmount[2]===0 && instanceAmount[3]===0">
+			<span>{{'Du hast alles ausgeschaltet =(' | translate}}</span>
+		</h1>
+	</body>
+</main>
