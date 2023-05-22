@@ -30,7 +30,7 @@
 								<img class="img-responsive" src="assets/img/menu_black_24dp.svg" height="30">
 							</mat-icon>
 						</button>
-						<h1 *ngIf="titleObs|async as title">{{title|translate}}</h1>
+						<h1 class="title" *ngIf="titleObs|async as title">{{title|translate}}</h1>
 						<span class="example-spacer"></span>
 						<a routerLink="/start">
 							<button type="button" (click)="logout()">{{"abmelden"|translate}}</button>
