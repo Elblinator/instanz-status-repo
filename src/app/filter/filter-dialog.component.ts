@@ -1,7 +1,7 @@
 /* eslint-disable no-unexpected-multiline */
 import { ChangeDetectorRef, ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControlName, FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 
 import { DialogData } from '../00_data/interfaces';
@@ -21,16 +21,18 @@ export class FilterComponent {
 	protected services: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 	protected inst: FormGroup;
 	protected serv: FormGroup;
+	protected allInst: FormControlName | undefined;
 
 	protected comesFromService = false;
 	protected comesFromInstanzen = false;
 
-	protected offline = false;
-	protected online = false;
-	protected fast = false;
+	protected offline = true;
+	protected online = true;
+	protected fast = true;
 	protected slow = true;
 	protected error = true;
-	protected allInst = false;
+	protected allInstActiv = false;
+	protected allInstDeact = false;
 	protected allServ = true;
 
 
@@ -89,9 +91,19 @@ export class FilterComponent {
 	 * the status quo from services (which are already actived/deactivated) is: this.serv in [(...), this.serv]
 	 * which way to switch to (active/deactive) controlled by boolean: this.allInst
 	*/
-	protected switchAllInst(): void {
-		this.filterService.setDummyFilter([this._formBuilder.group(Object.fromEntries(this.instances.getValue().map(e => [e, this.allInst]))), this.serv]);
-		this.switchBooleans()
+	protected deactivateAllInst(): void {
+		this.filterService.setDummyFilter([this._formBuilder.group(Object.fromEntries(this.instances.getValue().map(e => [e, false]))), this.serv]);
+		this.switchBooleans(false);
+		this.allInstActiv = false;
+	}
+	/** deactivate/activate all Instances 
+	 * the status quo from services (which are already actived/deactivated) is: this.serv in [(...), this.serv]
+	 * which way to switch to (active/deactive) controlled by boolean: this.allInst
+	*/
+	protected activateAllInst(): void {
+		this.filterService.setDummyFilter([this._formBuilder.group(Object.fromEntries(this.instances.getValue().map(e => [e, true]))), this.serv]);
+		this.switchBooleans(true);
+		this.allInstDeact = false;
 	}
 	/** deactivate/activate all Services 
 	 * the status quo from instances (which are already actived/deactivated) is: this.inst in [this.inst, (...)]
@@ -108,6 +120,7 @@ export class FilterComponent {
 	*/
 	protected switchOffline(): void {
 		this.filterService.setDummyFilterBox([this.inst, this.serv], this.offline, 'offline');
+		this.checkAllInstBoo();
 	}
 	/** deactivate/activate all offline Instances 
 	 * the status quo (which are already actived/deactivated) is: [this.inst, this.serv]
@@ -116,6 +129,10 @@ export class FilterComponent {
 	*/
 	protected switchOnline(): void {
 		this.filterService.setDummyFilterBox([this.inst, this.serv], this.online, 'online');
+		this.checkAllInstBoo();
+		this.fast = this.online;
+		this.slow = this.online;
+		this.error = this.online;
 	}
 	/** deactivate/activate all fast Instances 
 	 * the status quo (which are already actived/deactivated) is: [this.inst, this.serv]
@@ -124,6 +141,8 @@ export class FilterComponent {
 	*/
 	protected switchFast(): void {
 		this.filterService.setDummyFilterBox([this.inst, this.serv], this.fast, 'fast');
+		this.checkAllInstBoo();
+		this.checkOnlineBoo();
 	}
 	/** deactivate/activate all slow Instances 
 	 * the status quo (which are already actived/deactivated) is: [this.inst, this.serv]
@@ -132,6 +151,8 @@ export class FilterComponent {
 	*/
 	protected switchSlow(): void {
 		this.filterService.setDummyFilterBox([this.inst, this.serv], this.slow, 'slow');
+		this.checkAllInstBoo();
+		this.checkOnlineBoo();
 	}
 	/** deactivate/activate all error Instances 
 	 * the status quo (which are already actived/deactivated) is: [this.inst, this.serv]
@@ -140,13 +161,39 @@ export class FilterComponent {
 	*/
 	protected switchError(): void {
 		this.filterService.setDummyFilterBox([this.inst, this.serv], this.error, 'error');
+		this.checkAllInstBoo();
+		this.checkOnlineBoo();
 	}
 
-	private switchBooleans(): void {
-		this.online = this.allInst;
-		this.offline = this.allInst;
-		this.fast = this.allInst;
-		this.slow = this.allInst;
-		this.error = this.allInst;
+	private checkAllInstBoo(): void {
+		if (!(this.online && this.offline)) {
+			this.allInstActiv = false;
+		}
+		if (this.online || this.offline) {
+			this.allInstDeact = false;
+		}
+		if (this.online && this.offline) {
+			this.allInstActiv = true;
+		}
+		if (!(this.online || this.offline)) {
+			this.allInstDeact = true;
+		}
+	}
+
+	private checkOnlineBoo(): void {
+		if (!(this.fast || this.slow || this.error)) {
+			this.online = false;
+		}
+		if (this.fast && this.slow && this.error) {
+			this.online = true;
+		}
+	}
+
+	private switchBooleans(boo: boolean): void {
+		this.online = boo;
+		this.offline = boo;
+		this.fast = boo;
+		this.slow = boo;
+		this.error = boo;
 	}
 }

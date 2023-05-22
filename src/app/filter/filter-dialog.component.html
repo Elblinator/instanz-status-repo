@@ -4,29 +4,29 @@
 	<span class="content">
 		<mat-card-content class="card-content">
 			<h1>
-				{{"Mögliche Instanzen"|translate}}
-				<mat-checkbox color="primary" [(ngModel)]="allInst" (click)="switchAllInst()">
+				<span>{{"Mögliche Instanzen"|translate}}</span>
+				<mat-checkbox color="primary" [(ngModel)]="allInstActiv" (click)="activateAllInst()" [disabled]="allInstActiv">
 					{{'Aktiviere alle Instanzen'|translate}}
 				</mat-checkbox>
-				<mat-checkbox color="primary" [(ngModel)]="allInst" (click)="switchAllInst()">
+				<mat-checkbox color="primary" [(ngModel)]="allInstDeact" (click)="deactivateAllInst()" [disabled]="allInstDeact">
 					{{'Deaktiviere alle Instanzen'|translate}}
 				</mat-checkbox>
 			</h1>
-			<div >
+			<div>
 				<span>{{"Zeige an: "|translate}}</span>
-				<mat-checkbox color="primary"[(ngModel)]="fast" (click)="switchFast()">
+				<mat-checkbox color="primary" [(ngModel)]="fast" (click)="switchFast()">
 					{{'Schnell'|translate}}
 				</mat-checkbox>
-				<mat-checkbox color="primary"[(ngModel)]="slow" (click)="switchSlow()">
+				<mat-checkbox color="primary" [(ngModel)]="slow" (click)="switchSlow()">
 					{{'Langsam'|translate}}
 				</mat-checkbox>
-				<mat-checkbox color="primary"[(ngModel)]="error" (click)="switchError()">
+				<mat-checkbox color="primary" [(ngModel)]="error" (click)="switchError()">
 					{{'Error'|translate}}
 				</mat-checkbox>
-				<mat-checkbox color="primary"[(ngModel)]="online" (click)="switchOnline()">
+				<mat-checkbox color="primary" [(ngModel)]="online" (click)="switchOnline()">
 					{{'Online'|translate}}
 				</mat-checkbox>
-				<mat-checkbox color="primary"[(ngModel)]="offline" (click)="switchOffline()">
+				<mat-checkbox color="primary" [(ngModel)]="offline" (click)="switchOffline()">
 					{{'Offline'|translate}}
 				</mat-checkbox>
 			</div>

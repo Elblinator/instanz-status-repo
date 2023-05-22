@@ -37,8 +37,8 @@ export class FilterService {
 	public worstStatusArr: BackgroundPossibilities[] = [];
 	public worstStatusArrSubj: BehaviorSubject<BackgroundPossibilities[]> = new BehaviorSubject<BackgroundPossibilities[]>([]);
 
-	private loading = true
-	private loaded = false
+	private loading = true;
+	private loaded = false;
 
 	constructor(
 		private dataService: DataService,

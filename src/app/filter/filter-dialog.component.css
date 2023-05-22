@@ -20,6 +20,7 @@ main {
 	flex-direction: column;
 	height: 720px;
 	width: auto;
+	background-color: white;
 }
 
 .card-content {
@@ -44,3 +45,4 @@ footer {
 	width: 100%;
 	text-align: center;
 }
+
