@@ -4,14 +4,13 @@ button {
 	margin-top: 16px;
 }
 
-.example-section {
-	display: flex;
-	align-content: center;
-	align-items: center;
-	height: 50px;
-	width: 350px;
+h1,
+h2 {
+	margin: 16px;
+	text-align: center;
 }
 
-h1, h2 {
-	text-align: center;
+body {
+	height: 300px;
+	width: 300px;
 }

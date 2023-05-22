@@ -17,6 +17,7 @@
 			<span *ngIf="!isRunningOffline(inst.status)">
 				<ng-container>
 					<table class="restart-content">
+						<!-- Groups ----------------------------->
 						<tr *ngFor="let instan of instanceGruppen">
 							<td>
 								<button class="dummy_style" (click)="print()">
@@ -24,7 +25,9 @@
 								</button>
 							</td>
 							<td>
-								{{instan}}:
+								<mat-chip class="backgroundPink" selected (click)="print()">
+									{{instan}}
+								</mat-chip>
 							</td>
 							<td>
 								<button type="button" class="neustart-button" (click)="openWarnDialog(instan)">
@@ -41,6 +44,7 @@
 								</button>
 							</td>
 						</tr>
+						<!-- Services ------------------------ -->
 						<tr *ngFor="let service of inst.services">
 							<td>
 								<span *ngIf="isRunningGreen(service.status)">
@@ -60,8 +64,21 @@
 								</span>
 							</td>
 							<td>
-								{{service.name}}
+								<mat-chip-set *ngIf="isRunningYellow(service.status)">
+									<mat-chip class="backgroundYellow" selected> {{service.name}}</mat-chip>
+								</mat-chip-set>
+								<mat-chip-set *ngIf="isRunningRed(service.status)">
+									<mat-chip class="backgroundRed" selected> {{service.name}}</mat-chip>
+								</mat-chip-set>
+								<mat-chip-set *ngIf="isRunningGreen(service.status)">
+									<mat-chip class="backgroundGreen" selected> {{service.name}}</mat-chip>
+								</mat-chip-set>
 							</td>
+							<!-- <td>
+								<mat-chip>
+									{{service.name}}
+								</mat-chip>
+							</td> -->
 							<td>
 								<button class="neustart-button" type="button" (click)="openWarnDialog(service.name)">
 									<mat-icon aria-label="restart-button">
