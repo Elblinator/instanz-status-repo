@@ -1,8 +1,6 @@
 
 
 # next Job:
- - chips für ausgewählte Filter
- - 'wähle Instanz'/search function gleiche Farbe
  - unterstrich Farbänderung, wenn angewählt
  - abstände titel tiles (in service-page)
  - keine liste-punkte in (service-page)
@@ -11,7 +9,6 @@
  - Farb Bar in instanz-detail?
  - dummy_chosenInstance/dummy_chosenService is presented wonkily -> needs 'resetting'
  - filter-dialog -> fix footer at bottom; make that tab enter deactivates the current instance/service
- - Instanzen make changes (talked about with Martin)
  - make tiles less wonky
  - instances make pretty
  - status make pretty
@@ -48,3 +45,7 @@
  green #019701
  yellow #eab102
  red  #e80101
+
+ # erstmal verworfenen Ideen:
+ - chips für ausgewählte Filter
+ - 'Instanz'/search function gleiche Farbe wie Hintergrund
