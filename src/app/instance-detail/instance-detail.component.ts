@@ -4,7 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { RealInstance } from '../00_data/interfaces';
+import { Info, RealInstance } from '../00_data/interfaces';
+import { INFO } from '../00_data/warn-text';
 
 import { WarnComponent } from '../warn/warn-dialog.component';
 import { GroupInfoComponent } from '../GroupInfo/GroupInfo.component';
@@ -22,7 +23,7 @@ export class InstanceDetailComponent implements OnInit {
 	protected instancesObservable: Observable<RealInstance> | undefined;
 
 	/** additional restart groups */
-	protected instanceGruppen: string[] = ["backEnd", "irgendeine Gruppe"];
+	protected instanceGruppen: Info[] = [{ group: "", members: [""] }];
 	/** current instance name */
 	private name = String(this.route.snapshot.paramMap.get('name'));
 
@@ -33,13 +34,14 @@ export class InstanceDetailComponent implements OnInit {
 		private dialog: MatDialog,
 		private warnService: WarnService,
 		private dataService: DataService
-	) { }
+	) {
+		this.instanceGruppen = INFO;
+	}
 
 	public ngOnInit(): void {
-
 		this.initialise();
 		this.route.url.subscribe(() => {
-			this.activateInstance()
+			this.activateInstance();
 		})
 
 	}
@@ -91,6 +93,13 @@ export class InstanceDetailComponent implements OnInit {
 
 	protected print() {
 		console.log('I need to know which groups are in here and with that knowledge I need to calculate the worst status')
+	}
+
+	protected isEveryMemberValid(group: Info): boolean {
+		return this.filterService.isEveryMemberValid(group);
+	}
+	protected getGroupStatus(group: Info): string {
+		return this.filterService.getGroupStatus(group);
 	}
 }
 

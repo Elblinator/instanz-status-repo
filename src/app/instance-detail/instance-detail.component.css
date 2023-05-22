@@ -17,6 +17,10 @@
 	border-radius: 50%;
 }
 
+h2>span{
+    line-break: anywhere;
+}
+
 td {
     border-bottom: 1px solid  rgba(0,0,0,.12) !important;
 }
@@ -39,4 +43,8 @@ td {
 
 .backgroundPink {
 	background-color: #f2f !important;
+}
+
+.backgroundGrey {
+	background-color: #cbc5c2 !important;
 }

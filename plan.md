@@ -1,11 +1,6 @@
 
 
 # next Job:
- - unterstrich Farbänderung, wenn angewählt
- - abstände titel tiles (in service-page)
- - keine liste-punkte in (service-page)
- - Überschrift linksbündig (service-page)
- - instanz-details in chips (mat-basic-chips)
  - Farb Bar in instanz-detail?
  - dummy_chosenInstance/dummy_chosenService is presented wonkily -> needs 'resetting'
  - filter-dialog -> fix footer at bottom; make that tab enter deactivates the current instance/service

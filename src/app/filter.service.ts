@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { RealInstance, SimpleInstance, Status } from './00_data/interfaces';
-import { BLACK, GREEN, RED, STATUS_LIST, YELLOW } from './00_data/magic_strings';
+import { Info, RealInstance, SimpleInstance, Status } from './00_data/interfaces';
+import { BLACK, GREEN, RED, SERVICE, STATUS_LIST, YELLOW } from './00_data/magic_strings';
 
 import { DataService } from './data.service';
 
@@ -31,9 +31,10 @@ export class FilterService {
 
 	/**last watched instance (see instance-detail) */
 	public currentInstanceSubject: BehaviorSubject<(RealInstance)> = new BehaviorSubject<RealInstance>({ name: "", status: "", services: [{ name: "", status: "" }] });
+	private actualCurrentInstance: RealInstance = { name: '', status: '', services: [{ name: '', status: '' }] };
 
-	public emptyInstance: RealInstance = { name: "", status: "", services: [] }
-	public currentInstance: RealInstance = { name: "", status: "", services: [{ name: "", status: "" }] }
+	public emptyInstance: RealInstance = { name: "", status: "", services: [] };
+	public currentInstance: RealInstance = { name: "", status: "", services: [{ name: "", status: "" }] };
 	public worstStatusArr: BackgroundPossibilities[] = [];
 	public worstStatusArrSubj: BehaviorSubject<BackgroundPossibilities[]> = new BehaviorSubject<BackgroundPossibilities[]>([]);
 
@@ -344,6 +345,33 @@ export class FilterService {
 		});
 		return isYellow;
 	}
+	/**
+	 * @param instance 
+	 * @returns the worst status from group (error>slow>fast>offline)
+	 */
+	public isEveryMemberValid(group: Info): boolean {
+		let boo = true
+		group.members.forEach(element => {
+			if (!(Object.values(SERVICE).includes(element as SERVICE))) {
+				boo = false;
+			}
+		});
+		return boo;
+	}
+
+	public getGroupStatus(group: Info): string {
+		const name = this.actualCurrentInstance.name;
+		const status = this.actualCurrentInstance.status;
+		const services: Status[] = [];
+		const members = group.members;
+
+		this.actualCurrentInstance.services.forEach(element => {
+			if ((members.includes(element.name))) {
+				services.push(element);
+			}
+		})
+		return this.getStatus({ name, status, services })
+	}
 
 	/**
 	 * @param instance 
@@ -393,6 +421,9 @@ export class FilterService {
 			this.currentInstance = a;
 		}
 	}
+	public getInst(): RealInstance {
+		return this.currentInstance;
+	}
 	/**
 	 * @param name = name from an instance
 	 * saves the searched instance in this.currentInstanceSubject
@@ -401,10 +432,11 @@ export class FilterService {
 		const a = this.dataService.realInstancesSubject.getValue().find(h => h.name === name);
 		if (!(typeof (a) === 'undefined')) {
 			this.currentInstanceSubject.next(a);
+			this.actualCurrentInstance = a;
 		}
 		return this.currentInstanceSubject as Observable<RealInstance>;
 	}
-	
+
 	/**
 	 * @param name = name from an instance
 	 * saves the searched instance in this.currentInstanceSubject
@@ -418,16 +450,16 @@ export class FilterService {
 	 */
 	public setInstColour(colour: string): void {
 		if (colour === "green") {
-			this.currentInstance = { name: "", status: "", services: [{ name: "", status: "fast"}]};
+			this.currentInstance = { name: "", status: "", services: [{ name: "", status: "fast" }] };
 		}
-		else if ( colour === "yellow" ) {
-			this.currentInstance = { name: "", status: "", services: [{ name: "", status: "starting"}]};
+		else if (colour === "yellow") {
+			this.currentInstance = { name: "", status: "", services: [{ name: "", status: "starting" }] };
 		}
-		else if ( colour === "red" ) {
-			this.currentInstance = { name: "", status: "", services: [{ name: "", status: "error"}]};
+		else if (colour === "red") {
+			this.currentInstance = { name: "", status: "", services: [{ name: "", status: "error" }] };
 		}
 		else {
-			this.currentInstance = { name: "", status: "stopped", services: [{ name: "", status: ""}]};
+			this.currentInstance = { name: "", status: "stopped", services: [{ name: "", status: "" }] };
 		}
 	}
 
