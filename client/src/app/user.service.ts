@@ -26,6 +26,7 @@ export class UserService {
 	*  then the current user is updated and isUser is true
 	*/
 	protected login(user: string, password: string): void {
+		// hier Kommunikation mit dataServer
 		this.user = user;
 		this.password = password;
 		this.isUser = true;
@@ -72,7 +73,7 @@ export class UserService {
 
 	// same as above, but app-routing.module needs this one 
 	protected canActivate(): boolean {
-		return this.isLoggedIn();
+		return this.isUser;
 	}
 	// turn Observable User[] into User[]
 	public getUsers(): User[] {
