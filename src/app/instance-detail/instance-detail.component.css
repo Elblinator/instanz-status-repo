@@ -16,11 +16,33 @@
     padding: 0.2em;
 	border-radius: 50%;
 }
-
+h2>span{
+    line-break: anywhere;
+}
 td {
     border-bottom: 1px solid  rgba(0,0,0,.12) !important;
 }
 
 .restart-content {
     margin: 0 20px;
+}
+
+.backgroundYellow {
+	background-color: #eab102 !important;
+}
+
+.backgroundRed {
+	background-color: #e80101 !important;
+}
+
+.backgroundGreen {
+	background-color: #019701 !important;
+}
+
+.backgroundPink {
+	background-color: #f2f !important;
+}
+
+.backgroundGrey {
+	background-color: #cbc5c2 !important;
 }

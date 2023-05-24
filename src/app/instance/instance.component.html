@@ -10,7 +10,7 @@
 	</header>
 	<!-- ------------------------------------>
 
-	<body>
+	<body class="content">
 		<h2>{{"Die Instanzen"|translate}}: </h2>
 		<app-grid>
 			<app-tile [ngClass]="setInst(instance.name)" *ngFor="let instance of filteredInstancesObservable|async">

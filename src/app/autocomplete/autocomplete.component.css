@@ -1,7 +1,6 @@
 mat-form-field {
     width:400px;
 }
-
 mat-option {
     padding: 0;
     height: 48px !important;
@@ -11,7 +10,7 @@ span {
     padding: 0;
     margin: 0 !important;
     height: 48px !important;
-	width: fit-content;
+    width: fit-content;
 }
 
 a {
@@ -22,4 +21,20 @@ a {
 
 button {
     width: 380px;
+    background-color: auto;
+    margin: 0;
+    padding: 0;
+}
+
+whole-box {
+    border-radius: 0%;
+}
+
+.filter2 {
+    background-color: blue;
+}
+
+.filter3 {
+    background-color: blueviolet;
+    width: 400px;r
 }

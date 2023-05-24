@@ -9,7 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
-import { MatRadioModule } from '@angular/material/radio';
+import { MatRadioGroup, MatRadioModule } from '@angular/material/radio';
 
 
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -60,10 +60,10 @@ import { GroupInfoComponent } from './GroupInfo/GroupInfo.component';
 		TranslateModule.forRoot(),
 		MatAutocompleteModule,
 		MatInputModule,
-		MatRadioModule,
-		MatChipsModule
+		MatChipsModule,
+		MatRadioModule
 	],
-	exports: [TranslatePipe],
+	exports: [TranslatePipe, MatRadioGroup],
 	declarations: [
 		AppComponent,
 		ServiceComponent,

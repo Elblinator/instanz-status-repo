@@ -1,5 +1,4 @@
 
-
 .side-bar {
 	height: 100%;
 	color: 000000DE;
@@ -44,7 +43,7 @@
 }
 
 .second-header {
-	position: sticky; 
+	position: sticky;
 }
 
 /* Global Styles */
@@ -55,17 +54,7 @@
 h1 {
 	color: #FFFFFF;
 	font-size: 2.5rem;
-	margin: 08px
-}
-
-h2,
-h3 {
-	color: #444;
-	font-weight: lighter;
-}
-
-h3 {
-	font-size: 1.3rem;
+	margin: 8px
 }
 
 body,
@@ -75,7 +64,7 @@ input[text] {
 }
 
 a {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 button {
@@ -131,7 +120,7 @@ hr {
 
 
 .example-spacer {
-  flex: 1 1 auto;
+	flex: 1 1 auto;
 }
 
 .login-container {
@@ -139,6 +128,11 @@ hr {
 }
 
 .head {
-	padding-left: 0 ;
+	padding-left: 0;
 }
 
+.title {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}

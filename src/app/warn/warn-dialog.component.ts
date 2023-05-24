@@ -9,9 +9,9 @@ import { WarnService } from '../warn.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WarnComponent {
-	service = "";
-	warn = "";
-	hint = "";
+	protected service = "";
+	protected warn = "";
+	protected hint = "";
 
 	constructor(
 		private warnService: WarnService,

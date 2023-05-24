@@ -1,40 +1,32 @@
 
 
 # next Job:
- - chips für ausgewählte Filter
- - 'wähle Instanz'/search function gleiche Farbe
- - unterstrich Farbänderung, wenn angewählt
- - abstände titel tiles (in service-page)
- - keine liste-punkte in (service-page)
- - Überschrift linksbündig (service-page)
- - instanz-details in chips (mat-basic-chips)
+ - instances connected with filter -> fast/slow/error/offline have to switch the moment every member of their group is gone 
+        ---> meaning that if fast is true, is online switches to false when all members of fast are false, but if fast is false is only switches to true if every member is true
+ - timer
  - Farb Bar in instanz-detail?
  - dummy_chosenInstance/dummy_chosenService is presented wonkily -> needs 'resetting'
- - filter-dialog -> fix footer at bottom; make that tab enter deactivates the current instance/service
- - Instanzen make changes (talked about with Martin)
- - make tiles less wonky
+ - filter-dialog -> fix footer at bottom; make that tab+enter is functional
  - instances make pretty
- - status make pretty
+ - service make pretty
  - Terminologie menschlich machen (Mit ABS-Team absprechen, die sollen das verwenden)
- - timer
  
 # ui:
  - instances
  - status
  - instances detail
- - header
  
 # Components: 
  - timer
  - Blockieren von doppelten neustarts --> dummy button for now, timer, visible timer?,
- - Fehlermeldung Ausgabe falls Neustart fail
- - restart != logged out (backend? python? ht access)  
+ - Fehlermeldung Ausgabe falls Neustart fail 
  - translate
  - Kalender Funktion, first try Nextcloud
- - (./agenda ssh-key zugriff, darf ich soll ich?)
+ - (./agenda ssh-key zugriff, darf ich, soll ich?)
+
 
  # Log (backend):
- - Hinzufügen Log wer war überhaupt da
+ - Hinzufügen Log wer war überhaupt da ist 
  - Log wer hat etwas an den Instanzen verändert (?)
  - Fehlermeldung im Log falls Neustart fail
 
@@ -48,3 +40,9 @@
  green #019701
  yellow #eab102
  red  #e80101
+
+ # erstmal verworfenen Ideen:
+ - chips für ausgewählte Filter
+ - 'Instanz'/search function gleiche Farbe wie Hintergrund
+ 
+ 
