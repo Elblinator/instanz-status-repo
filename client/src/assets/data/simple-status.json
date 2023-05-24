@@ -1,0 +1,19 @@
+[
+    {
+      "status": "error",
+      "instances_part": "0.00"
+    },
+    {
+      "status": "normal",
+      "instances_part": "0.21"
+    },
+    {
+      "status": "unknown",
+      "instances_part": "0.12"
+    },
+    {
+      "status": "stopped",
+      "instances_part": "0.67"
+    }
+  ]
+  

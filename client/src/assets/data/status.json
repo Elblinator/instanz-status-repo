@@ -1,0 +1,469 @@
+[
+  {
+    "name": "a1.dev2.openslides.com",
+    "status": "normal",
+    "services": [
+      {
+        "name": "auth",
+        "status": "running"
+      },
+      {
+        "name": "autoupdate",
+        "status": "running"
+      },
+      {
+        "name": "backendAction",
+        "status": "running"
+      },
+      {
+        "name": "backendManage",
+        "status": "running"
+      },
+      {
+        "name": "backendPresenter",
+        "status": "running"
+      },
+      {
+        "name": "client",
+        "status": "running"
+      },
+      {
+        "name": "datastoreReader",
+        "status": "running"
+      },
+      {
+        "name": "datastoreWriter",
+        "status": "running"
+      },
+      {
+        "name": "icc",
+        "status": "running"
+      },
+      {
+        "name": "manage",
+        "status": "running"
+      },
+      {
+        "name": "media",
+        "status": "running"
+      },
+      {
+        "name": "proxy",
+        "status": "running"
+      },
+      {
+        "name": "redis",
+        "status": "running"
+      },
+      {
+        "name": "vote",
+        "status": "running"
+      }
+    ]
+  },
+  {
+    "name": "testestestestestestestestestestestestestestes",
+    "status": "normal",
+    "services": [
+      {
+        "name": "auth",
+        "status": "running"
+      },
+      {
+        "name": "autoupdate",
+        "status": "running"
+      },
+      {
+        "name": "backendAction",
+        "status": "running"
+      },
+      {
+        "name": "backendManage",
+        "status": "starting"
+      },
+      {
+        "name": "backendPresenter",
+        "status": "running"
+      },
+      {
+        "name": "client",
+        "status": "running"
+      },
+      {
+        "name": "datastoreReader",
+        "status": "running"
+      },
+      {
+        "name": "datastoreWriter",
+        "status": "running"
+      },
+      {
+        "name": "icc",
+        "status": "running"
+      },
+      {
+        "name": "manage",
+        "status": "running"
+      },
+      {
+        "name": "media",
+        "status": "running"
+      },
+      {
+        "name": "proxy",
+        "status": "running"
+      },
+      {
+        "name": "redis",
+        "status": "running"
+      },
+      {
+        "name": "vote",
+        "status": "error"
+      }
+    ]
+  },
+  {
+    "name": "a2.dev2.openslides.com",
+    "status": "normal",
+    "services": [
+      {
+        "name": "auth",
+        "status": "running"
+      },
+      {
+        "name": "autoupdate",
+        "status": "running"
+      },
+      {
+        "name": "backendAction",
+        "status": "running"
+      },
+      {
+        "name": "backendManage",
+        "status": "running"
+      },
+      {
+        "name": "backendPresenter",
+        "status": "running"
+      },
+      {
+        "name": "client",
+        "status": "running"
+      },
+      {
+        "name": "datastoreReader",
+        "status": "running"
+      },
+      {
+        "name": "datastoreWriter",
+        "status": "running"
+      },
+      {
+        "name": "icc",
+        "status": "running"
+      },
+      {
+        "name": "manage",
+        "status": "running"
+      },
+      {
+        "name": "media",
+        "status": "running"
+      },
+      {
+        "name": "proxy",
+        "status": "running"
+      },
+      {
+        "name": "redis",
+        "status": "running"
+      },
+      {
+        "name": "vote",
+        "status": "running"
+      }
+    ]
+  },
+  {
+    "name": "a.dev2.openslides.com",
+    "status": "stopped",
+    "services": []
+  },
+  {
+    "name": "a.docker-dev2.openslides.org",
+    "status": "stopped",
+    "services": []
+  },
+  {
+    "name": "asetup.dev2.openslides.com",
+    "status": "stopped",
+    "services": []
+  },
+  {
+    "name": "g1.dev2.openslides.com",
+    "status": "stopped",
+    "services": []
+  },
+  {
+    "name": "gabriel.dev2.openslides.com",
+    "status": "stopped",
+    "services": []
+  },
+  {
+    "name": "h3.dev2.openslides.com",
+    "status": "normal",
+    "services": [
+      {
+        "name": "auth",
+        "status": "running"
+      },
+      {
+        "name": "autoupdate",
+        "status": "running"
+      },
+      {
+        "name": "backendAction",
+        "status": "running"
+      },
+      {
+        "name": "backendManage",
+        "status": "running"
+      },
+      {
+        "name": "backendPresenter",
+        "status": "running"
+      },
+      {
+        "name": "client",
+        "status": "running"
+      },
+      {
+        "name": "datastoreReader",
+        "status": "running"
+      },
+      {
+        "name": "datastoreWriter",
+        "status": "running"
+      },
+      {
+        "name": "icc",
+        "status": "running"
+      },
+      {
+        "name": "manage",
+        "status": "running"
+      },
+      {
+        "name": "media",
+        "status": "running"
+      },
+      {
+        "name": "proxy",
+        "status": "running"
+      },
+      {
+        "name": "redis",
+        "status": "running"
+      },
+      {
+        "name": "vote",
+        "status": "starting"
+      }
+    ]
+  },
+  {
+    "name": "jitsi_test.dev2.openslides.com",
+    "status": "stopped",
+    "services": []
+  },
+  {
+    "name": "matestas.dev2.openslides.com",
+    "status": "stopped",
+    "services": []
+  },
+  {
+    "name": "ms2.dev2.openslides.com",
+    "status": "normal",
+    "services": [
+      {
+        "name": "auth",
+        "status": "running"
+      },
+      {
+        "name": "autoupdate",
+        "status": "running"
+      },
+      {
+        "name": "backendAction",
+        "status": "running"
+      },
+      {
+        "name": "backendManage",
+        "status": "running"
+      },
+      {
+        "name": "backendPresenter",
+        "status": "running"
+      },
+      {
+        "name": "client",
+        "status": "running"
+      },
+      {
+        "name": "datastoreReader",
+        "status": "running"
+      },
+      {
+        "name": "datastoreWriter",
+        "status": "running"
+      },
+      {
+        "name": "icc",
+        "status": "running"
+      },
+      {
+        "name": "manage",
+        "status": "running"
+      },
+      {
+        "name": "media",
+        "status": "running"
+      },
+      {
+        "name": "proxy",
+        "status": "running"
+      },
+      {
+        "name": "redis",
+        "status": "running"
+      },
+      {
+        "name": "vote",
+        "status": "running"
+      }
+    ]
+  },
+  {
+    "name": "ms.dev2.openslides.com",
+    "status": "normal",
+    "services": [
+      {
+        "name": "auth",
+        "status": "running"
+      },
+      {
+        "name": "autoupdate",
+        "status": "running"
+      },
+      {
+        "name": "backendAction",
+        "status": "running"
+      },
+      {
+        "name": "backendManage",
+        "status": "running"
+      },
+      {
+        "name": "backendPresenter",
+        "status": "running"
+      },
+      {
+        "name": "client",
+        "status": "running"
+      },
+      {
+        "name": "datastoreReader",
+        "status": "running"
+      },
+      {
+        "name": "datastoreWriter",
+        "status": "running"
+      },
+      {
+        "name": "icc",
+        "status": "running"
+      },
+      {
+        "name": "manage",
+        "status": "running"
+      },
+      {
+        "name": "media",
+        "status": "running"
+      },
+      {
+        "name": "proxy",
+        "status": "running"
+      },
+      {
+        "name": "redis",
+        "status": "running"
+      },
+      {
+        "name": "vote",
+        "status": "running"
+      }
+    ]
+  },
+  {
+    "name": "ms-jitsi.dev2.openslides.com",
+    "status": "stopped",
+    "services": []
+  },
+  {
+    "name": "",
+    "status": "unknown",
+    "services": []
+  },
+  {
+    "name": "otel2.dev2.openslides.com",
+    "status": "stopped",
+    "services": []
+  },
+  {
+    "name": "pull220-1.dev2.openslides.com",
+    "status": "stopped",
+    "services": []
+  },
+  {
+    "name": "pull220.dev2.openslides.com",
+    "status": "stopped",
+    "services": []
+  },
+  {
+    "name": "",
+    "status": "unknown",
+    "services": []
+  },
+  {
+    "name": "testintern.dev2.openslides.com",
+    "status": "stopped",
+    "services": []
+  },
+  {
+    "name": "testprs2.dev2.openslides.com",
+    "status": "stopped",
+    "services": []
+  },
+  {
+    "name": "testprs3.dev2.openslides.com",
+    "status": "stopped",
+    "services": []
+  },
+  {
+    "name": "updatetest.dev2.openslides.com",
+    "status": "stopped",
+    "services": []
+  },
+  {
+    "name": "",
+    "status": "unknown",
+    "services": []
+  },
+  {
+    "name": "workerwatch.dev2.openslides.com",
+    "status": "stopped",
+    "services": []
+  }
+]
