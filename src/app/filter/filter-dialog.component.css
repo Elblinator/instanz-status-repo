@@ -46,3 +46,8 @@ footer {
 	text-align: center;
 }
 
+.online-box {
+	border-right: 1px solid lightgrey;
+	text-align: center;
+}
+

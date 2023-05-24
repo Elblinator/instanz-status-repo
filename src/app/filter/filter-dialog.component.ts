@@ -141,8 +141,8 @@ export class FilterComponent {
 	*/
 	protected switchFast(): void {
 		this.filterService.setDummyFilterBox([this.inst, this.serv], this.fast, 'fast');
-		this.checkAllInstBoo();
 		this.checkOnlineBoo();
+		this.checkAllInstBoo();
 	}
 	/** deactivate/activate all slow Instances 
 	 * the status quo (which are already actived/deactivated) is: [this.inst, this.serv]
@@ -151,8 +151,8 @@ export class FilterComponent {
 	*/
 	protected switchSlow(): void {
 		this.filterService.setDummyFilterBox([this.inst, this.serv], this.slow, 'slow');
-		this.checkAllInstBoo();
 		this.checkOnlineBoo();
+		this.checkAllInstBoo();
 	}
 	/** deactivate/activate all error Instances 
 	 * the status quo (which are already actived/deactivated) is: [this.inst, this.serv]
@@ -161,21 +161,21 @@ export class FilterComponent {
 	*/
 	protected switchError(): void {
 		this.filterService.setDummyFilterBox([this.inst, this.serv], this.error, 'error');
-		this.checkAllInstBoo();
 		this.checkOnlineBoo();
+		this.checkAllInstBoo();
 	}
 
 	private checkAllInstBoo(): void {
-		if (!(this.online && this.offline)) {
+		if (!(this.fast && this.slow && this.error && this.offline)) {
 			this.allInstActiv = false;
 		}
-		if (this.online || this.offline) {
+		if (this.fast || this.slow || this.error || this.offline) {
 			this.allInstDeact = false;
 		}
-		if (this.online && this.offline) {
+		if (this.fast && this.slow && this.error && this.offline) {
 			this.allInstActiv = true;
 		}
-		if (!(this.online || this.offline)) {
+		if (!(this.fast || this.slow || this.error || this.offline)) {
 			this.allInstDeact = true;
 		}
 	}
@@ -195,5 +195,15 @@ export class FilterComponent {
 		this.fast = boo;
 		this.slow = boo;
 		this.error = boo;
+	}
+	protected checkBoo(status: string): void {
+		status
+		//these are all chosen instances
+		this.filterService.dummy_chosenInstancesString;
+		// get have to get their values (fast/slow/error/offline)
+
+		// we have to check what the value of this.fast/this.slow/this.error/this.offline is
+
+		// if this.fast but not one fast is selected -> !this.fast
 	}
 }

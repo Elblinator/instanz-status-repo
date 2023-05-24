@@ -28,6 +28,7 @@ export class FilterService {
 	private chosenServices: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 	private dummy_chosenInstances: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 	private dummy_chosenServices: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+	public dummy_chosenInstancesString: string[] = [];
 
 	/**last watched instance (see instance-detail) */
 	public currentInstanceSubject: BehaviorSubject<(RealInstance)> = new BehaviorSubject<RealInstance>({ name: "", status: "", services: [{ name: "", status: "" }] });
@@ -109,6 +110,7 @@ export class FilterService {
 			this.chosenServices.next(this.possibleServices.getValue());
 			this.dummy_chosenInstances.next(this.possibleInstances.getValue());
 			this.dummy_chosenServices.next(this.possibleServices.getValue());
+			this.dummy_chosenInstancesString = this.possibleInstances.getValue();
 			this.filterInstances()
 		}
 	}
@@ -165,6 +167,7 @@ export class FilterService {
 			}
 		}
 		this.dummy_chosenInstances.next(currentList);
+		this.dummy_chosenInstancesString = currentList;
 
 
 		currentList = []
