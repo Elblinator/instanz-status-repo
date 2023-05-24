@@ -131,7 +131,6 @@ input[text] {
 	border: 1px solid gray;
 	display: inline-block;
 }
-
 .dot_slow2 {
 	width: 15px;
 	height: 15px;
@@ -175,7 +174,6 @@ input[text] {
 	border-radius: 50%;
 	display: inline-block;
 }
-
 .square_fast,
 .square_online {
 	width: 1em;
@@ -287,5 +285,4 @@ form {
 	line-height: 0.8;
 	width: fit-content;
 	height: fit-content;
-
 }

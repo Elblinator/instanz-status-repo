@@ -1,16 +1,6 @@
 mat-form-field {
-    width: 400px;
+    width:400px;
 }
-
-/* mat-mdc-text-field-wrapper {
-    background-color: #fff;
-}
-
-mat-form-field>.mdc-text-field--filled:not(.mdc-text-field--disabled) {
-    background-color: red !important;
-}
-input.mat-input-element { color: white; } */
-
 mat-option {
     padding: 0;
     height: 48px !important;
@@ -46,5 +36,5 @@ whole-box {
 
 .filter3 {
     background-color: blueviolet;
-    width: 400px;
+    width: 400px;r
 }

@@ -24,6 +24,7 @@
  - Kalender Funktion, first try Nextcloud
  - (./agenda ssh-key zugriff, darf ich, soll ich?)
 
+
  # Log (backend):
  - Hinzufügen Log wer war überhaupt da ist 
  - Log wer hat etwas an den Instanzen verändert (?)
@@ -43,3 +44,5 @@
  # erstmal verworfenen Ideen:
  - chips für ausgewählte Filter
  - 'Instanz'/search function gleiche Farbe wie Hintergrund
+ 
+ 

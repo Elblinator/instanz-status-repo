@@ -22,7 +22,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 import { MatChipsModule } from '@angular/material/chips';
 
-
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 

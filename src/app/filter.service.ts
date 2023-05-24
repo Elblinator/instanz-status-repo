@@ -41,6 +41,25 @@ export class FilterService {
 
 	private loading = true;
 	private loaded = false;
+=======
+
+	private possibleInstances: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+	private possibleServices: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+	private chosenInstances: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+	private chosenServices: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+	private dummy_chosenInstances: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+	private dummy_chosenServices: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+
+	/**last watched instance (see instance-detail) */
+	public currentInstanceSubject: BehaviorSubject<(RealInstance)> = new BehaviorSubject<RealInstance>({ name: "", status: "", services: [{ name: "", status: "" }] });
+
+	public emptyInstance: RealInstance = { name: "", status: "", services: [] }
+	public currentInstance: RealInstance = { name: "", status: "", services: [{ name: "", status: "" }] }
+	public worstStatusArr: BackgroundPossibilities[] = [];
+	public worstStatusArrSubj: BehaviorSubject<BackgroundPossibilities[]> = new BehaviorSubject<BackgroundPossibilities[]>([]);
+
+	private loading = true
+	private loaded = false
 
 	constructor(
 		private dataService: DataService,
@@ -111,7 +130,6 @@ export class FilterService {
 			this.dummy_chosenInstances.next(this.possibleInstances.getValue());
 			this.dummy_chosenServices.next(this.possibleServices.getValue());
 			this.dummy_chosenInstancesString = this.possibleInstances.getValue();
-			this.filterInstances()
 		}
 	}
 
