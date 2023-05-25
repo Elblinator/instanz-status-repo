@@ -47,7 +47,7 @@
 				<app-tile [formGroup]="inst" [ngClass]="setInstEmpty()" class="example-section"
 					*ngFor="let instance of instances|async">
 					<p>
-						<mat-checkbox color="primary" formControlName="{{instance}}" (click)="checkBoo(instance)">{{instance}}</mat-checkbox>
+						<mat-checkbox color="primary" formControlName="{{instance}}" (click)="checkDummyFilterBox(instance)">{{instance}}</mat-checkbox>
 					</p>
 				</app-tile>
 			</app-grid>

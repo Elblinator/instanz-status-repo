@@ -129,10 +129,11 @@ export class FilterComponent {
 	*/
 	protected switchOnline(): void {
 		this.filterService.setDummyFilterBox([this.inst, this.serv], this.online, 'online');
-		this.checkAllInstBoo();
 		this.fast = this.online;
 		this.slow = this.online;
 		this.error = this.online;
+		this.checkOnlineBoo();
+		this.checkAllInstBoo();
 	}
 	/** deactivate/activate all fast Instances 
 	 * the status quo (which are already actived/deactivated) is: [this.inst, this.serv]
@@ -196,14 +197,23 @@ export class FilterComponent {
 		this.slow = boo;
 		this.error = boo;
 	}
-	protected checkBoo(status: string): void {
-		status
-		//these are all chosen instances
-		this.filterService.dummy_chosenInstancesString;
-		// get have to get their values (fast/slow/error/offline)
+	protected checkDummyFilterBox(instance: string): void {
+		this.filterService.setInst(instance)
+		//[this.inst, this.serv], this.offline, 'offline'
+		if (this.filterService.currentInstance.status === "stopped") {
+			this.offline = this.filterService.checkDummyFilterBox([this.inst, this.serv], this.offline, 'offline');
+		} else {
+			const status = this.filterService.getStatus(this.filterService.currentInstance)
+			if (status === "fast") {
+				this.fast = this.filterService.checkDummyFilterBox([this.inst, this.serv], this.fast, 'fast');
+			} else if (status === "slow") {
+				this.slow = this.filterService.checkDummyFilterBox([this.inst, this.serv], this.slow, 'slow');
+			} else {
+				this.error = this.filterService.checkDummyFilterBox([this.inst, this.serv], this.error, 'error');
+			}
+		}
 
-		// we have to check what the value of this.fast/this.slow/this.error/this.offline is
-
-		// if this.fast but not one fast is selected -> !this.fast
+		this.checkOnlineBoo();
+		this.checkAllInstBoo();
 	}
 }

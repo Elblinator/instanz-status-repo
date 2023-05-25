@@ -236,6 +236,45 @@ export class FilterService {
 	}
 
 	/**
+	 * checks if all members of one status are gone 
+	 * if online is initially true but then all members turn false online has to turn false to, and vise versa with iniitially false
+	 */
+	public checkDummyFilterBox(data: FormGroup[], boo: boolean, str: string): boolean {
+		let counter = 0;
+		const inst: FormGroup = data[0];
+		const mapped = Object.entries(inst.value);
+		let curInst = '';
+		let a: (b: string) => boolean;
+		if (this.isRunningOffline(str)) {
+			a = this.isRunningOffline;
+		} else if (this.isRunningGreen(str)) {
+			a = this.isRunningGreen;
+		} else if (this.isRunningYellow(str)) {
+			a = this.isRunningYellow;
+		} else {
+			a = this.isRunningRed;
+		}
+
+		for (const map of mapped) {
+			this.setInst(map[0])
+			// dependend on on/off we need to look at a different status
+			curInst = this.currentInstance.status;
+			if (!this.isRunningOffline(str)) {
+				curInst = this.getStatus(this.currentInstance)
+			}
+			if (a(curInst)) {
+				if (boo === map[1]) {
+					counter += 1;
+				}
+			}
+		}
+		if (counter === 0) {
+			return !boo;
+		}
+		return boo;
+	}
+
+	/**
 	 * @returns the instances which could be used
 	 */
 	public reachableInstances(): BehaviorSubject<string[]> {
@@ -423,6 +462,7 @@ export class FilterService {
 			this.currentInstance = a;
 		}
 	}
+
 	public getInst(): RealInstance {
 		return this.currentInstance;
 	}
