@@ -6,12 +6,12 @@
 			<h1>
 				<span>{{"Mögliche Instanzen"|translate}}</span>
 				<mat-checkbox color="primary" [(ngModel)]="allInstActiv" (click)="activateAllInst()"
-					[disabled]="allInstActiv">
-					{{'Aktiviere alle Instanzen'|translate}}
+					[disabled]="allInstActiv" alt="checkbox, disabled if activated">
+					<span>{{'Aktiviere alle Instanzen'|translate}}</span>
 				</mat-checkbox>
 				<mat-checkbox color="primary" [(ngModel)]="allInstDeact" (click)="deactivateAllInst()"
-					[disabled]="allInstDeact">
-					{{'Deaktiviere alle Instanzen'|translate}}
+					[disabled]="allInstDeact" alt="checkbox, disabled if activated">
+					<span>{{'Deaktiviere alle Instanzen'|translate}}</span>
 				</mat-checkbox>
 			</h1>
 			<div>
@@ -20,24 +20,24 @@
 						<td rowspan="2"> Zeige an</td>
 						<td class="online-box">
 							<mat-checkbox color="primary" [(ngModel)]="online" (click)="switchOnline()">
-								{{'Online'|translate}}
+								<span>{{'Online'|translate}}</span>
 							</mat-checkbox>
 						</td>
 						<td>
 							<mat-checkbox color="primary" [(ngModel)]="offline" (click)="switchOffline()">
-								{{'Offline'|translate}}
+								<span>{{'Offline'|translate}}</span>
 							</mat-checkbox>
 						</td>
 					</tr>
 					<tr>
 						<td><mat-checkbox color="primary" [(ngModel)]="fast" (click)="switchFast()">
-								{{'Schnell'|translate}}
+								<span>{{'Schnell'|translate}}</span>
 							</mat-checkbox>
 							<mat-checkbox color="primary" [(ngModel)]="slow" (click)="switchSlow()">
-								{{'Langsam'|translate}}
+								<span>{{'Langsam'|translate}}</span>
 							</mat-checkbox>
 							<mat-checkbox color="primary" [(ngModel)]="error" (click)="switchError()">
-								{{'Error'|translate}}
+								<span>{{'Error'|translate}}</span>
 							</mat-checkbox>
 						</td>
 					</tr>
@@ -55,7 +55,7 @@
 
 		<mat-card-content class="card-content" *ngIf="comesFromService">
 			<h1>
-				{{"Mögliche Services"|translate}}
+				<span>{{"Mögliche Services"|translate}}</span>
 				<mat-checkbox color="primary" [(ngModel)]="allServ" (click)="switchAllServ()">
 					{{'Aktiviere/Deaktiviere alle Services'|translate}}
 				</mat-checkbox>
