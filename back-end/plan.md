@@ -1,16 +1,16 @@
 
+## Questions: 
+- how can I reach my database without copying it?
+- why is the token not working?
+- one step before decode Token (bc the tests are indeed not all working) -> but I have also switched user.id to user.name, bc I do not know how to create an individuel uniwue id, ugh.
+- User() ingeneral is probably the problem right now
+
 ## implement auth
 
 ## implement data-base
 
 ## walk-thorugh:
 https://realpython.com/token-based-authentication-with-flask
-////////////////////////////////////
-Project Setup:
-- find pip in environment
-- set up flask and environment
-/////////////////////////////////
-DataBase-Setup:
-- Once the local Postgres server is running, create two new databases from psql that share the same name as your project name...
-- follow steps in web-site (there are code examples ass well)
+
+
 
