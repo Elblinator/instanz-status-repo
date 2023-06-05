@@ -45,6 +45,15 @@ export interface Info {
 	group: string;
 	members: string[];
 }
+export interface Timer {
+	key: string;
+	time: Counter;
+	running: boolean;
+}
+export interface Counter {
+	min: number;
+	sec: number;
+}
 export function isStatus(name: Status[]): name is Status[] {
 	return (name as Status[]) !== undefined;
 }

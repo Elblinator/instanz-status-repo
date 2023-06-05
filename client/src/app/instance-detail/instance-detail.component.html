@@ -8,14 +8,34 @@
 	<body class="content">
 		<span *ngIf="instancesObservable|async as inst">
 			<h2>
-				<span>
-					{{inst.name | uppercase}}
-				</span>
-				<button type="button" class="neustart-button" (click)="openWarnDialog('all')">
-					<mat-icon aria-label="restart-button">
-						<img class="img-responsive" src="assets/img/change_circle.svg" height="25">
-					</mat-icon>
-				</button>
+				<ng-container *ngIf="timeSubj|async as time">
+					<span>
+						{{inst.name | uppercase}}
+					</span>
+					<button type="button" class="neustart-button" (click)="openWarnDialog('all')" [disabled]="time.min > 0 || time.sec > 0">
+						<mat-icon aria-label="restart-button">
+							<img class="img-responsive" src="assets/img/change_circle.svg" height="25">
+						</mat-icon>
+					</button>
+					<ng-container *ngIf="time.min > 0 ||time.sec > 0">
+						<mat-icon>
+							<img class="img-responsive" src="assets/img/timer_on.svg" height="25">
+						</mat-icon>
+					</ng-container>
+					<ng-container *ngIf="time.min === 0 && time.sec === 0">
+						<mat-icon>
+							<img class="img-responsive" src="assets/img/timer_off.svg" height="25">
+						</mat-icon>
+					</ng-container>
+					<ng-container *ngIf="time.min < 0 || time.sec < 0">
+						<mat-icon>
+							<img class="img-responsive" src="assets/img/timer_error.svg" height="25">
+						</mat-icon>
+					</ng-container>
+					<span>
+						{{time.min}}:{{time.sec}}
+					</span>
+				</ng-container>
 			</h2>
 			<span *ngIf="!isRunningOffline(inst.status)">
 				<ng-container>

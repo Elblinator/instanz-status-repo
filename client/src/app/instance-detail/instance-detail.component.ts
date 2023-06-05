@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
-import { Info, RealInstance } from '../00_data/interfaces';
+import { Counter, Info, RealInstance, Timer } from '../00_data/interfaces';
 import { INFO } from '../00_data/warn-text';
 
 import { WarnComponent } from '../warn/warn-dialog.component';
@@ -13,6 +13,7 @@ import { GroupInfoComponent } from '../GroupInfo/GroupInfo.component';
 import { FilterService } from '../filter.service';
 import { WarnService } from '../warn.service';
 import { DataService } from '../data.service';
+import { TimerService } from '../timer.service';
 
 @Component({
 	selector: 'app-status-detail',
@@ -26,6 +27,9 @@ export class InstanceDetailComponent implements OnInit {
 	protected instanceGruppen: Info[] = [{ group: "", members: [""] }];
 	/** current instance name */
 	private name = String(this.route.snapshot.paramMap.get('name'));
+	protected timeSubj: BehaviorSubject<Counter> = new BehaviorSubject<Counter>({min:0,sec:0});
+
+	protected timer_data: Timer[] = [];
 
 	constructor(
 		private route: ActivatedRoute,
@@ -33,9 +37,11 @@ export class InstanceDetailComponent implements OnInit {
 		private filterService: FilterService,
 		private dialog: MatDialog,
 		private warnService: WarnService,
-		private dataService: DataService
+		private dataService: DataService,
+		private timerService: TimerService
 	) {
 		this.instanceGruppen = INFO;
+
 	}
 
 	public ngOnInit(): void {
@@ -59,6 +65,7 @@ export class InstanceDetailComponent implements OnInit {
 		this.name = String(this.route.snapshot.paramMap.get('name'));
 		this.instancesObservable = this.filterService.setInstSubj(this.name);
 		this.dataService.setTitle(this.name);
+		//this.timeSubj = this.timerService.findTimer(this.name);
 	}
 
 	/**

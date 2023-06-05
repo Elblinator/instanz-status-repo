@@ -1,8 +1,6 @@
 
 
 # next Job:
- - instances connected with filter -> fast/slow/error/offline have to switch the moment every member of their group is gone 
-        ---> meaning that if fast is true, is online switches to false when all members of fast are false, but if fast is false is only switches to true if every member is true
  - timer
  - Farb Bar in instanz-detail?
  - dummy_chosenInstance/dummy_chosenService is presented wonkily -> needs 'resetting'

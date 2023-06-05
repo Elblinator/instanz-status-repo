@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { Info, RealInstance, SimpleInstance, Status } from './00_data/interfaces';
+import { Info, RealInstance, SimpleInstance, Status, Timer } from './00_data/interfaces';
 import { BLACK, GREEN, RED, SERVICE, STATUS_LIST, YELLOW } from './00_data/magic_strings';
 
 import { DataService } from './data.service';
+import { TimerService } from './timer.service';
 
 export type BackgroundPossibilities = 'backgroundGreen' | 'backgroundRed' | 'backgroundYellow' | 'backgroundBlack' | 'backgroundWhite';
 
@@ -32,7 +33,7 @@ export class FilterService {
 
 	/**last watched instance (see instance-detail) */
 	public currentInstanceSubject: BehaviorSubject<(RealInstance)> = new BehaviorSubject<RealInstance>({ name: "", status: "", services: [{ name: "", status: "" }] });
-	private actualCurrentInstance: RealInstance = { name: '', status: '', services: [{ name: '', status: '' }] };
+	public actualCurrentInstance: RealInstance = { name: '', status: '', services: [{ name: '', status: '' }] };
 
 	public emptyInstance: RealInstance = { name: "", status: "", services: [] };
 	public currentInstance: RealInstance = { name: "", status: "", services: [{ name: "", status: "" }] };
@@ -42,8 +43,12 @@ export class FilterService {
 	private loading = true;
 	private loaded = false;
 
+	////////////////// timer information /////////////////////////
+	public timerDataSubj: BehaviorSubject<Timer[]> = new BehaviorSubject<Timer[]>([]);
+
 	constructor(
 		private dataService: DataService,
+		private timesService: TimerService,
 		private _formBuilder: FormBuilder
 	) {
 		this.getAndSetPossibleFilter();
@@ -56,6 +61,10 @@ export class FilterService {
 			this.setAllFilter();
 			this.filterInstances();
 			this.setWorstStatusArr();
+		})
+		this.timesService.dataTimersSubj.subscribe(data => {
+			//this.timerDataSubj.next(data);
+			data
 		})
 	}
 

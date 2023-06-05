@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone } from '@angular/core';
 
+import { TimerService } from '../timer.service';
 import { WarnService } from '../warn.service';
+import { FilterService } from '../filter.service';
 
 @Component({
 	selector: 'app-warn',
@@ -16,7 +18,9 @@ export class WarnComponent {
 	constructor(
 		private warnService: WarnService,
 		private ngZone: NgZone,
-		private cd: ChangeDetectorRef
+		private cd: ChangeDetectorRef,
+		private timerService: TimerService,
+		private filterService: FilterService
 	) {
 		[this.service, this.warn, this.hint] = this.warnService.getServiceAndMsg()
 	}
@@ -28,6 +32,7 @@ export class WarnComponent {
 	protected warning(): void {
 		console.log("I need a restart function");
 		this.cd.markForCheck;
+		this.timerService.startTimer(this.filterService.actualCurrentInstance)
 		// restart this.service
 	}
 }
