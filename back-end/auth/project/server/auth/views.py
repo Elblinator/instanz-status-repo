@@ -28,7 +28,6 @@ class RegisterAPI(MethodView):
                 # insert the user
                 database.update({post_data.get('name'):[post_data.get('password'),user.id]})
                 databa_id.update({user.id: [post_data.get('name'), post_data.get('password')]})
-                # generate the auth token
                 auth_token = user.encode_auth_token(user.id)
                 responseObject = {
                     'status': 'success',
@@ -43,7 +42,6 @@ class RegisterAPI(MethodView):
                 }
                 return make_response(jsonify(responseObject)), 401
         else:
-            print(post_data.get('name'))
             responseObject = {
                 'status': 'fail',
                 'message': 'User already exists. Please Log in.',
@@ -105,9 +103,6 @@ class UserAPI(MethodView):
             resp = User.decode_auth_token(auth_token)
             if not isinstance(resp, str):
                 payload_regis = User.get_Regs(auth_token)
-                print()
-                print(databa_id)
-                print('resp ', resp)
                 responseObject = {
                     'status': 'success',
                     'data': {
@@ -154,7 +149,8 @@ class LogoutAPI(MethodView):
                 blacklist_token = BlacklistToken(token=auth_token)
                 try:
                     # insert the token
-                    BlacklistToken.add_to_blacklist(auth_token, blacklist_token)
+                    blacklist.update({auth_token:blacklist_token})
+                    #breakpoint()
                     responseObject = {
                         'status': 'success',
                         'message': 'Successfully logged out.'

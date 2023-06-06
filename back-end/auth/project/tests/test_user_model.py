@@ -15,7 +15,6 @@ class TestUserModel(BaseTestCase):
             name='test',
             password='test'
         )
-        database[user.name]:user.password
         auth_token = user.encode_auth_token(user.id)
         self.assertTrue(isinstance(auth_token, bytes))
 
@@ -24,7 +23,6 @@ class TestUserModel(BaseTestCase):
             name='test',
             password='test'
         )
-        database[user.name]:user.password
         auth_token = user.encode_auth_token(user.id)
         self.assertTrue(isinstance(auth_token, bytes))
         self.assertTrue(User.decode_auth_token(auth_token))

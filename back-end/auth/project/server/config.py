@@ -8,6 +8,7 @@ database = {
         "Bernd": ["myotherpassword", 2],
         "admin": ["admin", 4]
     }
+    
 databa_id = {
     0: ["demo", "demo"],
     1: ["Alice", "myhashedpassword"],

@@ -73,7 +73,7 @@ class TestAuthBlueprint(BaseTestCase):
         """ Test for login of registered-user login """
         with self.client:
             # user registration
-            resp_register = register_user(self,'name','name')
+            resp_register = register_user(self, 'name', 'name')
             data_register = json.loads(resp_register.data.decode())
             self.assertTrue(data_register['status'] == 'success')
             self.assertTrue(data_register['message'] == 'Successfully registered.')
@@ -102,12 +102,12 @@ class TestAuthBlueprint(BaseTestCase):
     def test_user_status(self):
         """ Test for user status """
         with self.client:
-            user = User (
-                name='bubu',
-                password= '123456'
-            )
-            resp_login = login_user(self,'bubu', '123456')
-            auth_token = user.encode_auth_token(user.id)
+            user = User(
+            name='bubu',
+            password='123456'
+            ) 
+            resp_login = register_user(self, 'bubu', '123456')
+            resp_rest = login_user(self, 'bubu', '123456')
             response = status_user(self, resp_login)
             data = json.loads(response.data.decode())
             self.assertTrue(data['status'] == 'success')
@@ -141,6 +141,8 @@ class TestAuthBlueprint(BaseTestCase):
             self.assertTrue(data['status'] == 'success')
             self.assertTrue(data['message'] == 'Successfully logged out.')
             self.assertEqual(response.status_code, 200)
+            breakpoint()
+            print('test valid logout')
     
     def test_invalid_logout(self):
         """ Testing logout after the token expires """
@@ -172,62 +174,65 @@ class TestAuthBlueprint(BaseTestCase):
                 data['message'] == 'Signature expired. Please log in again.')
             self.assertEqual(response.status_code, 401)
 
-    # def test_valid_blacklisted_token_logout(self):
-    #     """ Test for logout after a valid token gets blacklisted """
-    #     with self.client:
-    #         # user registration
-    #         user = User(
-    #             name='mimi',
-    #             password='mimi'
-    #         )
-    #         auth_token = user.encode_auth_token(user.id)
-
-    #         resp_register = register_user(self, 'mimi', 'mimi')
-    #         data_register = json.loads(resp_register.data.decode())
-    #         self.assertTrue(data_register['status'] == 'success')
-    #         self.assertTrue(
-    #             data_register['message'] == 'Successfully registered.')
-    #         self.assertTrue(data_register['auth_token'])
-    #         self.assertTrue(resp_register.content_type == 'application/json')
-    #         self.assertEqual(resp_register.status_code, 201)
-    #         # user login
-    #         resp_login = login_user(self, 'mimi', 'mimi')
-    #         data_login = json.loads(resp_login.data.decode())
-    #         self.assertTrue(data_login['status'] == 'success')
-    #         self.assertTrue(data_login['message'] == 'Successfully logged in.')
-    #         self.assertTrue(data_login['auth_token'])
-    #         self.assertTrue(resp_login.content_type == 'application/json')
-    #         self.assertEqual(resp_login.status_code, 200)
-    #         # blacklist a valid token
-    #         blacklist_token = BlacklistToken(
-    #             token=json.loads(resp_login.data.decode())['auth_token'])
-
-    #         BlacklistToken.add_to_blacklist(auth_token, blacklist_token)
-    #         # blacklisted valid token logout
-    #         response = logout_user(self, resp_login)
-    #         data = json.loads(response.data.decode())
-    #         self.assertTrue(data['status'] == 'fail')
-    #         self.assertTrue(data['message'] == 'Token blacklisted. Please log in again.')
-    #         self.assertEqual(response.status_code, 401)
+    def test_valid_blacklisted_token_logout(self):
+        """ Test for logout after a valid token gets blacklisted """
+        with self.client:
+            # user registration
+            user = User(
+                name='mimi',
+                password='mimi'
+            )
+            auth_token = user.encode_auth_token(user.id)
+            # user register
+            resp_register = register_user(self, 'mimi', 'mimi')
+            data_register = json.loads(resp_register.data.decode())
+            self.assertTrue(data_register['status'] == 'success')
+            self.assertTrue(
+                data_register['message'] == 'Successfully registered.')
+            self.assertTrue(data_register['auth_token'])
+            self.assertTrue(resp_register.content_type == 'application/json')
+            self.assertEqual(resp_register.status_code, 201)
+            # user login
+            resp_login = login_user(self, 'mimi', 'mimi')
+            data_login = json.loads(resp_login.data.decode())
+            self.assertTrue(data_login['status'] == 'success')
+            self.assertTrue(data_login['message'] == 'Successfully logged in.')
+            self.assertTrue(data_login['auth_token'])
+            self.assertTrue(resp_login.content_type == 'application/json')
+            self.assertEqual(resp_login.status_code, 200)
+            # blacklist a valid token
+            blacklist_token = BlacklistToken(
+                token=json.loads(resp_login.data.decode())['auth_token'])
+            # blacklisted valid token logout
+            response = logout_user(self, resp_login)
+            data = json.loads(response.data.decode())
+            #breakpoint()
+            #print('test valid blacklisted token logout')
+            self.assertTrue(data['status'] == 'fail')
+            self.assertTrue(data['message'] == 'Token blacklisted. Please log in again.')
+            self.assertEqual(response.status_code, 401)
     
-    # def test_valid_blacklisted_token_user(self):
-    #     """ Test for user status with a blacklisted valid token """
-    #     with self.client:
-    #         user = User(
-    #             name='meme',
-    #             password='meme'
-    #         )
-    #         resp_register = register_user(self, 'meme', 'meme')
-    #         auth_token = user.encode_auth_token(user.id)
-    #         # blacklist a valid token
-    #         blacklist_token = BlacklistToken(
-    #             token=json.loads(resp_register.data.decode())['auth_token'])
-    #         BlacklistToken.add_to_blacklist(auth_token, blacklist_token)
-    #         response = status_user(self, resp_register)
-    #         data = json.loads(response.data.decode())
-    #         self.assertTrue(data['status'] == 'fail')
-    #         self.assertTrue(data['message'] == 'Token blacklisted. Please log in again.')
-    #         self.assertEqual(response.status_code, 401)
+    def test_valid_blacklisted_token_user(self):
+        """ Test for user status with a blacklisted valid token """
+        with self.client:
+            user = User(
+                name='meme',
+                password='meme'
+            )
+            auth_token = user.encode_auth_token(user.id)
+
+            resp_register = register_user(self, 'meme', 'meme')
+            resp_login  =login_user(self, 'meme', 'meme')
+            response = logout_user(self, resp_login)
+            
+            # blacklist a valid token
+            blacklist_token = BlacklistToken(
+                token=json.loads(resp_register.data.decode())['auth_token'])
+            #blacklist.update({auth_token:blacklist_token})
+            data = json.loads(response.data.decode())
+            self.assertTrue(data['status'] == 'fail')
+            self.assertTrue(data['message'] == 'Token blacklisted. Please log in again.')
+            self.assertEqual(response.status_code, 401)
 
 if __name__ == '__main__':
     unittest.main()

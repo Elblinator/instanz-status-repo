@@ -12,7 +12,6 @@ from project.server.config import database, blacklist, databa_id
     
 class User():
     """ User Model for storing user related details """
-    __tablename__ = "users"
 
     id = random.randint(0,1000)
     name = ''.join(random.choices(string.ascii_uppercase + string.digits, k=255))
@@ -79,18 +78,6 @@ class User():
         except jwt.InvalidTokenError:
             return 'Invalid token. Please log in again.'
 
-    def get_ID (auth_token):
-        """ returns the current User Data """
-        try:
-            payload = jwt.decode(auth_token, app.config.get('SECRET_KEY'))
-            # print(databa_id)
-            # print(payload['sub'])
-            return payload['sub']
-        except jwt.ExpiredSignatureError:
-            return 'Signature expired. Please log in again.'
-        except jwt.InvalidTokenError:
-            return 'Invalid token. Please log in again.'
-
 class BlacklistToken():
     """
     Token Model for storing JWT tokens
@@ -104,18 +91,14 @@ class BlacklistToken():
         self.blacklisted_on = datetime.datetime.now()
 
     def __repr__(self):
-        return ''.format(self.token)
+        return self.token
     
     @staticmethod
     def check_blacklist(auth_token):
         # check whether auth token has been blacklisted
+        #breakpoint()
         if auth_token in blacklist.keys():
             return True  
         else:
             return False
-            
-    @staticmethod
-    def add_to_blacklist(auth_token, blacklist_token):
-        # add whether auth token has been blacklisted
-        blacklist.update({auth_token:blacklist_token})
 
